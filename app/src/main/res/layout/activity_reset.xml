@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    tools:context=".ui.ResetActivity">
+
+    <ImageView
+        android:id="@+id/rectangle_8"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_8" />
+
+    <ImageView
+        android:id="@+id/some_id"
+        android:layout_width="65dp"
+        android:layout_height="66dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="205dp"
+        android:background="@drawable/some_id"
+        android:elevation="12dp" />
+
+    <TextView
+        android:id="@+id/giapay"
+        android:layout_width="126dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="153dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="211dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:gravity="top"
+        android:lineHeight="41sp"
+        android:text="@string/giapay"
+        android:textAppearance="@style/giapay" />
+
+    <!-- Always pay -->
+    <TextView
+        android:id="@+id/always_pay"
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="155dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="249dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:gravity="top"
+        android:lineHeight="16sp"
+        android:text="@string/always_pay"
+        android:textAppearance="@style/always_pay" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rectangle_9"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="491dp"
+        android:layout_marginBottom="-24dp"
+        android:background="@drawable/rectangle_9"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/reset_text"
+                android:layout_width="179dp"
+                android:layout_height="21dp"
+                android:gravity="top"
+                android:text="@string/reset_your_"
+                android:textAppearance="@style/reset_your_"
+                android:lineHeight="21sp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/please_ente"
+                android:layout_width="310dp"
+                android:layout_height="54dp"
+                android:gravity="center_horizontal|top"
+                android:layout_marginTop="17dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/ubuntu_medium"
+                android:lineHeight="18sp"
+                android:text="@string/please_ente"
+                android:textAppearance="@style/please_ente"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reset_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_login"
+                style="@style/Widget.Design.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/rectangle_1"
+                android:hint="@string/email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/please_ente">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#F1F1F1"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:lineHeight="21sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/enter"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#DDDDDD"
+                android:fontFamily="@font/ubuntu_medium"
+                android:lineHeight="21sp"
+                android:text="@string/send"
+                android:textColor="#757575"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/text_login"
+                app:layout_constraintStart_toStartOf="@+id/text_login"
+                app:layout_constraintTop_toBottomOf="@+id/text_login" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

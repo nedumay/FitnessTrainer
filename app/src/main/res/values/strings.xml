@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TestProject</string>
+    <string name="giapay">GiaPay</string>
+    <string name="always_pay">"Always pay "</string>
+    <string name="login">Login</string>
+    <string name="forgot_your">Forgot your password?</string>
+    <string name="don_t_have_">Dont have an account yet?</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="registration">Registration</string>
+    <string name="email">E-mail</string>
+    <string name="reset_your_">Reset your password</string>
+    <string name="please_ente">Please, enter your e-mail adress. We will send you message to reset your password</string>
+    <string name="send">Send</string>
+</resources>
