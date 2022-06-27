@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipToOutline="true"
     android:id="@+id/login"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
         <ImageView
             android:id="@+id/rectangle_8"
@@ -78,6 +78,8 @@
                             android:layout_height="23dp"
                             android:gravity="top"
                             android:text="@string/login"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:lineHeight="23sp"
                             android:textAppearance="@style/login"
                             android:layout_marginTop="32dp"
                             app:layout_constraintEnd_toEndOf="parent"

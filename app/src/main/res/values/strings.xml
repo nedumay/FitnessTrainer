@@ -12,4 +12,9 @@
     <string name="reset_your_">Reset your password</string>
     <string name="please_ente">Please, enter your e-mail adress. We will send you message to reset your password</string>
     <string name="send">Send</string>
+    <string name="part_one">1/4</string>
+    <string name="your_name">Your name*</string>
+    <string name="data_of_birth">Data of birth*</string>
+    <string name="tell_us_abo">Tell us about yourself</string>
+    <string name="next">Next</string>
 </resources>

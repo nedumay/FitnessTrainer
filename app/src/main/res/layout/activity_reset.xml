@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".ui.ResetActivity">
+    tools:context=".ui.reset.ResetActivity">
 
     <ImageView
         android:id="@+id/rectangle_8"

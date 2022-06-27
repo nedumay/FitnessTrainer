@@ -4,14 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2085" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/arrow_back.xml" value="0.28" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_arrow_back.xml" value="0.28" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/iphone_13_m.xml" value="0.2085" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/login.xml" value="0.2085" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/rectangle_1.xml" value="0.2085" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/rectangle_8.xml" value="0.2085" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/rectangle_9.xml" value="0.2085" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/rectangle_reg.xml" value="0.28" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/drawable/some_id.xml" value="0.1935" />
-        <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/layout/activity_registration.xml" value="0.22" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/TestProject/app/src/main/res/layout/activity_reset.xml" value="0.2975630611372381" />
       </map>
     </option>
