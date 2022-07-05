@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_8"
-    tools:context=".ui.registration.RegistrationTwo">
+    tools:context=".ui.registration.RegistrationFour">
 
     <ImageView
         android:id="@+id/arrow_back"
@@ -46,7 +46,7 @@
                 android:fontFamily="@font/ubuntu_medium"
                 android:gravity="top"
                 android:lineHeight="18sp"
-                android:text="@string/part_one"
+                android:text="@string/part_four"
                 android:textAppearance="@style/some_id"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -68,7 +68,7 @@
 
             <View
                 android:id="@+id/rectangle_1"
-                android:layout_width="160dp"
+                android:layout_width="360dp"
                 android:layout_height="4dp"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="48dp"
@@ -81,119 +81,105 @@
 
             <TextView
                 android:id="@+id/login_text"
-                android:layout_width="117dp"
+                android:layout_width="220dp"
                 android:layout_height="23dp"
                 android:layout_marginTop="36dp"
                 android:gravity="top"
                 android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="23sp"
-                android:text="@string/your_gender"
+                android:text="@string/your_program"
                 android:textAppearance="@style/login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rectangle_2" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_male"
-                android:layout_width="155dp"
-                android:layout_height="90dp"
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="49dp"
-                android:layout_marginBottom="537dp"
-                android:background="@drawable/rectangle_4"
-                app:strokeWidth="2dp"
-                app:cardCornerRadius="15dp"
-                app:strokeColor="#757575"
-                android:clickable="true"
-                android:checkable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <TextView
+                android:id="@+id/register_in"
+                android:layout_width="325dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/ubuntu_medium"
+                android:gravity="center_horizontal|top"
+                android:text="@string/register_in"
+                android:textAppearance="@style/register_in"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_text">
+                app:layout_constraintTop_toBottomOf="@+id/login_text" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_login"
+                style="@style/Widget.Design.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/rectangle_1"
+                android:hint="@string/email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#F1F1F1"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:inputType="textEmailAddress"
+                    android:lineHeight="21sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/imageMale"
-                        android:layout_width="41dp"
-                        android:layout_height="41dp"
-                        android:layout_marginTop="11dp"
-                        android:src="@drawable/ic_baseline_male"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/maleText"
-                        android:layout_width="0dp"
-                        android:layout_height="16dp"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:textSize="16sp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/male"
-                        android:textAppearance="@style/male"
-                        app:layout_constraintEnd_toEndOf="@+id/imageMale"
-                        app:layout_constraintStart_toStartOf="@+id/imageMale"
-                        app:layout_constraintTop_toBottomOf="@+id/imageMale" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_fmale"
-                android:layout_width="155dp"
-                android:layout_height="90dp"
-                android:layout_marginTop="49dp"
-                android:layout_marginEnd="27dp"
-                android:layout_marginBottom="537dp"
-                android:background="@drawable/rectangle_4"
-                android:clickable="true"
-                android:checkable="true"
-                app:cardCornerRadius="15dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="#757575"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/rectangle_1"
+                android:hint="@string/password"
+                style="@style/Widget.Design.TextInputLayout"
+                app:endIconMode="password_toggle"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_text">
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_login"
+                app:layout_constraintVertical_bias="0.003">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_password"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:lineHeight="21sp"
+                    android:background="#F1F1F1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="41dp"
-                        android:layout_height="41dp"
-                        android:layout_marginTop="11dp"
-                        android:src="@drawable/ic_baseline_female"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/male"
-                        android:layout_width="50dp"
-                        android:layout_height="16dp"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:textSize="16sp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/female"
-                        android:textAppearance="@style/female"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView"
-                        app:layout_constraintStart_toStartOf="@+id/imageView"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/by_creating"
+                android:layout_width="320dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_horizontal|top"
+                android:text="@string/by_creating"
+                android:textAppearance="@style/by_creating"
+                app:layout_constraintBottom_toTopOf="@+id/next_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/next_btn"
@@ -203,22 +189,14 @@
                 android:background="@drawable/rectangle_reg"
                 android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="21sp"
-                android:text="@string/next"
+                android:text="@string/create_account"
                 android:textColor="@color/green"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/text_password"
+                app:layout_constraintStart_toStartOf="@+id/text_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

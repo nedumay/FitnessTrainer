@@ -6,25 +6,23 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import com.example.testproject.R
-import com.example.testproject.ui.login.LoginActivity
 
-class RegistrationTwo : AppCompatActivity() {
+class RegistrationThree : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration_two)
+        setContentView(R.layout.activity_registration_three)
 
         val backView: ImageView = findViewById(R.id.arrow_back)
         val nextButton: Button = findViewById(R.id.next_btn)
 
         backView.setOnClickListener {
-            val intentLogin = Intent(this, RegistrationActivity::class.java)
+            val intentLogin = Intent(this, RegistrationTwo::class.java)
             startActivity(intentLogin)
         }
 
         nextButton.setOnClickListener {
-            val intentRegTwo = Intent(this, RegistrationThree::class.java)
+            val intentRegTwo = Intent(this, RegistrationFour::class.java)
             startActivity(intentRegTwo)
         }
-
     }
 }
