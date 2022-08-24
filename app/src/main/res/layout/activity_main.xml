@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/iphone_13_m"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/iphone_13_m"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clipToOutline="true"
     tools:context=".ui.main.MainActivity">
-
-    <ImageView
-        android:id="@+id/some_id"
-        android:layout_width="65dp"
-        android:layout_height="66dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="81dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="349dp"
-        android:background="@drawable/some_id"
-        android:elevation="12dp"
-        />
 
     <ImageView
         android:id="@+id/rectangle_3"
@@ -28,8 +15,27 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="-30dp"
-        android:background="@drawable/rectangle_3" />
+        android:background="@drawable/rectangle_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <ImageView
+        android:id="@+id/some_id"
+        android:layout_width="65dp"
+        android:layout_height="66dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="81dp"
+        android:layout_marginTop="373dp"
+        android:background="@drawable/some_id"
+        android:elevation="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
         <!-- GiaPay -->
     <TextView
         android:id="@+id/giapay"
@@ -37,26 +43,29 @@
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="154dp"
-        android:layout_marginTop="355dp"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="379dp"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="top"
         android:lineHeight="41sp"
         android:text="@string/giapay"
-        android:textAppearance="@style/giapay" />
+        android:textAppearance="@style/giapay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/always_pay"
-            android:layout_width="75dp"
-            android:layout_height="20dp"
-            android:fontFamily="@font/ubuntu_medium"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="156dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="393dp"
-            android:text="@string/always_pay"
-            android:textAppearance="@style/always_pay"
-            android:gravity="top"
-            />
+    <TextView
+        android:id="@+id/always_pay"
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="417dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:gravity="top"
+        android:text="@string/always_pay"
+        android:textAppearance="@style/always_pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

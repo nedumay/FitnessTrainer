@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,32 +14,41 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/rectangle_8" />
+        android:background="@drawable/rectangle_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/some_id"
         android:layout_width="65dp"
         android:layout_height="66dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="80dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="205dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="229dp"
         android:background="@drawable/some_id"
-        android:elevation="12dp" />
+        android:elevation="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/giapay"
         android:layout_width="126dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="153dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="211dp"
+        android:layout_marginLeft="153dp"
+        android:layout_marginTop="235dp"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="top"
         android:lineHeight="41sp"
+        android:textStyle="bold"
         android:text="@string/giapay"
-        android:textAppearance="@style/giapay" />
+        android:textAppearance="@style/giapay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Always pay -->
     <TextView
@@ -47,14 +56,16 @@
         android:layout_width="75dp"
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="155dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="249dp"
+        android:layout_marginLeft="155dp"
+        android:layout_marginTop="273dp"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="top"
         android:lineHeight="16sp"
         android:text="@string/always_pay"
-        android:textAppearance="@style/always_pay" />
+        android:textAppearance="@style/always_pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rectangle_9"
@@ -78,6 +89,7 @@
                 android:gravity="top"
                 android:text="@string/reset_your_"
                 android:textAppearance="@style/reset_your_"
+                android:textStyle="bold"
                 android:lineHeight="21sp"
                 android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,11 +100,11 @@
                 android:id="@+id/please_ente"
                 android:layout_width="310dp"
                 android:layout_height="54dp"
-                android:gravity="center_horizontal|top"
-                android:layout_marginTop="17dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/ubuntu_medium"
+                android:gravity="center_horizontal|top"
                 android:lineHeight="18sp"
                 android:text="@string/please_ente"
                 android:textAppearance="@style/please_ente"
@@ -138,6 +150,7 @@
                 android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="21sp"
                 android:text="@string/send"
+                android:textStyle="bold"
                 android:textColor="#757575"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/text_login"
@@ -149,4 +162,4 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
