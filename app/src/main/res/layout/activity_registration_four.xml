@@ -5,17 +5,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_8"
-    tools:context=".ui.registration.RegistrationFour">
+    tools:context=".ui.presentation.registration.RegistrationFour">
 
     <ImageView
         android:id="@+id/arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="328dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/ic_arrow_back"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,13 +36,11 @@
 
             <TextView
                 android:id="@+id/some_id"
-                android:layout_width="25dp"
-                android:layout_height="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="318dp"
-                android:fontFamily="@font/ubuntu_medium"
-                android:gravity="top"
                 android:lineHeight="18sp"
                 android:text="@string/part_four"
                 android:textAppearance="@style/some_id"
@@ -84,27 +80,22 @@
                 android:layout_width="220dp"
                 android:layout_height="23dp"
                 android:layout_marginTop="36dp"
-                android:gravity="top"
-                android:fontFamily="@font/ubuntu_medium"
-                android:textStyle="bold"
                 android:lineHeight="23sp"
                 android:text="@string/your_program"
-                android:textAppearance="@style/login"
+                android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rectangle_2" />
 
             <TextView
                 android:id="@+id/register_in"
-                android:layout_width="325dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:fontFamily="@font/ubuntu_medium"
                 android:gravity="center_horizontal|top"
                 android:text="@string/register_in"
                 android:textAppearance="@style/register_in"
-                android:textSize="16sp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +116,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/register_in">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_login"
+                    android:id="@+id/input_name_reg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -157,7 +148,7 @@
                 app:layout_constraintVertical_bias="0.003">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_password"
+                    android:id="@+id/input_data_of_birth"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="17dp"
@@ -178,20 +169,18 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/by_creating"
                 android:textAppearance="@style/by_creating"
-                app:layout_constraintBottom_toTopOf="@+id/next_btn"
+                app:layout_constraintBottom_toTopOf="@+id/create_account_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/next_btn"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_account_btn"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="49dp"
-                android:background="@drawable/rectangle_reg"
-                android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="21sp"
                 android:text="@string/create_account"
-                android:textColor="@color/green"
+                style="@style/OutlinedButton.Green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_password"
                 app:layout_constraintStart_toStartOf="@+id/text_password" />

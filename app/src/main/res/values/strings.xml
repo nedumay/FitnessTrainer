@@ -12,7 +12,6 @@
     <string name="reset_your_">Reset your password</string>
     <string name="please_ente">Please, enter your e-mail address. We will send you message to reset your password</string>
     <string name="send">Send</string>
-    <string name="part_one">1/4</string>
     <string name="your_name">Your name*</string>
     <string name="data_of_birth">Data of birth*</string>
     <string name="tell_us_abo">Tell us about yourself</string>
@@ -20,16 +19,20 @@
     <string name="your_gender">Your gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="part_three">3/4</string>
     <string name="your_height">Your height and weight</string>
     <string name="kg_sm">kg\sm</string>
     <string name="lbs_ft">lbs\ft</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="target_weight">Target weight</string>
-    <string name="part_four">4/4</string>
     <string name="your_program">Your program is ready!</string>
     <string name="register_in">Register in get access to the GiaPay platform</string>
     <string name="create_account">Create an account</string>
     <string name="by_creating">By creating in account, you agree to the terms of use, privacy policy and terms of payment and return</string>
+    <string name="privacy_policy">the terms of use, privacy policy</string>
+    <string name="terms_of_payment">terms of payment and return</string>
+    <string name="part_one">1/4</string>
+    <string name="part_two">2/4</string>
+    <string name="part_three">3/4</string>
+    <string name="part_four">4/4</string>
 </resources>

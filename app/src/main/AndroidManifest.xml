@@ -14,25 +14,25 @@
         android:theme="@style/Theme.TestProject"
         tools:targetApi="31">
         <activity
-            android:name=".ui.registration.RegistrationFour"
+            android:name=".ui.presentation.registration.RegistrationFour"
             android:exported="false" />
         <activity
-            android:name=".ui.registration.RegistrationThree"
+            android:name=".ui.presentation.registration.RegistrationThree"
             android:exported="false" />
         <activity
-            android:name=".ui.registration.RegistrationTwo"
+            android:name=".ui.presentation.registration.RegistrationTwo"
             android:exported="false" />
         <activity
-            android:name=".ui.registration.RegistrationActivity"
+            android:name=".ui.presentation.registration.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.reset.ResetActivity"
+            android:name=".ui.presentation.reset.ResetActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.presentation.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

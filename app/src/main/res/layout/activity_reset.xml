@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".ui.reset.ResetActivity">
+    tools:context=".ui.presentation.reset.ResetActivity">
 
     <ImageView
         android:id="@+id/rectangle_8"
@@ -17,6 +17,16 @@
         android:background="@drawable/rectangle_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,14 +79,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rectangle_9"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="409dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="491dp"
-        android:layout_marginBottom="-24dp"
         android:background="@drawable/rectangle_9"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="-20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -84,30 +96,26 @@
 
             <TextView
                 android:id="@+id/reset_text"
-                android:layout_width="179dp"
-                android:layout_height="21dp"
-                android:gravity="top"
-                android:text="@string/reset_your_"
-                android:textAppearance="@style/reset_your_"
-                android:textStyle="bold"
-                android:lineHeight="21sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:gravity="top"
+                android:lineHeight="21sp"
+                android:text="@string/reset_your_"
+                android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/please_ente"
+                android:id="@+id/please_enter"
                 android:layout_width="310dp"
-                android:layout_height="54dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="25dp"
-                android:fontFamily="@font/ubuntu_medium"
-                android:gravity="center_horizontal|top"
-                android:lineHeight="18sp"
                 android:text="@string/please_ente"
-                android:textAppearance="@style/please_ente"
+                android:textAppearance="@style/please_enter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reset_text" />
@@ -117,17 +125,17 @@
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="35dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/please_ente">
+                app:layout_constraintTop_toBottomOf="@+id/please_enter">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_login"
+                    android:id="@+id/input_name_reg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -135,24 +143,20 @@
                     android:layout_marginEnd="17dp"
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
-                    android:inputType="textEmailAddress"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:lineHeight="21sp" />
+                    android:inputType="textEmailAddress"
+                    android:lineHeight="21sp"
+                    tools:ignore="TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/enter"
-                style="@style/Widget.Material3.Button.TonalButton"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enter_btn"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="24dp"
-                android:backgroundTint="#DDDDDD"
-                android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="21sp"
                 android:text="@string/send"
-                android:textStyle="bold"
-                android:textColor="#757575"
-                android:textSize="18sp"
+                style="@style/OutlinedButton.Green"
                 app:layout_constraintEnd_toEndOf="@+id/text_login"
                 app:layout_constraintStart_toStartOf="@+id/text_login"
                 app:layout_constraintTop_toBottomOf="@+id/text_login" />

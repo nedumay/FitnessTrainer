@@ -1,180 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Style text GiaPay -->
     <style name="giapay">
-
-        <item name="android:textSize">
-            36sp
-        </item>
-
-        <item name="android:textColor">
-            #FFFFFF
-        </item>
-
-        <item name="android:shadowColor">
-            #59000000
-        </item>
-
-        <item name="android:shadowDx">
-            0
-        </item>
-
-        <item name="android:shadowDy">
-            4
-        </item>
-
-        <item name="android:shadowRadius">
-            6
-        </item>
-
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#59000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">6</item>
     </style>
-
+    <!-- Style text Always pay-->
     <style name="always_pay">
-
-        <item name="android:textSize">
-            14sp
-        </item>
-
-        <item name="android:textColor">
-            #FFFFFF
-        </item>
-
-        <item name="android:shadowColor">
-            #59000000
-        </item>
-
-        <item name="android:shadowDx">
-            0
-        </item>
-
-        <item name="android:shadowDy">
-            4
-        </item>
-
-        <item name="android:shadowRadius">
-            6
-        </item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#59000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">6</item>
 
     </style>
-
-    <style name="login">
-
-        <item name="android:textSize">
-            20sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
+    <!-- Style Header text-->
+    <style name="header">
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#757575</item>
+        <item name="android:gravity">top</item>
 
     </style>
-
-    <style name="forgot_your">
-
-        <item name="android:textSize">
-            13sp
-        </item>
-
-        <item name="android:textColor">
-            #94D647
-        </item>
-
+    <!-- Style text forgot password-->
+    <style name="forgot_password">
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:gravity">top</item>
     </style>
-
+    <!-- Style text don`t have account-->
     <style name="don_t_have_">
-
-        <item name="android:textSize">
-            13sp
-        </item>
-
-        <item name="android:textColor">
-            #DDDDDD
-        </item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/white_D</item>
+        <item name="android:gravity">top</item>
+    </style>
+    <!-- Style text please_enter-->
+    <style name="please_enter">
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:gravity">center_horizontal|top</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white_B9</item>
 
     </style>
-
-    <style name="enter">
-
-        <item name="android:textSize">
-            18sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
-    </style>
-
-    <style name="reset_your_">
-
-        <item name="android:textSize">
-            18sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
-    </style>
-
-    <style name="please_ente">
-
-        <item name="android:textSize">
-            16sp
-        </item>
-
-        <item name="android:textColor">
-            #B9B9B9
-        </item>
-
-    </style>
-
+    <!-- Style text id layout registration-->
     <style name="some_id">
-
-        <item name="android:textSize">
-            16sp
-        </item>
-
-        <item name="android:textColor">
-            #909090
-        </item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#909090</item>
 
     </style>
-
-    <style name="male">
-
-        <item name="android:textSize">
-            14sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
-    </style>
-
-    <style name="female">
-
-        <item name="android:textSize">
-            14sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
-    </style>
-
-    <style name="your_height">
-
-        <item name="android:textSize">
-            20sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
+    <!-- Style text Male/Female-->
+    <style name="male_female">
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#757575</item>
     </style>
 
     <style name="MySwitch" parent="Theme.AppCompat.Light">
@@ -186,33 +76,31 @@
         <item name="android:colorForeground">@android:color/darker_gray</item>
 
     </style>
-
+    <!-- Style text registration in-->
     <style name="register_in">
-
-        <item name="android:textSize">
-            16sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:gravity">center_horizontal|top</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#757575</item>
     </style>
-
+    <!-- Style text by creating-->
     <style name="by_creating">
-
-        <item name="android:textSize">
-            13sp
-        </item>
-
-        <item name="android:textColor">
-            #757575
-        </item>
-
-        <item name="android:fontFamily">
-            @font/ubuntu_medium
-        </item>
+        <item name="android:gravity">center_horizontal|top</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#757575</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
 
     </style>
+
+    <!-- Style button-->
+    <style name="OutlinedButton.Green" parent="Widget.Material3.Button.TextButton">
+        <item name="android:paddingLeft">@dimen/m3_btn_padding_left</item>
+        <item name="android:paddingRight">@dimen/m3_btn_padding_right</item>
+        <item name="strokeColor">@color/button_outline_color_selector</item>
+        <item name="backgroundTint">@color/button_background_color_selector</item>
+        <item name="android:textSize">@dimen/btn_size_18</item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="strokeWidth">@dimen/m3_btn_stroke_size</item>
+</style>
 
 </resources>

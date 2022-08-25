@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_8"
-    tools:context=".ui.registration.RegistrationTwo">
+    tools:context=".ui.presentation.registration.RegistrationTwo">
 
     <ImageView
         android:id="@+id/arrow_back"
@@ -39,15 +39,13 @@
 
             <TextView
                 android:id="@+id/some_id"
-                android:layout_width="25dp"
-                android:layout_height="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="318dp"
-                android:fontFamily="@font/ubuntu_medium"
-                android:gravity="top"
                 android:lineHeight="18sp"
-                android:text="@string/part_one"
+                android:text="@string/part_two"
                 android:textAppearance="@style/some_id"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -82,14 +80,12 @@
 
             <TextView
                 android:id="@+id/login_text"
-                android:layout_width="117dp"
-                android:layout_height="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:gravity="top"
-                android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="23sp"
                 android:text="@string/your_gender"
-                android:textAppearance="@style/login"
+                android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rectangle_2" />
@@ -128,14 +124,11 @@
 
                     <TextView
                         android:id="@+id/maleText"
-                        android:layout_width="0dp"
-                        android:layout_height="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:textSize="16sp"
-                        android:gravity="center_horizontal"
                         android:text="@string/male"
-                        android:textAppearance="@style/male"
+                        android:textAppearance="@style/male_female"
                         app:layout_constraintEnd_toEndOf="@+id/imageMale"
                         app:layout_constraintStart_toStartOf="@+id/imageMale"
                         app:layout_constraintTop_toBottomOf="@+id/imageMale" />
@@ -179,14 +172,11 @@
 
                     <TextView
                         android:id="@+id/male"
-                        android:layout_width="50dp"
-                        android:layout_height="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:textSize="16sp"
-                        android:gravity="center_horizontal"
                         android:text="@string/female"
-                        android:textAppearance="@style/female"
+                        android:textAppearance="@style/male_female"
                         app:layout_constraintEnd_toEndOf="@+id/imageView"
                         app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -196,16 +186,14 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_btn"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="49dp"
-                android:background="@drawable/rectangle_reg"
-                android:fontFamily="@font/ubuntu_medium"
                 android:lineHeight="21sp"
                 android:text="@string/next"
-                android:textColor="@color/green"
+                style="@style/OutlinedButton.Green"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
