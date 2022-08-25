@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestProject</string>
+    <string name="app_name">GiaPay</string>
     <string name="giapay">GiaPay</string>
     <string name="always_pay">"Always pay "</string>
     <string name="login">Login</string>
