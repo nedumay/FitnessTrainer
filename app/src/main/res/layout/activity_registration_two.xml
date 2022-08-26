@@ -79,16 +79,14 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardMale"
+                style="@style/CardView.Green"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="49dp"
-                android:layout_marginBottom="537dp"
-                style="@style/CardView.Green"
+                android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:checkable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_text">
 
@@ -125,16 +123,14 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardFmale"
+                style="@style/CardView.Green"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
                 android:layout_marginTop="49dp"
                 android:layout_marginEnd="27dp"
-                android:layout_marginBottom="537dp"
+                android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:checkable="true"
-                style="@style/CardView.Green"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_text">
 

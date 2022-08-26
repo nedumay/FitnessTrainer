@@ -6,27 +6,31 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import com.example.testproject.R
-import kotlinx.android.synthetic.main.activity_registration_two.*
+import com.example.testproject.databinding.ActivityRegistrationTwoBinding
 
 class RegistrationTwo : AppCompatActivity() {
+
+    lateinit var registrationActivity: ActivityRegistrationTwoBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration_two)
+        registrationActivity = ActivityRegistrationTwoBinding.inflate(layoutInflater)
+        setContentView(registrationActivity.root)
 
         val backView: ImageView = findViewById(R.id.arrow_back)
         val nextButton: Button = findViewById(R.id.next_btn)
 
         nextButton.isEnabled = false
 
-        cardMale.setOnClickListener {
-            cardMale.isChecked = true
-            cardFmale.isChecked = false
+        registrationActivity.cardMale.setOnClickListener {
+            registrationActivity.cardMale.isChecked = true
+            registrationActivity.cardFmale.isChecked = false
             nextButton.isEnabled = true
         }
 
-        cardFmale.setOnClickListener {
-            cardFmale.isChecked = true
-            cardMale.isChecked = false
+        registrationActivity.cardFmale.setOnClickListener {
+            registrationActivity.cardFmale.isChecked = true
+            registrationActivity.cardMale.isChecked = false
             nextButton.isEnabled = true
         }
 
