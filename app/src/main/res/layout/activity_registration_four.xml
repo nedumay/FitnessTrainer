@@ -5,13 +5,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_8"
-    tools:context=".ui.presentation.registration.RegistrationFour">
+    tools:context=".app.presentation.registration.RegistrationFour">
 
     <ImageView
         android:id="@+id/arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,29 +49,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/rectangle_2"
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progBarFour"
                 android:layout_width="325dp"
                 android:layout_height="4dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginStart="17dp"
                 android:layout_marginEnd="17dp"
-                android:backgroundTint="#94D647"
-                android:background="@drawable/rectangle_2"
+                app:trackColor="@color/green"
+                app:indicatorColor="@color/green_b"
+                app:trackCornerRadius="10dp"
+                android:progress="100"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/rectangle_1"
-                android:layout_width="360dp"
-                android:layout_height="4dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="48dp"
-                android:backgroundTint="#599B0C"
-                android:background="@drawable/rectangle_1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +74,7 @@
                 android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rectangle_2" />
+                app:layout_constraintTop_toBottomOf="@+id/progBarFour" />
 
             <TextView
                 android:id="@+id/register_in"

@@ -1,4 +1,4 @@
-package com.example.testproject.ui.presentation.registration
+package com.example.testproject.app.presentation.registration
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

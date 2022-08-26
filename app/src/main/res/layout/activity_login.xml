@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipToOutline="true"
     android:id="@+id/login"
-    tools:context=".ui.presentation.login.LoginActivity">
+    tools:context=".app.presentation.login.LoginActivity">
 
         <ImageView
             android:id="@+id/rectangle_8"

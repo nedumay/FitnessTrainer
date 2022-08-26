@@ -1,4 +1,4 @@
-package com.example.testproject.ui.presentation.login
+package com.example.testproject.app.presentation.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +8,8 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.TextView
 import com.example.testproject.R
-import com.example.testproject.ui.presentation.registration.RegistrationActivity
-import com.example.testproject.ui.presentation.reset.ResetActivity
+import com.example.testproject.app.presentation.registration.RegistrationActivity
+import com.example.testproject.app.presentation.reset.ResetActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -37,8 +37,10 @@ class LoginActivity : AppCompatActivity() {
         inputText = findViewById(R.id.input_name_reg)
         inputPassword = findViewById(R.id.input_data_of_birth)
         enterLoginBtn = findViewById(R.id.enter_login_btn)
+
         enterLoginBtn.isEnabled = false
         enabledButton()
+
         enterLoginBtn.setOnClickListener {
 
         }
@@ -48,31 +50,23 @@ class LoginActivity : AppCompatActivity() {
     private fun enabledButton() {
         inputText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if (inputText.text.length > 0) {
-                    enterLoginBtn.isEnabled = true
-                } else {
-                    enterLoginBtn.isEnabled = false
-                }
+                enterLoginBtn.isEnabled = inputText.text.length > 0 && inputPassword.text.length > 0
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
-        /*
+
         inputPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if (inputPassword.text.length > 0) {
-
-                } else {
-
-                }
+                enterLoginBtn.isEnabled = inputPassword.text.length > 0 && inputText.text.length > 0
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-        })*/
+        })
 
     }
 

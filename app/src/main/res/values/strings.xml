@@ -20,8 +20,12 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="your_height">Your height and weight</string>
-    <string name="kg_sm">kg\sm</string>
-    <string name="lbs_ft">lbs\ft</string>
+    <string name="kg_sm">kg/sm</string>
+    <string name="kg">kg</string>
+    <string name="sm">sm</string>
+    <string name="lbs_ft">lbs/ft</string>
+    <string name="lbs">lbs</string>
+    <string name="ft">ft</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="target_weight">Target weight</string>

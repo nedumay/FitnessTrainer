@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".ui.presentation.main.MainActivity">
+    tools:context=".app.presentation.main.MainActivity">
 
     <ImageView
         android:id="@+id/rectangle_3"

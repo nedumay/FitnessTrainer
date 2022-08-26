@@ -1,11 +1,11 @@
-package com.example.testproject.ui.presentation.main
+package com.example.testproject.app.presentation.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.example.testproject.R
-import com.example.testproject.ui.presentation.login.LoginActivity
+import com.example.testproject.app.presentation.login.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {

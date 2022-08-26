@@ -1,4 +1,4 @@
-package com.example.testproject.ui.presentation.reset
+package com.example.testproject.app.presentation.reset
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.example.testproject.R
-import com.example.testproject.ui.presentation.login.LoginActivity
-import com.example.testproject.ui.presentation.main.MainActivity
+import com.example.testproject.app.presentation.login.LoginActivity
 
 class ResetActivity : AppCompatActivity() {
 

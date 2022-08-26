@@ -1,4 +1,4 @@
-package com.example.testproject.ui.presentation.registration
+package com.example.testproject.app.presentation.registration
 
 import android.content.Intent
 import android.graphics.Color
@@ -21,6 +21,8 @@ class RegistrationFour : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_four)
+
+
 
         val agreementTextView: TextView = findViewById(R.id.by_creating)
         val backButton: ImageView = findViewById(R.id.arrow_back)

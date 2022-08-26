@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_8"
-    tools:context=".ui.presentation.registration.RegistrationThree">
+    tools:context=".app.presentation.registration.RegistrationThree">
 
     <ImageView
         android:id="@+id/arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="328dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/ic_arrow_back"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,10 +21,10 @@
         android:id="@+id/rectangle_9"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/rectangle_9"
-        app:cardCornerRadius="20dp"
         android:layout_marginTop="113dp"
         android:layout_marginBottom="-24dp"
+        android:background="@drawable/rectangle_9"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,29 +49,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/rectangle_2"
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progBarThree"
                 android:layout_width="325dp"
                 android:layout_height="4dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginStart="17dp"
                 android:layout_marginEnd="17dp"
-                android:backgroundTint="#94D647"
-                android:background="@drawable/rectangle_2"
+                app:trackCornerRadius="10dp"
+                app:trackColor="@color/green"
+                app:indicatorColor="@color/green_b"
+                android:progress="75"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/rectangle_1"
-                android:layout_width="240dp"
-                android:layout_height="4dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="48dp"
-                android:backgroundTint="#599B0C"
-                android:background="@drawable/rectangle_1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,53 +74,43 @@
                 android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rectangle_2" />
+                app:layout_constraintTop_toBottomOf="@+id/progBarThree" />
 
 
             <RadioGroup
-                android:checkedButton="@+id/radio_group"
                 android:id="@+id/switch_btn"
                 android:layout_width="152dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="17dp"
-                android:background="@drawable/control_switch_background_border"
+                android:checkedButton="@+id/radioGroup"
                 android:orientation="horizontal"
+                android:background="@drawable/rectangle_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_text">
 
                 <RadioButton
-                    android:id="@+id/lbs"
+                    android:id="@+id/lbsRadioBtn"
+                    style="@style/RadioButton.Green"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
-                    android:layout_marginLeft="1dp"
                     android:layout_weight="1"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:background="@color/control_switch_background_selector_middle"
-                    android:text="@string/lbs_ft"
-                    android:textColor="@color/control_switch_selector"/>
+                    android:checked="true"
+                    android:text="@string/lbs_ft" />
 
                 <RadioButton
-                    android:id="@+id/kg"
+                    android:id="@+id/kgRadioBtn"
+                    style="@style/RadioButton.Green"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp"
                     android:layout_marginRight="1dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_weight="1"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:textSize="14sp"
-                    android:textColorHighlight="@color/gray"
-                    android:background="@color/control_switch_background_selector_middle"
-                    android:text="@string/kg_sm"
-                    android:textColor="@color/control_switch_selector"/>
+                    android:text="@string/kg_sm" />
 
             </RadioGroup>
 
@@ -150,7 +126,8 @@
                 android:hint="@string/height"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switch_btn">
+                app:layout_constraintTop_toBottomOf="@+id/switch_btn"
+                app:suffixText="@string/ft">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_height"
@@ -162,6 +139,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
+                    android:inputType="numberDecimal"
                     android:lineHeight="21sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,7 +156,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_height">
+                app:layout_constraintTop_toBottomOf="@+id/text_height"
+                app:suffixText="@string/lbs">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_weight"
@@ -190,7 +169,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="date"
+                    android:inputType="numberDecimal"
                     android:lineHeight="21sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,7 +186,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_weight">
+                app:layout_constraintTop_toBottomOf="@+id/text_weight"
+                app:suffixText="@string/lbs">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_target"
@@ -219,18 +199,18 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="date"
+                    android:inputType="numberDecimal"
                     android:lineHeight="21sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_btn"
+                style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="49dp"
                 android:lineHeight="21sp"
                 android:text="@string/next"
-                style="@style/OutlinedButton.Green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_target"
                 app:layout_constraintStart_toStartOf="@+id/text_target" />
@@ -238,10 +218,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

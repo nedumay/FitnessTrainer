@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/ic_baseline_female.xml" value="0.2535" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/ic_baseline_male.xml" value="0.2535" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/ic_male.xml" value="0.2535" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/iphone_13_m.xml" value="0.2535" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/radio_btn_background.xml" value="0.25" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/rectangle_1.xml" value="0.2945" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/rectangle_2.xml" value="0.2945" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/rectangle_4.xml" value="0.2945" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/drawable/rectangle_8.xml" value="0.28" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_registration.xml" value="0.3625" />
+        <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_registration_four.xml" value="0.25" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_registration_three.xml" value="0.33" />
         <entry key="..\:/Users/Samim/AndroidStudioProjects/GiaPay/app/src/main/res/layout/activity_registration_two.xml" value="0.33" />
