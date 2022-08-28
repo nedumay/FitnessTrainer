@@ -10,27 +10,27 @@ import com.example.testproject.databinding.ActivityRegistrationTwoBinding
 
 class RegistrationTwo : AppCompatActivity() {
 
-    lateinit var registrationActivity: ActivityRegistrationTwoBinding
+    private lateinit var binding: ActivityRegistrationTwoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registrationActivity = ActivityRegistrationTwoBinding.inflate(layoutInflater)
-        setContentView(registrationActivity.root)
+        binding = ActivityRegistrationTwoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val backView: ImageView = findViewById(R.id.arrow_back)
-        val nextButton: Button = findViewById(R.id.next_btn)
+        val backView: ImageView = findViewById(R.id.arrowBack)
+        val nextButton: Button = findViewById(R.id.nextBtn)
 
         nextButton.isEnabled = false
 
-        registrationActivity.cardMale.setOnClickListener {
-            registrationActivity.cardMale.isChecked = true
-            registrationActivity.cardFmale.isChecked = false
+        binding.cardMale.setOnClickListener {
+            binding.cardMale.isChecked = true
+            binding.cardFmale.isChecked = false
             nextButton.isEnabled = true
         }
 
-        registrationActivity.cardFmale.setOnClickListener {
-            registrationActivity.cardFmale.isChecked = true
-            registrationActivity.cardMale.isChecked = false
+        binding.cardFmale.setOnClickListener {
+            binding.cardFmale.isChecked = true
+            binding.cardMale.isChecked = false
             nextButton.isEnabled = true
         }
 

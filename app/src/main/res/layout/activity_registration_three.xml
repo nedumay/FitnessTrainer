@@ -8,7 +8,7 @@
     tools:context=".app.presentation.registration.RegistrationThree">
 
     <ImageView
-        android:id="@+id/arrow_back"
+        android:id="@+id/arrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
@@ -78,7 +78,7 @@
 
 
             <RadioGroup
-                android:id="@+id/switch_btn"
+                android:id="@+id/switchBtn"
                 android:layout_width="152dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="17dp"
@@ -115,7 +115,7 @@
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_height"
+                android:id="@+id/textHeight"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -124,13 +124,13 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/height"
+                app:suffixText="@string/lbs"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switch_btn"
-                app:suffixText="@string/ft">
+                app:layout_constraintTop_toBottomOf="@+id/switchBtn">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_height"
+                    android:id="@+id/inputHeight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -144,7 +144,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_weight"
+                android:id="@+id/textWeight"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -153,14 +153,14 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/weight"
+                app:suffixText="@string/ft"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_height"
-                app:suffixText="@string/lbs">
+                app:layout_constraintTop_toBottomOf="@+id/textHeight">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_weight"
+                    android:id="@+id/inputWeight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -174,7 +174,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_target"
+                android:id="@+id/textTarget"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -183,14 +183,14 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/target_weight"
+                app:suffixText="@string/ft"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_weight"
-                app:suffixText="@string/lbs">
+                app:layout_constraintTop_toBottomOf="@+id/textWeight">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_target"
+                    android:id="@+id/inputTarget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -204,7 +204,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/next_btn"
+                android:id="@+id/nextBtn"
                 style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
@@ -212,8 +212,8 @@
                 android:lineHeight="21sp"
                 android:text="@string/next"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/text_target"
-                app:layout_constraintStart_toStartOf="@+id/text_target" />
+                app:layout_constraintEnd_toEndOf="@+id/textTarget"
+                app:layout_constraintStart_toStartOf="@+id/textTarget" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

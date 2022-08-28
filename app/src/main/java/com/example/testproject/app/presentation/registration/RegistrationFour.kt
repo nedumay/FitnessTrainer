@@ -25,7 +25,7 @@ class RegistrationFour : AppCompatActivity() {
 
 
         val agreementTextView: TextView = findViewById(R.id.by_creating)
-        val backButton: ImageView = findViewById(R.id.arrow_back)
+        val backButton: ImageView = findViewById(R.id.arrowBack)
         val creatAccountButton: Button = findViewById(R.id.create_account_btn)
         val loginInput: EditText = findViewById(R.id.input_name_reg)
         val passwordInput: EditText = findViewById(R.id.input_data_of_birth)

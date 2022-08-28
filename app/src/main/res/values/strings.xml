@@ -39,4 +39,5 @@
     <string name="part_two">2/4</string>
     <string name="part_three">3/4</string>
     <string name="part_four">4/4</string>
+    <string name="dashboard">DASHBOARD</string>
 </resources>

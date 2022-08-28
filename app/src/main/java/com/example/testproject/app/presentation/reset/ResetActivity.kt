@@ -24,7 +24,7 @@ class ResetActivity : AppCompatActivity() {
 
         inputText = findViewById(R.id.input_name_reg)
         enterButton = findViewById(R.id.enter_btn)
-        backButton = findViewById(R.id.arrow_back)
+        backButton = findViewById(R.id.arrowBack)
 
         backButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))

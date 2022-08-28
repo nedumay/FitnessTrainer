@@ -9,10 +9,19 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_gia_pay_background"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_gia_pay_round"
+        android:roundIcon="@mipmap/ic_gia_pay_background"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestProject"
         tools:targetApi="31">
+        <activity
+            android:name=".app.presentation.settings.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.presentation.dashboard.DashboardActivity"
+            android:exported="false" />
         <activity
             android:name=".app.presentation.registration.RegistrationFour"
             android:exported="false" />

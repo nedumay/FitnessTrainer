@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.TextView
 import com.example.testproject.R
+import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.registration.RegistrationActivity
 import com.example.testproject.app.presentation.reset.ResetActivity
 
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         registrationButton.setOnClickListener {
+
             val intentRegistration = Intent(this@LoginActivity, RegistrationActivity::class.java)
             startActivity(intentRegistration)
         }
@@ -42,7 +44,9 @@ class LoginActivity : AppCompatActivity() {
         enabledButton()
 
         enterLoginBtn.setOnClickListener {
-
+            // тест
+            val intentDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
+            startActivity(intentDashboard)
         }
 
     }
