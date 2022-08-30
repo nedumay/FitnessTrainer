@@ -13,7 +13,7 @@
     <string name="please_ente">Please, enter your e-mail address. We will send you message to reset your password</string>
     <string name="send">Send</string>
     <string name="your_name">Your name*</string>
-    <string name="data_of_birth">Data of birth*</string>
+    <string name="data_of_birth">Date of birth*</string>
     <string name="tell_us_abo">Tell us about yourself</string>
     <string name="next">Next</string>
     <string name="your_gender">Your gender</string>
@@ -40,4 +40,17 @@
     <string name="part_three">3/4</string>
     <string name="part_four">4/4</string>
     <string name="dashboard">DASHBOARD</string>
+    <string name="new_notification">New notification</string>
+    <string name="choose_the_days">Choose the days and times for notification</string>
+    <string name="time">Time</string>
+    <string name="create">Create</string>
+    <string name="settings">Settings</string>
+    <string name="name">Name</string>
+    <string name="last_name">Last name</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="e_mail">E-mail</string>
+    <string name="output">Output</string>
+    <string name="delete_profile">Delete profile</string>
 </resources>

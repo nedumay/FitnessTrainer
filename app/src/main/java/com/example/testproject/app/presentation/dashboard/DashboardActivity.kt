@@ -20,27 +20,32 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        appBarMenu()
+
+        binding.cardClickToStart.setOnClickListener {
+            startActivity(Intent(this@DashboardActivity, NotificationActivity::class.java))
+        }
+    }
+
+    private fun appBarMenu() {
+
         binding.appBarLayout.setOnClickListener { view ->
             Snackbar.make(view, "Replace with youe own action",Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
 
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId){
+            when (menuItem.itemId) {
                 R.id.alerts -> {
-                    Toast.makeText(this,"Alerts", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.settings ->{
+                R.id.settings -> {
                     startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
                     true
                 }
                 else -> false
             }
-        }
-
-        binding.cardClickToStart.setOnClickListener {
-            startActivity(Intent(this@DashboardActivity, NotificationActivity::class.java))
         }
     }
 

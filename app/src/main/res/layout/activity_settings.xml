@@ -4,6 +4,306 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rectangle_8"
     tools:context=".app.presentation.settings.SettingsActivity">
+
+    <TextView
+        android:id="@+id/textSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:text="@string/settings"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="51dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/green"
+        app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:text="Pavel Surodeykin"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="96dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textMyProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="58dp"
+            android:text="My profile"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tlName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/name"
+            style="@style/settings_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMyProfile" />
+
+        <TextView
+            android:id="@+id/textNameUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Pavel"
+            style="@style/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMyProfile" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="16dp"
+            app:dividerInsetStart="16dp"
+            android:layout_marginTop="16dp"
+            app:dividerThickness="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlName" />
+
+        <TextView
+            android:id="@+id/tlLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/last_name"
+            style="@style/settings_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divName" />
+
+        <TextView
+            android:id="@+id/textLastNameUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Surodeykin"
+            style="@style/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divName" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="16dp"
+            app:dividerInsetStart="16dp"
+            android:layout_marginTop="16dp"
+            app:dividerThickness="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlLastName" />
+
+        <TextView
+            android:id="@+id/tlDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/date_of_birth"
+            style="@style/settings_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divLastName" />
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="03/31/1982"
+            style="@style/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divLastName" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="16dp"
+            app:dividerInsetStart="16dp"
+            android:layout_marginTop="16dp"
+            app:dividerThickness="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlDate" />
+
+        <TextView
+            android:id="@+id/tlCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/country"
+            style="@style/settings_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divDate" />
+
+        <TextView
+            android:id="@+id/textCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Russia"
+            style="@style/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divDate" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="16dp"
+            app:dividerInsetStart="16dp"
+            android:layout_marginTop="16dp"
+            app:dividerThickness="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlCountry" />
+
+        <TextView
+            android:id="@+id/tlCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/city"
+            style="@style/settings_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divCountry" />
+
+        <TextView
+            android:id="@+id/textCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Stavropol"
+            style="@style/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divCountry" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="16dp"
+            app:dividerInsetStart="16dp"
+            android:layout_marginTop="16dp"
+            app:dividerThickness="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlCity" />
+
+        <TextView
+            android:id="@+id/tlEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/e_mail"
+            style="@style/settings_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divCity" />
+
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Pavel12345@gmail.com"
+            style="@style/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divCity" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="16dp"
+            app:dividerInsetStart="16dp"
+            android:layout_marginTop="16dp"
+            app:dividerThickness="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlEmail" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/outputButton"
+            style="@style/OutlinedButton.Green"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="72dp"
+            android:lineHeight="21sp"
+            android:textSize="21sp"
+            android:text="@string/output"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/deleteProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_profile"
+            android:layout_marginTop="16dp"
+            android:textSize="21sp"
+            android:textAppearance="@style/forgot_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/outputButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
