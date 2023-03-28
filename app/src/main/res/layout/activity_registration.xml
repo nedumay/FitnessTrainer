@@ -3,82 +3,75 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/rectangle_8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
     tools:context=".app.presentation.registration.RegistrationActivity">
 
     <ImageView
-        android:id="@+id/arrowBack"
+        android:id="@+id/imageButtonArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/rectangle_9"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/rectangle_9"
-        app:cardCornerRadius="20dp"
-        android:layout_marginTop="113dp"
-        android:layout_marginBottom="-24dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonArrowBack">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_9">
 
             <TextView
-                android:id="@+id/some_id"
+                android:id="@+id/textViewOneToFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="318dp"
-                android:lineHeight="18sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/part_one"
                 android:textAppearance="@style/some_id"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progBarOne"
+                android:id="@+id/progressBarOne"
                 android:layout_width="325dp"
                 android:layout_height="4dp"
-                android:layout_marginTop="48dp"
                 android:layout_marginStart="17dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="17dp"
-                app:trackColor="@color/green"
-                app:indicatorColor="@color/green_b"
-                app:trackCornerRadius="10dp"
                 android:progress="25"
+                app:indicatorColor="@color/green_b"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOneToFour"
+                app:trackColor="@color/green"
+                app:trackCornerRadius="10dp" />
 
             <TextView
-                android:id="@+id/login_text"
-                android:layout_width="207dp"
-                android:layout_height="23dp"
+                android:id="@+id/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:lineHeight="23sp"
                 android:text="@string/tell_us_abo"
                 android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progBarOne" />
+                app:layout_constraintTop_toBottomOf="@+id/progressBarOne" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_login"
+                android:id="@+id/tilNameRegistration"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -89,10 +82,10 @@
                 android:hint="@string/your_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_text">
+                app:layout_constraintTop_toBottomOf="@+id/textViewLogin">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_name_reg"
+                    android:id="@+id/editTextNameRegistration"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -100,12 +93,11 @@
                     android:layout_marginEnd="17dp"
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:lineHeight="21sp" />
+                    android:fontFamily="@font/ubuntu_medium"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_password"
+                android:id="@+id/tilDateOfBirth"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -114,15 +106,12 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/data_of_birth"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_login"
-                app:layout_constraintVertical_bias="0.003">
+                app:layout_constraintTop_toBottomOf="@+id/tilNameRegistration">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_data_of_birth"
+                    android:id="@+id/editDateOfBirth"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -131,29 +120,22 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="date"
-                    android:lineHeight="21sp" />
+                    android:inputType="date"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/nextBtn"
+                android:id="@+id/buttonNextRegistration"
+                style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="49dp"
-                android:lineHeight="21sp"
                 android:text="@string/next"
-                style="@style/OutlinedButton.Green"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/text_password"
-                app:layout_constraintStart_toStartOf="@+id/text_password" />
+                app:layout_constraintEnd_toEndOf="@+id/tilDateOfBirth"
+                app:layout_constraintStart_toStartOf="@+id/tilDateOfBirth" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

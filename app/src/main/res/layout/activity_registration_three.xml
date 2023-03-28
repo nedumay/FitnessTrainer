@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/rectangle_8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
     tools:context=".app.presentation.registration.RegistrationThree">
 
     <ImageView
-        android:id="@+id/arrowBack"
+        android:id="@+id/imageButtonArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,62 +19,56 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rectangle_9"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="113dp"
-        android:layout_marginBottom="-24dp"
-        android:background="@drawable/rectangle_9"
-        app:cardCornerRadius="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonArrowBack">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_9">
 
             <TextView
-                android:id="@+id/some_id"
+                android:id="@+id/textViewThreeToFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="318dp"
-                android:lineHeight="18sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/part_three"
                 android:textAppearance="@style/some_id"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progBarThree"
+                android:id="@+id/progressBarThree"
                 android:layout_width="325dp"
                 android:layout_height="4dp"
-                android:layout_marginTop="48dp"
                 android:layout_marginStart="17dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="17dp"
-                app:trackCornerRadius="10dp"
-                app:trackColor="@color/green"
-                app:indicatorColor="@color/green_b"
                 android:progress="75"
+                app:indicatorColor="@color/green_b"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewThreeToFour"
+                app:trackColor="@color/green"
+                app:trackCornerRadius="10dp" />
 
             <TextView
-                android:id="@+id/login_text"
-                android:layout_width="230dp"
-                android:layout_height="23dp"
+                android:id="@+id/textViewHeightWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:lineHeight="23sp"
                 android:text="@string/your_height"
                 android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progBarThree" />
+                app:layout_constraintTop_toBottomOf="@+id/progressBarThree" />
 
 
             <RadioGroup
@@ -82,12 +76,12 @@
                 android:layout_width="152dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="17dp"
+                android:background="@drawable/rectangle_1"
                 android:checkedButton="@+id/radioGroup"
                 android:orientation="horizontal"
-                android:background="@drawable/rectangle_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_text">
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeightWeight">
 
                 <RadioButton
                     android:id="@+id/lbsRadioBtn"
@@ -115,7 +109,7 @@
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textHeight"
+                android:id="@+id/tilHeight"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -124,13 +118,13 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/height"
-                app:suffixText="@string/lbs"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switchBtn">
+                app:layout_constraintTop_toBottomOf="@+id/switchBtn"
+                app:suffixText="@string/lbs">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputHeight"
+                    android:id="@+id/editTextHeight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -139,12 +133,11 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="numberDecimal"
-                    android:lineHeight="21sp" />
+                    android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textWeight"
+                android:id="@+id/tilWeight"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -153,14 +146,13 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/weight"
-                app:suffixText="@string/ft"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textHeight">
+                app:layout_constraintTop_toBottomOf="@+id/tilHeight"
+                app:suffixText="@string/ft">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputWeight"
+                    android:id="@+id/editTextWeight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -169,12 +161,11 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="numberDecimal"
-                    android:lineHeight="21sp" />
+                    android:inputType="numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textTarget"
+                android:id="@+id/tilTarget"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -183,14 +174,14 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/target_weight"
-                app:suffixText="@string/ft"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textWeight">
+                app:layout_constraintTop_toBottomOf="@+id/tilWeight"
+                app:suffixText="@string/ft">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputTarget"
+                    android:id="@+id/editTextTarget"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -199,21 +190,19 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="numberDecimal"
-                    android:lineHeight="21sp" />
+                    android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/nextBtn"
+                android:id="@+id/buttonNextRegistration"
                 style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="49dp"
-                android:lineHeight="21sp"
                 android:text="@string/next"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textTarget"
-                app:layout_constraintStart_toStartOf="@+id/textTarget" />
+                app:layout_constraintEnd_toEndOf="@+id/tilTarget"
+                app:layout_constraintStart_toStartOf="@+id/tilTarget" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

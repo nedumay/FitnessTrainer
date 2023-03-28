@@ -22,9 +22,9 @@ class ResetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset)
 
-        inputText = findViewById(R.id.input_name_reg)
+        inputText = findViewById(R.id.editTextEmailLogin)
         enterButton = findViewById(R.id.enter_btn)
-        backButton = findViewById(R.id.arrowBack)
+        backButton = findViewById(R.id.imageButtonArrowBack)
 
         backButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))

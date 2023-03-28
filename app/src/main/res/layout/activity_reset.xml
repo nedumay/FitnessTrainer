@@ -1,41 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToOutline="true"
+    android:background="@color/green"
     tools:context=".app.presentation.reset.ResetActivity">
 
     <ImageView
-        android:id="@+id/rectangle_8"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/rectangle_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/arrowBack"
+        android:id="@+id/imageButtonArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/some_id"
+        android:id="@+id/textViewOneToFour"
         android:layout_width="65dp"
         android:layout_height="66dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="229dp"
         android:background="@drawable/some_id"
@@ -44,63 +29,49 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/giapay"
-        android:layout_width="126dp"
-        android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="153dp"
-        android:layout_marginTop="235dp"
+        android:id="@+id/textViewTitleApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_medium"
-        android:gravity="top"
-        android:lineHeight="41sp"
-        android:textStyle="bold"
         android:text="@string/giapay"
-        android:textAppearance="@style/giapay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/text_view_title_app"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textViewOneToFour"
+        app:layout_constraintTop_toTopOf="@+id/textViewOneToFour" />
 
     <!-- Always pay -->
     <TextView
-        android:id="@+id/always_pay"
-        android:layout_width="75dp"
-        android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="155dp"
-        android:layout_marginTop="273dp"
+        android:id="@+id/textViewSubtitleApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="top"
-        android:lineHeight="16sp"
         android:text="@string/always_pay"
-        android:textAppearance="@style/always_pay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/text_view_subtitle_app"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitleApp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleApp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rectangle_9"
         android:layout_width="match_parent"
-        android:layout_height="409dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/rectangle_9"
-        app:cardCornerRadius="20dp"
-        android:layout_marginBottom="-20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle_8"
+        android:layout_height="0dp"
+        android:layout_marginTop="128dp"
+        android:backgroundTint="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewOneToFour">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_9">
 
             <TextView
-                android:id="@+id/reset_text"
+                android:id="@+id/textViewReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:gravity="top"
-                android:lineHeight="21sp"
                 android:text="@string/reset_your_"
                 android:textAppearance="@style/header"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/please_enter"
+                android:id="@+id/textViewPleaseEnter"
                 android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -118,10 +89,10 @@
                 android:textAppearance="@style/please_enter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reset_text" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewReset" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_login"
+                android:id="@+id/tilEmailReset"
                 style="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -132,10 +103,10 @@
                 android:hint="@string/email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/please_enter">
+                app:layout_constraintTop_toBottomOf="@+id/textViewPleaseEnter">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_name_reg"
+                    android:id="@+id/editTextEmailLogin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -145,21 +116,19 @@
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
                     android:inputType="textEmailAddress"
-                    android:lineHeight="21sp"
                     tools:ignore="TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/enter_btn"
+                android:id="@+id/buttonSend"
+                style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="24dp"
-                android:lineHeight="21sp"
                 android:text="@string/send"
-                style="@style/OutlinedButton.Green"
-                app:layout_constraintEnd_toEndOf="@+id/text_login"
-                app:layout_constraintStart_toStartOf="@+id/text_login"
-                app:layout_constraintTop_toBottomOf="@+id/text_login" />
+                app:layout_constraintEnd_toEndOf="@+id/tilEmailReset"
+                app:layout_constraintStart_toStartOf="@+id/tilEmailReset"
+                app:layout_constraintTop_toBottomOf="@+id/tilEmailReset" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

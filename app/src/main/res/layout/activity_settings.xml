@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rectangle_8"
+    android:background="@color/green"
     tools:context=".app.presentation.settings.SettingsActivity">
 
     <TextView
-        android:id="@+id/textSettings"
+        android:id="@+id/textViewSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -35,9 +35,9 @@
         app:strokeWidth="2dp">
 
         <ImageView
-            android:id="@+id/imgUser"
+            android:id="@+id/imageViewUser"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -48,11 +48,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/ubuntu_medium"
-        android:text="Pavel Surodeykin"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintStart_toEndOf="@+id/materialCardView" />
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
+        tools:text="Pavel Surodeykin" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="58dp"
-            android:text="My profile"
             android:fontFamily="@font/ubuntu_medium"
+            android:text="@string/my_profile"
             android:textColor="@color/gray"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -82,33 +82,33 @@
 
         <TextView
             android:id="@+id/tlName"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/name"
-            style="@style/settings_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textMyProfile" />
 
         <TextView
             android:id="@+id/textNameUser"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Pavel"
-            style="@style/settings_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textMyProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/textMyProfile"
+            tools:text="Pavel" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:dividerInsetEnd="16dp"
             app:dividerInsetStart="16dp"
-            android:layout_marginTop="16dp"
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,33 +116,33 @@
 
         <TextView
             android:id="@+id/tlLastName"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/last_name"
-            style="@style/settings_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divName" />
 
         <TextView
             android:id="@+id/textLastNameUser"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Surodeykin"
-            style="@style/settings_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divName" />
+            app:layout_constraintTop_toBottomOf="@+id/divName"
+            tools:text="Surodeykin" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:dividerInsetEnd="16dp"
             app:dividerInsetStart="16dp"
-            android:layout_marginTop="16dp"
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -150,33 +150,33 @@
 
         <TextView
             android:id="@+id/tlDate"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/date_of_birth"
-            style="@style/settings_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divLastName" />
 
         <TextView
             android:id="@+id/textDate"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="03/31/1982"
-            style="@style/settings_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divLastName" />
+            app:layout_constraintTop_toBottomOf="@+id/divLastName"
+            tools:text="03/31/1982" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:dividerInsetEnd="16dp"
             app:dividerInsetStart="16dp"
-            android:layout_marginTop="16dp"
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -184,33 +184,33 @@
 
         <TextView
             android:id="@+id/tlCountry"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/country"
-            style="@style/settings_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divDate" />
 
         <TextView
             android:id="@+id/textCountry"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Russia"
-            style="@style/settings_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divDate" />
+            app:layout_constraintTop_toBottomOf="@+id/divDate"
+            tools:text="Russia" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:dividerInsetEnd="16dp"
             app:dividerInsetStart="16dp"
-            android:layout_marginTop="16dp"
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -218,33 +218,33 @@
 
         <TextView
             android:id="@+id/tlCity"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/city"
-            style="@style/settings_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divCountry" />
 
         <TextView
             android:id="@+id/textCity"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Stavropol"
-            style="@style/settings_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divCountry" />
+            app:layout_constraintTop_toBottomOf="@+id/divCountry"
+            tools:text="Stavropol" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:dividerInsetEnd="16dp"
             app:dividerInsetStart="16dp"
-            android:layout_marginTop="16dp"
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -252,64 +252,63 @@
 
         <TextView
             android:id="@+id/tlEmail"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/e_mail"
-            style="@style/settings_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divCity" />
 
         <TextView
             android:id="@+id/textEmail"
+            style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Pavel12345@gmail.com"
-            style="@style/settings_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divCity" />
+            app:layout_constraintTop_toBottomOf="@+id/divCity"
+            tools:text="Pavel12345@gmail.com" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:dividerInsetEnd="16dp"
             app:dividerInsetStart="16dp"
-            android:layout_marginTop="16dp"
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tlEmail" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/outputButton"
+            android:id="@+id/buttonOutput"
             style="@style/OutlinedButton.Green"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="72dp"
-            android:lineHeight="21sp"
-            android:textSize="21sp"
             android:text="@string/output"
+            android:textSize="21sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/deleteProfile"
+            android:id="@+id/textViewDeleteProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete_profile"
             android:layout_marginTop="16dp"
-            android:textSize="21sp"
+            android:text="@string/delete_profile"
             android:textAppearance="@style/forgot_password"
+            android:textSize="21sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/outputButton" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonOutput" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

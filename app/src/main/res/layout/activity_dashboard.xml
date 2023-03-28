@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,14 +13,14 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            style="@style/head_appBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/dashboard"
             android:background="@color/white"
-            style="@style/head_appBar"
             android:elevation="8dp"
-            app:titleCentered="true"
-            app:menu="@menu/menu_dashboard"/>
+            app:menu="@menu/menu_dashboard"
+            app:title="@string/dashboard"
+            app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,14 +35,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="4dp"
-            app:strokeColor="@color/green"
-            app:strokeWidth="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/green"
+            app:strokeWidth="3dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -52,11 +52,11 @@
 
                 <LinearLayout
                     android:layout_width="133dp"
-                    android:layout_height="34dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="31dp"
+                    android:background="@drawable/rectangle_start_back"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:background="@drawable/rectangle_start_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -64,19 +64,21 @@
                         android:id="@+id/dailyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/ubuntu_medium"
-                        android:text="Daily exercise"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
+                        android:text="@string/daily_exercise"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/clickText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
-                        android:text="Click to start"
-                        android:textColor="@color/white"/>
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/click_to_start"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
                 </LinearLayout>
 

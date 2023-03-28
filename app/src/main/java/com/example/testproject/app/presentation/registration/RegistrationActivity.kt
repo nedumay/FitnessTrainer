@@ -25,10 +25,10 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        val backView: ImageView = findViewById(R.id.arrowBack)
+        val backView: ImageView = findViewById(R.id.imageButtonArrowBack)
         nextButton = findViewById(R.id.nextBtn)
-        inputTextName = findViewById(R.id.input_name_reg)
-        inputTextData = findViewById(R.id.input_data_of_birth)
+        inputTextName = findViewById(R.id.editTextEmailLogin)
+        inputTextData = findViewById(R.id.editTextPasswordLogin)
 
         inputTextData.addTextChangedListener(dataMask)
 

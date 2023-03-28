@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">GiaPay</string>
-    <string name="giapay">GiaPay</string>
-    <string name="always_pay">"Always pay "</string>
+    <string name="app_name">Fitness trainer </string>
+    <string name="giapay">Fitness trainer </string>
+    <string name="always_pay">Always be fit</string>
     <string name="login">Login</string>
     <string name="forgot_your">Forgot your password?</string>
     <string name="don_t_have_">Dont have an account yet?</string>
@@ -30,7 +30,7 @@
     <string name="weight">Weight</string>
     <string name="target_weight">Target weight</string>
     <string name="your_program">Your program is ready!</string>
-    <string name="register_in">Register in get access to the GiaPay platform</string>
+    <string name="register_in">Register in get access to the Fitness trainer platform</string>
     <string name="create_account">Create an account</string>
     <string name="by_creating">By creating in account, you agree to the terms of use, privacy policy and terms of payment and return</string>
     <string name="privacy_policy">the terms of use, privacy policy</string>
@@ -53,4 +53,9 @@
     <string name="e_mail">E-mail</string>
     <string name="output">Output</string>
     <string name="delete_profile">Delete profile</string>
+    <string name="my_profile">My profile</string>
+    <string name="workout_schedule">Workout schedule</string>
+    <string name="workouts_completed_this_week">Workouts completed this week -</string>
+    <string name="daily_exercise">Daily exercise</string>
+    <string name="click_to_start">Click to start</string>
 </resources>

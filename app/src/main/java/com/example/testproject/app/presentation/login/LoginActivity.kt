@@ -22,8 +22,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val forgotText: TextView = findViewById(R.id.forgot_your)
-        val registrationButton: Button = findViewById(R.id.registr_btn)
+        val forgotText: TextView = findViewById(R.id.textViewForgotPassword)
+        val registrationButton: Button = findViewById(R.id.buttonRegistrationLogin)
 
         forgotText.setOnClickListener {
             val intentReset = Intent(this@LoginActivity, ResetActivity::class.java)
@@ -36,9 +36,9 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intentRegistration)
         }
 
-        inputText = findViewById(R.id.input_name_reg)
-        inputPassword = findViewById(R.id.input_data_of_birth)
-        enterLoginBtn = findViewById(R.id.enter_login_btn)
+        inputText = findViewById(R.id.editTextEmailLogin)
+        inputPassword = findViewById(R.id.editTextPasswordLogin)
+        enterLoginBtn = findViewById(R.id.buttonEnterLogin)
 
         enterLoginBtn.isEnabled = false
         enabledButton()

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/iphone_13_m"
@@ -13,8 +12,6 @@
         android:id="@+id/rectangle_3"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:background="@drawable/rectangle_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,50 +19,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <ImageView
-        android:id="@+id/some_id"
+        android:id="@+id/textViewOneToFour"
         android:layout_width="65dp"
         android:layout_height="66dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="81dp"
         android:layout_marginTop="373dp"
         android:background="@drawable/some_id"
-        android:elevation="12dp"
+        android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- GiaPay -->
     <TextView
-        android:id="@+id/giapay"
-        android:layout_width="126dp"
-        android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="154dp"
-        android:layout_marginTop="379dp"
+        android:id="@+id/textViewTitleApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="top"
-        android:lineHeight="41sp"
         android:text="@string/giapay"
-        android:textAppearance="@style/giapay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/text_view_title_app"
+        app:layout_constraintStart_toEndOf="@+id/textViewOneToFour"
+        app:layout_constraintTop_toTopOf="@+id/textViewOneToFour" />
 
     <TextView
-        android:id="@+id/always_pay"
-        android:layout_width="75dp"
-        android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="417dp"
+        android:id="@+id/textViewSubtitleApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="top"
         android:text="@string/always_pay"
-        android:textAppearance="@style/always_pay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/text_view_subtitle_app"
+        app:layout_constraintStart_toEndOf="@+id/textViewOneToFour"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleApp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

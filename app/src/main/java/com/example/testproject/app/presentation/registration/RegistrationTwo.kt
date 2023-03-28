@@ -17,7 +17,7 @@ class RegistrationTwo : AppCompatActivity() {
         binding = ActivityRegistrationTwoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val backView: ImageView = findViewById(R.id.arrowBack)
+        val backView: ImageView = findViewById(R.id.imageButtonArrowBack)
         val nextButton: Button = findViewById(R.id.nextBtn)
 
         nextButton.isEnabled = false
