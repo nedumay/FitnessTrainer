@@ -13,9 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Handler().postDelayed(Runnable { // По истечении времени, запускаем главный активити, а Splash Screen закрываем
-            val mainIntent = Intent(this, LoginActivity::class.java)
-            startActivity(mainIntent)
+        Handler().postDelayed(Runnable {
+            startActivity(LoginActivity.newIntent(this@MainActivity))
             finish()
         }, 5000)
 

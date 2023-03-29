@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.reset
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,11 +26,9 @@ class ResetActivity : AppCompatActivity() {
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
-
         binding.buttonSend.isEnabled = false
         enabledButton()
     }
-
     private fun enabledButton() {
         binding.editTextEmailLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -40,5 +39,10 @@ class ResetActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+    }
+    companion object{
+        fun newIntent(context: Context) : Intent{
+            return Intent(context,ResetActivity::class.java)
+        }
     }
 }

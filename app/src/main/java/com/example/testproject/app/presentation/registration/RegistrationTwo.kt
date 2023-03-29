@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.registration
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ class RegistrationTwo : AppCompatActivity() {
     private val binding by lazy {
         ActivityRegistrationTwoBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -33,14 +35,30 @@ class RegistrationTwo : AppCompatActivity() {
 
 
         binding.imageButtonArrowBack.setOnClickListener {
-            val intentLogin = Intent(this, RegistrationActivity::class.java)
-            startActivity(intentLogin)
+            startActivity(RegistrationActivity.newIntent(this@RegistrationTwo))
         }
 
         binding.buttonNextRegistration.setOnClickListener {
-            val intentRegTwo = Intent(this, RegistrationThree::class.java)
-            startActivity(intentRegTwo)
+            startActivity(
+                RegistrationThree.newIntent(
+                    this@RegistrationTwo,
+                    name = "",
+                    date = "",
+                    gender = false
+                )
+            )
         }
 
+    }
+
+    companion object {
+        private const val EXTRA_NAME = "name"
+        private const val EXTRA_DATE = "date"
+        fun newIntent(context: Context, name: String, date: String): Intent {
+            val intent = Intent(context, RegistrationTwo::class.java)
+            intent.putExtra(EXTRA_NAME,name)
+            intent.putExtra(EXTRA_DATE,date)
+            return intent
+        }
     }
 }
