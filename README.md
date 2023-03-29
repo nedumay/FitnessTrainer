@@ -8,7 +8,7 @@
 ![4](https://user-images.githubusercontent.com/79632860/187088467-1576b5c1-3603-46be-8709-5d8a9780e688.png)
 ![4 on](https://user-images.githubusercontent.com/79632860/187088473-0a948fe2-fba1-49ab-af31-03abe3935649.png)
 ![4 ft](https://user-images.githubusercontent.com/79632860/187088474-1e533cf0-24ed-4a8d-a2fe-232044bc6b8c.png)
-![4](https://user-images.githubusercontent.com/79632860/187088485-ee47f098-f62a-4f38-9d80-1cc4bb33ef16.png)
+![24](https://user-images.githubusercontent.com/79632860/228532530-64e551ec-d215-40f0-b393-9f91c37efbfc.png)
 
 # Главные окна
 ![Dashboard](https://user-images.githubusercontent.com/79632860/187088516-9937e4c9-f07f-45d4-929b-fe0f2d021cfd.png)
