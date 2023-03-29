@@ -9,64 +9,64 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.example.testproject.R
-import com.example.testproject.app.domain.DataMask
+import com.example.testproject.app.utils.DataMask
 import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.databinding.ActivityRegistrationBinding
 
 
 class RegistrationActivity : AppCompatActivity() {
 
-    private lateinit var inputTextName: EditText
-    private lateinit var inputTextData: EditText
-    private lateinit var nextButton: Button
-
     private val dataMask = DataMask()
 
+    private val binding by lazy {
+        ActivityRegistrationBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration)
+        setContentView(binding.root)
 
-        val backView: ImageView = findViewById(R.id.imageButtonArrowBack)
-        nextButton = findViewById(R.id.nextBtn)
-        inputTextName = findViewById(R.id.editTextEmailLogin)
-        inputTextData = findViewById(R.id.editTextPasswordLogin)
+        binding.editDateOfBirth.addTextChangedListener(dataMask)
 
-        inputTextData.addTextChangedListener(dataMask)
-
-
-        backView.setOnClickListener {
+        binding.imageButtonArrowBack.setOnClickListener {
             startActivity(Intent(this@RegistrationActivity, LoginActivity::class.java))
         }
 
-        nextButton.isEnabled = false
+        binding.buttonNextRegistration.isEnabled = false
         enabledButton()
 
-        nextButton.setOnClickListener {
-            startActivity( Intent(this@RegistrationActivity, RegistrationTwo::class.java))
+        binding.buttonNextRegistration.setOnClickListener {
+            startActivity(Intent(this@RegistrationActivity, RegistrationTwo::class.java))
         }
     }
 
     // Переделать, не парвильно работает
-
-
     private fun enabledButton() {
-        inputTextName.addTextChangedListener(object : TextWatcher {
+        binding.editTextNameRegistration.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                nextButton.isEnabled = inputTextName.text.length > 0 && inputTextData.text.length == 10
+                binding.buttonNextRegistration.isEnabled =
+                    binding.editTextNameRegistration.text?.length ?: 0 > 0
+                            && binding.editDateOfBirth.text?.length ?: 0 == 10
 
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
 
-        inputTextData.addTextChangedListener(object : TextWatcher{
+        binding.editDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun afterTextChanged(p0: Editable?) {
-                nextButton.isEnabled = inputTextData.text.length == 10 && inputTextName.text.length > 0
+                binding.buttonNextRegistration.isEnabled =
+                    binding.editDateOfBirth.text?.length ?: 0 == 10
+                            && binding.editTextNameRegistration.text?.length ?: 0 > 0
             }
         })
 

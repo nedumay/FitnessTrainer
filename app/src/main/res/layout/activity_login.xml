@@ -22,15 +22,16 @@
     <TextView
         android:id="@+id/textViewTitleApp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:fontFamily="@font/ubuntu_medium"
+        android:gravity="center"
         android:text="@string/giapay"
         android:textAppearance="@style/text_view_title_app"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSubtitleApp"
         app:layout_constraintStart_toEndOf="@+id/textViewOneToFour"
         app:layout_constraintTop_toTopOf="@+id/textViewOneToFour" />
 
-    <!-- Always pay -->
     <TextView
         android:id="@+id/textViewSubtitleApp"
         android:layout_width="wrap_content"
@@ -39,8 +40,8 @@
         android:text="@string/always_pay"
         android:textAppearance="@style/text_view_subtitle_app"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textViewTitleApp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleApp" />
+        app:layout_constraintBottom_toBottomOf="@+id/textViewOneToFour"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitleApp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rectangle_9"

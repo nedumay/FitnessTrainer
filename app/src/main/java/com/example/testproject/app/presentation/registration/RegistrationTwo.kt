@@ -10,37 +10,34 @@ import com.example.testproject.databinding.ActivityRegistrationTwoBinding
 
 class RegistrationTwo : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegistrationTwoBinding
-
+    private val binding by lazy {
+        ActivityRegistrationTwoBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegistrationTwoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val backView: ImageView = findViewById(R.id.imageButtonArrowBack)
-        val nextButton: Button = findViewById(R.id.nextBtn)
+        binding.buttonNextRegistration.isEnabled = false
 
-        nextButton.isEnabled = false
-
-        binding.cardMale.setOnClickListener {
-            binding.cardMale.isChecked = true
-            binding.cardFmale.isChecked = false
-            nextButton.isEnabled = true
+        binding.cardViewMale.setOnClickListener {
+            binding.cardViewMale.isChecked = true
+            binding.cardViewMale.isChecked = false
+            binding.buttonNextRegistration.isEnabled = true
         }
 
-        binding.cardFmale.setOnClickListener {
-            binding.cardFmale.isChecked = true
-            binding.cardMale.isChecked = false
-            nextButton.isEnabled = true
+        binding.cardViewFmale.setOnClickListener {
+            binding.cardViewFmale.isChecked = true
+            binding.cardViewFmale.isChecked = false
+            binding.buttonNextRegistration.isEnabled = true
         }
 
 
-        backView.setOnClickListener {
+        binding.imageButtonArrowBack.setOnClickListener {
             val intentLogin = Intent(this, RegistrationActivity::class.java)
             startActivity(intentLogin)
         }
 
-        nextButton.setOnClickListener {
+        binding.buttonNextRegistration.setOnClickListener {
             val intentRegTwo = Intent(this, RegistrationThree::class.java)
             startActivity(intentRegTwo)
         }

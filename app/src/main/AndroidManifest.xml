@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.testproject">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,36 +14,56 @@
         android:roundIcon="@mipmap/ic_gia_pay_background"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestProject"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".app.presentation.settings.SettingsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.notification.NotificationActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.dashboard.DashboardActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.registration.RegistrationFour"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.registration.RegistrationThree"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.registration.RegistrationTwo"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.registration.RegistrationActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.reset.ResetActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.login.LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.presentation.main.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

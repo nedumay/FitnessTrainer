@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "643058709799",
+    "project_id": "fitness-trainer-c88fe",
+    "storage_bucket": "fitness-trainer-c88fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643058709799:android:371f1f79ca495ef00c6502",
+        "android_client_info": {
+          "package_name": "com.example.testproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643058709799-t763ec47reg2f38vb0c4p17s33bcqhpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAS5CKUtSGG1O0N0wB_qt7ovcT_odnpmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643058709799-t763ec47reg2f38vb0c4p17s33bcqhpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

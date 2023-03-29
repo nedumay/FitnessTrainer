@@ -10,34 +10,30 @@ import android.widget.EditText
 import android.widget.ImageView
 import com.example.testproject.R
 import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.databinding.ActivityResetBinding
 
 class ResetActivity : AppCompatActivity() {
 
-    private lateinit var inputText: EditText
-    private lateinit var enterButton: Button
-    private lateinit var backButton: ImageView
-
+    private val binding by lazy {
+        ActivityResetBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reset)
+        setContentView(binding.root)
 
-        inputText = findViewById(R.id.editTextEmailLogin)
-        enterButton = findViewById(R.id.enter_btn)
-        backButton = findViewById(R.id.imageButtonArrowBack)
-
-        backButton.setOnClickListener {
+        binding.imageButtonArrowBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        enterButton.isEnabled = false
+        binding.buttonSend.isEnabled = false
         enabledButton()
     }
 
     private fun enabledButton() {
-        inputText.addTextChangedListener(object : TextWatcher {
+        binding.editTextEmailLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                enterButton.isEnabled = inputText.text.length > 0
+                binding.buttonSend.isEnabled = binding.editTextEmailLogin.text?.length ?: 0 > 0
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }

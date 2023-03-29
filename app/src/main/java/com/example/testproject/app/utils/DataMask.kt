@@ -1,4 +1,4 @@
-package com.example.testproject.app.domain
+package com.example.testproject.app.utils
 
 import android.text.Editable
 import android.text.TextWatcher

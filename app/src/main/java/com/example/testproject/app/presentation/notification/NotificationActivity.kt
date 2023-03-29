@@ -6,11 +6,12 @@ import com.example.testproject.databinding.ActivityNotificationBinding
 
 class NotificationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityNotificationBinding
+    private val binding by lazy {
+        ActivityNotificationBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

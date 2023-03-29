@@ -14,21 +14,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.testproject.R
+import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
 
 class RegistrationFour : AppCompatActivity() {
+
+    private val binding by lazy {
+        ActivityRegistrationFourBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration_four)
-
-
-
-        val agreementTextView: TextView = findViewById(R.id.by_creating)
-        val backButton: ImageView = findViewById(R.id.imageButtonArrowBack)
-        val creatAccountButton: Button = findViewById(R.id.create_account_btn)
-        val loginInput: EditText = findViewById(R.id.editTextEmailLogin)
-        val passwordInput: EditText = findViewById(R.id.editTextPasswordLogin)
+        setContentView(binding.root)
 
         val fullText = getString(R.string.by_creating)
         val policy = getString(R.string.privacy_policy)
@@ -36,7 +35,7 @@ class RegistrationFour : AppCompatActivity() {
         val spannableString = SpannableString(fullText)
 
         // Кликабельный текст для Privacy policy
-        val policyClickable = object : ClickableSpan(){
+        val policyClickable = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 Snackbar.make(widget, "Privacy policy", Snackbar.LENGTH_SHORT).show()
             }
@@ -54,7 +53,7 @@ class RegistrationFour : AppCompatActivity() {
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         // Кликабельный текст для Terms
-        val termsClickable = object : ClickableSpan(){
+        val termsClickable = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 Snackbar.make(widget, "Terms of payment and return", Snackbar.LENGTH_SHORT).show()
             }
@@ -71,19 +70,19 @@ class RegistrationFour : AppCompatActivity() {
             fullText.indexOf(terms) + terms.length,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        agreementTextView.run {
+        binding.textViewByCreate.run {
             text = spannableString
             movementMethod = LinkMovementMethod.getInstance()
             highlightColor = Color.TRANSPARENT
         }
 
-        backButton.setOnClickListener {
+        binding.imageButtonArrowBack.setOnClickListener {
             val intent = Intent(this, RegistrationThree::class.java)
             startActivity(intent)
         }
 
-        creatAccountButton.setOnClickListener {
-
+        binding.buttonCreateAccount.setOnClickListener {
+            Toast.makeText(this@RegistrationFour, "Create account!", Toast.LENGTH_LONG).show()
         }
     }
 }

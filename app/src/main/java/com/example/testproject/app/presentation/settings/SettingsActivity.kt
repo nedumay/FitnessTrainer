@@ -6,11 +6,12 @@ import com.example.testproject.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySettingsBinding
+    private val binding by lazy {
+        ActivitySettingsBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

@@ -11,40 +11,32 @@ import com.example.testproject.R
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.registration.RegistrationActivity
 import com.example.testproject.app.presentation.reset.ResetActivity
+import com.example.testproject.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var inputText: TextView
-    private lateinit var inputPassword: TextView
-    private lateinit var enterLoginBtn: Button
+    private val binding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(binding.root)
 
-        val forgotText: TextView = findViewById(R.id.textViewForgotPassword)
-        val registrationButton: Button = findViewById(R.id.buttonRegistrationLogin)
-
-        forgotText.setOnClickListener {
+        binding.textViewForgotPassword.setOnClickListener {
             val intentReset = Intent(this@LoginActivity, ResetActivity::class.java)
             startActivity(intentReset)
         }
 
-        registrationButton.setOnClickListener {
-
+        binding.buttonRegistrationLogin.setOnClickListener {
             val intentRegistration = Intent(this@LoginActivity, RegistrationActivity::class.java)
             startActivity(intentRegistration)
         }
 
-        inputText = findViewById(R.id.editTextEmailLogin)
-        inputPassword = findViewById(R.id.editTextPasswordLogin)
-        enterLoginBtn = findViewById(R.id.buttonEnterLogin)
-
-        enterLoginBtn.isEnabled = false
+        binding.buttonEnterLogin.isEnabled = false
         enabledButton()
 
-        enterLoginBtn.setOnClickListener {
-            // тест
+        binding.buttonEnterLogin.setOnClickListener {
             val intentDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
             startActivity(intentDashboard)
         }
@@ -52,22 +44,28 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun enabledButton() {
-        inputText.addTextChangedListener(object : TextWatcher {
+        binding.editTextEmailLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                enterLoginBtn.isEnabled = inputText.text.length > 0 && inputPassword.text.length > 0
+                binding.buttonEnterLogin.isEnabled = (binding.editTextEmailLogin.text?.length
+                    ?: 0) > 0 && (binding.editTextPasswordLogin.text?.length ?: 0) > 0
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
 
-        inputPassword.addTextChangedListener(object : TextWatcher {
+        binding.editTextPasswordLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                enterLoginBtn.isEnabled = inputPassword.text.length > 0 && inputText.text.length > 0
+                binding.buttonEnterLogin.isEnabled = (binding.editTextPasswordLogin.text?.length
+                    ?: 0) > 0 && (binding.editTextEmailLogin.text?.length ?: 0) > 0
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
