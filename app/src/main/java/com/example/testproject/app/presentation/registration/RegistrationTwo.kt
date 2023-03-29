@@ -23,13 +23,13 @@ class RegistrationTwo : AppCompatActivity() {
 
         binding.cardViewMale.setOnClickListener {
             binding.cardViewMale.isChecked = true
-            binding.cardViewMale.isChecked = false
+            binding.cardViewFmale.isChecked = false
             binding.buttonNextRegistration.isEnabled = true
         }
 
         binding.cardViewFmale.setOnClickListener {
             binding.cardViewFmale.isChecked = true
-            binding.cardViewFmale.isChecked = false
+            binding.cardViewMale.isChecked = false
             binding.buttonNextRegistration.isEnabled = true
         }
 
