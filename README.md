@@ -1,7 +1,8 @@
-# GiaPay - мобильное приложение для создания и отслеживания расписания тренеровок.
-![iPhone 13 mini - 10](https://user-images.githubusercontent.com/79632860/187088234-c0f5052d-7ac8-4369-8026-2ebb25ad02de.png)
+# Fitness trainer - мобильное приложение для создания и отслеживания расписания тренеровок.
+![12](https://user-images.githubusercontent.com/79632860/228531613-994ba3e1-0eef-4b16-b263-09d722285428.png)
+
 # Вход в приложение
-![Login](https://user-images.githubusercontent.com/79632860/187088361-bb0da300-ecc3-4d1b-a214-321322716662.png)
+![login](https://user-images.githubusercontent.com/79632860/228531981-c7876a15-dc7c-42d8-8771-8f0bd7d3cd8f.png)
 
 # Окна регистрации
 ![4](https://user-images.githubusercontent.com/79632860/187088467-1576b5c1-3603-46be-8709-5d8a9780e688.png)
