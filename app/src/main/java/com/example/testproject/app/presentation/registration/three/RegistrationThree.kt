@@ -1,15 +1,14 @@
-package com.example.testproject.app.presentation.registration
+package com.example.testproject.app.presentation.registration.three
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.RadioButton
 import com.example.testproject.R
+import com.example.testproject.app.presentation.registration.four.RegistrationFour
+import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.databinding.ActivityRegistrationThreeBinding
-import com.example.testproject.databinding.ActivityRegistrationTwoBinding
 
 class RegistrationThree : AppCompatActivity() {
 

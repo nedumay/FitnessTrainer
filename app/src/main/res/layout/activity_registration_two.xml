@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/green"
-    tools:context=".app.presentation.registration.RegistrationTwo">
+    tools:context=".app.presentation.registration.two.RegistrationTwo">
 
     <ImageView
         android:id="@+id/imageButtonArrowBack"

@@ -6,12 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.TextView
-import com.example.testproject.R
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
-import com.example.testproject.app.presentation.registration.RegistrationActivity
-import com.example.testproject.app.presentation.reset.ResetActivity
+import com.example.testproject.app.presentation.registration.one.RegistrationOne
 import com.example.testproject.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -25,10 +21,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textViewForgotPassword.setOnClickListener {
-            startActivity(RegistrationActivity.newIntent(this@LoginActivity))
+            startActivity(RegistrationOne.newIntent(this@LoginActivity))
         }
         binding.buttonRegistrationLogin.setOnClickListener {
-            startActivity(RegistrationActivity.newIntent(this@LoginActivity))
+            startActivity(RegistrationOne.newIntent(this@LoginActivity))
         }
         binding.buttonEnterLogin.isEnabled = false
         enabledButton()

@@ -12,6 +12,5 @@ data class User(
     val email: String,
     val password: String,
     var country: String? = null,
-    var city: String? = null,
-
+    var city: String? = null
 )

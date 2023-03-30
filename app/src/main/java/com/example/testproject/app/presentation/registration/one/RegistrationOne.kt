@@ -1,50 +1,71 @@
-package com.example.testproject.app.presentation.registration
+package com.example.testproject.app.presentation.registration.one
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import com.example.testproject.R
-import com.example.testproject.app.utils.DataMask
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.app.presentation.login.LoginActivity
-import com.example.testproject.databinding.ActivityRegistrationBinding
+import com.example.testproject.app.presentation.registration.two.RegistrationTwo
+import com.example.testproject.app.utils.DataMask
+import com.example.testproject.databinding.ActivityRegistrationOneBinding
 
 
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationOne : AppCompatActivity() {
 
     private val dataMask = DataMask()
 
     private val binding by lazy {
-        ActivityRegistrationBinding.inflate(layoutInflater)
+        ActivityRegistrationOneBinding.inflate(layoutInflater)
     }
+
+    private lateinit var viewModel: RegistrationOneViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this)[RegistrationOneViewModel::class.java]
+
         binding.editDateOfBirth.addTextChangedListener(dataMask)
         binding.imageButtonArrowBack.setOnClickListener {
-            startActivity(LoginActivity.newIntent(this@RegistrationActivity))
+            startActivity(LoginActivity.newIntent(this@RegistrationOne))
         }
         binding.buttonNextRegistration.isEnabled = false
         enabledButton()
         // Исправить name и date
-        val name = ""
-        val date = ""
+        var name = binding.editTextNameRegistration.text?.trim().toString()
+        var data = binding.editDateOfBirth.text?.trim().toString()
+        val pair = observeInit(name, data)
+        data = pair.first
+        name = pair.second
         binding.buttonNextRegistration.setOnClickListener {
             startActivity(
                 RegistrationTwo.newIntent(
-                    this@RegistrationActivity,
+                    this@RegistrationOne,
                     name,
-                    date
+                    data
                 )
             )
         }
+    }
+
+    private fun observeInit(
+        name: String,
+        data: String
+    ): Pair<String, String> {
+        var name1 = name
+        var data1 = data
+        viewModel.save(name1, data1)
+        viewModel.name.observe(this) {
+            name1 = it
+        }
+        viewModel.dataOfBirth.observe(this) {
+            data1 = it
+        }
+        return Pair(data1, name1)
     }
 
     // Переделать, не парвильно работает
@@ -52,8 +73,8 @@ class RegistrationActivity : AppCompatActivity() {
         binding.editTextNameRegistration.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 binding.buttonNextRegistration.isEnabled =
-                    binding.editTextNameRegistration.text?.length ?: 0 > 0
-                            && binding.editDateOfBirth.text?.length ?: 0 == 10
+                    ((binding.editTextNameRegistration.text?.length ?: 0) > 0
+                            && (binding.editDateOfBirth.text?.length ?: 0) == 10)
 
             }
 
@@ -75,7 +96,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, RegistrationActivity::class.java)
+            return Intent(context, RegistrationOne::class.java)
         }
     }
 }

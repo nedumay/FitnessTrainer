@@ -1,4 +1,4 @@
-package com.example.testproject.app.presentation.registration
+package com.example.testproject.app.presentation.registration.four
 
 import android.content.Context
 import android.content.Intent
@@ -11,12 +11,9 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.example.testproject.R
+import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -35,7 +32,7 @@ class RegistrationFour : AppCompatActivity() {
         binding.imageButtonArrowBack.setOnClickListener {
             //Исправить передачу данных. Заменить переменные name, date, gender
             startActivity(
-                RegistrationThree.newIntent(
+                _root_ide_package_.com.example.testproject.app.presentation.registration.three.RegistrationThree.newIntent(
                     this@RegistrationFour,
                     name = "",
                     date = "",

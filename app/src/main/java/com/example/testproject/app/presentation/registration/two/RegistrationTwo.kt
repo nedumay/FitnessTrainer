@@ -1,12 +1,11 @@
-package com.example.testproject.app.presentation.registration
+package com.example.testproject.app.presentation.registration.two
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import com.example.testproject.R
+import com.example.testproject.app.presentation.registration.RegistrationThree
+import com.example.testproject.app.presentation.registration.one.RegistrationOne
 import com.example.testproject.databinding.ActivityRegistrationTwoBinding
 
 class RegistrationTwo : AppCompatActivity() {
@@ -35,7 +34,7 @@ class RegistrationTwo : AppCompatActivity() {
 
 
         binding.imageButtonArrowBack.setOnClickListener {
-            startActivity(RegistrationActivity.newIntent(this@RegistrationTwo))
+            startActivity(RegistrationOne.newIntent(this@RegistrationTwo))
         }
 
         binding.buttonNextRegistration.setOnClickListener {

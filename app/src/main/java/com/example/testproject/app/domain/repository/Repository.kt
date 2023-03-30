@@ -1,5 +1,6 @@
 package com.example.testproject.app.domain.repository
 
+import com.example.testproject.app.data.model.UserDbModel
 import com.example.testproject.app.domain.model.User
 
 interface Repository {
@@ -8,5 +9,5 @@ interface Repository {
 
     suspend fun deleteUserFromFirebase(email: String)
 
-    suspend fun getUserFromFirebase(email: String)
+    suspend fun getUserFromFirebase(email: String) : UserDbModel
 }
