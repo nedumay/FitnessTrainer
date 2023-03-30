@@ -30,42 +30,30 @@ class RegistrationOne : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[RegistrationOneViewModel::class.java]
 
         binding.editDateOfBirth.addTextChangedListener(dataMask)
-        binding.imageButtonArrowBack.setOnClickListener {
-            startActivity(LoginActivity.newIntent(this@RegistrationOne))
+
+        var name = binding.editTextNameRegistration.text?.trim().toString()
+        var date = binding.editDateOfBirth.text?.trim().toString()
+        viewModel.save(name,date)
+        viewModel.name.observe(this){
+            name = it
+        }
+        viewModel.dataOfBirth.observe(this){
+            date = it
         }
         binding.buttonNextRegistration.isEnabled = false
         enabledButton()
-        // Исправить name и date
-        var name = binding.editTextNameRegistration.text?.trim().toString()
-        var data = binding.editDateOfBirth.text?.trim().toString()
-        val pair = observeInit(name, data)
-        data = pair.first
-        name = pair.second
         binding.buttonNextRegistration.setOnClickListener {
             startActivity(
                 RegistrationTwo.newIntent(
                     this@RegistrationOne,
                     name,
-                    data
+                    date
                 )
             )
         }
-    }
-
-    private fun observeInit(
-        name: String,
-        data: String
-    ): Pair<String, String> {
-        var name1 = name
-        var data1 = data
-        viewModel.save(name1, data1)
-        viewModel.name.observe(this) {
-            name1 = it
+        binding.imageButtonArrowBack.setOnClickListener {
+            startActivity(LoginActivity.newIntent(this@RegistrationOne))
         }
-        viewModel.dataOfBirth.observe(this) {
-            data1 = it
-        }
-        return Pair(data1, name1)
     }
 
     // Переделать, не парвильно работает

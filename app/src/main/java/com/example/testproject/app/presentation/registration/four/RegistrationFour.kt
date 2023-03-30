@@ -13,6 +13,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
 import com.example.testproject.R
+import com.example.testproject.app.presentation.registration.three.RegistrationThree
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
@@ -32,7 +33,7 @@ class RegistrationFour : AppCompatActivity() {
         binding.imageButtonArrowBack.setOnClickListener {
             //Исправить передачу данных. Заменить переменные name, date, gender
             startActivity(
-                _root_ide_package_.com.example.testproject.app.presentation.registration.three.RegistrationThree.newIntent(
+                RegistrationThree.newIntent(
                     this@RegistrationFour,
                     name = "",
                     date = "",

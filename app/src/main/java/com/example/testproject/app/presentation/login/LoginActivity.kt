@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.registration.one.RegistrationOne
+import com.example.testproject.app.presentation.reset.ResetActivity
 import com.example.testproject.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textViewForgotPassword.setOnClickListener {
-            startActivity(RegistrationOne.newIntent(this@LoginActivity))
+            startActivity(ResetActivity.newIntent(this@LoginActivity))
         }
         binding.buttonRegistrationLogin.setOnClickListener {
             startActivity(RegistrationOne.newIntent(this@LoginActivity))
@@ -32,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
             val intentDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
             startActivity(intentDashboard)
         }
-
     }
 
     private fun enabledButton() {

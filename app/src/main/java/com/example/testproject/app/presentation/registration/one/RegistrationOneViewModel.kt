@@ -14,9 +14,9 @@ class RegistrationOneViewModel : ViewModel() {
     val dataOfBirth: LiveData<String>
         get() = _dataOfBirth
 
-    fun save(name: String, data: String){
+    fun save(name: String, date: String) {
         _name.value = name
-        _dataOfBirth.value = data
+        _dataOfBirth.value = date
     }
 
 }
