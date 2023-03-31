@@ -3,7 +3,7 @@ package com.example.testproject.app.domain.model
 data class User(
     val id: String,
     val name: String,
-    val lastName: String? = null,
+    var lastName: String? = null,
     val gender: Boolean,
     val dateOfBirth: String,
     val height: String,

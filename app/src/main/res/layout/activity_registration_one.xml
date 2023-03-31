@@ -93,7 +93,7 @@
                     android:layout_marginEnd="17dp"
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium"/>
+                    android:fontFamily="@font/ubuntu_medium" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -106,9 +106,12 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
                 android:hint="@string/data_of_birth"
+                app:layout_constraintBottom_toTopOf="@+id/buttonNextRegistration"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilNameRegistration">
+                app:layout_constraintTop_toBottomOf="@+id/tilNameRegistration"
+                app:layout_constraintVertical_chainStyle="spread_inside">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editDateOfBirth"
@@ -120,7 +123,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="#F1F1F1"
                     android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="date"/>
+                    android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -132,7 +135,9 @@
                 android:text="@string/next"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tilDateOfBirth"
-                app:layout_constraintStart_toStartOf="@+id/tilDateOfBirth" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tilDateOfBirth"
+                app:layout_constraintTop_toBottomOf="@+id/tilDateOfBirth" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

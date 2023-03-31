@@ -12,7 +12,9 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
@@ -24,19 +26,34 @@ class RegistrationFour : AppCompatActivity() {
         ActivityRegistrationFourBinding.inflate(layoutInflater)
     }
 
+    private lateinit var viewModel: RegistrationFourViewModel
+
+    private val component by lazy {
+        (application as App).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        clickTextView()
+        viewModel = ViewModelProvider(this)[RegistrationFourViewModel::class.java]
+        val name = intent.getStringExtra(EXTRA_NAME)
+        val date = intent.getStringExtra(EXTRA_DATE)
+        val gender = intent.getBooleanExtra(EXTRA_GENDER,false)
+        val height = intent.getStringExtra(EXTRA_HEIGHT)
+        val weight = intent.getStringExtra(EXTRA_WEIGHT)
+        val targetWeight = intent.getStringExtra(EXTRA_TARGET_WEIGHT)
+        val email = binding.editTextEmailRegistration.text?.trim().toString()
+        val password = binding.editTextPasswordRegistration.text?.trim().toString()
 
         binding.imageButtonArrowBack.setOnClickListener {
             //Исправить передачу данных. Заменить переменные name, date, gender
             startActivity(
                 RegistrationThree.newIntent(
                     this@RegistrationFour,
-                    name = "",
-                    date = "",
+                    name = name!!,
+                    date = date!!,
                     gender = false,
                 )
             )
@@ -44,6 +61,7 @@ class RegistrationFour : AppCompatActivity() {
         binding.buttonCreateAccount.setOnClickListener {
             Toast.makeText(this@RegistrationFour, "Create account!", Toast.LENGTH_LONG).show()
         }
+        clickTextView()
     }
 
     /**
@@ -113,7 +131,7 @@ class RegistrationFour : AppCompatActivity() {
             weight: String,
             targetWeight: String
         ): Intent {
-            val intent = Intent(context, RegistrationTwo::class.java)
+            val intent = Intent(context, RegistrationFour::class.java)
             intent.putExtra(EXTRA_NAME, name)
             intent.putExtra(EXTRA_DATE, date)
             intent.putExtra(EXTRA_GENDER, gender)

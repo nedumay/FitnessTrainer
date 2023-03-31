@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.Toast
 import com.example.testproject.R
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.notification.NotificationActivity
 import com.example.testproject.app.presentation.settings.SettingsActivity
 import com.example.testproject.databinding.ActivityDashboardBinding
@@ -15,7 +16,12 @@ class DashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
 
+    private val component by lazy {
+        (application as App).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)

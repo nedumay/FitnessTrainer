@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.registration.one.RegistrationOne
 import com.example.testproject.app.presentation.reset.ResetActivity
@@ -17,7 +18,12 @@ class LoginActivity : AppCompatActivity() {
         ActivityLoginBinding.inflate(layoutInflater)
     }
 
+    private val component by lazy {
+        (application as App).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 

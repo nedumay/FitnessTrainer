@@ -3,9 +3,11 @@ package com.example.testproject.app.presentation.registration.four
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.usecase.AddUserToFirebase
 import com.example.testproject.app.domain.usecase.GetUserFromFirebase
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RegistrationFourViewModel @Inject constructor(
@@ -21,9 +23,13 @@ class RegistrationFourViewModel @Inject constructor(
     val error: LiveData<String>
     get() = _error
 
-    fun getUser(email: String) {
-        TODO("Get Firebase user")
-    }
+    /*
+    private suspend fun getUser(email: String) {
+        viewModelScope.launch {
+            val userDbFirebase = getUserFromFirebase.invoke(email)
+            _user.value = userDbFirebase
+        }.join()
+    }*/
 
     fun addUser(email: String, password: String) {
         TODO("Add Firebase user")

@@ -7,49 +7,28 @@ import android.os.Bundle
 import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.registration.four.RegistrationFour
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.databinding.ActivityRegistrationThreeBinding
 
 class RegistrationThree : AppCompatActivity() {
 
-    private val binding by lazy {
-        ActivityRegistrationThreeBinding.inflate(layoutInflater)
-    }
+    private val binding by lazy { ActivityRegistrationThreeBinding.inflate(layoutInflater) }
 
-    private lateinit var viewModel: RegistrationThreeViewModel
-
+    private val component by lazy { (application as App).component }
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[RegistrationThreeViewModel::class.java]
-        var name = intent.getStringExtra(EXTRA_NAME)
-        var date = intent.getStringExtra(EXTRA_DATE)
-        var gender = intent.getBooleanExtra(EXTRA_GENDER,false)
-        var height = binding.editTextHeight.text?.trim().toString()
-        var weight = binding.editTextWeight.text?.trim().toString()
-        var targetWeight = binding.editTextTarget.text?.trim().toString()
+        val name = intent.getStringExtra(EXTRA_NAME)
+        val date = intent.getStringExtra(EXTRA_DATE)
+        val gender = intent.getBooleanExtra(EXTRA_GENDER,false)
+        val height = binding.editTextHeight.text?.trim().toString()
+        val weight = binding.editTextWeight.text?.trim().toString()
+        val targetWeight = binding.editTextTarget.text?.trim().toString()
 
-        viewModel.save(name!!,date!!,gender, weight,height,targetWeight)
-        viewModel.name.observe(this){
-            name = it
-        }
-        viewModel.dataOfBirth.observe(this){
-            date = it
-        }
-        viewModel.gender.observe(this){
-            gender = it
-        }
-        viewModel.height_.observe(this){
-            height = it
-        }
-        viewModel.weight_.observe(this){
-            weight = it
-        }
-        viewModel.targetWeight.observe(this){
-            targetWeight = it
-        }
         binding.switchBtn.setOnCheckedChangeListener { _, checkedId ->
             findViewById<RadioButton>(checkedId)?.apply {
                 if (checkedId == R.id.lbsRadioBtn) {
@@ -96,7 +75,7 @@ class RegistrationThree : AppCompatActivity() {
         private const val EXTRA_DATE = "date"
         private const val EXTRA_GENDER = "gender"
         fun newIntent(context: Context, name: String, date: String, gender: Boolean): Intent {
-            val intent = Intent(context, RegistrationTwo::class.java)
+            val intent = Intent(context, RegistrationThree::class.java)
             intent.putExtra(EXTRA_NAME, name)
             intent.putExtra(EXTRA_DATE, date)
             intent.putExtra(EXTRA_GENDER, gender)

@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.databinding.ActivityResetBinding
 
@@ -22,7 +23,12 @@ class ResetActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ResetViewModel
 
+    private val component by lazy {
+        (application as App).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 

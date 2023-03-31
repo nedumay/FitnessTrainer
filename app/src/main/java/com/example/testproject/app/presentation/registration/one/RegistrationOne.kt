@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.app.utils.DataMask
@@ -21,42 +21,29 @@ class RegistrationOne : AppCompatActivity() {
         ActivityRegistrationOneBinding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModel: RegistrationOneViewModel
+    private val component by lazy {
+        (application as App).component
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[RegistrationOneViewModel::class.java]
-
         binding.editDateOfBirth.addTextChangedListener(dataMask)
 
-        var name = binding.editTextNameRegistration.text?.trim().toString()
-        var date = binding.editDateOfBirth.text?.trim().toString()
-        viewModel.save(name,date)
-        viewModel.name.observe(this){
-            name = it
-        }
-        viewModel.dataOfBirth.observe(this){
-            date = it
-        }
+        val name = binding.editTextNameRegistration.text?.trim().toString()
+        val date = binding.editDateOfBirth.text?.trim().toString()
         binding.buttonNextRegistration.isEnabled = false
         enabledButton()
         binding.buttonNextRegistration.setOnClickListener {
-            startActivity(
-                RegistrationTwo.newIntent(
-                    this@RegistrationOne,
-                    name,
-                    date
-                )
-            )
+            startActivity(RegistrationTwo.newIntent(this@RegistrationOne, name, date))
         }
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(LoginActivity.newIntent(this@RegistrationOne))
         }
     }
 
-    // Переделать, не парвильно работает
     private fun enabledButton() {
         binding.editTextNameRegistration.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -70,16 +57,15 @@ class RegistrationOne : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        /*
         binding.editDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 binding.buttonNextRegistration.isEnabled =
-                    binding.editDateOfBirth.text?.length ?: 0 == 10
-                            && binding.editTextNameRegistration.text?.length ?: 0 > 0
+                    ((binding.editDateOfBirth.text?.length ?: 0) == 10
+                            && (binding.editTextNameRegistration.text?.length ?: 0) > 0)
             }
-        })*/
+        })
     }
 
     companion object {

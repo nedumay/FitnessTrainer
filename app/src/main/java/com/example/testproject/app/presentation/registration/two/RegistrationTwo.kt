@@ -5,28 +5,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.registration.one.RegistrationOne
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
 import com.example.testproject.databinding.ActivityRegistrationTwoBinding
 
 class RegistrationTwo : AppCompatActivity() {
 
-    private val binding by lazy {
-        ActivityRegistrationTwoBinding.inflate(layoutInflater)
-    }
-    private lateinit var viewModel: RegistrationTwoViewModel
-
+    private val binding by lazy { ActivityRegistrationTwoBinding.inflate(layoutInflater) }
+    private val component by lazy { (application as App).component }
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[RegistrationTwoViewModel::class.java]
-        if(!intent.hasExtra(EXTRA_NAME) && !intent.hasExtra(EXTRA_DATE)){
+        if (!intent.hasExtra(EXTRA_NAME) && !intent.hasExtra(EXTRA_DATE)) {
             finish()
             return
         }
-        var name = intent.getStringExtra(EXTRA_NAME)
-        var date = intent.getStringExtra(EXTRA_DATE)
+        val name = intent.getStringExtra(EXTRA_NAME)
+        val date = intent.getStringExtra(EXTRA_DATE)
         var gender = false
 
         binding.buttonNextRegistration.isEnabled = false
@@ -44,18 +42,6 @@ class RegistrationTwo : AppCompatActivity() {
             binding.buttonNextRegistration.isEnabled = true
             gender = false
         }
-
-        viewModel.save(name!!,date!!, gender)
-        viewModel.name.observe(this) {
-            name = it
-        }
-        viewModel.dataOfBirth.observe(this) {
-            date = it
-        }
-        viewModel.gender.observe(this) {
-            gender = it
-        }
-
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(RegistrationOne.newIntent(this@RegistrationTwo))
         }
@@ -70,15 +56,15 @@ class RegistrationTwo : AppCompatActivity() {
                 )
             )
         }
-
     }
+
     companion object {
         private const val EXTRA_NAME = "name"
         private const val EXTRA_DATE = "date"
         fun newIntent(context: Context, name: String, date: String): Intent {
             val intent = Intent(context, RegistrationTwo::class.java)
-            intent.putExtra(EXTRA_NAME,name)
-            intent.putExtra(EXTRA_DATE,date)
+            intent.putExtra(EXTRA_NAME, name)
+            intent.putExtra(EXTRA_DATE, date)
             return intent
         }
     }
