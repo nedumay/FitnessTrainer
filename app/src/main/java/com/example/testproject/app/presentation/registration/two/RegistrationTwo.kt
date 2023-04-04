@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.registration.one.RegistrationOne
@@ -45,7 +46,7 @@ class RegistrationTwo : AppCompatActivity() {
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(RegistrationOne.newIntent(this@RegistrationTwo))
         }
-
+        Log.d("RegistrationActivity", "${name}, ${date}")
         binding.buttonNextRegistration.setOnClickListener {
             startActivity(
                 RegistrationThree.newIntent(

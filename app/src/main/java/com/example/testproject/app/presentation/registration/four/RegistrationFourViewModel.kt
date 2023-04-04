@@ -32,7 +32,7 @@ class RegistrationFourViewModel @Inject constructor(
     }*/
 
     fun addUser(email: String, password: String) {
-        TODO("Add Firebase user")
+
     }
 
 }

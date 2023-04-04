@@ -10,21 +10,26 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
-import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class RegistrationFour : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityRegistrationFourBinding.inflate(layoutInflater)
     }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: RegistrationFourViewModel
 
@@ -37,7 +42,8 @@ class RegistrationFour : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[RegistrationFourViewModel::class.java]
+        viewModel = ViewModelProvider(this,viewModelFactory)[RegistrationFourViewModel::class.java]
+
         val name = intent.getStringExtra(EXTRA_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
         val gender = intent.getBooleanExtra(EXTRA_GENDER,false)
@@ -46,6 +52,7 @@ class RegistrationFour : AppCompatActivity() {
         val targetWeight = intent.getStringExtra(EXTRA_TARGET_WEIGHT)
         val email = binding.editTextEmailRegistration.text?.trim().toString()
         val password = binding.editTextPasswordRegistration.text?.trim().toString()
+        Log.d("RegistrationActivity", "${name}, ${date}, ${gender}, ${height}, ${weight},${targetWeight}")
 
         binding.imageButtonArrowBack.setOnClickListener {
             //Исправить передачу данных. Заменить переменные name, date, gender

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
@@ -28,6 +29,8 @@ class RegistrationThree : AppCompatActivity() {
         val height = binding.editTextHeight.text?.trim().toString()
         val weight = binding.editTextWeight.text?.trim().toString()
         val targetWeight = binding.editTextTarget.text?.trim().toString()
+
+        Log.d("RegistrationActivity", "${name}, ${date}, ${gender}")
 
         binding.switchBtn.setOnCheckedChangeListener { _, checkedId ->
             findViewById<RadioButton>(checkedId)?.apply {

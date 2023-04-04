@@ -12,14 +12,18 @@ import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.databinding.ActivityResetBinding
+import javax.inject.Inject
 
 class ResetActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityResetBinding.inflate(layoutInflater)
     }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: ResetViewModel
 
@@ -32,7 +36,7 @@ class ResetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[ResetViewModel::class.java]
+        viewModel = ViewModelProvider(this,viewModelFactory)[ResetViewModel::class.java]
         var email = binding.editTextEmailLogin.text?.trim().toString()
         viewModel.save(email)
         viewModel.email.observe(this){
