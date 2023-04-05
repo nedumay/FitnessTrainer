@@ -3,7 +3,6 @@ package com.example.testproject.app.presentation.registration.four
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -13,10 +12,12 @@ import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
@@ -42,18 +43,18 @@ class RegistrationFour : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this,viewModelFactory)[RegistrationFourViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[RegistrationFourViewModel::class.java]
 
         val name = intent.getStringExtra(EXTRA_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
-        val gender = intent.getBooleanExtra(EXTRA_GENDER,false)
+        val gender = intent.getBooleanExtra(EXTRA_GENDER, false)
         val height = intent.getStringExtra(EXTRA_HEIGHT)
         val weight = intent.getStringExtra(EXTRA_WEIGHT)
         val targetWeight = intent.getStringExtra(EXTRA_TARGET_WEIGHT)
-        val email = binding.editTextEmailRegistration.text?.trim().toString()
-        val password = binding.editTextPasswordRegistration.text?.trim().toString()
-        Log.d("RegistrationActivity", "${name}, ${date}, ${gender}, ${height}, ${weight},${targetWeight}")
-
+        Log.d(
+            "RegistrationActivity",
+            "Four activity get: $name, $date, $gender, $height, $weight, $targetWeight"
+        )
         binding.imageButtonArrowBack.setOnClickListener {
             //Исправить передачу данных. Заменить переменные name, date, gender
             startActivity(
@@ -66,7 +67,22 @@ class RegistrationFour : AppCompatActivity() {
             )
         }
         binding.buttonCreateAccount.setOnClickListener {
-            Toast.makeText(this@RegistrationFour, "Create account!", Toast.LENGTH_LONG).show()
+            val email = binding.editTextEmailRegistration.text?.trim().toString()
+            val password = binding.editTextPasswordRegistration.text?.trim().toString()
+            viewModel.signUp(
+                email = email,
+                password = password,
+                name = name!!,
+                date = date!!,
+                gender = gender,
+                height = height!!,
+                weight = weight!!,
+                targetWeight = targetWeight!!
+            )
+            viewModel.error.observe(this){
+                Toast.makeText(this@RegistrationFour, "$it", Toast.LENGTH_LONG).show()
+            }
+            startActivity(LoginActivity.newIntent(this@RegistrationFour))
         }
         clickTextView()
     }

@@ -26,11 +26,8 @@ class RegistrationThree : AppCompatActivity() {
         val name = intent.getStringExtra(EXTRA_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
         val gender = intent.getBooleanExtra(EXTRA_GENDER,false)
-        val height = binding.editTextHeight.text?.trim().toString()
-        val weight = binding.editTextWeight.text?.trim().toString()
-        val targetWeight = binding.editTextTarget.text?.trim().toString()
 
-        Log.d("RegistrationActivity", "${name}, ${date}, ${gender}")
+        Log.d("RegistrationActivity", "Three activity get: $name, $date, $gender")
 
         binding.switchBtn.setOnCheckedChangeListener { _, checkedId ->
             findViewById<RadioButton>(checkedId)?.apply {
@@ -47,6 +44,11 @@ class RegistrationThree : AppCompatActivity() {
         }
 
         binding.buttonNextRegistration.setOnClickListener {
+            val height = binding.editTextHeight.text?.trim().toString()
+            val weight = binding.editTextWeight.text?.trim().toString()
+            val targetWeight = binding.editTextTarget.text?.trim().toString()
+            Log.d("RegistrationActivity",
+                "Three activity extra: $name, $date, $gender, $height, $weight, $targetWeight")
             startActivity(
                 RegistrationFour.newIntent
                     (

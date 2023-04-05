@@ -1,7 +1,7 @@
 package com.example.testproject.app.domain.model
 
 data class User(
-    val id: String,
+    val id: String? = null,
     val name: String,
     var lastName: String? = null,
     val gender: Boolean,

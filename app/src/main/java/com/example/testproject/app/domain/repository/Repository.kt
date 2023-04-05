@@ -4,9 +4,9 @@ import com.example.testproject.app.domain.model.User
 
 interface Repository {
 
-    suspend fun addUserToFirebase(user: User)
+    fun addUserToFirebase(user: User) : String
 
-    suspend fun deleteUserFromFirebase(email: String)
+    fun deleteUserFromFirebase(email: String)
 
-    suspend fun getUserFromFirebase(email: String) : User
+    fun getUserFromFirebase(email: String) : User
 }

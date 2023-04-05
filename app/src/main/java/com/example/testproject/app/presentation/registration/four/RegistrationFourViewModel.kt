@@ -7,12 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.usecase.AddUserToFirebase
 import com.example.testproject.app.domain.usecase.GetUserFromFirebase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RegistrationFourViewModel @Inject constructor(
     private val addUserToFirebase: AddUserToFirebase,
-    private val getUserFromFirebase: GetUserFromFirebase
 ) : ViewModel() {
 
     private var _user = MutableLiveData<User>()
@@ -23,16 +24,27 @@ class RegistrationFourViewModel @Inject constructor(
     val error: LiveData<String>
     get() = _error
 
-    /*
-    private suspend fun getUser(email: String) {
-        viewModelScope.launch {
-            val userDbFirebase = getUserFromFirebase.invoke(email)
-            _user.value = userDbFirebase
-        }.join()
-    }*/
-
-    fun addUser(email: String, password: String) {
-
+    fun signUp(
+        email: String,
+        password: String,
+        name: String,
+        date: String,
+        gender: Boolean,
+        height: String,
+        weight: String,
+        targetWeight: String
+    ) {
+        val userAdd = User(
+            email = email,
+            password = password,
+            name = name,
+            dateOfBirth = date,
+            gender = gender,
+            height = height,
+            weight = weight,
+            targetWeight = targetWeight
+        )
+        _error.value = addUserToFirebase.invoke(userAdd)
     }
 
 }

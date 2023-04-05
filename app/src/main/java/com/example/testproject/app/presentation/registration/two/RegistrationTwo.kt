@@ -26,6 +26,7 @@ class RegistrationTwo : AppCompatActivity() {
         }
         val name = intent.getStringExtra(EXTRA_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
+        Log.d("RegistrationActivity", "Two activity get:$name, $date")
         var gender = false
 
         binding.buttonNextRegistration.isEnabled = false
@@ -46,8 +47,9 @@ class RegistrationTwo : AppCompatActivity() {
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(RegistrationOne.newIntent(this@RegistrationTwo))
         }
-        Log.d("RegistrationActivity", "${name}, ${date}")
+
         binding.buttonNextRegistration.setOnClickListener {
+            Log.d("RegistrationActivity", "Two activity extra: $name, $date, $gender ")
             startActivity(
                 RegistrationThree.newIntent(
                     this@RegistrationTwo,

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.login.LoginActivity
@@ -32,11 +33,13 @@ class RegistrationOne : AppCompatActivity() {
 
         binding.editDateOfBirth.addTextChangedListener(dataMask)
 
-        val name = binding.editTextNameRegistration.text?.trim().toString()
-        val date = binding.editDateOfBirth.text?.trim().toString()
         binding.buttonNextRegistration.isEnabled = false
         enabledButton()
+
         binding.buttonNextRegistration.setOnClickListener {
+            val name = binding.editTextNameRegistration.text?.trim().toString()
+            val date = binding.editDateOfBirth.text?.trim().toString()
+            Log.d("RegistrationActivity", "One activity extra: $name, $date ")
             startActivity(RegistrationTwo.newIntent(this@RegistrationOne, name, date))
         }
         binding.imageButtonArrowBack.setOnClickListener {

@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetUserFromFirebase @Inject constructor(private val repository: Repository) {
 
-    suspend operator fun invoke(email: String) = repository.getUserFromFirebase(email)
+    operator fun invoke(email: String) = repository.getUserFromFirebase(email)
 }
