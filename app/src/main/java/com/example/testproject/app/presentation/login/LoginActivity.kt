@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
+import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.main.MainActivity
 import com.example.testproject.app.presentation.registration.one.RegistrationOne
 import com.example.testproject.app.presentation.reset.ResetActivity
 import com.example.testproject.databinding.ActivityLoginBinding
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,10 +27,16 @@ class LoginActivity : AppCompatActivity() {
         (application as App).component
     }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: LoginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         binding.textViewForgotPassword.setOnClickListener {
             startActivity(ResetActivity.newIntent(this@LoginActivity))
@@ -35,9 +46,27 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.buttonEnterLogin.isEnabled = false
         enabledButton()
+        observeViewModel()
         binding.buttonEnterLogin.setOnClickListener {
-            val intentDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
-            startActivity(intentDashboard)
+            val email = binding.editTextEmailLogin.text?.trim().toString()
+            val password = binding.editTextPasswordLogin.text?.trim().toString()
+            viewModel.login(email,password)
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.error.observe(this){
+            if(it != null){
+                Toast.makeText(this@LoginActivity, it.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.firebaseUser.observe(this){
+            if(it != null){
+                startActivity(
+                    DashboardActivity.newIntent(this@LoginActivity, it)
+                )
+                finish()
+            }
         }
     }
 

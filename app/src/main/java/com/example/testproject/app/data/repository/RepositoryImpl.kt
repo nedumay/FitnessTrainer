@@ -26,7 +26,7 @@ class RepositoryImpl @Inject constructor(
     val user: LiveData<FirebaseUser>
         get() = _user
 
-    override fun addUserToFirebase(user: User) : String {
+    override fun addUserToFirebase(user: User): String {
         var error = "An account with this email already exists!"
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
@@ -42,11 +42,11 @@ class RepositoryImpl @Inject constructor(
         return error
     }
 
-    override fun deleteUserFromFirebase(email: String) {
+    override fun deleteUserFromFirebase(currentId: String) {
         TODO("Not yet implemented")
     }
 
-    override fun getUserFromFirebase(email: String): User {
+    override fun getUserFromFirebase(currentId: String): User {
         /*
         auth.addAuthStateListener(object : FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
@@ -63,6 +63,18 @@ class RepositoryImpl @Inject constructor(
         return
          */
         TODO()
+    }
+
+    override fun loginUserToFirebase(email: String, password: String): String {
+        var userId : String? = null
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+               userId = it.user?.uid
+        }
+            .addOnFailureListener {
+                Log.d("ErrorLogin", it.message.toString())
+            }
+        return userId.toString()
     }
 
 

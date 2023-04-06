@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,6 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
+        app:strokeWidth="0dp"
+        app:cardCornerRadius="0dp"
         android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,40 +73,34 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilNameRegistration"
-                style="@style/Widget.Design.TextInputLayout"
+                style="@style/text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="49dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/rectangle_1"
-                android:hint="@string/your_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewLogin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextNameRegistration"
+                    style="@style/input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium" />
+                    android:hint="@string/your_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilDateOfBirth"
-                style="@style/Widget.Design.TextInputLayout"
+                style="@style/text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/rectangle_1"
-                android:hint="@string/data_of_birth"
+
                 app:layout_constraintBottom_toTopOf="@+id/buttonNextRegistration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -115,15 +110,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editDateOfBirth"
+                    style="@style/input_edit_text_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="date" />
+                    android:hint="@string/data_of_birth" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton

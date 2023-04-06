@@ -13,16 +13,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RegistrationFourViewModel @Inject constructor(
-    private val addUserToFirebase: AddUserToFirebase,
+    private val addUserToFirebase: AddUserToFirebase
 ) : ViewModel() {
-
-    private var _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
 
     private var _error = MutableLiveData<String>()
     val error: LiveData<String>
-    get() = _error
+        get() = _error
 
     fun signUp(
         email: String,

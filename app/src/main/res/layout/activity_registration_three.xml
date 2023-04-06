@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
-    tools:context=".app.presentation.registration.RegistrationThree">
+    tools:context=".app.presentation.registration.three.RegistrationThree">
 
     <ImageView
         android:id="@+id/imageButtonArrowBack"
@@ -22,6 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
+        app:strokeWidth="0dp"
+        app:cardCornerRadius="0dp"
         android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,14 +112,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilHeight"
-                style="@style/Widget.Design.TextInputLayout"
+                style="@style/text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/rectangle_1"
-                android:hint="@string/height"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/switchBtn"
@@ -125,27 +125,20 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextHeight"
+                    style="@style/input_edit_text_number"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="numberDecimal" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/height" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilWeight"
-                style="@style/Widget.Design.TextInputLayout"
+                style="@style/text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/rectangle_1"
-                android:hint="@string/weight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tilHeight"
@@ -153,27 +146,20 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextWeight"
+                    style="@style/input_edit_text_number"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="numberDecimal" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/weight" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilTarget"
-                style="@style/Widget.Design.TextInputLayout"
+                style="@style/text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/rectangle_1"
-                android:hint="@string/target_weight"
                 app:layout_constraintBottom_toTopOf="@+id/buttonNextRegistration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -184,15 +170,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTarget"
+                    style="@style/input_edit_text_number"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#F1F1F1"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:inputType="numberDecimal" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/target_weight" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton

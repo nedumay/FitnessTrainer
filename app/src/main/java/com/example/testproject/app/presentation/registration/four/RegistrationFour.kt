@@ -4,9 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
@@ -56,7 +54,6 @@ class RegistrationFour : AppCompatActivity() {
             "Four activity get: $name, $date, $gender, $height, $weight, $targetWeight"
         )
         binding.imageButtonArrowBack.setOnClickListener {
-            //Исправить передачу данных. Заменить переменные name, date, gender
             startActivity(
                 RegistrationThree.newIntent(
                     this@RegistrationFour,
@@ -80,11 +77,33 @@ class RegistrationFour : AppCompatActivity() {
                 targetWeight = targetWeight!!
             )
             viewModel.error.observe(this){
-                Toast.makeText(this@RegistrationFour, "$it", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@RegistrationFour, it, Toast.LENGTH_LONG).show()
             }
             startActivity(LoginActivity.newIntent(this@RegistrationFour))
         }
         clickTextView()
+        isEmailValid()
+    }
+
+    private fun isEmailValid() {
+        binding.editTextEmailRegistration.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+               val valid =
+                   android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
+                if(!valid){
+                    binding.tilEmailRegistration.error = INVALID_ADDRESS
+                } else{
+                    binding.tilEmailRegistration.error = EMPTY_FIELD
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+                if(s?.length == 0){
+                    binding.tilEmailRegistration.error = NOT_BE_EMPTY
+                }
+            }
+
+        })
     }
 
     /**
@@ -145,6 +164,10 @@ class RegistrationFour : AppCompatActivity() {
         private const val EXTRA_WEIGHT = "weight"
         private const val EXTRA_HEIGHT = "height"
         private const val EXTRA_TARGET_WEIGHT = "target weight"
+
+        private const val EMPTY_FIELD = ""
+        private const val INVALID_ADDRESS = "Invalid Email address"
+        private const val NOT_BE_EMPTY = "Required Field!"
         fun newIntent(
             context: Context,
             name: String,
