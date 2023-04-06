@@ -4,21 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testproject.app.domain.usecase.GetUserFromFirebase
+import com.example.testproject.app.domain.usecase.ResetPasswordUserFirebase
 import javax.inject.Inject
 
 class ResetViewModel @Inject constructor(
-    private val getUserFromFirebase: GetUserFromFirebase
+    private val resetPasswordUserFirebase: ResetPasswordUserFirebase
 ) : ViewModel() {
 
-    private var _email = MutableLiveData<String>()
-    val email: LiveData<String>
-        get() = _email
+    private var _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
 
-    fun save(email: String){
-        _email.value = email
-    }
 
     fun resetPassord(email: String){
-        TODO("Reset password")
+        _error.value = resetPasswordUserFirebase.invoke(email)
     }
 }

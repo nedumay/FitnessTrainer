@@ -77,5 +77,17 @@ class RepositoryImpl @Inject constructor(
         return userId.toString()
     }
 
+    override fun resetPasswordUserToFirebase(email: String): String {
+        var error = ""
+        auth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                error = "Link to reset password sent to your email!"
+            }
+            .addOnFailureListener {
+                error = it.message.toString()
+            }
+        return error
+    }
+
 
 }

@@ -25,4 +25,5 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
+
 }
