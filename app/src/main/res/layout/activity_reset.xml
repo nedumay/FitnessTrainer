@@ -22,9 +22,9 @@
         android:layout_width="65dp"
         android:layout_height="66dp"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="229dp"
         android:background="@drawable/some_id"
         android:elevation="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/rectangle_9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,14 +55,13 @@
         android:id="@+id/rectangle_9"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="128dp"
-        app:strokeWidth="0dp"
-        app:cardCornerRadius="0dp"
         android:backgroundTint="@color/green"
+        app:cardCornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewOneToFour">
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -102,6 +101,7 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPleaseEnter">
 
@@ -120,8 +120,11 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginBottom="64dp"
                 android:text="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tilEmailReset"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/tilEmailReset"
                 app:layout_constraintTop_toBottomOf="@+id/tilEmailReset" />
 
