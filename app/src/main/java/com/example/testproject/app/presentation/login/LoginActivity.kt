@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.app.presentation.app.App
@@ -62,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
         }
         viewModel.firebaseUser.observe(this){
             if(it != null){
+                Log.d("Login user fb","Start Activity: $it")
                 startActivity(
                     DashboardActivity.newIntent(this@LoginActivity, it)
                 )
@@ -77,7 +79,9 @@ class LoginActivity : AppCompatActivity() {
                     ?: 0) > 0 && (binding.editTextPasswordLogin.text?.length ?: 0) > 0
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val valid =
                     android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
                 if (!valid) {
@@ -86,19 +90,15 @@ class LoginActivity : AppCompatActivity() {
                     binding.tilEmailLogin.error = EMPTY_FIELD
                 }
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
         binding.editTextPasswordLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 binding.buttonEnterLogin.isEnabled = (binding.editTextPasswordLogin.text?.length
                     ?: 0) > 0 && (binding.editTextEmailLogin.text?.length ?: 0) > 0
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
     }
 
     companion object {

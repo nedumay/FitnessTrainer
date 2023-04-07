@@ -1,9 +1,12 @@
 package com.example.testproject.app.presentation.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.domain.usecase.LoginUserToFirebase
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
@@ -20,13 +23,13 @@ class LoginViewModel @Inject constructor(
 
     // Изменить получение ошибки!
     fun login(email: String, password: String){
-        val userId = loginUserToFirebase.invoke(email = email, password = password)
-        if(userId.isNotEmpty()){
-            _firebaseUser.value = userId
-        } else{
-            _error.value = "Error"
+        viewModelScope.launch {
+            val userId = loginUserToFirebase.invoke(email = email, password = password)
+            if(userId.isNotEmpty()){
+                _firebaseUser.value = userId
+            } else{
+                _error.value = "Error"
+            }
         }
-
     }
-
 }

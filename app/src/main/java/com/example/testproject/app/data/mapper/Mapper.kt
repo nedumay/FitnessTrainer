@@ -33,6 +33,6 @@ class Mapper @Inject constructor() {
         email = userDbModel?.email ?: "",
         password = userDbModel?.password ?: "",
         country = userDbModel?.country ?: "",
-        city = userDbModel?.city
+        city = userDbModel?.city ?: ""
     )
 }

@@ -7,14 +7,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.app.presentation.login.LoginViewModel
 import com.example.testproject.app.presentation.notification.NotificationActivity
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.app.presentation.settings.SettingsActivity
 import com.example.testproject.databinding.ActivityDashboardBinding
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -24,18 +28,32 @@ class DashboardActivity : AppCompatActivity() {
         (application as App).component
     }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: DashboardViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this, viewModelFactory)[DashboardViewModel::class.java]
+
+        val currentUserId: String?
         if (!intent.hasExtra(EXTRA_CURRENT_USER_ID)) {
             finish()
             return
+        } else {
+            currentUserId = intent.getStringExtra(EXTRA_CURRENT_USER_ID)
         }
-        Log.d("Login account", intent.hasExtra(EXTRA_CURRENT_USER_ID).toString() )
-
+        Log.d("Login account user", "id $currentUserId")
+        if (currentUserId != null) {
+            viewModel.loadDataForUser(currentUserId)
+        }
+        viewModel.firebaseUser.observe(this){
+            Log.d("Dashboard account user", "User activity: $it")
+        }
         appBarMenu()
 
         binding.cardClickToStart.setOnClickListener {
@@ -46,7 +64,7 @@ class DashboardActivity : AppCompatActivity() {
     private fun appBarMenu() {
 
         binding.appBarLayout.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with youe own action",Snackbar.LENGTH_SHORT)
+            Snackbar.make(view, "Replace with youe own action", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
 
@@ -72,8 +90,8 @@ class DashboardActivity : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_CURRENT_USER_ID = "current_id"
-        fun newIntent(context: Context, currentUserId: String) : Intent{
-            val intent = Intent(context,DashboardActivity::class.java)
+        fun newIntent(context: Context, currentUserId: String): Intent {
+            val intent = Intent(context, DashboardActivity::class.java)
             intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId)
             return intent
         }

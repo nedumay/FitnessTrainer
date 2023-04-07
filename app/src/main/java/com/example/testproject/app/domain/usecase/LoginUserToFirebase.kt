@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class LoginUserToFirebase @Inject constructor(private val repository: Repository) {
 
-    operator fun invoke(email: String, password: String) =
+    operator suspend fun invoke(email: String, password: String) =
         repository.loginUserToFirebase(email, password)
 }

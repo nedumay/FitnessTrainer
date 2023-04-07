@@ -1,6 +1,7 @@
 package com.example.testproject.app.di
 
 import androidx.lifecycle.ViewModel
+import com.example.testproject.app.presentation.dashboard.DashboardViewModel
 import com.example.testproject.app.presentation.login.LoginViewModel
 import com.example.testproject.app.presentation.registration.four.RegistrationFourViewModel
 import com.example.testproject.app.presentation.reset.ResetViewModel
@@ -25,5 +26,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DashboardViewModel::class)
+    fun bindDashboardViewModel(viewModel: DashboardViewModel): ViewModel
 
 }

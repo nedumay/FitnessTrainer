@@ -1,15 +1,15 @@
 package com.example.testproject.app.data.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.testproject.app.data.mapper.Mapper
 import com.example.testproject.app.data.model.UserDbModel
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.repository.Repository
+import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -22,17 +22,13 @@ class RepositoryImpl @Inject constructor(
     )
     private val usersReference: DatabaseReference = dataBase.getReference("Users")
 
-    private var _user = MutableLiveData<FirebaseUser>()
-    val user: LiveData<FirebaseUser>
-        get() = _user
-
     override fun addUserToFirebase(user: User): String {
         var error = "An account with this email already exists!"
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
                 if (it.user != null) {
                     val userDb: UserDbModel = mapper.mapEntityToDbModel(user, it.user!!.uid)
-                    usersReference.child(userDb.id).setValue(userDb)
+                    usersReference.child(userDb.id!!).setValue(userDb)
                     error = "The account was created successfully!"
                 }
             }
@@ -45,35 +41,46 @@ class RepositoryImpl @Inject constructor(
     override fun deleteUserFromFirebase(currentId: String) {
         TODO("Not yet implemented")
     }
+    //Необходимо исправить. Не приходят данные!
+    override suspend fun getUserFromFirebase(id: String): User? {
 
-    override fun getUserFromFirebase(currentId: String): User {
-        /*
-        auth.addAuthStateListener(object : FirebaseAuth.AuthStateListener{
+        /*var user: FirebaseUser? = null
+        auth.addAuthStateListener(object : FirebaseAuth.AuthStateListener {
             override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
-                if(firebaseAuth.currentUser != null){
-                    _user.value = firebaseAuth.currentUser
+                if (firebaseAuth.currentUser != null) {
+                    Log.d("Dashboard account user", "rep.impl ${firebaseAuth.currentUser}")
+                    user = firebaseAuth.currentUser
                 }
             }
 
-        })
+        })*/
+        var data: User? = null
+        Log.d("Dashboard account user", "rep.impl $id")
+        usersReference.child(id).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
+                Log.d("Dashboard account user", "rep.impl $data")
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
-        usersReference.child("Users").child(email).get().addOnSuccessListener {
-            val data = mapper.mapDbModelToEntity(it.getValue(UserDbModel::class.java))
-        }
-        return
-         */
-        TODO()
+        })
+        Log.d("Dashboard account user", "rep.impl return $data")
+        return data
     }
 
-    override fun loginUserToFirebase(email: String, password: String): String {
-        var userId : String? = null
+    //Изменить передачу ошибки
+    override suspend fun loginUserToFirebase(email: String, password: String): String {
+        var userId: String? = null
         auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-               userId = it.user?.uid
-        }
-            .addOnFailureListener {
-                Log.d("ErrorLogin", it.message.toString())
-            }
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    userId = it.result.user?.uid
+                } else {
+                    Log.d("ErrorLogin", it.exception?.message.toString())
+                }
+            }.await()
         return userId.toString()
     }
 

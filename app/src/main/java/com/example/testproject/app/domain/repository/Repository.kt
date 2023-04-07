@@ -8,9 +8,9 @@ interface Repository {
 
     fun deleteUserFromFirebase(currentId: String)
 
-    fun getUserFromFirebase(currentId: String) : User
+    suspend fun getUserFromFirebase(id: String) : User?
 
-    fun loginUserToFirebase(email: String, password: String) : String
+    suspend fun loginUserToFirebase(email: String, password: String) : String
 
     fun resetPasswordUserToFirebase(email: String) : String
 }
