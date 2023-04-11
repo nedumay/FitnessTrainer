@@ -1,4 +1,4 @@
-package com.example.testproject.app.presentation.dashboard
+package com.example.testproject.app.presentation.settings
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +10,7 @@ import com.example.testproject.app.domain.usecase.GetUserFromFirebase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DashboardViewModel @Inject constructor(
+class SettingsViewModel @Inject constructor(
     private val getUserFromFirebase: GetUserFromFirebase
 ) : ViewModel() {
 
@@ -21,7 +21,7 @@ class DashboardViewModel @Inject constructor(
     fun loadDataForUser(currentId: String) {
         viewModelScope.launch {
             _firebaseUser.value = getUserFromFirebase.invoke(currentId)
-            Log.d("Dashboard activity", "User viewModel: ${_firebaseUser.value}")
+            Log.d("Settings activity", "Settings viewModel: ${_firebaseUser.value}")
         }
     }
 }

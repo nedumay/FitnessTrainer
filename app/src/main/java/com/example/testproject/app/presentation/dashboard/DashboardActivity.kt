@@ -2,19 +2,16 @@ package com.example.testproject.app.presentation.dashboard
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.login.LoginActivity
-import com.example.testproject.app.presentation.login.LoginViewModel
 import com.example.testproject.app.presentation.notification.NotificationActivity
-import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.app.presentation.settings.SettingsActivity
 import com.example.testproject.databinding.ActivityDashboardBinding
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +28,7 @@ class DashboardActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: DashboardViewModel
+    private var currentUserId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
@@ -40,19 +38,19 @@ class DashboardActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)[DashboardViewModel::class.java]
 
-        val currentUserId: String?
+        //val currentUserId: String?
         if (!intent.hasExtra(EXTRA_CURRENT_USER_ID)) {
             finish()
             return
         } else {
             currentUserId = intent.getStringExtra(EXTRA_CURRENT_USER_ID)
         }
-        Log.d("Login account user", "id $currentUserId")
+        Log.d("Dashboard activity", "Extra current user id: $currentUserId")
         if (currentUserId != null) {
-            viewModel.loadDataForUser(currentUserId)
+            viewModel.loadDataForUser(currentUserId!!)
         }
         viewModel.firebaseUser.observe(this){
-            Log.d("Dashboard account user", "User activity: $it")
+            Log.d("Dashboard activity", "User observe: $it")
         }
         appBarMenu()
 
@@ -75,7 +73,7 @@ class DashboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.settings -> {
-                    startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
+                    startActivity(SettingsActivity.newIntent(this@DashboardActivity,currentUserId!!))
                     true
                 }
                 else -> false
