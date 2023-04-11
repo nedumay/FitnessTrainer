@@ -62,6 +62,15 @@ class SettingsActivity : AppCompatActivity() {
                 binding.imageViewUser.setImageResource(R.drawable.avatar_female)
             }
         }
+        binding.buttonOutput.setOnClickListener {
+            // Exit from user
+        }
+        binding.textViewDeleteProfile.setOnClickListener {
+            // Delete user
+        }
+        binding.textViewBack.setOnClickListener {
+            startActivity(DashboardActivity.newIntent(this@SettingsActivity, currentUserId!!))
+        }
 
     }
 

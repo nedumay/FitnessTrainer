@@ -13,6 +13,7 @@
         android:layout_margin="8dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="4dp"
+        android:backgroundTint="@color/white"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/ubuntu_medium"
                 android:text="@string/workouts_completed_this_week"
                 android:textSize="12sp"
@@ -62,7 +63,7 @@
                 android:id="@+id/chipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
                 app:chipSpacingHorizontal="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +78,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Su" />
 
                 <com.google.android.material.chip.Chip
@@ -87,6 +90,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Mo" />
 
                 <com.google.android.material.chip.Chip
@@ -97,6 +102,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Tu" />
 
                 <com.google.android.material.chip.Chip
@@ -107,6 +114,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Wc" />
 
                 <com.google.android.material.chip.Chip
@@ -117,6 +126,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Th" />
 
                 <com.google.android.material.chip.Chip
@@ -127,6 +138,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Fr" />
 
                 <com.google.android.material.chip.Chip
@@ -137,6 +150,8 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
+                    app:chipStrokeWidth="0dp"
+                    android:backgroundTint="@color/white_D"
                     android:text="Sa" />
 
             </com.google.android.material.chip.ChipGroup>

@@ -54,7 +54,7 @@ class DashboardActivity : AppCompatActivity() {
         }
         appBarMenu()
 
-        binding.cardClickToStart.setOnClickListener {
+        binding.addScheduleButton.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, NotificationActivity::class.java))
         }
     }
