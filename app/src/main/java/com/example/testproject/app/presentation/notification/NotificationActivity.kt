@@ -1,8 +1,10 @@
 package com.example.testproject.app.presentation.notification
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.databinding.ActivityNotificationBinding
 
 class NotificationActivity : AppCompatActivity() {
@@ -19,5 +21,10 @@ class NotificationActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.imageButtonArrowBack.setOnClickListener {
+            finish()
+        }
     }
+
 }

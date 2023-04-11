@@ -10,8 +10,8 @@
         android:id="@+id/imageButtonArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_arrow_back_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,7 @@
         android:id="@+id/newNotification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="center"
@@ -35,7 +35,7 @@
         android:id="@+id/chooseDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="center"
@@ -107,84 +107,70 @@
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Su"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Su" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipMo"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Mo"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Mo" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTu"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Tu"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Tu" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipWc"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Wc"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Wc" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTh"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Th"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Th" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipFr"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Fr"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Fr" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSa"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white_D"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Sa"
-                    app:chipStrokeWidth="0dp" />
+                    android:text="Sa" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -199,9 +185,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="15dp"
         app:cardElevation="4dp"
-        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardWarkout"
         app:strokeWidth="0dp">
@@ -243,11 +229,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                app:srcCompat="@drawable/ic_add_24"
                 android:backgroundTint="@color/green"
                 app:fabSize="mini"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_add_24" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

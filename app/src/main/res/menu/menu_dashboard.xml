@@ -6,13 +6,13 @@
     <item
         android:id="@+id/alerts"
         app:showAsAction="ifRoom"
-        android:title="Alerts"
+        android:title="@string/alerts"
         android:icon="@drawable/alert_ic"/>
 
     <item
         android:id="@+id/settings"
         app:showAsAction="ifRoom"
-        android:title="Settings"
+        android:title="@string/settings"
         android:icon="@drawable/avatar_male"/>
 
 

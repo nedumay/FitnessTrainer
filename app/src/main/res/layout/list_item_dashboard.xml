@@ -78,8 +78,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Su" />
 
                 <com.google.android.material.chip.Chip
@@ -90,8 +88,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Mo" />
 
                 <com.google.android.material.chip.Chip
@@ -102,8 +98,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Tu" />
 
                 <com.google.android.material.chip.Chip
@@ -114,8 +108,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Wc" />
 
                 <com.google.android.material.chip.Chip
@@ -126,8 +118,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Th" />
 
                 <com.google.android.material.chip.Chip
@@ -138,8 +128,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Fr" />
 
                 <com.google.android.material.chip.Chip
@@ -150,8 +138,6 @@
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
-                    app:chipStrokeWidth="0dp"
-                    android:backgroundTint="@color/white_D"
                     android:text="Sa" />
 
             </com.google.android.material.chip.ChipGroup>
