@@ -4,6 +4,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import java.util.*
 
+/**
+ * Mask to display the date and save the date in the format MM.DD.YYYY
+ */
 class DataMask : TextWatcher {
 
     private var updateText: String? = null

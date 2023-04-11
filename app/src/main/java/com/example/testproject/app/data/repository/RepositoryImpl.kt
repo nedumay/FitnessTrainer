@@ -5,10 +5,10 @@ import com.example.testproject.app.data.mapper.Mapper
 import com.example.testproject.app.data.model.UserDbModel
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.repository.Repository
-import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -41,9 +41,9 @@ class RepositoryImpl @Inject constructor(
     override fun deleteUserFromFirebase(currentId: String) {
         TODO("Not yet implemented")
     }
-    //Необходимо исправить. Не приходят данные!
-    override suspend fun getUserFromFirebase(id: String): User? {
 
+    //Получение данных о пользователе.
+    override suspend fun getUserFromFirebase(id: String): User? {
         /*var user: FirebaseUser? = null
         auth.addAuthStateListener(object : FirebaseAuth.AuthStateListener {
             override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
@@ -52,20 +52,22 @@ class RepositoryImpl @Inject constructor(
                     user = firebaseAuth.currentUser
                 }
             }
-
         })*/
         var data: User? = null
         Log.d("Dashboard account user", "rep.impl $id")
-        usersReference.child(id).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
-                Log.d("Dashboard account user", "rep.impl $data")
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+        runBlocking {
+            usersReference.child(id).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
+                    Log.d("Dashboard account user", "rep.impl $data")
+                }
 
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+        delay(10000)
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
     }
