@@ -21,7 +21,7 @@ class DashboardViewModel @Inject constructor(
     fun loadDataForUser(currentId: String) {
         viewModelScope.launch {
             _firebaseUser.value = getUserFromFirebase.invoke(currentId)
-            Log.d("Dashboard activity", "User viewModel: ${_firebaseUser.value}")
+            Log.d("Dashboard account user", "User viewModel: ${_firebaseUser.value}")
         }
     }
 }

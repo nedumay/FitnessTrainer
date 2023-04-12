@@ -1,6 +1,7 @@
 package com.example.testproject.app.domain.repository
 
 import com.example.testproject.app.domain.model.User
+import com.google.firebase.auth.FirebaseUser
 
 interface Repository {
 
@@ -13,4 +14,6 @@ interface Repository {
     suspend fun loginUserToFirebase(email: String, password: String) : String
 
     fun resetPasswordUserToFirebase(email: String) : String
+
+    fun signOutUserFromFirebase() : FirebaseUser?
 }

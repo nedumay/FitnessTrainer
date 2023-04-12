@@ -58,7 +58,7 @@
     <string name="workouts_completed_this_week">Workouts completed this week -</string>
     <string name="daily_exercise">Daily exercise</string>
     <string name="click_to_start">Click to start</string>
-    <string name="back_to_home">Back to home</string>
+    <string name="back_to_home">Back to home ></string>
     <string name="alerts">Alerts</string>
     <string name="last_name_edit">Last name*</string>
 </resources>

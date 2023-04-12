@@ -6,6 +6,7 @@ import com.example.testproject.app.data.model.UserDbModel
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.repository.Repository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -67,7 +68,7 @@ class RepositoryImpl @Inject constructor(
                 }
             })
         }
-        delay(10000)
+        delay(2000)
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
     }
@@ -96,6 +97,11 @@ class RepositoryImpl @Inject constructor(
                 error = it.message.toString()
             }
         return error
+    }
+
+    override fun signOutUserFromFirebase(): FirebaseUser? {
+        auth.signOut()
+        return auth.currentUser
     }
 
 

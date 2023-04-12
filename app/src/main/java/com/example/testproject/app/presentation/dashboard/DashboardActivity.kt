@@ -45,12 +45,12 @@ class DashboardActivity : AppCompatActivity() {
         } else {
             currentUserId = intent.getStringExtra(EXTRA_CURRENT_USER_ID)
         }
-        Log.d("Dashboard activity", "Extra current user id: $currentUserId")
+        Log.d("Dashboard account user", "Extra current user id: $currentUserId")
         if (currentUserId != null) {
             viewModel.loadDataForUser(currentUserId!!)
         }
         viewModel.firebaseUser.observe(this){
-            Log.d("Dashboard activity", "User observe: $it")
+            Log.d("Dashboard account user", "User observe: $it")
         }
         appBarMenu()
 

@@ -10,6 +10,7 @@ import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.databinding.ActivitySettingsBinding
 import javax.inject.Inject
 
@@ -47,7 +48,7 @@ class SettingsActivity : AppCompatActivity() {
         if (currentUserId != null) {
             viewModel.loadDataForUser(currentUserId!!)
         }
-        viewModel.firebaseUser.observe(this){
+        viewModel.userInfo.observe(this){
             Log.d("Settings activity", "User observe: $it")
             binding.textName.text = "${it.name} ${it.lastName}"
             binding.textNameUser.text = it.name
@@ -62,14 +63,22 @@ class SettingsActivity : AppCompatActivity() {
                 binding.imageViewUser.setImageResource(R.drawable.avatar_female)
             }
         }
+        viewModel.firebaseUser.observe(this){
+            if(it == null){
+                Log.d("SignOutFromDB", "Firebase User: $it")
+                startActivity(LoginActivity.newIntent(this@SettingsActivity))
+                finish()
+            }
+        }
         binding.buttonOutput.setOnClickListener {
-            // Exit from user
+            viewModel.signOut()
         }
         binding.textViewDeleteProfile.setOnClickListener {
             // Delete user
         }
         binding.textViewBack.setOnClickListener {
             startActivity(DashboardActivity.newIntent(this@SettingsActivity, currentUserId!!))
+            finish()
         }
 
     }

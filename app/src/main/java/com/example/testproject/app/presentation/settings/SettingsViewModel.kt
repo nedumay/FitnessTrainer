@@ -7,21 +7,32 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.usecase.GetUserFromFirebase
+import com.example.testproject.app.domain.usecase.SignOutUserFromFirebase
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
-    private val getUserFromFirebase: GetUserFromFirebase
+    private val getUserFromFirebase: GetUserFromFirebase,
+    private val signOutUserFromFirebase: SignOutUserFromFirebase
 ) : ViewModel() {
 
-    private var _firebaseUser = MutableLiveData<User>()
-    val firebaseUser: LiveData<User>
+    private var _userInfo = MutableLiveData<User>()
+    val userInfo: LiveData<User>
+        get() = _userInfo
+
+    private var _firebaseUser = MutableLiveData<FirebaseUser>()
+    val firebaseUser: LiveData<FirebaseUser>
         get() = _firebaseUser
 
     fun loadDataForUser(currentId: String) {
         viewModelScope.launch {
-            _firebaseUser.value = getUserFromFirebase.invoke(currentId)
-            Log.d("Settings activity", "Settings viewModel: ${_firebaseUser.value}")
+            _userInfo.value = getUserFromFirebase.invoke(currentId)
+            Log.d("Settings activity", "Settings viewModel: ${_userInfo.value}")
         }
+    }
+    // Получить данный id пользователя и сохранить в _firebaseUser. Если он null -> все ок выходим из аккаунта на страницу логина.
+    fun signOut() {
+        _firebaseUser.value = signOutUserFromFirebase.invoke()
     }
 }
