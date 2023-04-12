@@ -24,10 +24,11 @@ class RegistrationThree : AppCompatActivity() {
         setContentView(binding.root)
 
         val name = intent.getStringExtra(EXTRA_NAME)
+        val lastName = intent.getStringExtra(EXTRA_LAST_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
         val gender = intent.getBooleanExtra(EXTRA_GENDER,false)
 
-        Log.d("RegistrationActivity", "Three activity get: $name, $date, $gender")
+        Log.d("RegistrationActivity", "Three activity get: $name, $lastName, $date, $gender")
 
         binding.switchBtn.setOnCheckedChangeListener { _, checkedId ->
             findViewById<RadioButton>(checkedId)?.apply {
@@ -54,6 +55,7 @@ class RegistrationThree : AppCompatActivity() {
                     (
                     this@RegistrationThree,
                     name = name!!,
+                    lastName = lastName!!,
                     date = date!!,
                     gender = gender,
                     height = height,
@@ -63,12 +65,13 @@ class RegistrationThree : AppCompatActivity() {
                 )
             )
         }
-
+        // ПОдумать над возвращением на прошлую страницу. Возможно можно просто использовать finish()
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(
                 RegistrationTwo.newIntent(
                     this@RegistrationThree,
                     name = name!!,
+                    lastName = lastName!!,
                     date = date!!
                 )
             )
@@ -77,11 +80,13 @@ class RegistrationThree : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_NAME = "name"
+        private const val EXTRA_LAST_NAME = "last_name"
         private const val EXTRA_DATE = "date"
         private const val EXTRA_GENDER = "gender"
-        fun newIntent(context: Context, name: String, date: String, gender: Boolean): Intent {
+        fun newIntent(context: Context, name: String,lastName: String, date: String, gender: Boolean): Intent {
             val intent = Intent(context, RegistrationThree::class.java)
             intent.putExtra(EXTRA_NAME, name)
+            intent.putExtra(EXTRA_LAST_NAME, lastName)
             intent.putExtra(EXTRA_DATE, date)
             intent.putExtra(EXTRA_GENDER, gender)
             return intent

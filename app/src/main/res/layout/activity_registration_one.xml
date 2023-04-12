@@ -49,9 +49,9 @@
                 android:id="@+id/progressBarOne"
                 android:layout_width="325dp"
                 android:layout_height="4dp"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="16dp"
                 android:progress="25"
                 app:indicatorColor="@color/green_b"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,9 +76,9 @@
                 style="@style/text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="49dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewLogin">
@@ -92,20 +92,40 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastNameRegistration"
+                style="@style/text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tilNameRegistration">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLastNameRegistration"
+                    style="@style/input_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/last_name_edit" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilDateOfBirth"
                 style="@style/text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/rectangle_1"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
 
+                android:background="@drawable/rectangle_1"
                 app:layout_constraintBottom_toTopOf="@+id/buttonNextRegistration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilNameRegistration"
+                app:layout_constraintTop_toBottomOf="@+id/tilLastNameRegistration"
                 app:layout_constraintVertical_chainStyle="spread_inside">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -121,7 +141,7 @@
                 style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_marginBottom="49dp"
+                android:layout_marginBottom="48dp"
                 android:text="@string/next"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tilDateOfBirth"

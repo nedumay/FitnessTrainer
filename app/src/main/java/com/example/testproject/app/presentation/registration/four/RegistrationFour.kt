@@ -44,6 +44,7 @@ class RegistrationFour : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[RegistrationFourViewModel::class.java]
 
         val name = intent.getStringExtra(EXTRA_NAME)
+        val lastName = intent.getStringExtra(EXTRA_LAST_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
         val gender = intent.getBooleanExtra(EXTRA_GENDER, false)
         val height = intent.getStringExtra(EXTRA_HEIGHT)
@@ -58,6 +59,7 @@ class RegistrationFour : AppCompatActivity() {
                 RegistrationThree.newIntent(
                     this@RegistrationFour,
                     name = name!!,
+                    lastName = lastName!!,
                     date = date!!,
                     gender = false,
                 )
@@ -70,6 +72,7 @@ class RegistrationFour : AppCompatActivity() {
                 email = email,
                 password = password,
                 name = name!!,
+                lastName = lastName!!,
                 date = date!!,
                 gender = gender,
                 height = height!!,
@@ -159,6 +162,7 @@ class RegistrationFour : AppCompatActivity() {
     companion object {
 
         private const val EXTRA_NAME = "name"
+        private const val EXTRA_LAST_NAME = "last_name"
         private const val EXTRA_DATE = "date"
         private const val EXTRA_GENDER = "gender"
         private const val EXTRA_WEIGHT = "weight"
@@ -171,6 +175,7 @@ class RegistrationFour : AppCompatActivity() {
         fun newIntent(
             context: Context,
             name: String,
+            lastName: String,
             date: String,
             gender: Boolean,
             height: String,
@@ -179,6 +184,7 @@ class RegistrationFour : AppCompatActivity() {
         ): Intent {
             val intent = Intent(context, RegistrationFour::class.java)
             intent.putExtra(EXTRA_NAME, name)
+            intent.putExtra(EXTRA_LAST_NAME, lastName)
             intent.putExtra(EXTRA_DATE, date)
             intent.putExtra(EXTRA_GENDER, gender)
             intent.putExtra(EXTRA_WEIGHT, weight)
