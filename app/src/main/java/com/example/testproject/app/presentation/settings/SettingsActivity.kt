@@ -74,7 +74,14 @@ class SettingsActivity : AppCompatActivity() {
             viewModel.signOut()
         }
         binding.textViewDeleteProfile.setOnClickListener {
-            // Delete user
+            viewModel.deleteUser(currentUserId!!)
+            /*
+            viewModel.firebaseUser.observe(this){
+                if(it == null){
+                    Log.d("SignOutFromDB", "Firebase User: $it")
+                    startActivity(LoginActivity.newIntent(this@SettingsActivity))
+                }
+            }*/
         }
         binding.textViewBack.setOnClickListener {
             startActivity(DashboardActivity.newIntent(this@SettingsActivity, currentUserId!!))

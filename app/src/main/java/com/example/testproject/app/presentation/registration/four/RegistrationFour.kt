@@ -83,6 +83,7 @@ class RegistrationFour : AppCompatActivity() {
                 Toast.makeText(this@RegistrationFour, it, Toast.LENGTH_LONG).show()
             }
             startActivity(LoginActivity.newIntent(this@RegistrationFour))
+
         }
         clickTextView()
         isEmailValid()

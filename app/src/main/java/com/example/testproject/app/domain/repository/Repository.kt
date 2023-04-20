@@ -7,7 +7,7 @@ interface Repository {
 
     fun addUserToFirebase(user: User) : String
 
-    fun deleteUserFromFirebase(currentId: String)
+    fun deleteUserFromFirebase(id: String)
 
     suspend fun getUserFromFirebase(id: String) : User?
 

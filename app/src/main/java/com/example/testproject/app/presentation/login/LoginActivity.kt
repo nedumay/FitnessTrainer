@@ -106,7 +106,8 @@ class LoginActivity : AppCompatActivity() {
         private const val EMPTY_FIELD = ""
 
         fun newIntent(context: Context) : Intent{
-            return Intent(context,LoginActivity::class.java)
+            val intent = Intent(context,LoginActivity::class.java)
+            return intent
         }
     }
 

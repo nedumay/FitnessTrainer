@@ -70,7 +70,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/ubuntu_medium"
-                android:text="Workout Schedule"
+                android:text="@string/workout_schedule"
                 android:textColor="#757575"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -79,7 +79,7 @@
 
 
             <TextView
-                android:id="@+id/text3"
+                android:id="@+id/textViewCountDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -211,7 +211,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textTime"
+                android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

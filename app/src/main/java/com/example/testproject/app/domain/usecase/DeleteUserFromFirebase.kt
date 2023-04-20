@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class DeleteUserFromFirebase @Inject constructor(private val repository: Repository) {
 
-    operator fun invoke(currentId: String) = repository.deleteUserFromFirebase(currentId)
+    operator fun invoke(id: String) = repository.deleteUserFromFirebase(id)
 }

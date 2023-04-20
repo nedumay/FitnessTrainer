@@ -39,11 +39,17 @@ class RepositoryImpl @Inject constructor(
         return error
     }
 
-    override fun deleteUserFromFirebase(currentId: String) {
-        TODO("Not yet implemented")
+    override fun deleteUserFromFirebase(id: String) {
+        auth.currentUser?.delete()?.addOnCompleteListener {
+            if(it.isSuccessful){
+                Log.d("Delete account", "Deletion success account from Firebase")
+            }
+        }
+        usersReference.child(id).removeValue()
+        Log.d("Delete account", "Delete data about user")
     }
 
-    //Получение данных о пользователе.
+    //Получение данных о пользователе. Исправить!
     override suspend fun getUserFromFirebase(id: String): User? {
         /*var user: FirebaseUser? = null
         auth.addAuthStateListener(object : FirebaseAuth.AuthStateListener {
@@ -55,20 +61,24 @@ class RepositoryImpl @Inject constructor(
             }
         })*/
         var data: User? = null
+        var errorDb: DatabaseError? = null
         Log.d("Dashboard account user", "rep.impl $id")
-        runBlocking {
-            usersReference.child(id).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
-                    Log.d("Dashboard account user", "rep.impl $data")
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
+        usersReference.child(id).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
+                Log.d("Dashboard account user", "rep.impl $data")
+            }
+            override fun onCancelled(error: DatabaseError) {
+                errorDb = error
+                Log.d("Dashboard account user", "rep.impl error: $error")
+            }
+        })
+        while(data == null){
+            delay(1000)
+            if(errorDb != null){
+                break
+            }
         }
-        delay(2000)
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
     }

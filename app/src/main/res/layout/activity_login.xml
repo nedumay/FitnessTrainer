@@ -14,7 +14,7 @@
         android:layout_height="66dp"
         android:layout_marginStart="80dp"
         android:background="@drawable/some_id"
-        android:elevation="4dp"
+        android:elevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/rectangle_9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,12 +23,10 @@
         android:id="@+id/textViewTitleApp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:fontFamily="@font/ubuntu_medium"
-        android:gravity="center"
+        android:layout_marginTop="8dp"
         android:text="@string/giapay"
         android:textAppearance="@style/text_view_title_app"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSubtitleApp"
         app:layout_constraintStart_toEndOf="@+id/textViewOneToFour"
         app:layout_constraintTop_toTopOf="@+id/textViewOneToFour" />
 
@@ -36,17 +34,17 @@
         android:id="@+id/textViewSubtitleApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/ubuntu_medium"
         android:text="@string/always_pay"
         android:textAppearance="@style/text_view_subtitle_app"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewOneToFour"
-        app:layout_constraintStart_toStartOf="@+id/textViewTitleApp" />
+        app:layout_constraintStart_toStartOf="@+id/textViewTitleApp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleApp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rectangle_9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="5dp"
         app:strokeWidth="0dp"
         app:cardCornerRadius="0dp"
         android:backgroundTint="@color/green"

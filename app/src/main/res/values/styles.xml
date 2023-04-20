@@ -5,15 +5,18 @@
     <style name="text_view_title_app">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+        <item name="android:gravity">center</item>
         <item name="android:shadowColor">#59000000</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">4</item>
         <item name="android:shadowRadius">6</item>
     </style>
-    <!-- Style text Always pay-->
+    <!-- Style text Always be fit-->
     <style name="text_view_subtitle_app">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
         <item name="android:shadowColor">#59000000</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">4</item>
