@@ -1,4 +1,16 @@
-# Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">.
+# Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
+An app for exercising at home.
+Application features:
+1. Registering and deleting an account.
+2. Workout reminder (under development).
+3. Exercise list and tracking (under development).
+
+Language: Kotlin
+
+Pattern: MVVM, Singltone
+
+Tools and Libraries: Firebase, Coroutines
+
 ![12](https://user-images.githubusercontent.com/79632860/228531613-994ba3e1-0eef-4b16-b263-09d722285428.png)
 
 # Вход в приложение
