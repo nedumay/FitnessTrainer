@@ -201,18 +201,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tlDate" />
 
         <TextView
-            android:id="@+id/tlCountry"
+            android:id="@+id/tlWeight"
             style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="@string/country"
+            android:text="@string/weight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divDate" />
 
         <TextView
-            android:id="@+id/textCountry"
+            android:id="@+id/textWeight"
             style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,21 +233,21 @@
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tlCountry" />
+            app:layout_constraintTop_toBottomOf="@+id/tlWeight" />
 
         <TextView
-            android:id="@+id/tlCity"
+            android:id="@+id/tlHeight"
             style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="@string/city"
+            android:text="@string/height"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divCountry" />
 
         <TextView
-            android:id="@+id/textCity"
+            android:id="@+id/textHeight"
             style="@style/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
             app:dividerThickness="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tlCity" />
+            app:layout_constraintTop_toBottomOf="@+id/tlHeight" />
 
         <TextView
             android:id="@+id/tlEmail"

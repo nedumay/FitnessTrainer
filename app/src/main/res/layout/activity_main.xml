@@ -23,10 +23,10 @@
         android:id="@+id/textViewOneToFour"
         android:layout_width="65dp"
         android:layout_height="66dp"
-        android:layout_marginLeft="81dp"
-        android:layout_marginTop="373dp"
+        android:layout_marginStart="80dp"
         android:background="@drawable/some_id"
         android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

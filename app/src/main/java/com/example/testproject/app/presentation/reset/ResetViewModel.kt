@@ -3,7 +3,6 @@ package com.example.testproject.app.presentation.reset
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testproject.app.domain.usecase.GetUserFromFirebase
 import com.example.testproject.app.domain.usecase.ResetPasswordUserFirebase
 import javax.inject.Inject
 

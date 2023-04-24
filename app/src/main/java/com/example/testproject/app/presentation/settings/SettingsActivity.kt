@@ -54,8 +54,8 @@ class SettingsActivity : AppCompatActivity() {
             binding.textNameUser.text = it.name
             binding.textLastNameUser.text = it.lastName
             binding.textDate.text = it.dateOfBirth
-            binding.textCity.text = it.city
-            binding.textCountry.text = it.country
+            binding.textWeight.text = it.weight + " kg" // исправить отображение
+            binding.textHeight.text = it.height + " sm" // исправить отображение
             binding.textEmail.text = it.email
             if(it.gender){
                 binding.imageViewUser.setImageResource(R.drawable.avatar_male)
@@ -84,7 +84,6 @@ class SettingsActivity : AppCompatActivity() {
             }*/
         }
         binding.textViewBack.setOnClickListener {
-            startActivity(DashboardActivity.newIntent(this@SettingsActivity, currentUserId!!))
             finish()
         }
 
@@ -96,6 +95,8 @@ class SettingsActivity : AppCompatActivity() {
         fun newIntent(context: Context, currentUserId: String): Intent {
             val intent = Intent(context, SettingsActivity::class.java)
             intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             return intent
         }
     }

@@ -3,13 +3,8 @@ package com.example.testproject.app.presentation.registration.four
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.usecase.AddUserToFirebase
-import com.example.testproject.app.domain.usecase.GetUserFromFirebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RegistrationFourViewModel @Inject constructor(

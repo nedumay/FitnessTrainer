@@ -72,6 +72,7 @@ class DashboardActivity : AppCompatActivity() {
                     Toast.makeText(this, "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }
+                // возможно переделать finish() не особо подходит
                 R.id.settings -> {
                     startActivity(SettingsActivity.newIntent(this@DashboardActivity,currentUserId!!))
                     true
@@ -91,6 +92,8 @@ class DashboardActivity : AppCompatActivity() {
         fun newIntent(context: Context, currentUserId: String): Intent {
             val intent = Intent(context, DashboardActivity::class.java)
             intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             return intent
         }
     }

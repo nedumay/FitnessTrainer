@@ -24,7 +24,7 @@
         android:layout_marginLeft="80dp"
         android:background="@drawable/some_id"
         android:elevation="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/rectangle_9"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewReg4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleApp" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/rectangle_9"
+        android:id="@+id/cardViewReg4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:backgroundTint="@color/green"

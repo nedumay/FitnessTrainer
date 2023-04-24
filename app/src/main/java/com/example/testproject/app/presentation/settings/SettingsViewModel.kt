@@ -36,6 +36,8 @@ class SettingsViewModel @Inject constructor(
     // Получить данный id пользователя и сохранить в _firebaseUser. Если он null -> все ок выходим из аккаунта на страницу логина.
     fun signOut() {
         _firebaseUser.value = signOutUserFromFirebase.invoke()
+        _userInfo.value = null
+        _firebaseUser.value = null
     }
 
     fun deleteUser(currentId: String){

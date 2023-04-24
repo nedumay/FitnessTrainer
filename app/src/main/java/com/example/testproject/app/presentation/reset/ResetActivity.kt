@@ -63,7 +63,8 @@ class ResetActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 binding.buttonSend.isEnabled = (binding.editTextEmailLogin.text?.length ?: 0) > 0
             }
-            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val valid =
                     android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
                 if (!valid) {
@@ -71,8 +72,6 @@ class ResetActivity : AppCompatActivity() {
                 } else {
                     binding.tilEmailReset.error = EMPTY_FIELD
                 }
-            }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
     }
