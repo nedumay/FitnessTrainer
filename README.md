@@ -1,4 +1,4 @@
-# Fitness trainer - мобильное приложение для создания и отслеживания расписания тренеровок.
+# Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">.
 ![12](https://user-images.githubusercontent.com/79632860/228531613-994ba3e1-0eef-4b16-b263-09d722285428.png)
 
 # Вход в приложение
