@@ -1,6 +1,7 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
 An app for exercising at home.
-Application features:
+
+Application сapabilities::
 1. Registering/deleting and recovery an account.
 2. Workout reminder (under development).
 3. Exercise list and tracking (under development).
