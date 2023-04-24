@@ -1,5 +1,5 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
-An app for exercising at home.
+An app for exercising at home. In development...
 
 Application сapabilities::
 1. Registering/deleting and recovery an account.
