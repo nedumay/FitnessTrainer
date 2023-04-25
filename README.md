@@ -2,7 +2,7 @@
 An app for exercising at home. In development...
 
 Application сapabilities::
-1. Registering/deleting and recovery an account.
+1. Registering/deleting account user.
 2. Workout reminder (under development).
 3. Exercise list and tracking (under development).
 
