@@ -41,8 +41,8 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun deleteUser(currentId: String){
-        _firebaseUser.value = signOutUserFromFirebase.invoke()
         deleteUserFromFirebase.invoke(currentId)
+        _firebaseUser.value = signOutUserFromFirebase.invoke()
         _userInfo.value = null
         _firebaseUser.value = null
 

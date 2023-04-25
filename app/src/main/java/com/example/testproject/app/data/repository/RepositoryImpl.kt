@@ -7,9 +7,12 @@ import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.repository.Repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -41,7 +44,7 @@ class RepositoryImpl @Inject constructor(
 
     override fun deleteUserFromFirebase(id: String) {
         auth.currentUser?.delete()?.addOnCompleteListener {
-            if(it.isSuccessful){
+            if (it.isSuccessful) {
                 Log.d("Delete account", "Deletion success account from Firebase")
             }
         }
@@ -51,33 +54,22 @@ class RepositoryImpl @Inject constructor(
 
     //Получение данных о пользователе. Исправить!
     override suspend fun getUserFromFirebase(id: String): User? {
-        /*var user: FirebaseUser? = null
-        auth.addAuthStateListener(object : FirebaseAuth.AuthStateListener {
-            override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
-                if (firebaseAuth.currentUser != null) {
-                    Log.d("Dashboard account user", "rep.impl ${firebaseAuth.currentUser}")
-                    user = firebaseAuth.currentUser
-                }
-            }
-        })*/
         var data: User? = null
         var errorDb: DatabaseError? = null
         Log.d("Dashboard account user", "rep.impl $id")
         usersReference.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
-                Log.d("Dashboard account user", "rep.impl $data")
+                Log.d("Dashboard account user", "rep.impl data: $data")
             }
+
             override fun onCancelled(error: DatabaseError) {
                 errorDb = error
                 Log.d("Dashboard account user", "rep.impl error: $error")
             }
         })
-        while(data == null){
+        while (data == null){
             delay(1000)
-            if(errorDb != null){
-                break
-            }
         }
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
@@ -111,6 +103,13 @@ class RepositoryImpl @Inject constructor(
 
     override fun signOutUserFromFirebase(): FirebaseUser? {
         auth.signOut()
+        Log.d("Account user", "rep.impl ${auth.currentUser}")
+        return auth.currentUser
+    }
+
+    override fun authUserFirebase(): FirebaseUser? {
+        val user: FirebaseUser?  = auth.currentUser
+        Log.d("Account user", "rep.impl ${user}")
         return auth.currentUser
     }
 

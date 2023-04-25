@@ -64,7 +64,7 @@ class RegistrationThree : AppCompatActivity() {
                 )
             )
         }
-        // ПОдумать над возвращением на прошлую страницу. Возможно можно просто использовать finish()
+
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(
                 RegistrationTwo.newIntent(
@@ -74,6 +74,7 @@ class RegistrationThree : AppCompatActivity() {
                     date = date!!
                 )
             )
+            finish()
         }
     }
 

@@ -45,6 +45,7 @@ class RegistrationOne : AppCompatActivity() {
         }
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(LoginActivity.newIntent(this@RegistrationOne))
+            finish()
         }
     }
 

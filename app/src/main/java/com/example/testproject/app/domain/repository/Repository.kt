@@ -16,4 +16,6 @@ interface Repository {
     fun resetPasswordUserToFirebase(email: String) : String
 
     fun signOutUserFromFirebase() : FirebaseUser?
+
+    fun authUserFirebase() : FirebaseUser?
 }

@@ -41,6 +41,7 @@ class ResetActivity : AppCompatActivity() {
 
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
         binding.buttonSend.isEnabled = false
         enabledButton()

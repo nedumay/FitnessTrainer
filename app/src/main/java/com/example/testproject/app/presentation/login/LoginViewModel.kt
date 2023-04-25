@@ -27,7 +27,7 @@ class LoginViewModel @Inject constructor(
             if(userId.isNotEmpty()){
                 _firebaseUser.value = userId
             } else{
-                _error.value = "Error"
+                _error.value = "Error: Account not found!"
             }
         }
     }

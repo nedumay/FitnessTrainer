@@ -1,28 +1,25 @@
 package com.example.testproject.app.presentation.dashboard
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testproject.app.domain.model.User
-import com.example.testproject.app.domain.usecase.GetUserFromFirebase
+import com.example.testproject.app.domain.usecase.AuthUserFirebase
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
-    private val getUserFromFirebase: GetUserFromFirebase,
+    private val authUserFirebase: AuthUserFirebase
 ) : ViewModel() {
 
-    private var _firebaseUser = MutableLiveData<User>()
-    val firebaseUser: LiveData<User>
+    private var _firebaseUser = MutableLiveData<FirebaseUser>()
+    val firebaseUser: LiveData<FirebaseUser>
         get() = _firebaseUser
 
-    fun loadDataForUser(currentId: String) {
+    init {
         viewModelScope.launch {
-            _firebaseUser.value = getUserFromFirebase.invoke(currentId)
-            Log.d("Dashboard account user", "User viewModel: ${_firebaseUser.value}")
+            _firebaseUser.value = authUserFirebase.invoke()
         }
     }
 

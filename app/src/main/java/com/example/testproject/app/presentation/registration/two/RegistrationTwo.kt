@@ -49,6 +49,7 @@ class RegistrationTwo : AppCompatActivity() {
         // ПОдумать над возвращением на прошлую страницу. Возможно можно просто использовать finish()
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(RegistrationOne.newIntent(this@RegistrationTwo))
+            finish()
         }
 
         binding.buttonNextRegistration.setOnClickListener {

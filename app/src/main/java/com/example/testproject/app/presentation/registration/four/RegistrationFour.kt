@@ -64,6 +64,7 @@ class RegistrationFour : AppCompatActivity() {
                     gender = false,
                 )
             )
+            finish()
         }
         binding.buttonCreateAccount.setOnClickListener {
             val email = binding.editTextEmailRegistration.text?.trim().toString()
@@ -83,7 +84,7 @@ class RegistrationFour : AppCompatActivity() {
                 Toast.makeText(this@RegistrationFour, it, Toast.LENGTH_LONG).show()
             }
             startActivity(LoginActivity.newIntent(this@RegistrationFour))
-
+            finish()
         }
         clickTextView()
         isEmailValid()

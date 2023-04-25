@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.notification.NotificationActivity
 import com.example.testproject.app.presentation.settings.SettingsActivity
 import com.example.testproject.databinding.ActivityDashboardBinding
@@ -38,19 +39,20 @@ class DashboardActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)[DashboardViewModel::class.java]
 
-        //val currentUserId: String?
         if (!intent.hasExtra(EXTRA_CURRENT_USER_ID)) {
+            startActivity(LoginActivity.newIntent(this@DashboardActivity))
             finish()
-            return
         } else {
             currentUserId = intent.getStringExtra(EXTRA_CURRENT_USER_ID)
         }
-        Log.d("Dashboard account user", "Extra current user id: $currentUserId")
-        if (currentUserId != null) {
-            viewModel.loadDataForUser(currentUserId!!)
-        }
+        Log.d("Account user", "Extra current user id activity: $currentUserId")
+
         viewModel.firebaseUser.observe(this){
-            Log.d("Dashboard account user", "User observe: $it")
+            Log.d("Account user", "User observe activity: $it")
+            if(it == null){
+                startActivity(LoginActivity.newIntent(this@DashboardActivity))
+                finish()
+            }
         }
         appBarMenu()
 
@@ -62,7 +64,7 @@ class DashboardActivity : AppCompatActivity() {
     private fun appBarMenu() {
 
         binding.appBarLayout.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with youe own action", Snackbar.LENGTH_SHORT)
+            Snackbar.make(view, "Replace with you own action", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
 
@@ -72,7 +74,6 @@ class DashboardActivity : AppCompatActivity() {
                     Toast.makeText(this, "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }
-                // возможно переделать finish() не особо подходит
                 R.id.settings -> {
                     startActivity(SettingsActivity.newIntent(this@DashboardActivity,currentUserId!!))
                     true
@@ -92,8 +93,7 @@ class DashboardActivity : AppCompatActivity() {
         fun newIntent(context: Context, currentUserId: String): Intent {
             val intent = Intent(context, DashboardActivity::class.java)
             intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             return intent
         }
     }

@@ -51,22 +51,19 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonEnterLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text?.trim().toString()
             val password = binding.editTextPasswordLogin.text?.trim().toString()
-            viewModel.login(email,password)
+            viewModel.login(email, password)
         }
     }
 
     private fun observeViewModel() {
-        viewModel.error.observe(this){
-            if(it != null){
+        viewModel.error.observe(this) {
+            if (it != null) {
                 Toast.makeText(this@LoginActivity, it.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-        viewModel.firebaseUser.observe(this){
-            if(it != null){
-                Log.d("Login user fb","Start Activity: $it")
-                startActivity(
-                    DashboardActivity.newIntent(this@LoginActivity, it)
-                )
+        viewModel.firebaseUser.observe(this) {
+            if (it != null) {
+                startActivity(DashboardActivity.newIntent(this@LoginActivity, it))
                 finish()
             }
         }
@@ -78,9 +75,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.buttonEnterLogin.isEnabled = (binding.editTextEmailLogin.text?.length
                     ?: 0) > 0 && (binding.editTextPasswordLogin.text?.length ?: 0) > 0
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val valid =
                     android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
@@ -105,10 +100,9 @@ class LoginActivity : AppCompatActivity() {
         private const val INVALID_ADDRESS = "Invalid Email address"
         private const val EMPTY_FIELD = ""
 
-        fun newIntent(context: Context) : Intent{
-            val intent = Intent(context,LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        fun newIntent(context: Context): Intent {
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             return intent
         }
     }

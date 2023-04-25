@@ -43,13 +43,13 @@ class SettingsActivity : AppCompatActivity() {
         } else {
             currentUserId = intent.getStringExtra(EXTRA_CURRENT_USER_ID)
         }
-        Log.d("Settings activity", "Extra current user id: $currentUserId")
+        Log.d("Account user", "Extra current user id settings: $currentUserId")
 
         if (currentUserId != null) {
             viewModel.loadDataForUser(currentUserId!!)
         }
         viewModel.userInfo.observe(this){
-            Log.d("Settings activity", "User observe: $it")
+            Log.d("Account user", "User observe settings: $it")
             binding.textName.text = "${it.name} ${it.lastName}"
             binding.textNameUser.text = it.name
             binding.textLastNameUser.text = it.lastName
@@ -65,7 +65,7 @@ class SettingsActivity : AppCompatActivity() {
         }
         viewModel.firebaseUser.observe(this){
             if(it == null){
-                Log.d("SignOutFromDB", "Firebase User: $it")
+                Log.d("Account user", "Firebase User settings: $it")
                 startActivity(LoginActivity.newIntent(this@SettingsActivity))
                 finish()
             }
@@ -96,7 +96,6 @@ class SettingsActivity : AppCompatActivity() {
             val intent = Intent(context, SettingsActivity::class.java)
             intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             return intent
         }
     }
