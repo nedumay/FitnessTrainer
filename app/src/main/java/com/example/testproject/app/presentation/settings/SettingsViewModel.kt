@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.usecase.DeleteUserFromFirebase
 import com.example.testproject.app.domain.usecase.GetUserFromFirebase
 import com.example.testproject.app.domain.usecase.SignOutUserFromFirebase
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,32 +22,42 @@ class SettingsViewModel @Inject constructor(
     private val deleteUserFromFirebase: DeleteUserFromFirebase
 ) : ViewModel() {
 
-    private var _userInfo = MutableLiveData<User>()
-    val userInfo: LiveData<User>
-        get() = _userInfo
-
-    private var _firebaseUser = MutableLiveData<FirebaseUser>()
-    val firebaseUser: LiveData<FirebaseUser>
-        get() = _firebaseUser
+    private var _userInfo = MutableStateFlow<Resource<User>>(Resource.Loading)
+    val userInfo = _userInfo.asStateFlow()
 
     fun loadDataForUser(currentId: String) {
         viewModelScope.launch {
-            _userInfo.value = getUserFromFirebase.invoke(currentId)
+            try {
+                _userInfo.value = Resource.Loading
+                val data = getUserFromFirebase.invoke(currentId)
+                _userInfo.value = Resource.Success(data!!)
+            } catch (e: Exception){
+                _userInfo.value = Resource.Error(e.message.toString())
+            }
             Log.d("Settings activity", "Settings viewModel: ${_userInfo.value}")
         }
     }
-    // Получить данный id пользователя и сохранить в _firebaseUser. Если он null -> все ок выходим из аккаунта на страницу логина.
+
     fun signOut() {
-        _firebaseUser.value = signOutUserFromFirebase.invoke()
-        _userInfo.value = null
-        _firebaseUser.value = null
+        viewModelScope.launch {
+            try {
+                signOutUserFromFirebase.invoke()
+                _userInfo.value = Resource.Loading
+            }catch (e: Exception){
+                _userInfo.value = Resource.Error(e.message.toString())
+            }
+        }
     }
 
     fun deleteUser(currentId: String){
-        deleteUserFromFirebase.invoke(currentId)
-        _firebaseUser.value = signOutUserFromFirebase.invoke()
-        _userInfo.value = null
-        _firebaseUser.value = null
-
+        viewModelScope.launch {
+            try {
+                deleteUserFromFirebase.invoke(currentId)
+                signOutUserFromFirebase.invoke()
+                _userInfo.value = Resource.Loading
+            }catch (e: Exception){
+                _userInfo.value = Resource.Error(e.message.toString())
+            }
+        }
     }
 }

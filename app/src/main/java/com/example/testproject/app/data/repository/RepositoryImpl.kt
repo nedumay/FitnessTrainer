@@ -54,22 +54,24 @@ class RepositoryImpl @Inject constructor(
 
     //Получение данных о пользователе. Исправить!
     override suspend fun getUserFromFirebase(id: String): User? {
+        var count = 0
         var data: User? = null
-        var errorDb: DatabaseError? = null
         Log.d("Dashboard account user", "rep.impl $id")
         usersReference.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
                 Log.d("Dashboard account user", "rep.impl data: $data")
             }
-
             override fun onCancelled(error: DatabaseError) {
-                errorDb = error
                 Log.d("Dashboard account user", "rep.impl error: $error")
             }
         })
         while (data == null){
             delay(1000)
+            count++
+            if(count>15){
+                break
+            }
         }
         Log.d("Dashboard account user", "rep.impl return $data")
         return data

@@ -4,14 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.testproject.R
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
-import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.databinding.ActivitySettingsBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class SettingsActivity : AppCompatActivity() {
@@ -48,40 +53,51 @@ class SettingsActivity : AppCompatActivity() {
         if (currentUserId != null) {
             viewModel.loadDataForUser(currentUserId!!)
         }
-        viewModel.userInfo.observe(this){
-            Log.d("Account user", "User observe settings: $it")
-            binding.textName.text = "${it.name} ${it.lastName}"
-            binding.textNameUser.text = it.name
-            binding.textLastNameUser.text = it.lastName
-            binding.textDate.text = it.dateOfBirth
-            binding.textWeight.text = it.weight + " kg" // исправить отображение
-            binding.textHeight.text = it.height + " sm" // исправить отображение
-            binding.textEmail.text = it.email
-            if(it.gender){
-                binding.imageViewUser.setImageResource(R.drawable.avatar_male)
-            } else{
-                binding.imageViewUser.setImageResource(R.drawable.avatar_female)
+        viewModel.userInfo.onEach {
+            when(it){
+                is Resource.Loading ->{
+                    Log.d("Account user", "Loading: $it")
+                    binding.constraintLayout.visibility = View.GONE
+                    binding.materialCardView.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Error ->{
+                    Log.d("Account user", "Error: $it")
+                    binding.constraintLayout.visibility = View.GONE
+                    binding.materialCardView.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this@SettingsActivity, it.message, Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                is Resource.Success ->{
+                    Log.d("Account user", "Success: $it")
+                    binding.constraintLayout.visibility = View.VISIBLE
+                    binding.materialCardView.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                    binding.textName.text = "${it.data.name} ${it.data.lastName}"
+                    binding.textNameUser.text = it.data.name
+                    binding.textLastNameUser.text = it.data.lastName
+                    binding.textDate.text = it.data.dateOfBirth
+                    binding.textWeight.text = it.data.weight + " kg" // исправить отображение
+                    binding.textHeight.text = it.data.height + " sm" // исправить отображение
+                    binding.textEmail.text = it.data.email
+                    if(it.data.gender){
+                        binding.imageViewUser.setImageResource(R.drawable.avatar_male)
+                    } else{
+                        binding.imageViewUser.setImageResource(R.drawable.avatar_female)
+                    }
+                }
             }
-        }
-        viewModel.firebaseUser.observe(this){
-            if(it == null){
-                Log.d("Account user", "Firebase User settings: $it")
-                startActivity(LoginActivity.newIntent(this@SettingsActivity))
-                finish()
-            }
-        }
+        }.launchIn(lifecycleScope)
+
         binding.buttonOutput.setOnClickListener {
             viewModel.signOut()
+            startActivity(LoginActivity.newIntent(this@SettingsActivity))
+            finish()
         }
+
         binding.textViewDeleteProfile.setOnClickListener {
             viewModel.deleteUser(currentUserId!!)
-            /*
-            viewModel.firebaseUser.observe(this){
-                if(it == null){
-                    Log.d("SignOutFromDB", "Firebase User: $it")
-                    startActivity(LoginActivity.newIntent(this@SettingsActivity))
-                }
-            }*/
         }
         binding.textViewBack.setOnClickListener {
             finish()
