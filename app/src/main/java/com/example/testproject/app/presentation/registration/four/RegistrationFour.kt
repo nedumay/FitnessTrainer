@@ -95,8 +95,8 @@ class RegistrationFour : AppCompatActivity() {
                 when (it) {
                     is Resource.Loading -> {
                         Log.d("RegistrationActivity", "Loading: $it")
-                        progressDialog.setTitle("Creating an account ")
-                        progressDialog.setMessage("Please, wait...")
+                        progressDialog.setTitle(R.string.create_acc_alert)
+                        progressDialog.setMessage(R.string.pl_wait.toString())
                         progressDialog.isIndeterminate = true
                         progressDialog.setCancelable(false)
                         progressDialog.show()
@@ -106,9 +106,9 @@ class RegistrationFour : AppCompatActivity() {
                     is Resource.Success -> {
                         Log.d("RegistrationActivity", "Success: $it")
                         progressDialog.dismiss()
-                        alertDialog.setTitle("Success")
+                        alertDialog.setTitle(R.string.success)
                         alertDialog.setIcon(R.drawable.ic_check)
-                        alertDialog.setMessage("Your account is successfully registered!")
+                        alertDialog.setMessage(R.string.create_suc_alert)
                         alertDialog.setPositiveButton("OK") { dialog, which ->
                             dialog.dismiss()
                             startActivity(LoginActivity.newIntent(this@RegistrationFour))
@@ -120,9 +120,9 @@ class RegistrationFour : AppCompatActivity() {
                     is Resource.Error -> {
                         Log.d("RegistrationActivity", "Error: $it")
                         progressDialog.dismiss()
-                        alertDialog.setTitle("Error")
+                        alertDialog.setTitle(R.string.error)
                         alertDialog.setIcon(R.drawable.ic_error)
-                        alertDialog.setMessage("$it")
+                        alertDialog.setMessage("${it.message}")
                         alertDialog.setPositiveButton("OK") { dialog, which ->
                             dialog.dismiss()
                         }

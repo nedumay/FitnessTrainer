@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">Fitness trainer </string>
-    <string name="giapay">Fitness trainer </string>
+    <string name="app_name">Fitness trainer</string>
     <string name="always_pay">Always be fit</string>
     <string name="login">Login</string>
     <string name="forgot_your">Forgot your password?</string>
-    <string name="don_t_have_">Dont have an account yet?</string>
+    <string name="don_t_have_">Don`t have an account yet?</string>
     <string name="password">Password</string>
     <string name="enter">Enter</string>
     <string name="registration">Registration</string>
@@ -13,6 +12,7 @@
     <string name="please_ente">Please, enter your e-mail address. We will send you message to reset your password</string>
     <string name="send">Send</string>
     <string name="your_name">Your name*</string>
+    <string name="last_name_edit">Last name*</string>
     <string name="data_of_birth">Date of birth*</string>
     <string name="tell_us_abo">Tell us about yourself</string>
     <string name="next">Next</string>
@@ -58,7 +58,19 @@
     <string name="workouts_completed_this_week">Workouts completed this week -</string>
     <string name="daily_exercise">Daily exercise</string>
     <string name="click_to_start">Click to start</string>
-    <string name="back_to_home">Back to home ></string>
+    <string name="back_to_home">Back to home</string>
     <string name="alerts">Alerts</string>
-    <string name="last_name_edit">Last name*</string>
+    <string name="warning">Warning!</string>
+    <string name="war_log_out">Do you really want to log out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="war_delete">Are you sure you want to delete your profile?</string>
+    <string name="delete">Delete</string>
+    <string name="check_account">Checking the existence of the account</string>
+    <string name="pl_wait">Please, wait</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="suc_reset">Reset password e-mail sent to you!</string>
+    <string name="create_acc_alert">Creating an account</string>
+    <string name="create_suc_alert">"Your account is successfully registered!"</string>
+    <string name="login_alert">"Login to your account"</string>
 </resources>

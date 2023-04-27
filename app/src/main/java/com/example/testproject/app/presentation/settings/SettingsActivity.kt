@@ -95,32 +95,32 @@ class SettingsActivity : AppCompatActivity() {
 
         val alertDialog = AlertDialog.Builder(this@SettingsActivity)
         binding.buttonOutput.setOnClickListener {
-            alertDialog.setTitle("Warning")
+            alertDialog.setTitle(R.string.warning)
             alertDialog.setIcon(R.drawable.ic_warning)
-            alertDialog.setMessage("Do you really want to log out?")
-            alertDialog.setPositiveButton("Log out") { dialog, which ->
+            alertDialog.setMessage(R.string.war_log_out)
+            alertDialog.setPositiveButton(R.string.output) { dialog, which ->
                 dialog.dismiss()
                 viewModel.signOut()
                 startActivity(LoginActivity.newIntent(this@SettingsActivity))
                 finish()
             }
-            alertDialog.setNegativeButton("Cancel") { dialog, which ->
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
                 dialog.dismiss()
             }
             alertDialog.show()
         }
 
         binding.textViewDeleteProfile.setOnClickListener {
-            alertDialog.setTitle("Warning")
+            alertDialog.setTitle(R.string.warning)
             alertDialog.setIcon(R.drawable.ic_warning)
-            alertDialog.setMessage("Are you sure you want to delete your profile?")
-            alertDialog.setPositiveButton("Delete") { dialog, which ->
+            alertDialog.setMessage(R.string.war_delete)
+            alertDialog.setPositiveButton(R.string.delete) { dialog, which ->
                 dialog.dismiss()
                 viewModel.deleteUser(currentUserId!!)
                 startActivity(LoginActivity.newIntent(this@SettingsActivity))
                 finish()
             }
-            alertDialog.setNegativeButton("Cancel") { dialog, which ->
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
                 dialog.dismiss()
             }
             alertDialog.show()

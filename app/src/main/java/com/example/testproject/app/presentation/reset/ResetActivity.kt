@@ -63,8 +63,8 @@ class ResetActivity : AppCompatActivity() {
             when (it) {
                 is Resource.Loading -> {
                     Log.d("ResetActivity", "Loading: $it")
-                    progressDialog.setTitle("Checking the existence of the account")
-                    progressDialog.setMessage("Please, wait...")
+                    progressDialog.setTitle(R.string.check_account)
+                    progressDialog.setMessage(R.string.pl_wait.toString())
                     progressDialog.isIndeterminate = true
                     progressDialog.setCancelable(false)
                     progressDialog.show()
@@ -74,9 +74,9 @@ class ResetActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     Log.d("ResetActivity", "Error: $it")
                     progressDialog.dismiss()
-                    alertDialog.setTitle("Error")
+                    alertDialog.setTitle(R.string.error)
                     alertDialog.setIcon(R.drawable.ic_error)
-                    alertDialog.setMessage("$it")
+                    alertDialog.setMessage("${it.message}")
                     alertDialog.setPositiveButton("OK") { dialog, which ->
                         dialog.dismiss()
                     }
@@ -86,9 +86,9 @@ class ResetActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     Log.d("ResetActivity", "Success: $it")
                     progressDialog.dismiss()
-                    alertDialog.setTitle("Success")
+                    alertDialog.setTitle(R.string.success)
                     alertDialog.setIcon(R.drawable.ic_check)
-                    alertDialog.setMessage("Reset password e-mail sent to you!")
+                    alertDialog.setMessage(R.string.suc_reset)
                     alertDialog.setPositiveButton("OK") { dialog, which ->
                         dialog.dismiss()
                     }

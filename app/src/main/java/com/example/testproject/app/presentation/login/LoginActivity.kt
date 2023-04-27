@@ -67,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
             when(it){
                 is Resource.Loading ->{
                     Log.d("LoginActivity", "Loading: $it")
-                    progressDialog.setTitle("Login to your account")
-                    progressDialog.setMessage("Please, wait...")
+                    progressDialog.setTitle(R.string.login_alert)
+                    progressDialog.setMessage(R.string.pl_wait.toString())
                     progressDialog.isIndeterminate = true
                     progressDialog.setCancelable(false)
                     progressDialog.show()
@@ -82,9 +82,9 @@ class LoginActivity : AppCompatActivity() {
                 is Resource.Error ->{
                     Log.d("LoginActivity", "Error: $it")
                     progressDialog.dismiss()
-                    alertDialog.setTitle("Error")
+                    alertDialog.setTitle(R.string.error)
                     alertDialog.setIcon(R.drawable.ic_error)
-                    alertDialog.setMessage("$it")
+                    alertDialog.setMessage("${it.message}")
                     alertDialog.setPositiveButton("OK"){ dialog, which ->
                         dialog.dismiss()
                     }
