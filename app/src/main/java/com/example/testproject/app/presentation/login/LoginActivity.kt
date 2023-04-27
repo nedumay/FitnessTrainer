@@ -68,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
                 is Resource.Loading ->{
                     Log.d("LoginActivity", "Loading: $it")
                     progressDialog.setTitle(R.string.login_alert)
-                    progressDialog.setMessage(R.string.pl_wait.toString())
                     progressDialog.isIndeterminate = true
                     progressDialog.setCancelable(false)
                     progressDialog.show()

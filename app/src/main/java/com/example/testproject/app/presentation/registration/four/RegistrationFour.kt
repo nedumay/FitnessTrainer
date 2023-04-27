@@ -96,7 +96,6 @@ class RegistrationFour : AppCompatActivity() {
                     is Resource.Loading -> {
                         Log.d("RegistrationActivity", "Loading: $it")
                         progressDialog.setTitle(R.string.create_acc_alert)
-                        progressDialog.setMessage(R.string.pl_wait.toString())
                         progressDialog.isIndeterminate = true
                         progressDialog.setCancelable(false)
                         progressDialog.show()

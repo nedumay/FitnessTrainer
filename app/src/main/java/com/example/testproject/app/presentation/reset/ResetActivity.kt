@@ -64,7 +64,6 @@ class ResetActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     Log.d("ResetActivity", "Loading: $it")
                     progressDialog.setTitle(R.string.check_account)
-                    progressDialog.setMessage(R.string.pl_wait.toString())
                     progressDialog.isIndeterminate = true
                     progressDialog.setCancelable(false)
                     progressDialog.show()
