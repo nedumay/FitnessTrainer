@@ -1,19 +1,22 @@
 package com.example.testproject.app.presentation.registration.four
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.User
 import com.example.testproject.app.domain.usecase.AddUserToFirebase
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RegistrationFourViewModel @Inject constructor(
     private val addUserToFirebase: AddUserToFirebase
 ) : ViewModel() {
 
-    private var _error = MutableLiveData<String>()
-    val error: LiveData<String>
-        get() = _error
+    private var _error = MutableStateFlow<Resource<String>>(Resource.Loading)
+    val error = _error.asStateFlow()
 
     fun signUp(
         email: String,
@@ -37,7 +40,16 @@ class RegistrationFourViewModel @Inject constructor(
             weight = weight,
             targetWeight = targetWeight
         )
-        _error.value = addUserToFirebase.invoke(userAdd)
+        viewModelScope.launch {
+            try {
+                _error.value = Resource.Loading
+                delay(5000)
+                val error = addUserToFirebase.invoke(userAdd)
+                _error.value = Resource.Success(error)
+            } catch (e: Exception) {
+                _error.value = Resource.Error(e.toString())
+            }
+        }
     }
 
 }

@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class ResetPasswordUserFirebase @Inject constructor(private val repository: Repository) {
 
-    operator fun invoke(email: String) = repository.resetPasswordUserToFirebase(email)
+    operator suspend fun invoke(email: String) = repository.resetPasswordUserToFirebase(email)
 }

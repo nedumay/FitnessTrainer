@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 
 interface Repository {
 
-    fun addUserToFirebase(user: User) : String
+    suspend fun addUserToFirebase(user: User) : String
 
     fun deleteUserFromFirebase(id: String)
 
@@ -13,7 +13,7 @@ interface Repository {
 
     suspend fun loginUserToFirebase(email: String, password: String) : String
 
-    fun resetPasswordUserToFirebase(email: String) : String
+    suspend fun resetPasswordUserToFirebase(email: String) : String
 
     fun signOutUserFromFirebase() : FirebaseUser?
 

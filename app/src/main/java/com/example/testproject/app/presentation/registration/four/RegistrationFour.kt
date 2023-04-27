@@ -1,24 +1,33 @@
 package com.example.testproject.app.presentation.registration.four
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.testproject.R
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class RegistrationFour : AppCompatActivity() {
@@ -80,30 +89,67 @@ class RegistrationFour : AppCompatActivity() {
                 weight = weight!!,
                 targetWeight = targetWeight!!
             )
-            viewModel.error.observe(this){
-                Toast.makeText(this@RegistrationFour, it, Toast.LENGTH_LONG).show()
-            }
-            startActivity(LoginActivity.newIntent(this@RegistrationFour))
-            finish()
+            viewModel.error.onEach {
+                val progressDialog = ProgressDialog(this@RegistrationFour)
+                val alertDialog = AlertDialog.Builder(this@RegistrationFour)
+                when (it) {
+                    is Resource.Loading -> {
+                        Log.d("RegistrationActivity", "Loading: $it")
+                        progressDialog.setTitle("Creating an account ")
+                        progressDialog.setMessage("Please, wait...")
+                        progressDialog.isIndeterminate = true
+                        progressDialog.setCancelable(false)
+                        progressDialog.show()
+
+                    }
+
+                    is Resource.Success -> {
+                        Log.d("RegistrationActivity", "Success: $it")
+                        progressDialog.dismiss()
+                        alertDialog.setTitle("Success")
+                        alertDialog.setIcon(R.drawable.ic_check)
+                        alertDialog.setMessage("Your account is successfully registered!")
+                        alertDialog.setPositiveButton("OK") { dialog, which ->
+                            dialog.dismiss()
+                            startActivity(LoginActivity.newIntent(this@RegistrationFour))
+                            finish()
+                        }
+                        alertDialog.show()
+                    }
+
+                    is Resource.Error -> {
+                        Log.d("RegistrationActivity", "Error: $it")
+                        progressDialog.dismiss()
+                        alertDialog.setTitle("Error")
+                        alertDialog.setIcon(R.drawable.ic_error)
+                        alertDialog.setMessage("$it")
+                        alertDialog.setPositiveButton("OK") { dialog, which ->
+                            dialog.dismiss()
+                        }
+                        alertDialog.show()
+                    }
+                }
+            }.launchIn(lifecycleScope)
         }
         clickTextView()
         isEmailValid()
     }
 
     private fun isEmailValid() {
-        binding.editTextEmailRegistration.addTextChangedListener(object : TextWatcher{
+        binding.editTextEmailRegistration.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-               val valid =
-                   android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
-                if(!valid){
+                val valid =
+                    android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
+                if (!valid) {
                     binding.tilEmailRegistration.error = INVALID_ADDRESS
-                } else{
+                } else {
                     binding.tilEmailRegistration.error = EMPTY_FIELD
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {
-                if(s?.length == 0){
+                if (s?.length == 0) {
                     binding.tilEmailRegistration.error = NOT_BE_EMPTY
                 }
             }

@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.settings
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -54,14 +55,15 @@ class SettingsActivity : AppCompatActivity() {
             viewModel.loadDataForUser(currentUserId!!)
         }
         viewModel.userInfo.onEach {
-            when(it){
-                is Resource.Loading ->{
+            when (it) {
+                is Resource.Loading -> {
                     Log.d("Account user", "Loading: $it")
                     binding.constraintLayout.visibility = View.GONE
                     binding.materialCardView.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                is Resource.Error ->{
+
+                is Resource.Error -> {
                     Log.d("Account user", "Error: $it")
                     binding.constraintLayout.visibility = View.GONE
                     binding.materialCardView.visibility = View.GONE
@@ -69,7 +71,8 @@ class SettingsActivity : AppCompatActivity() {
                     Toast.makeText(this@SettingsActivity, it.message, Toast.LENGTH_SHORT).show()
                     finish()
                 }
-                is Resource.Success ->{
+
+                is Resource.Success -> {
                     Log.d("Account user", "Success: $it")
                     binding.constraintLayout.visibility = View.VISIBLE
                     binding.materialCardView.visibility = View.VISIBLE
@@ -81,23 +84,46 @@ class SettingsActivity : AppCompatActivity() {
                     binding.textWeight.text = it.data.weight + " kg" // исправить отображение
                     binding.textHeight.text = it.data.height + " sm" // исправить отображение
                     binding.textEmail.text = it.data.email
-                    if(it.data.gender){
+                    if (it.data.gender) {
                         binding.imageViewUser.setImageResource(R.drawable.avatar_male)
-                    } else{
+                    } else {
                         binding.imageViewUser.setImageResource(R.drawable.avatar_female)
                     }
                 }
             }
         }.launchIn(lifecycleScope)
 
+        val alertDialog = AlertDialog.Builder(this@SettingsActivity)
         binding.buttonOutput.setOnClickListener {
-            viewModel.signOut()
-            startActivity(LoginActivity.newIntent(this@SettingsActivity))
-            finish()
+            alertDialog.setTitle("Warning")
+            alertDialog.setIcon(R.drawable.ic_warning)
+            alertDialog.setMessage("Do you really want to log out?")
+            alertDialog.setPositiveButton("Log out") { dialog, which ->
+                dialog.dismiss()
+                viewModel.signOut()
+                startActivity(LoginActivity.newIntent(this@SettingsActivity))
+                finish()
+            }
+            alertDialog.setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
         }
 
         binding.textViewDeleteProfile.setOnClickListener {
-            viewModel.deleteUser(currentUserId!!)
+            alertDialog.setTitle("Warning")
+            alertDialog.setIcon(R.drawable.ic_warning)
+            alertDialog.setMessage("Are you sure you want to delete your profile?")
+            alertDialog.setPositiveButton("Delete") { dialog, which ->
+                dialog.dismiss()
+                viewModel.deleteUser(currentUserId!!)
+                startActivity(LoginActivity.newIntent(this@SettingsActivity))
+                finish()
+            }
+            alertDialog.setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
         }
         binding.textViewBack.setOnClickListener {
             finish()

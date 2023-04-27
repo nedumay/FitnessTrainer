@@ -26,7 +26,7 @@ class RepositoryImpl @Inject constructor(
     )
     private val usersReference: DatabaseReference = dataBase.getReference("Users")
 
-    override fun addUserToFirebase(user: User): String {
+    override suspend fun addUserToFirebase(user: User): String {
         var error = "An account with this email already exists!"
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
@@ -38,7 +38,7 @@ class RepositoryImpl @Inject constructor(
             }
             .addOnFailureListener {
                 error = it.message.toString()
-            }
+            }.await()
         return error
     }
 
@@ -77,7 +77,6 @@ class RepositoryImpl @Inject constructor(
         return data
     }
 
-    //Изменить передачу ошибки
     override suspend fun loginUserToFirebase(email: String, password: String): String {
         var userId: String? = null
         auth.signInWithEmailAndPassword(email, password)
@@ -91,7 +90,7 @@ class RepositoryImpl @Inject constructor(
         return userId.toString()
     }
 
-    override fun resetPasswordUserToFirebase(email: String): String {
+    override suspend fun resetPasswordUserToFirebase(email: String): String {
         var error = ""
         auth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
@@ -99,7 +98,7 @@ class RepositoryImpl @Inject constructor(
             }
             .addOnFailureListener {
                 error = it.message.toString()
-            }
+            }.await()
         return error
     }
 

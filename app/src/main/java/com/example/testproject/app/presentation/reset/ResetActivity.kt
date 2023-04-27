@@ -1,21 +1,24 @@
 package com.example.testproject.app.presentation.reset
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.testproject.R
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.databinding.ActivityResetBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class ResetActivity : AppCompatActivity() {
@@ -23,6 +26,7 @@ class ResetActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityResetBinding.inflate(layoutInflater)
     }
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -37,7 +41,7 @@ class ResetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this,viewModelFactory)[ResetViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[ResetViewModel::class.java]
 
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -53,17 +57,53 @@ class ResetActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.error.observe(this) {
-            if (it != null) {
-                Toast.makeText(this@ResetActivity, it.toString(), Toast.LENGTH_SHORT).show()
+        val progressDialog = ProgressDialog(this@ResetActivity)
+        val alertDialog = AlertDialog.Builder(this@ResetActivity)
+        viewModel.error.onEach {
+            when (it) {
+                is Resource.Loading -> {
+                    Log.d("ResetActivity", "Loading: $it")
+                    progressDialog.setTitle("Checking the existence of the account")
+                    progressDialog.setMessage("Please, wait...")
+                    progressDialog.isIndeterminate = true
+                    progressDialog.setCancelable(false)
+                    progressDialog.show()
+
+                }
+
+                is Resource.Error -> {
+                    Log.d("ResetActivity", "Error: $it")
+                    progressDialog.dismiss()
+                    alertDialog.setTitle("Error")
+                    alertDialog.setIcon(R.drawable.ic_error)
+                    alertDialog.setMessage("$it")
+                    alertDialog.setPositiveButton("OK") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    alertDialog.show()
+                }
+
+                is Resource.Success -> {
+                    Log.d("ResetActivity", "Success: $it")
+                    progressDialog.dismiss()
+                    alertDialog.setTitle("Success")
+                    alertDialog.setIcon(R.drawable.ic_check)
+                    alertDialog.setMessage("Reset password e-mail sent to you!")
+                    alertDialog.setPositiveButton("OK") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    alertDialog.show()
+                }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
+
     private fun enabledButton() {
         binding.editTextEmailLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 binding.buttonSend.isEnabled = (binding.editTextEmailLogin.text?.length ?: 0) > 0
             }
+
             override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val valid =
@@ -76,11 +116,12 @@ class ResetActivity : AppCompatActivity() {
             }
         })
     }
-    companion object{
+
+    companion object {
         private const val INVALID_ADDRESS = "Invalid Email address"
         private const val EMPTY_FIELD = ""
-        fun newIntent(context: Context) : Intent{
-            return Intent(context,ResetActivity::class.java)
+        fun newIntent(context: Context): Intent {
+            return Intent(context, ResetActivity::class.java)
         }
     }
 }

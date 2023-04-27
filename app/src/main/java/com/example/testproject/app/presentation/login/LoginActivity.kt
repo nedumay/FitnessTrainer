@@ -1,21 +1,26 @@
 package com.example.testproject.app.presentation.login
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.testproject.R
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.main.MainActivity
 import com.example.testproject.app.presentation.registration.one.RegistrationOne
 import com.example.testproject.app.presentation.reset.ResetActivity
 import com.example.testproject.databinding.ActivityLoginBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -47,26 +52,46 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.buttonEnterLogin.isEnabled = false
         enabledButton()
-        observeViewModel()
         binding.buttonEnterLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text?.trim().toString()
             val password = binding.editTextPasswordLogin.text?.trim().toString()
             viewModel.login(email, password)
+            observeViewModel()
         }
     }
 
     private fun observeViewModel() {
-        viewModel.error.observe(this) {
-            if (it != null) {
-                Toast.makeText(this@LoginActivity, it.toString(), Toast.LENGTH_SHORT).show()
+        val progressDialog = ProgressDialog(this@LoginActivity)
+        val alertDialog = AlertDialog.Builder(this@LoginActivity)
+        viewModel.firebaseUser.onEach {
+            when(it){
+                is Resource.Loading ->{
+                    Log.d("LoginActivity", "Loading: $it")
+                    progressDialog.setTitle("Login to your account")
+                    progressDialog.setMessage("Please, wait...")
+                    progressDialog.isIndeterminate = true
+                    progressDialog.setCancelable(false)
+                    progressDialog.show()
+                }
+                is Resource.Success ->{
+                    Log.d("LoginActivity", "Success: ${it.data}")
+                    progressDialog.dismiss()
+                    startActivity(DashboardActivity.newIntent(this@LoginActivity, it.data))
+                    finish()
+                }
+                is Resource.Error ->{
+                    Log.d("LoginActivity", "Error: $it")
+                    progressDialog.dismiss()
+                    alertDialog.setTitle("Error")
+                    alertDialog.setIcon(R.drawable.ic_error)
+                    alertDialog.setMessage("$it")
+                    alertDialog.setPositiveButton("OK"){ dialog, which ->
+                        dialog.dismiss()
+                    }
+                    alertDialog.show()
+                }
             }
-        }
-        viewModel.firebaseUser.observe(this) {
-            if (it != null) {
-                startActivity(DashboardActivity.newIntent(this@LoginActivity, it))
-                finish()
-            }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun enabledButton() {

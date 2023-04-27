@@ -1,10 +1,11 @@
 package com.example.testproject.app.presentation.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.usecase.LoginUserToFirebase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -12,23 +13,24 @@ class LoginViewModel @Inject constructor(
     private val loginUserToFirebase: LoginUserToFirebase
 ) : ViewModel() {
 
-    private var _firebaseUser = MutableLiveData<String>()
-    val firebaseUser: LiveData<String>
-        get() = _firebaseUser
+    private var _firebaseUser = MutableStateFlow<Resource<String>>(Resource.Loading)
+    val firebaseUser = _firebaseUser.asStateFlow()
 
-    private var _error = MutableLiveData<String>()
-    val error: LiveData<String>
-        get() = _error
-
-    // Изменить получение ошибки!
-    fun login(email: String, password: String){
+    fun login(email: String, password: String) {
         viewModelScope.launch {
-            val userId = loginUserToFirebase.invoke(email = email, password = password)
-            if(userId.isNotEmpty()){
-                _firebaseUser.value = userId
-            } else{
-                _error.value = "Error: Account not found!"
+            try {
+                _firebaseUser.value = Resource.Loading
+                val userId = loginUserToFirebase.invoke(email = email, password = password)
+                if (userId.isNotEmpty()) {
+                    _firebaseUser.value = Resource.Success(userId)
+                } else {
+                    _firebaseUser.value =
+                        Resource.Error("The account with this e-mail does not exist!")
+                }
+            } catch (e: Exception) {
+                _firebaseUser.value = Resource.Error(e.message.toString())
             }
+
         }
     }
 }
