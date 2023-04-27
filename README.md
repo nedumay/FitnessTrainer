@@ -13,6 +13,7 @@ Pattern: MVVM + Clean architecture , Singltone
 Tools and Libraries: Firebase, Coroutines + Flow, Dagger2
 
 Language Support: English, Russian
+
 ![12](https://user-images.githubusercontent.com/79632860/228531613-994ba3e1-0eef-4b16-b263-09d722285428.png)
 
 # Login to the app
