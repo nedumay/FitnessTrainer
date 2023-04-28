@@ -15,6 +15,7 @@ import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.app.presentation.login.LoginActivity.Companion.USER_SHARED_PREF
 import com.example.testproject.databinding.ActivitySettingsBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -42,6 +43,8 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
+
+        val userIdSharedPref = getSharedPreferences(USER_SHARED_PREF, MODE_PRIVATE)
 
         if (!intent.hasExtra(EXTRA_CURRENT_USER_ID)) {
             finish()
@@ -81,8 +84,8 @@ class SettingsActivity : AppCompatActivity() {
                     binding.textNameUser.text = it.data.name
                     binding.textLastNameUser.text = it.data.lastName
                     binding.textDate.text = it.data.dateOfBirth
-                    binding.textWeight.text = it.data.weight + " kg" // исправить отображение
-                    binding.textHeight.text = it.data.height + " sm" // исправить отображение
+                    binding.textWeight.text = it.data.weight
+                    binding.textHeight.text = it.data.height
                     binding.textEmail.text = it.data.email
                     if (it.data.gender) {
                         binding.imageViewUser.setImageResource(R.drawable.avatar_male)
@@ -99,6 +102,7 @@ class SettingsActivity : AppCompatActivity() {
             alertDialog.setIcon(R.drawable.ic_warning)
             alertDialog.setMessage(R.string.war_log_out)
             alertDialog.setPositiveButton(R.string.output) { dialog, which ->
+                userIdSharedPref.edit().clear().apply()
                 dialog.dismiss()
                 viewModel.signOut()
                 startActivity(LoginActivity.newIntent(this@SettingsActivity))
@@ -115,6 +119,7 @@ class SettingsActivity : AppCompatActivity() {
             alertDialog.setIcon(R.drawable.ic_warning)
             alertDialog.setMessage(R.string.war_delete)
             alertDialog.setPositiveButton(R.string.delete) { dialog, which ->
+                userIdSharedPref.edit().clear().apply()
                 dialog.dismiss()
                 viewModel.deleteUser(currentUserId!!)
                 startActivity(LoginActivity.newIntent(this@SettingsActivity))

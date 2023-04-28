@@ -130,7 +130,7 @@ class RegistrationFour : AppCompatActivity() {
                 }
             }.launchIn(lifecycleScope)
         }
-        clickTextView()
+        //clickTextView()
         isEmailValid()
     }
 
@@ -157,7 +157,7 @@ class RegistrationFour : AppCompatActivity() {
     }
 
     /**
-     * Кликабельный текст для согласия на обработку данных
+     * Кликабельный текст для согласия на обработку данных сломался, надо починить!
      */
     private fun clickTextView() {
         val fullText = getString(R.string.by_creating)

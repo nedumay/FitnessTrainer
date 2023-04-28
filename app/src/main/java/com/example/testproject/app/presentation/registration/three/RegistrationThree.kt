@@ -22,6 +22,8 @@ class RegistrationThree : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        var sufWeight = resources.getString(R.string.ft)
+        var sufHeight = resources.getString(R.string.lbs)
         val name = intent.getStringExtra(EXTRA_NAME)
         val lastName = intent.getStringExtra(EXTRA_LAST_NAME)
         val date = intent.getStringExtra(EXTRA_DATE)
@@ -35,18 +37,22 @@ class RegistrationThree : AppCompatActivity() {
                     binding.tilHeight.suffixText = resources.getString(R.string.lbs)
                     binding.tilWeight.suffixText = resources.getString(R.string.ft)
                     binding.tilTarget.suffixText = resources.getString(R.string.ft)
+                    sufWeight = resources.getString(R.string.ft)
+                    sufHeight = resources.getString(R.string.lbs)
                 } else if (checkedId == R.id.kgRadioBtn) {
                     binding.tilHeight.suffixText = resources.getString(R.string.sm)
                     binding.tilWeight.suffixText = resources.getString(R.string.kg)
                     binding.tilTarget.suffixText = resources.getString(R.string.kg)
+                    sufWeight = resources.getString(R.string.kg)
+                    sufHeight = resources.getString(R.string.sm)
                 }
             }
         }
 
         binding.buttonNextRegistration.setOnClickListener {
-            val height = binding.editTextHeight.text?.trim().toString()
-            val weight = binding.editTextWeight.text?.trim().toString()
-            val targetWeight = binding.editTextTarget.text?.trim().toString()
+            val height = binding.editTextHeight.text?.trim().toString() + sufHeight
+            val weight = binding.editTextWeight.text?.trim().toString() + sufWeight
+            val targetWeight = binding.editTextTarget.text?.trim().toString() + sufWeight
             Log.d("RegistrationActivity",
                 "Three activity extra: $name, $date, $gender, $height, $weight, $targetWeight")
             startActivity(

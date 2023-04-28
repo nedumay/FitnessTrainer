@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -44,6 +45,9 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
+        val userIdSharedPref = getSharedPreferences(USER_SHARED_PREF, MODE_PRIVATE)
+        val sharedEditor = userIdSharedPref.edit()
+
         binding.textViewForgotPassword.setOnClickListener {
             startActivity(ResetActivity.newIntent(this@LoginActivity))
         }
@@ -52,15 +56,24 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.buttonEnterLogin.isEnabled = false
         enabledButton()
+        saveUser(userIdSharedPref)
         binding.buttonEnterLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text?.trim().toString()
             val password = binding.editTextPasswordLogin.text?.trim().toString()
             viewModel.login(email, password)
-            observeViewModel()
+            observeViewModel(sharedEditor)
         }
     }
 
-    private fun observeViewModel() {
+    private fun saveUser(userIdSharedPref: SharedPreferences) {
+        if(userIdSharedPref.contains(USER_ID)){
+            val data = userIdSharedPref.getString(USER_ID, "") ?: ""
+            startActivity(DashboardActivity.newIntent(this@LoginActivity, data))
+            finish()
+        }
+    }
+
+    private fun observeViewModel(sharedEditor: SharedPreferences.Editor) {
         val progressDialog = ProgressDialog(this@LoginActivity)
         val alertDialog = AlertDialog.Builder(this@LoginActivity)
         viewModel.firebaseUser.onEach {
@@ -74,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is Resource.Success ->{
                     Log.d("LoginActivity", "Success: ${it.data}")
+                    sharedEditor.putString(USER_ID, it.data).apply()
                     progressDialog.dismiss()
                     startActivity(DashboardActivity.newIntent(this@LoginActivity, it.data))
                     finish()
@@ -123,6 +137,8 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         private const val INVALID_ADDRESS = "Invalid Email address"
         private const val EMPTY_FIELD = ""
+        const val USER_SHARED_PREF = "userPreferences"
+        const val USER_ID = "userId"
 
         fun newIntent(context: Context): Intent {
             val intent = Intent(context, LoginActivity::class.java)
