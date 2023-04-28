@@ -157,7 +157,7 @@ class RegistrationFour : AppCompatActivity() {
     }
 
     /**
-     * Кликабельный текст для согласия на обработку данных сломался, надо починить!
+     * Кликабельный текст для согласия на обработку данных
      */
     private fun clickTextView() {
         val fullText = getString(R.string.by_creating)
