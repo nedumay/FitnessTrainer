@@ -34,8 +34,8 @@
     <string name="register_in">Зарегистрируйтесь и получите доступ к платформе Fitness trainer</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="by_creating">Создавая аккаунт, вы соглашаетесь с условиями использования, политикой конфиденциальности и условиями оплаты и возврата</string>
-    <string name="privacy_policy">условия использования, политика конфиденциальности</string>
-    <string name="terms_of_payment">условия оплаты и возврата</string>
+    <string name="privacy_policy">условиями использования, политикой конфиденциальности</string>
+    <string name="terms_of_payment">условиями оплаты и возврата</string>
     <string name="part_one">1/4</string>
     <string name="part_two">2/4</string>
     <string name="part_three">3/4</string>

@@ -130,7 +130,7 @@ class RegistrationFour : AppCompatActivity() {
                 }
             }.launchIn(lifecycleScope)
         }
-        //clickTextView()
+        clickTextView()
         isEmailValid()
     }
 
