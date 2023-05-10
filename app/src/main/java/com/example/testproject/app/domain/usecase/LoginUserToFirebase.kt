@@ -1,10 +1,14 @@
 package com.example.testproject.app.domain.usecase
 
-import com.example.testproject.app.domain.repository.Repository
+import com.example.testproject.app.domain.repository.RepositoryFirebase
 import javax.inject.Inject
 
-class LoginUserToFirebase @Inject constructor(private val repository: Repository) {
+/**
+ * @author Nedumayy (Samim)
+ * Login user to Firebase use case.
+ */
+class LoginUserToFirebase @Inject constructor(private val repositoryFirebase: RepositoryFirebase) {
 
     operator suspend fun invoke(email: String, password: String) =
-        repository.loginUserToFirebase(email, password)
+        repositoryFirebase.loginUserToFirebase(email, password)
 }

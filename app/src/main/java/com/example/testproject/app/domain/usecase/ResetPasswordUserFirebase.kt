@@ -1,9 +1,13 @@
 package com.example.testproject.app.domain.usecase
 
-import com.example.testproject.app.domain.repository.Repository
+import com.example.testproject.app.domain.repository.RepositoryFirebase
 import javax.inject.Inject
 
-class ResetPasswordUserFirebase @Inject constructor(private val repository: Repository) {
+/**
+ * @author Nedumayy (Samim)
+ * Reset password user from Firebase use case.
+ */
+class ResetPasswordUserFirebase @Inject constructor(private val repositoryFirebase: RepositoryFirebase) {
 
-    operator suspend fun invoke(email: String) = repository.resetPasswordUserToFirebase(email)
+    operator suspend fun invoke(email: String) = repositoryFirebase.resetPasswordUserToFirebase(email)
 }

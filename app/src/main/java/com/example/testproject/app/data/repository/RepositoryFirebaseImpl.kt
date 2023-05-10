@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.testproject.app.data.mapper.Mapper
 import com.example.testproject.app.data.model.UserDbModel
 import com.example.testproject.app.domain.model.User
-import com.example.testproject.app.domain.repository.Repository
+import com.example.testproject.app.domain.repository.RepositoryFirebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -16,9 +16,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(
+/**
+ * @author Nedumayy (Samim)
+ * Repository Impl for work with Firebase.
+ */
+class RepositoryFirebaseImpl @Inject constructor(
     private val mapper: Mapper
-) : Repository {
+) : RepositoryFirebase {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val dataBase: FirebaseDatabase = FirebaseDatabase.getInstance(
@@ -26,6 +30,7 @@ class RepositoryImpl @Inject constructor(
     )
     private val usersReference: DatabaseReference = dataBase.getReference("Users")
 
+    //Add user to Firebase.
     override suspend fun addUserToFirebase(user: User): String {
         var error = "An account with this email already exists!"
         auth.createUserWithEmailAndPassword(user.email, user.password)
@@ -41,7 +46,7 @@ class RepositoryImpl @Inject constructor(
             }.await()
         return error
     }
-
+    //Delete user from Firebase.
     override fun deleteUserFromFirebase(id: String) {
         auth.currentUser?.delete()?.addOnCompleteListener {
             if (it.isSuccessful) {
@@ -52,7 +57,7 @@ class RepositoryImpl @Inject constructor(
         Log.d("Delete account", "Delete data about user")
     }
 
-    //Получение данных о пользователе. Исправить!
+    //Get user from Firebase. Refactored!
     override suspend fun getUserFromFirebase(id: String): User? {
         var count = 0
         var data: User? = null
@@ -76,7 +81,7 @@ class RepositoryImpl @Inject constructor(
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
     }
-
+    //Login user to Firebase with email and password. Refactored!
     override suspend fun loginUserToFirebase(email: String, password: String): String {
         var userId: String? = null
         auth.signInWithEmailAndPassword(email, password)
@@ -89,7 +94,7 @@ class RepositoryImpl @Inject constructor(
             }.await()
         return userId.toString()
     }
-
+    //Reset password user to Firebase.
     override suspend fun resetPasswordUserToFirebase(email: String): String {
         var error = ""
         auth.sendPasswordResetEmail(email)
@@ -101,18 +106,17 @@ class RepositoryImpl @Inject constructor(
             }.await()
         return error
     }
-
+    //Sign out user from Firebase.
     override fun signOutUserFromFirebase(): FirebaseUser? {
         auth.signOut()
         Log.d("Account user", "rep.impl ${auth.currentUser}")
         return auth.currentUser
     }
-
+    //Auth user from Firebase.
     override fun authUserFirebase(): FirebaseUser? {
         val user: FirebaseUser?  = auth.currentUser
         Log.d("Account user", "rep.impl ${user}")
         return auth.currentUser
     }
-
 
 }
