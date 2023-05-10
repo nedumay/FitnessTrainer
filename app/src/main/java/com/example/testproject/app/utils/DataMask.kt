@@ -5,6 +5,7 @@ import android.text.TextWatcher
 import java.util.*
 
 /**
+ * @author Nedumayy (Samim)
  * Mask to display the date and save the date in the format MM.DD.YYYY
  */
 class DataMask : TextWatcher {
