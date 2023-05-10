@@ -51,9 +51,9 @@ class ResetActivity : AppCompatActivity() {
         enabledButton()
         binding.buttonSend.setOnClickListener {
             val email = binding.editTextEmailLogin.text?.trim().toString()
-            viewModel.resetPassord(email)
+            observeViewModel()
+            viewModel.resetPassword(email)
         }
-        observeViewModel()
     }
 
     private fun observeViewModel() {

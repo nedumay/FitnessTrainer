@@ -18,7 +18,7 @@ class ResetViewModel @Inject constructor(
     val error = _error.asStateFlow()
 
 
-    fun resetPassord(email: String) {
+    fun resetPassword(email: String) {
         viewModelScope.launch {
             try {
                 _error.value = Resource.Loading
