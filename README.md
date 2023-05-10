@@ -2,17 +2,21 @@
 An app for exercising at home. In development... Update: 10.05.2023
 
 Application сapabilities::
-1. Registering/deleting account user.
+1. Registering/deleting account user (firebase).
 2. Workout reminder (under development).
 3. Exercise list and tracking (under development).
 
-Language: Kotlin
+# Development Environment
 
-Pattern: MVVM + Clean architecture , Singltone
+The app is written entirely in Kotlin and uses the Gradle build system.
 
 Tools and Libraries: Firebase, Coroutines + Flow, Dagger2
 
 Language Support: English, Russian
+
+# Architecture
+
+The architecture is built around Android Architecture Components and follows the recommendations laid out in the Guide to App Architecture. Logic is kept away from Activities and moved to ViewModels. Data is observed using Kotlin Flows and the View Binding Library binds UI components in layouts to the app's data sources. Dependency Injection is implemented with Dagger2.
 
 ![12](https://user-images.githubusercontent.com/79632860/228531613-994ba3e1-0eef-4b16-b263-09d722285428.png)
 
