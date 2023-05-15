@@ -6,7 +6,7 @@ Application сapabilities::
 2. Workout reminder (under development).
 3. Exercise list and tracking (under development).
 
-API the works: https://run.mocky.io/v3/5739db8d-eb9b-456b-a8fd-9d9707fbf698 
+API in development: https://run.mocky.io/v3/5739db8d-eb9b-456b-a8fd-9d9707fbf698 
 
 # Development Environment
 
