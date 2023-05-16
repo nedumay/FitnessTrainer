@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testproject.app.domain.usecase.AuthUserFirebase
+import com.example.testproject.app.domain.usecase.firebase.AuthUserFirebase
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 import javax.inject.Inject

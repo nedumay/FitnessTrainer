@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/topAppBarWorkout"
             style="@style/head_appBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -44,6 +44,7 @@
                 android:paddingBottom="8dp"
                 android:text="@string/beginner"
                 android:textColor="#757575"
+                android:background="#F8F8F8"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="#F8F8F8"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

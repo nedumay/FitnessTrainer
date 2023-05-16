@@ -14,6 +14,7 @@ import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.notification.NotificationActivity
 import com.example.testproject.app.presentation.settings.SettingsActivity
+import com.example.testproject.app.presentation.workout.lvl.LvlActivity
 import com.example.testproject.databinding.ActivityDashboardBinding
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
@@ -58,6 +59,9 @@ class DashboardActivity : AppCompatActivity() {
 
         binding.addScheduleButton.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, NotificationActivity::class.java))
+        }
+        binding.cardClickToStart.setOnClickListener {
+            startActivity(LvlActivity.newIntent(this@DashboardActivity))
         }
     }
 

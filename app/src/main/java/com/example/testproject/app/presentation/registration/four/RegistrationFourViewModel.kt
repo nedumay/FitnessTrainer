@@ -3,8 +3,8 @@ package com.example.testproject.app.presentation.registration.four
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
-import com.example.testproject.app.domain.model.User
-import com.example.testproject.app.domain.usecase.AddUserToFirebase
+import com.example.testproject.app.domain.model.user.User
+import com.example.testproject.app.domain.usecase.firebase.AddUserToFirebase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

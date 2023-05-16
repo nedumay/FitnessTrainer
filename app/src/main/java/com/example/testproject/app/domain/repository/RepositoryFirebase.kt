@@ -1,6 +1,6 @@
 package com.example.testproject.app.domain.repository
 
-import com.example.testproject.app.domain.model.User
+import com.example.testproject.app.domain.model.user.User
 import com.google.firebase.auth.FirebaseUser
 
 /**

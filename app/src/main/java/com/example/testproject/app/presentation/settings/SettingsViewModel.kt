@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
-import com.example.testproject.app.domain.model.User
-import com.example.testproject.app.domain.usecase.DeleteUserFromFirebase
-import com.example.testproject.app.domain.usecase.GetUserFromFirebase
-import com.example.testproject.app.domain.usecase.SignOutUserFromFirebase
+import com.example.testproject.app.domain.model.user.User
+import com.example.testproject.app.domain.usecase.firebase.DeleteUserFromFirebase
+import com.example.testproject.app.domain.usecase.firebase.GetUserFromFirebase
+import com.example.testproject.app.domain.usecase.firebase.SignOutUserFromFirebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

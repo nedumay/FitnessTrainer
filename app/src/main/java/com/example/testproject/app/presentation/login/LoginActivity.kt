@@ -79,21 +79,21 @@ class LoginActivity : AppCompatActivity() {
         viewModel.firebaseUser.onEach {
             when(it){
                 is Resource.Loading ->{
-                    Log.d("LoginActivity", "Loading: $it")
+                    Log.d("LoginActivityData", "Loading: $it")
                     progressDialog.setTitle(R.string.login_alert)
                     progressDialog.isIndeterminate = true
                     progressDialog.setCancelable(false)
                     progressDialog.show()
                 }
                 is Resource.Success ->{
-                    Log.d("LoginActivity", "Success: ${it.data}")
+                    Log.d("LoginActivityData", "Success: ${it.data}")
                     sharedEditor.putString(USER_ID, it.data).apply()
                     progressDialog.dismiss()
                     startActivity(DashboardActivity.newIntent(this@LoginActivity, it.data))
                     finish()
                 }
                 is Resource.Error ->{
-                    Log.d("LoginActivity", "Error: $it")
+                    Log.d("LoginActivityData", "Error: $it")
                     progressDialog.dismiss()
                     alertDialog.setTitle(R.string.error)
                     alertDialog.setIcon(R.drawable.ic_error)

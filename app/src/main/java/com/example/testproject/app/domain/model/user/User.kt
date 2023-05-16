@@ -1,4 +1,4 @@
-package com.example.testproject.app.domain.model
+package com.example.testproject.app.domain.model.user
 
 data class User(
     var id: String? = "",

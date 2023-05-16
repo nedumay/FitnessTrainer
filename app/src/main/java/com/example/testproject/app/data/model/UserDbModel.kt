@@ -14,3 +14,4 @@ data class UserDbModel(
     var country: String? = "",
     var city: String? = ""
 )
+

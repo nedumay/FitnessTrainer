@@ -1,9 +1,9 @@
 package com.example.testproject.app.data.repository
 
 import android.util.Log
-import com.example.testproject.app.data.mapper.Mapper
+import com.example.testproject.app.data.mapper.MapperUser
 import com.example.testproject.app.data.model.UserDbModel
-import com.example.testproject.app.domain.model.User
+import com.example.testproject.app.domain.model.user.User
 import com.example.testproject.app.domain.repository.RepositoryFirebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -21,7 +21,7 @@ import javax.inject.Inject
  * Repository Impl for work with Firebase.
  */
 class RepositoryFirebaseImpl @Inject constructor(
-    private val mapper: Mapper
+    private val mapperUser: MapperUser
 ) : RepositoryFirebase {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -36,7 +36,7 @@ class RepositoryFirebaseImpl @Inject constructor(
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnSuccessListener {
                 if (it.user != null) {
-                    val userDb: UserDbModel = mapper.mapEntityToDbModel(user, it.user!!.uid)
+                    val userDb: UserDbModel = mapperUser.mapEntityToDbModel(user, it.user!!.uid)
                     usersReference.child(userDb.id!!).setValue(userDb)
                     error = "The account was created successfully!"
                 }
@@ -64,7 +64,7 @@ class RepositoryFirebaseImpl @Inject constructor(
         Log.d("Dashboard account user", "rep.impl $id")
         usersReference.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                data = mapper.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
+                data = mapperUser.mapDbModelToEntity(snapshot.getValue(UserDbModel::class.java))
                 Log.d("Dashboard account user", "rep.impl data: $data")
             }
             override fun onCancelled(error: DatabaseError) {
@@ -83,16 +83,17 @@ class RepositoryFirebaseImpl @Inject constructor(
     }
     //Login user to Firebase with email and password. Refactored!
     override suspend fun loginUserToFirebase(email: String, password: String): String {
-        var userId: String? = null
+        var userId = ""
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    userId = it.result.user?.uid
+                    userId = it.result.user?.uid ?: ""
                 } else {
+                    userId = it.exception?.message.toString()
                     Log.d("ErrorLogin", it.exception?.message.toString())
                 }
             }.await()
-        return userId.toString()
+        return userId
     }
     //Reset password user to Firebase.
     override suspend fun resetPasswordUserToFirebase(email: String): String {

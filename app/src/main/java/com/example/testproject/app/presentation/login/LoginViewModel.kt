@@ -3,7 +3,7 @@ package com.example.testproject.app.presentation.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
-import com.example.testproject.app.domain.usecase.LoginUserToFirebase
+import com.example.testproject.app.domain.usecase.firebase.LoginUserToFirebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

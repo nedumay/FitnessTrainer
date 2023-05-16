@@ -1,10 +1,10 @@
 package com.example.testproject.app.data.mapper
 
 import com.example.testproject.app.data.model.UserDbModel
-import com.example.testproject.app.domain.model.User
+import com.example.testproject.app.domain.model.user.User
 import javax.inject.Inject
 
-class Mapper @Inject constructor() {
+class MapperUser @Inject constructor() {
 
     fun mapEntityToDbModel(user: User, uid: String) = UserDbModel(
         id = uid,
@@ -31,4 +31,6 @@ class Mapper @Inject constructor() {
         email = userDbModel?.email ?: "",
         password = userDbModel?.password ?: ""
     )
+
+
 }

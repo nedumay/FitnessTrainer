@@ -1,4 +1,4 @@
-package com.example.testproject.app.domain.usecase
+package com.example.testproject.app.domain.usecase.firebase
 
 import com.example.testproject.app.domain.repository.RepositoryFirebase
 import javax.inject.Inject
