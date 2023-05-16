@@ -49,7 +49,7 @@ class DataMask : TextWatcher {
         }
     }
 
-    fun validateDay(month:String,day:String):String{
+    private fun validateDay(month:String, day:String):String{
         val arr31 = intArrayOf(1,3,5,7,8,10,12)
         val arr30 = intArrayOf(4,6,9,11)
         val arrFeb = intArrayOf(2)
@@ -67,7 +67,7 @@ class DataMask : TextWatcher {
 
     }
 
-    fun validateDay(month:String, arr: IntArray,day:String,maxDay: Int):String{
+    private fun validateDay(month:String, arr: IntArray, day:String, maxDay: Int):String{
         if(month.toInt() in arr){
             if(day.toInt() > maxDay){
                 return "$month${day.substring(0,1)}"
@@ -76,7 +76,7 @@ class DataMask : TextWatcher {
         return "$month$day"
     }
 
-    fun validateYear(year: String):String{
+    private fun validateYear(year: String):String{
         if(year.length == 1 && (year.toInt() in 3..9 || year.toInt() == 0)) {
             return ""
         }
@@ -86,7 +86,7 @@ class DataMask : TextWatcher {
         return year
     }
 
-    fun validateMonth(month: String):String{
+    private fun validateMonth(month: String):String{
         if(month.length == 1 && month.toInt() in 2..9){
             return "0$month"
         }

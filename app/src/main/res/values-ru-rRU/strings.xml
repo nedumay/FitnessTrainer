@@ -74,4 +74,9 @@
     <string name="create_acc_alert">Регистрация аккаунта</string>
     <string name="create_suc_alert">"Ваш аккаунт успешно зарегистрирован!"</string>
     <string name="login_alert">"Вход в аккаунт"</string>
+    <string name="home">Дом</string>
+    <string name="workout">ТРЕНИРОВКИ</string>
+    <string name="beginner">Начинающий</string>
+    <string name="area_of_focus">Область внимания</string>
+    <string name="close">Закрыть</string>
 </resources>

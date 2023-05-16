@@ -97,8 +97,8 @@ class LoginActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     alertDialog.setTitle(R.string.error)
                     alertDialog.setIcon(R.drawable.ic_error)
-                    alertDialog.setMessage("${it.message}")
-                    alertDialog.setPositiveButton("OK"){ dialog, which ->
+                    alertDialog.setMessage(it.message)
+                    alertDialog.setPositiveButton("OK"){ dialog, _ ->
                         dialog.dismiss()
                     }
                     alertDialog.show()

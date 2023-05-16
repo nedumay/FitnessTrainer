@@ -73,4 +73,9 @@
     <string name="create_acc_alert">Creating an account</string>
     <string name="create_suc_alert">"Your account is successfully registered!"</string>
     <string name="login_alert">"Login to your account"</string>
+    <string name="home">Home</string>
+    <string name="workout">WORKOUTS</string>
+    <string name="beginner">Beginner</string>
+    <string name="area_of_focus">Area of focus</string>
+    <string name="close">Close</string>
 </resources>

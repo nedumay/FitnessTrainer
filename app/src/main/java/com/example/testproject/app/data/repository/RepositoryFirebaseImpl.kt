@@ -115,7 +115,7 @@ class RepositoryFirebaseImpl @Inject constructor(
     //Auth user from Firebase.
     override fun authUserFirebase(): FirebaseUser? {
         val user: FirebaseUser?  = auth.currentUser
-        Log.d("Account user", "rep.impl ${user}")
+        Log.d("Account user", "rep.impl $user")
         return auth.currentUser
     }
 
