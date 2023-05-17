@@ -2,7 +2,7 @@ package com.example.testproject.app.data.repository
 
 import android.util.Log
 import com.example.testproject.app.data.mapper.MapperUser
-import com.example.testproject.app.data.model.UserDbModel
+import com.example.testproject.app.data.database.model.UserDbModel
 import com.example.testproject.app.domain.model.user.User
 import com.example.testproject.app.domain.repository.RepositoryFirebase
 import com.google.firebase.auth.FirebaseAuth

@@ -1,4 +1,4 @@
-package com.example.testproject.app.data.model
+package com.example.testproject.app.data.database.model
 
 data class UserDbModel(
     var id: String? = "",

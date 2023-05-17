@@ -12,6 +12,9 @@ import com.example.testproject.app.presentation.registration.three.RegistrationT
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.app.presentation.reset.ResetActivity
 import com.example.testproject.app.presentation.settings.SettingsActivity
+import com.example.testproject.app.presentation.workout.detail.DetailActivity
+import com.example.testproject.app.presentation.workout.list.WorkoutsActivity
+import com.example.testproject.app.presentation.workout.lvl.LvlActivity
 import dagger.BindsInstance
 import dagger.Component
 
@@ -38,6 +41,12 @@ interface ApplicationComponent {
     fun inject(activity: RegistrationThree)
 
     fun inject(activity: RegistrationFour)
+
+    fun inject(activity: LvlActivity)
+
+    fun inject(activity: WorkoutsActivity)
+
+    fun inject(activity: DetailActivity)
 
     fun inject(application: App)
 
