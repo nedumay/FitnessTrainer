@@ -4,36 +4,83 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.testproject.R
+import com.example.testproject.app.common.Resource
+import com.example.testproject.app.domain.model.beginner.Workout
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.workout.list.ExercisesActivity
+import com.example.testproject.app.presentation.workout.lvl.adapters.LvlWorkoutAdapter
 import com.example.testproject.databinding.ActivityLvlBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class LvlActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLvlBinding
+    private lateinit var viewModel: LvlViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var lvlWorkoutAdapter: LvlWorkoutAdapter
+
+    private val  binding by lazy {
+        ActivityLvlBinding.inflate(layoutInflater)
+    }
 
     private val component by lazy {
         (application as App).component
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: LvlViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
-        binding = ActivityLvlBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[LvlViewModel::class.java]
 
         appBarMenu()
+
+        viewModel.loadWorkoutList()
+        viewModel.workoutInfo.onEach {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.recyclerViewBeginners.visibility = View.GONE
+                    binding.textViewBeginner.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    initAdapter(it)
+                    binding.progressBar.visibility = View.GONE
+                    binding.textViewBeginner.visibility = View.VISIBLE
+                    binding.recyclerViewBeginners.visibility = View.VISIBLE
+                    lvlWorkoutAdapter.onWorkoutClickListener = {
+                        val intent = ExercisesActivity.newIntent(this@LvlActivity, it.id, it.title, it.picture)
+                        startActivity(intent)
+                    }
+                }
+                is Resource.Error -> {
+                    binding.textViewBeginner.visibility = View.GONE
+                    binding.recyclerViewBeginners.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this@LvlActivity, it.message, Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun initAdapter(it: Resource.Success<List<Workout>>) {
+        lvlWorkoutAdapter = LvlWorkoutAdapter()
+        binding.recyclerViewBeginners.adapter = lvlWorkoutAdapter
+        lvlWorkoutAdapter.submitList(it.data)
     }
 
     private fun appBarMenu() {
@@ -46,10 +93,12 @@ class LvlActivity : AppCompatActivity() {
         binding.topAppBarWorkout.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.homeDashboard -> {
-                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@LvlActivity, DashboardActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finish()
                     true
                 }
-
                 else -> false
             }
         }

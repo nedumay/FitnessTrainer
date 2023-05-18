@@ -7,7 +7,7 @@ import com.example.testproject.app.presentation.registration.four.RegistrationFo
 import com.example.testproject.app.presentation.reset.ResetViewModel
 import com.example.testproject.app.presentation.settings.SettingsViewModel
 import com.example.testproject.app.presentation.workout.detail.DetailViewModel
-import com.example.testproject.app.presentation.workout.list.WorkoutsViewModel
+import com.example.testproject.app.presentation.workout.list.ExercisesViewModel
 import com.example.testproject.app.presentation.workout.lvl.LvlViewModel
 import dagger.Binds
 import dagger.Module
@@ -48,8 +48,8 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(WorkoutsViewModel::class)
-    fun bindWorkoutsViewModel(viewModel: WorkoutsViewModel): ViewModel
+    @ViewModelKey(ExercisesViewModel::class)
+    fun bindWorkoutsViewModel(viewModel: ExercisesViewModel): ViewModel
 
     @Binds
     @IntoMap

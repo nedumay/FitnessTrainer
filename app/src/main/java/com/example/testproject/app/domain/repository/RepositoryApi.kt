@@ -6,7 +6,7 @@ import com.example.testproject.app.domain.model.beginner.Workout
 
 /**
  * @author Nedumayy (Samim)
- * Repository Api
+ * Repository Api for work with data from remote.
  */
 interface RepositoryApi {
 
@@ -14,7 +14,6 @@ interface RepositoryApi {
 
     suspend fun getWorkoutInfo(): List<Workout>
 
-    suspend fun getExerciseInfo(): List<Exercise>
+    suspend fun getExerciseInfo(idExercise: Int): List<Exercise>
 
-    suspend fun loadData()
 }

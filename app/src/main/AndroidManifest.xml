@@ -18,13 +18,19 @@
         tools:targetApi="33">
         <activity
             android:name=".app.presentation.workout.detail.DetailActivity"
-            android:exported="false" />
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"  />
         <activity
-            android:name=".app.presentation.workout.list.WorkoutsActivity"
-            android:exported="false" />
+            android:name=".app.presentation.workout.list.ExercisesActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"  />
         <activity
             android:name=".app.presentation.workout.lvl.LvlActivity"
-            android:exported="false" />
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"  />
         <activity
             android:name=".app.presentation.settings.SettingsActivity"
             android:configChanges="orientation"

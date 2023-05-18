@@ -57,7 +57,7 @@
     <string name="my_profile">Мой профиль</string>
     <string name="workout_schedule">Расписание тренировок</string>
     <string name="workouts_completed_this_week">Тренировок, выполненно на этой неделе -</string>
-    <string name="daily_exercise">Упражнения</string>
+    <string name="daily_trainings">Тренировки</string>
     <string name="click_to_start">Нажмите, чтобы начать</string>
     <string name="back_to_home">Вернуться</string>
     <string name="alerts">Оповещение</string>
@@ -79,4 +79,5 @@
     <string name="beginner">Начинающий</string>
     <string name="area_of_focus">Область внимания</string>
     <string name="close">Закрыть</string>
+    <string name="count_exercise">Количество тренировок</string>
 </resources>
