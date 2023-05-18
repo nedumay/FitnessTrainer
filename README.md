@@ -1,12 +1,12 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
-An app for exercising at home. In development... Update: 17.05.2023
+An app for exercising at home. In development... Update: 18.05.2023
 
 Application сapabilities::
 1. Registering/deleting account user (firebase).
 2. Workout reminder (under development).
 3. Exercise list and tracking (under development).
 
-API in development: https://run.mocky.io/v3/5739db8d-eb9b-456b-a8fd-9d9707fbf698 
+API in development: https://run.mocky.io/v3/f1f1cfa0-d2d0-4631-80b0-bd2fa14b6784
 
 # Development Environment
 
