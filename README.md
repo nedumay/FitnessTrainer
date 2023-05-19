@@ -6,13 +6,13 @@ Application сapabilities::
 2. Workout reminder (under development).
 3. Exercise list and tracking (under development).
 
-API in development: [https://run.mocky.io/v3/f1f1cfa0-d2d0-4631-80b0-bd2fa14b6784](https://run.mocky.io/v3/771be8e0-fa5d-489a-80b6-c5c66463a64f)
+API in development: https://run.mocky.io/v3/3a592573-918d-49cd-8cc8-74ec74b9572d
 
 # Development Environment
 
 The app is written entirely in Kotlin and uses the Gradle build system.
 
-Tools and Libraries: Firebase, Coroutines + Flow, Dagger2
+Tools and Libraries: Firebase, Coroutines + StateFlow, Dagger2
 
 Language Support: English, Russian
 
