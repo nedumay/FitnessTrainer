@@ -53,8 +53,7 @@ class ExercisesActivity : AppCompatActivity() {
         viewModel.exerciseInfo.onEach {
             when (it) {
                 is Resource.Loading -> {
-                    binding.cardWorkout.visibility = View.GONE
-                    binding.recyclerViewExercise.visibility = View.GONE
+                    binding.nestedScrollView.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
@@ -66,13 +65,11 @@ class ExercisesActivity : AppCompatActivity() {
                         .centerCrop()
                         .into(binding.imageViewWorkout)
                     binding.ratingBarWorkout.rating = 1.0f
-                    binding.cardWorkout.visibility = View.VISIBLE
-                    binding.recyclerViewExercise.visibility = View.VISIBLE
+                    binding.nestedScrollView.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                 }
                 is Resource.Error -> {
-                    binding.cardWorkout.visibility = View.GONE
-                    binding.recyclerViewExercise.visibility = View.GONE
+                    binding.nestedScrollView.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
                 }
             }

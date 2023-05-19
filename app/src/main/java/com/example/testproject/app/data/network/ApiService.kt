@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("771be8e0-fa5d-489a-80b6-c5c66463a64f")
+    @GET("2851420f-ea0f-4f4f-9247-6e780bb94f18")
     suspend fun getBeginnerInfo(): BeginnerDto
 }

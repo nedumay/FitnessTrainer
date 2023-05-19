@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/iphone_13_m"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".app.presentation.main.MainActivity">
 
     <ImageView
         android:id="@+id/imageViewMain"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/rectangle_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_ill"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +23,14 @@
         android:id="@+id/textViewOneToFour"
         android:layout_width="65dp"
         android:layout_height="66dp"
-        android:layout_marginStart="80dp"
         android:background="@drawable/some_id"
         android:elevation="4dp"
+        android:layout_marginBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/textViewTitleApp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textViewTitleApp"
@@ -37,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/app_name"
         android:textAppearance="@style/text_view_title_app"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewOneToFour"
         app:layout_constraintTop_toTopOf="@+id/textViewOneToFour" />
 
