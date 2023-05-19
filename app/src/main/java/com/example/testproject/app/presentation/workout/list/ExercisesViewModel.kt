@@ -5,31 +5,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.beginner.Exercise
-import com.example.testproject.app.domain.model.beginner.Workout
-import com.example.testproject.app.domain.usecase.api.GetExerciseInfoUseCase
+import com.example.testproject.app.domain.usecase.api.GetExerciseInfoListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ExercisesViewModel @Inject constructor(
-    private val getExerciseInfoUseCase: GetExerciseInfoUseCase
+    private val getExerciseInfoListUseCase: GetExerciseInfoListUseCase
 
 ) : ViewModel() {
 
-    private var _exerciseInfo = MutableStateFlow<Resource<List<Exercise>>>(Resource.Loading)
-    val exerciseInfo = _exerciseInfo.asStateFlow()
+    private var _exerciseInfoList = MutableStateFlow<Resource<List<Exercise>>>(Resource.Loading)
+    val exerciseInfoList = _exerciseInfoList.asStateFlow()
 
     fun loadExerciseList(idExercise: Int){
         viewModelScope.launch {
             try {
-                _exerciseInfo.value = Resource.Loading
-                val data = getExerciseInfoUseCase.invoke(idExercise = idExercise)
-                _exerciseInfo.value = Resource.Success(data)
+                _exerciseInfoList.value = Resource.Loading
+                val data = getExerciseInfoListUseCase.invoke(idExercisesList = idExercise)
+                Log.d("LoadDataApi", "Exercises ViewModel: $data")
+                _exerciseInfoList.value = Resource.Success(data)
             } catch (e: Exception) {
-                _exerciseInfo.value = Resource.Error(e.message.toString())
+                _exerciseInfoList.value = Resource.Error(e.message.toString())
             }
-            Log.d("LoadDataApi", "Exercises ViewModel: ${_exerciseInfo.value}")
+            Log.d("LoadDataApi", "Exercises ViewModel: ${_exerciseInfoList.value}")
         }
     }
 }

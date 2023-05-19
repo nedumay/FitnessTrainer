@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.beginner.Workout
-import com.example.testproject.app.domain.usecase.api.GetWorkoutInfoUseCase
+import com.example.testproject.app.domain.usecase.api.GetWorkoutInfoListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LvlViewModel @Inject constructor(
-    private val getWorkoutInfo: GetWorkoutInfoUseCase
+    private val getWorkoutInfo: GetWorkoutInfoListUseCase
 ) : ViewModel() {
 
     private var _workoutInfo = MutableStateFlow<Resource<List<Workout>>>(Resource.Loading)

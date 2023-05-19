@@ -6,6 +6,6 @@ import javax.inject.Inject
 /**
  * @author Nedumayy (Samim)
  */
-class GetWorkoutInfoUseCase @Inject constructor(private val repositoryApi: RepositoryApi) {
-    suspend operator fun invoke() = repositoryApi.getWorkoutInfo()
+class GetWorkoutInfoListUseCase @Inject constructor(private val repositoryApi: RepositoryApi) {
+    suspend operator fun invoke() = repositoryApi.getWorkoutInfoList()
 }

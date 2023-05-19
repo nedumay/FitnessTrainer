@@ -12,9 +12,9 @@ import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.beginner.Exercise
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.workout.detail.DetailActivity
 import com.example.testproject.app.presentation.workout.list.adapters.ExerciseAdapter
 import com.example.testproject.app.presentation.workout.lvl.LvlActivity
-import com.example.testproject.app.presentation.workout.lvl.adapters.LvlWorkoutAdapter
 import com.example.testproject.databinding.ActivityExercisesBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -44,13 +44,13 @@ class ExercisesActivity : AppCompatActivity() {
             finish()
             return
         }
-        val idExercise = intent.getIntExtra(EXTRA_FROM_ID, 0)
+        val idExerciseList = intent.getIntExtra(EXTRA_FROM_ID, 0)
         val titleExercise = intent.getStringExtra(EXTRA_TITLE)
         val pictureExercise = intent.getStringExtra(EXTRA_PICTURE)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[ExercisesViewModel::class.java]
-        viewModel.loadExerciseList(idExercise)
-        viewModel.exerciseInfo.onEach {
+        viewModel.loadExerciseList(idExerciseList)
+        viewModel.exerciseInfoList.onEach {
             when (it) {
                 is Resource.Loading -> {
                     binding.nestedScrollView.visibility = View.GONE
@@ -67,6 +67,10 @@ class ExercisesActivity : AppCompatActivity() {
                     binding.ratingBarWorkout.rating = 1.0f
                     binding.nestedScrollView.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
+                    exerciseAdapter.onExerciseClickListener ={
+                        val intent = DetailActivity.newIntent(this@ExercisesActivity, idExercise = it.id, idExerciseList = idExerciseList)
+                        startActivity(intent)
+                    }
                 }
                 is Resource.Error -> {
                     binding.nestedScrollView.visibility = View.GONE
@@ -85,6 +89,7 @@ class ExercisesActivity : AppCompatActivity() {
         exerciseAdapter = ExerciseAdapter()
         binding.recyclerViewExercise.adapter = exerciseAdapter
         exerciseAdapter.submitList(it.data)
+
     }
 
     companion object {
@@ -100,5 +105,4 @@ class ExercisesActivity : AppCompatActivity() {
             return intent
         }
     }
-
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,40 +11,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="match_parent"
-            android:layout_height="195dp"
-            android:layout_margin="16dp"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/buttonCreateAccount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youTubePlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <TextView
             android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubuntu_medium"
             android:gravity="center_vertical"
             android:textColor="#757575"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/videoView"
-            app:layout_constraintTop_toBottomOf="@+id/videoView"
+            app:layout_constraintEnd_toEndOf="@+id/youTubePlayerView"
+            app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
+            app:layout_constraintTop_toBottomOf="@+id/youTubePlayerView"
             tools:text="Jumping" />
 
         <TextView
             android:id="@+id/textViewSubtitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/ubuntu_medium"
             android:gravity="center_vertical"
             android:textColor="#94D647"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
-            app:layout_constraintStart_toEndOf="@+id/textViewTitle"
-            app:layout_constraintTop_toTopOf="@+id/textViewTitle"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
+            app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
             tools:text="16" />
 
         <TextView
@@ -53,14 +66,14 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubuntu_regular"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/videoView"
-            app:layout_constraintStart_toStartOf="@+id/videoView"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            app:layout_constraintEnd_toEndOf="@+id/youTubePlayerView"
+            app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSubtitle"
             tools:text="Description" />
 
         <TextView
             android:id="@+id/textViewAreaTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubuntu_medium"
@@ -68,6 +81,7 @@
             android:text="@string/area_of_focus"
             android:textColor="#757575"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDescription"
             app:layout_constraintStart_toStartOf="@+id/textViewDescription"
             app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 
@@ -84,9 +98,9 @@
             tools:text="Area description" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardWorkout"
+            android:id="@+id/cardAreaImage"
             android:layout_width="0dp"
-            android:layout_height="195dp"
+            android:layout_height="350dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="15dp"
@@ -99,7 +113,8 @@
             <ImageView
                 android:id="@+id/imageViewArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -108,13 +123,14 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/close"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/cardWorkout"
-            app:layout_constraintStart_toStartOf="@+id/cardWorkout"
-            app:layout_constraintTop_toBottomOf="@+id/cardWorkout" />
+            app:layout_constraintEnd_toEndOf="@+id/cardAreaImage"
+            app:layout_constraintStart_toStartOf="@+id/cardAreaImage"
+            app:layout_constraintTop_toBottomOf="@+id/cardAreaImage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
