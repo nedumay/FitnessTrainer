@@ -31,13 +31,13 @@ The architecture is built around Android Architecture Components and follows the
 ![12](https://github.com/nedumay/FitnessTrainer/assets/79632860/2c756d2b-7f39-4283-997c-e6797280066e)
 ![7](https://github.com/nedumay/FitnessTrainer/assets/79632860/e9b1712e-ab55-40f3-a6cc-97f255720a33)
 
-#Forgot password activity
+# Forgot password activity
 ![4](https://github.com/nedumay/FitnessTrainer/assets/79632860/824b90d6-9968-4db5-935e-68e0bde2093e)
 
 # Main activity
 ![2](https://github.com/nedumay/FitnessTrainer/assets/79632860/6014d0d6-df90-4ca8-9b1f-a46d0217d2b5)
 
-#Exercise activity
+# Exercise activity
 ![9](https://github.com/nedumay/FitnessTrainer/assets/79632860/24b2f870-6799-4f5d-9c07-d1b52166501d)
 ![10](https://github.com/nedumay/FitnessTrainer/assets/79632860/c11d1567-e731-4415-a666-89e108f46ca5)
 ![11](https://github.com/nedumay/FitnessTrainer/assets/79632860/6fb8de3d-da8c-481b-b5bc-e06b2f3e16b9)
