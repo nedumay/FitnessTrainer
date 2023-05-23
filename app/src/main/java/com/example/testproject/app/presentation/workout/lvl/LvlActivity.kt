@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.example.testproject.R
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.beginner.Workout
@@ -29,7 +31,12 @@ class LvlActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var lvlWorkoutAdapter: LvlWorkoutAdapter
+    private val lvlWorkoutBeginnerAdapter by lazy {
+        LvlWorkoutAdapter()
+    }
+    private val lvlWorkoutContinuingAdapter by lazy {
+        LvlWorkoutAdapter()
+    }
 
     private val  binding by lazy {
         ActivityLvlBinding.inflate(layoutInflater)
@@ -48,20 +55,20 @@ class LvlActivity : AppCompatActivity() {
 
         appBarMenu()
 
-        viewModel.loadWorkoutList()
-        viewModel.workoutInfo.onEach {
-            when (it) {
+        viewModel.loadWorkoutListBeginner()
+        viewModel.beginnerLvlList.onEach { beginner ->
+            when (beginner) {
                 is Resource.Loading -> {
                     binding.recyclerViewBeginners.visibility = View.GONE
                     binding.textViewBeginner.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    initAdapter(it)
+                    initAdapter(beginner, lvlWorkoutBeginnerAdapter, binding.recyclerViewBeginners)
                     binding.progressBar.visibility = View.GONE
                     binding.textViewBeginner.visibility = View.VISIBLE
                     binding.recyclerViewBeginners.visibility = View.VISIBLE
-                    lvlWorkoutAdapter.onWorkoutClickListener = {
+                    lvlWorkoutBeginnerAdapter.onWorkoutClickListener = {
                         val intent = ExercisesActivity.newIntent(this@LvlActivity, it.id, it.title, it.picture)
                         startActivity(intent)
                     }
@@ -70,17 +77,43 @@ class LvlActivity : AppCompatActivity() {
                     binding.textViewBeginner.visibility = View.GONE
                     binding.recyclerViewBeginners.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this@LvlActivity, it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LvlActivity, beginner.message, Toast.LENGTH_SHORT).show()
                     finish()
                 }
             }
         }.launchIn(lifecycleScope)
+
+        viewModel.loadWorkoutListContinuing()
+        viewModel.continuingLvlList.onEach { continuing ->
+            when (continuing) {
+                is Resource.Loading -> {
+                    binding.recyclerViewContinuing.visibility = View.GONE
+                    binding.textViewContinuing.visibility = View.GONE
+                }
+                is Resource.Success -> {
+                    initAdapter(continuing, lvlWorkoutContinuingAdapter, binding.recyclerViewContinuing)
+                    binding.textViewContinuing.visibility = View.VISIBLE
+                    binding.recyclerViewContinuing.visibility = View.VISIBLE
+                    lvlWorkoutContinuingAdapter.onWorkoutClickListener = {
+                        val intent = ExercisesActivity.newIntent(this@LvlActivity, it.id, it.title, it.picture)
+                        startActivity(intent)
+                    }
+                }
+                is Resource.Error -> {
+                    binding.textViewContinuing.visibility = View.GONE
+                    binding.recyclerViewContinuing.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this@LvlActivity, continuing.message, Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        }.launchIn(lifecycleScope)
+
     }
 
-    private fun initAdapter(it: Resource.Success<List<Workout>>) {
-        lvlWorkoutAdapter = LvlWorkoutAdapter()
-        binding.recyclerViewBeginners.adapter = lvlWorkoutAdapter
-        lvlWorkoutAdapter.submitList(it.data)
+    private fun initAdapter(it: Resource.Success<List<Workout>>, adapterLvl: LvlWorkoutAdapter, recyclerView: RecyclerView) {
+        recyclerView.adapter = adapterLvl
+        adapterLvl.submitList(it.data)
     }
 
     private fun appBarMenu() {

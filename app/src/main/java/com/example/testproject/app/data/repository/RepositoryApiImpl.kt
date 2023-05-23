@@ -2,10 +2,10 @@ package com.example.testproject.app.data.repository
 
 import android.util.Log
 import com.example.testproject.app.data.network.ApiService
-import com.example.testproject.app.data.network.model.BeginnerDto
-import com.example.testproject.app.data.network.model.toBeginner
-import com.example.testproject.app.domain.model.beginner.Beginner
+import com.example.testproject.app.data.network.model.ListLvlDto
+import com.example.testproject.app.data.network.model.toListLvl
 import com.example.testproject.app.domain.model.beginner.Exercise
+import com.example.testproject.app.domain.model.beginner.ListLvl
 import com.example.testproject.app.domain.model.beginner.Workout
 import com.example.testproject.app.domain.repository.RepositoryApi
 import javax.inject.Inject
@@ -18,24 +18,46 @@ class RepositoryApiImpl @Inject constructor(
     private val apiService: ApiService
 ) : RepositoryApi {
 
-    override suspend fun getBeginnerInfo(): Beginner {
-        val beginnerList: BeginnerDto = apiService.getBeginnerInfo()
+    override suspend fun getBeginnerInfo(): ListLvl {
+        val beginnerList: ListLvlDto = apiService.getBeginnerInfo()
         Log.d("LoadDataApi", "Get beginner info: $beginnerList")
-        return beginnerList.toBeginner()
+        return beginnerList.toListLvl()
     }
 
-    override suspend fun getWorkoutInfoList(): List<Workout> {
-        val workoutList: List<Workout> = getBeginnerInfo().beginner
+    override suspend fun getContinuingInfo(): ListLvl {
+        val continuingList: ListLvlDto = apiService.getContinuingInfo()
+        Log.d("LoadDataApi", "Get continuing info: $continuingList")
+        return continuingList.toListLvl()
+    }
+
+    override suspend fun getWorkoutInfoBeginnerList(): List<Workout> {
+        val workoutList: List<Workout> = getBeginnerInfo().listLvl
+        Log.d("LoadDataApi", "Get workout list: $workoutList")
+        return workoutList
+    }
+
+    override suspend fun getWorkoutInfoContinuingList(): List<Workout> {
+        val workoutList: List<Workout> = getContinuingInfo().listLvl
         Log.d("LoadDataApi", "Get workout list: $workoutList")
         return workoutList
     }
 
     override suspend fun getExerciseInfoList(idExercisesList: Int): List<Exercise> {
         val exercisesList = arrayListOf<Exercise>()
-        getWorkoutInfoList().map {
-            if (it.id == idExercisesList) {
-                it.exercise.map {
-                    exercisesList.add(it)
+        if(idExercisesList < 6){
+            getWorkoutInfoBeginnerList().map {
+                if (it.id == idExercisesList) {
+                    it.exercise.map {
+                        exercisesList.add(it)
+                    }
+                }
+            }
+        } else {
+            getWorkoutInfoContinuingList().map {
+                if (it.id == idExercisesList) {
+                    it.exercise.map {
+                        exercisesList.add(it)
+                    }
                 }
             }
         }

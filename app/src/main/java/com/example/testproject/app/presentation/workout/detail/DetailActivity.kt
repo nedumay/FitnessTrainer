@@ -51,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     with(binding){
                         progressBar.visibility = View.VISIBLE
-                        youTubePlayerView.visibility = View.GONE
+                        cardAreaVideo.visibility = View.GONE
                         textViewTitle.visibility = View.GONE
                         textViewSubtitle.visibility = View.GONE
                         textViewDescription.visibility = View.GONE
@@ -63,7 +63,7 @@ class DetailActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     with(binding){
                         progressBar.visibility = View.GONE
-                        youTubePlayerView.visibility = View.VISIBLE
+                        cardAreaVideo.visibility = View.VISIBLE
                         lifecycle.addObserver(youTubePlayerView)
                         youTubePlayerView.addYouTubePlayerListener(
                             object : AbstractYouTubePlayerListener() {
@@ -92,7 +92,7 @@ class DetailActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     with(binding){
                         progressBar.visibility = View.VISIBLE
-                        youTubePlayerView.visibility = View.GONE
+                        cardAreaVideo.visibility = View.GONE
                         textViewTitle.visibility = View.GONE
                         textViewSubtitle.visibility = View.GONE
                         textViewDescription.visibility = View.GONE
@@ -103,7 +103,7 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }.launchIn(lifecycleScope)
-        binding.buttonCreateAccount.setOnClickListener {
+        binding.buttonClose.setOnClickListener {
             finish()
         }
 

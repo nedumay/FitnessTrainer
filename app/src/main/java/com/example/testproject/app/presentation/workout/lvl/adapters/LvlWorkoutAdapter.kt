@@ -33,7 +33,11 @@ class LvlWorkoutAdapter : ListAdapter<Workout, LvlWorkoutViewHolder>(LvlWorkoutD
                     .load(picture)
                     .centerCrop()
                     .into(imageViewWorkout)
-                ratingBarWorkout.rating = 1.0f
+                if(workout.id < 6){
+                    ratingBarWorkout.rating = 1.0f
+                } else{
+                    ratingBarWorkout.rating = 2.0f
+                }
                 root.setOnClickListener {
                     onWorkoutClickListener?.invoke(this)
                 }

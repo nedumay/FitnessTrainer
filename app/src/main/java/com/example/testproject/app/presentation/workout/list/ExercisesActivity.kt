@@ -23,6 +23,7 @@ import javax.inject.Inject
 class ExercisesActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ExercisesViewModel
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -35,12 +36,13 @@ class ExercisesActivity : AppCompatActivity() {
     private val component by lazy {
         (application as App).component
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if(!intent.hasExtra(EXTRA_FROM_ID)){
+        if (!intent.hasExtra(EXTRA_FROM_ID)) {
             finish()
             return
         }
@@ -56,6 +58,7 @@ class ExercisesActivity : AppCompatActivity() {
                     binding.nestedScrollView.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is Resource.Success -> {
                     initAdapter(it)
                     binding.textViewCountWorkout.text = it.data.size.toString()
@@ -64,14 +67,23 @@ class ExercisesActivity : AppCompatActivity() {
                         .load(pictureExercise)
                         .centerCrop()
                         .into(binding.imageViewWorkout)
-                    binding.ratingBarWorkout.rating = 1.0f
+                    if (idExerciseList < 6) {
+                        binding.ratingBarWorkout.rating = 1.0f
+                    } else {
+                        binding.ratingBarWorkout.rating = 2.0f
+                    }
                     binding.nestedScrollView.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
-                    exerciseAdapter.onExerciseClickListener ={
-                        val intent = DetailActivity.newIntent(this@ExercisesActivity, idExercise = it.id, idExerciseList = idExerciseList)
+                    exerciseAdapter.onExerciseClickListener = {
+                        val intent = DetailActivity.newIntent(
+                            this@ExercisesActivity,
+                            idExercise = it.id,
+                            idExerciseList = idExerciseList
+                        )
                         startActivity(intent)
                     }
                 }
+
                 is Resource.Error -> {
                     binding.nestedScrollView.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
@@ -99,7 +111,7 @@ class ExercisesActivity : AppCompatActivity() {
         private const val EXTRA_PICTURE = "picture"
         fun newIntent(context: Context, idExercise: Int, title: String, picture: String): Intent {
             val intent = Intent(context, ExercisesActivity::class.java)
-            intent.putExtra(EXTRA_FROM_ID,idExercise)
+            intent.putExtra(EXTRA_FROM_ID, idExercise)
             intent.putExtra(EXTRA_TITLE, title)
             intent.putExtra(EXTRA_PICTURE, picture)
             return intent

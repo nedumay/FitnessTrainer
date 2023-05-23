@@ -1,6 +1,6 @@
 package com.example.testproject.app.domain.repository
 
-import com.example.testproject.app.domain.model.beginner.Beginner
+import com.example.testproject.app.domain.model.beginner.ListLvl
 import com.example.testproject.app.domain.model.beginner.Exercise
 import com.example.testproject.app.domain.model.beginner.Workout
 
@@ -10,9 +10,13 @@ import com.example.testproject.app.domain.model.beginner.Workout
  */
 interface RepositoryApi {
 
-    suspend fun getBeginnerInfo(): Beginner
+    suspend fun getBeginnerInfo(): ListLvl
 
-    suspend fun getWorkoutInfoList(): List<Workout>
+    suspend fun getContinuingInfo(): ListLvl
+
+    suspend fun getWorkoutInfoBeginnerList(): List<Workout>
+
+    suspend fun getWorkoutInfoContinuingList(): List<Workout>
 
     suspend fun getExerciseInfoList(idExercisesList: Int): List<Exercise>
 
