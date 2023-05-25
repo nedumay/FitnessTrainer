@@ -35,8 +35,10 @@ class LvlWorkoutAdapter : ListAdapter<Workout, LvlWorkoutViewHolder>(LvlWorkoutD
                     .into(imageViewWorkout)
                 if(workout.id < 6){
                     ratingBarWorkout.rating = 1.0f
-                } else{
+                } else if (workout.id in 6..10){
                     ratingBarWorkout.rating = 2.0f
+                } else {
+                    ratingBarWorkout.rating = 3.0f
                 }
                 root.setOnClickListener {
                     onWorkoutClickListener?.invoke(this)

@@ -14,9 +14,13 @@ interface RepositoryApi {
 
     suspend fun getContinuingInfo(): ListLvl
 
+    suspend fun getAdvancedInfo(): ListLvl
+
     suspend fun getWorkoutInfoBeginnerList(): List<Workout>
 
     suspend fun getWorkoutInfoContinuingList(): List<Workout>
+
+    suspend fun getWorkoutInfoAdvancedList(): List<Workout>
 
     suspend fun getExerciseInfoList(idExercisesList: Int): List<Exercise>
 

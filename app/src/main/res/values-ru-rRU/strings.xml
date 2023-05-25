@@ -78,6 +78,7 @@
     <string name="workout">ТРЕНИРОВКИ</string>
     <string name="beginner">Начинающий</string>
     <string name="continuing">Продолжающий</string>
+    <string name="advanced">Продвинутый</string>
     <string name="area_of_focus">Область внимания</string>
     <string name="close">Закрыть</string>
     <string name="count_exercise">Количество тренировок</string>

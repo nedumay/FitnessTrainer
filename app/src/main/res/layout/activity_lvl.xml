@@ -20,6 +20,7 @@
             android:background="@color/white"
             android:elevation="8dp"
             app:menu="@menu/menu_workout"
+
             app:title="@string/workout"
             app:titleCentered="true" />
 
@@ -83,7 +84,7 @@
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="@string/continuing"
+                android:text="@string/advanced"
                 android:textColor="#757575"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -101,6 +102,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewContinuing"
+                tools:listitem="@layout/list_item_workout"/>
+
+            <TextView
+                android:id="@+id/textViewAdvanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F8F8F8"
+                android:fontFamily="@font/ubuntu_medium"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/continuing"
+                android:textColor="#757575"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewContinuing" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAdvanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#F8F8F8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAdvanced"
                 tools:listitem="@layout/list_item_workout"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

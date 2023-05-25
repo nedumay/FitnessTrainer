@@ -69,8 +69,10 @@ class ExercisesActivity : AppCompatActivity() {
                         .into(binding.imageViewWorkout)
                     if (idExerciseList < 6) {
                         binding.ratingBarWorkout.rating = 1.0f
-                    } else {
+                    } else if (idExerciseList in 6..10) {
                         binding.ratingBarWorkout.rating = 2.0f
+                    } else {
+                        binding.ratingBarWorkout.rating = 3.0f
                     }
                     binding.nestedScrollView.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE

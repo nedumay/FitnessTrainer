@@ -38,6 +38,10 @@ class LvlActivity : AppCompatActivity() {
         LvlWorkoutAdapter()
     }
 
+    private val lvlWorkoutAdvancedAdapter by lazy {
+        LvlWorkoutAdapter()
+    }
+
     private val  binding by lazy {
         ActivityLvlBinding.inflate(layoutInflater)
     }
@@ -105,6 +109,33 @@ class LvlActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this@LvlActivity, continuing.message, Toast.LENGTH_SHORT).show()
                     finish()
+                }
+            }
+        }.launchIn(lifecycleScope)
+
+        viewModel.loadWorkoutListAdvanced()
+        viewModel.advancedLvlList.onEach { advanced ->
+            when(advanced){
+                is Resource.Loading -> {
+                    binding.recyclerViewAdvanced.visibility = View.GONE
+                    binding.textViewAdvanced.visibility = View.GONE
+                }
+                is Resource.Success -> {
+                    initAdapter(advanced, lvlWorkoutAdvancedAdapter, binding.recyclerViewAdvanced)
+                    binding.textViewAdvanced.visibility = View.VISIBLE
+                    binding.recyclerViewAdvanced.visibility = View.VISIBLE
+                    lvlWorkoutAdvancedAdapter.onWorkoutClickListener = {
+                        val intent = ExercisesActivity.newIntent(this@LvlActivity, it.id, it.title, it.picture)
+                        startActivity(intent)
+                    }
+                }
+                is Resource.Error -> {
+                    binding.textViewAdvanced.visibility = View.GONE
+                    binding.recyclerViewAdvanced.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this@LvlActivity, advanced.message, Toast.LENGTH_SHORT).show()
+                    finish()
+
                 }
             }
         }.launchIn(lifecycleScope)

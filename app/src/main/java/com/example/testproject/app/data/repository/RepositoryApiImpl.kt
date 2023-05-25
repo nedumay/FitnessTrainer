@@ -30,6 +30,12 @@ class RepositoryApiImpl @Inject constructor(
         return continuingList.toListLvl()
     }
 
+    override suspend fun getAdvancedInfo(): ListLvl {
+        val advancedList: ListLvlDto = apiService.getAdvancedInfo()
+        Log.d("LoadDataApi", "Get advanced info: $advancedList")
+        return advancedList.toListLvl()
+    }
+
     override suspend fun getWorkoutInfoBeginnerList(): List<Workout> {
         val workoutList: List<Workout> = getBeginnerInfo().listLvl
         Log.d("LoadDataApi", "Get workout list: $workoutList")
@@ -38,6 +44,12 @@ class RepositoryApiImpl @Inject constructor(
 
     override suspend fun getWorkoutInfoContinuingList(): List<Workout> {
         val workoutList: List<Workout> = getContinuingInfo().listLvl
+        Log.d("LoadDataApi", "Get workout list: $workoutList")
+        return workoutList
+    }
+
+    override suspend fun getWorkoutInfoAdvancedList(): List<Workout> {
+        val workoutList: List<Workout> = getAdvancedInfo().listLvl
         Log.d("LoadDataApi", "Get workout list: $workoutList")
         return workoutList
     }
@@ -52,8 +64,16 @@ class RepositoryApiImpl @Inject constructor(
                     }
                 }
             }
-        } else {
+        } else if(idExercisesList in 6..10){
             getWorkoutInfoContinuingList().map {
+                if (it.id == idExercisesList) {
+                    it.exercise.map {
+                        exercisesList.add(it)
+                    }
+                }
+            }
+        } else{
+            getWorkoutInfoAdvancedList().map {
                 if (it.id == idExercisesList) {
                     it.exercise.map {
                         exercisesList.add(it)
