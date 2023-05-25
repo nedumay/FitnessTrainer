@@ -2,11 +2,15 @@
 An app for exercising at home. In development... Update: 25.05.2023
 
 Application сapabilities::
-1. Registering/deleting account user (firebase).
+1. Registering/deleting and saving info about an account user (firebase).
 2. Workout reminder (under development).
-3. Exercise list and tracking (under development).
+3. Exercise list.
+4. Exercise tracking (under development).
 
-API in development: https://run.mocky.io/v3/d8c1a02d-cb90-43ee-bf93-d07d915f41fa
+API in development: 
+beginner: https://run.mocky.io/v3/d8c1a02d-cb90-43ee-bf93-d07d915f41fa
+continuing: https://run.mocky.io/v3/9454d6a3-cc2a-49a1-92f3-bb785af3a27d
+advanced: https://run.mocky.io/v3/eee2b1ce-1fd7-4b4c-8156-eda8a4ea16d7
 
 # Development Environment
 
