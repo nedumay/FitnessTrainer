@@ -8,8 +8,11 @@ Application сapabilities::
 4. Exercise tracking (under development).
 
 API in development: 
+
 beginner: https://run.mocky.io/v3/d8c1a02d-cb90-43ee-bf93-d07d915f41fa
+
 continuing: https://run.mocky.io/v3/9454d6a3-cc2a-49a1-92f3-bb785af3a27d
+
 advanced: https://run.mocky.io/v3/eee2b1ce-1fd7-4b4c-8156-eda8a4ea16d7
 
 # Development Environment
