@@ -99,7 +99,7 @@
                 android:fontFamily="@font/ubuntu_medium"
                 android:gravity="center_vertical"
                 android:text="@string/area_of_focus"
-                android:textColor="#757575"
+                android:textColor="@android:color/holo_blue_light"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="@+id/textViewDescription"
                 app:layout_constraintStart_toStartOf="@+id/textViewDescription"

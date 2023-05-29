@@ -24,6 +24,7 @@ import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
+import com.example.testproject.app.utils.EmailMask
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -45,6 +46,10 @@ class RegistrationFour : AppCompatActivity() {
         (application as App).component
     }
 
+    private val emailMask by lazy {
+        EmailMask(binding.tilEmailRegistration)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
@@ -63,6 +68,7 @@ class RegistrationFour : AppCompatActivity() {
             "RegistrationActivity",
             "Four activity get: $name, $date, $gender, $height, $weight, $targetWeight"
         )
+        binding.editTextEmailRegistration.addTextChangedListener(emailMask)
         binding.imageButtonArrowBack.setOnClickListener {
             startActivity(
                 RegistrationThree.newIntent(
@@ -131,30 +137,9 @@ class RegistrationFour : AppCompatActivity() {
             }.launchIn(lifecycleScope)
         }
         clickTextView()
-        isEmailValid()
+
     }
 
-    private fun isEmailValid() {
-        binding.editTextEmailRegistration.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val valid =
-                    android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
-                if (!valid) {
-                    binding.tilEmailRegistration.error = INVALID_ADDRESS
-                } else {
-                    binding.tilEmailRegistration.error = EMPTY_FIELD
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s?.length == 0) {
-                    binding.tilEmailRegistration.error = NOT_BE_EMPTY
-                }
-            }
-
-        })
-    }
 
     /**
      * Кликабельный текст для согласия на обработку данных
@@ -216,9 +201,6 @@ class RegistrationFour : AppCompatActivity() {
         private const val EXTRA_HEIGHT = "height"
         private const val EXTRA_TARGET_WEIGHT = "target weight"
 
-        private const val EMPTY_FIELD = ""
-        private const val INVALID_ADDRESS = "Invalid Email address"
-        private const val NOT_BE_EMPTY = "Required Field!"
         fun newIntent(
             context: Context,
             name: String,

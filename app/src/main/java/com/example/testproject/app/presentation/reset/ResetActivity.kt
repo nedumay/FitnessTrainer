@@ -16,6 +16,7 @@ import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.app.utils.EmailMask
 import com.example.testproject.databinding.ActivityResetBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
