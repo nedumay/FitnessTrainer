@@ -81,4 +81,12 @@
     <string name="area_of_focus">Area of focus</string>
     <string name="close">Close</string>
     <string name="count_exercise">Count of exercise</string>
+    <string name="text_notification">Don\'t miss today\'s workout!</string>
+    <string name="mo">Mo</string>
+    <string name="tu">Tu</string>
+    <string name="wed">Wed</string>
+    <string name="th">Th</string>
+    <string name="fr">Fr</string>
+    <string name="sa">Sa</string>
+    <string name="su">Su</string>
 </resources>

@@ -10,7 +10,7 @@ import com.google.android.material.textfield.TextInputLayout
  * Use this class to display the email
  * Error message will be displayed if the email is invalid or empty on TextInputLayout
  */
-class EmailMask(private val tilEmail: TextInputLayout) : TextWatcher{
+class EmailMask(private val tilEmail: TextInputLayout) : TextWatcher {
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -33,7 +33,7 @@ class EmailMask(private val tilEmail: TextInputLayout) : TextWatcher{
         }
     }
 
-    companion object{
+    companion object {
 
         private const val EMPTY_FIELD = ""
         private const val INVALID_ADDRESS = "Invalid Email address"
