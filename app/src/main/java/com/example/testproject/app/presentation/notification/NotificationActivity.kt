@@ -25,11 +25,14 @@ class NotificationActivity : AppCompatActivity() {
     }
     private val calendar = Calendar.getInstance()
     private var count = 0
+    private val hour = calendar.get(Calendar.HOUR_OF_DAY)
+    private val minute = calendar.get(Calendar.MINUTE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initDefaultTime()
 
         binding.imageButtonArrowBack.setOnClickListener {
             finish()
@@ -39,9 +42,14 @@ class NotificationActivity : AppCompatActivity() {
         }
         setDay()
         binding.createNotification.setOnClickListener {
-            createNotification()
+
         }
 
+    }
+
+    private fun initDefaultTime(){
+        val timeFormat = String.format("%02d:%02d", hour, minute)
+        binding.textViewTime.text = timeFormat
     }
 
     private fun createNotification() {
@@ -50,7 +58,7 @@ class NotificationActivity : AppCompatActivity() {
         val delay = calendar.timeInMillis - currentTimeMills
         val notificationRequest: OneTimeWorkRequest = OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
             .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-            .addTag("notification_time")
+            .addTag(calendar.get(Calendar.DAY_OF_WEEK).toString())
             .setInputData(
                 workDataOf(
                     "notification_id" to calendar.get(Calendar.DAY_OF_WEEK)
@@ -75,6 +83,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipMo.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+                createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
@@ -82,6 +91,7 @@ class NotificationActivity : AppCompatActivity() {
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
             } else {
                 binding.chipMo.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -92,6 +102,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipTu.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
+                createNotification()
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
                 if (count != 7) {
                     count++
@@ -99,6 +110,7 @@ class NotificationActivity : AppCompatActivity() {
                 }
             } else {
                 binding.chipTu.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -109,6 +121,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipWed.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
+                createNotification()
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
                 if (count != 7) {
                     count++
@@ -116,6 +129,7 @@ class NotificationActivity : AppCompatActivity() {
                 }
             } else {
                 binding.chipWed.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -126,6 +140,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipTh.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
+                createNotification()
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
                 if (count != 7) {
                     count++
@@ -133,6 +148,7 @@ class NotificationActivity : AppCompatActivity() {
                 }
             } else {
                 binding.chipTh.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -143,6 +159,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipFr.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+                createNotification()
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
                 if (count != 7) {
                     count++
@@ -150,6 +167,7 @@ class NotificationActivity : AppCompatActivity() {
                 }
             } else {
                 binding.chipFr.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -160,6 +178,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipSa.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+                createNotification()
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
                 if (count != 7) {
                     count++
@@ -167,6 +186,7 @@ class NotificationActivity : AppCompatActivity() {
                 }
             } else {
                 binding.chipSa.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -177,6 +197,7 @@ class NotificationActivity : AppCompatActivity() {
             if (isChecked) {
                 binding.chipSu.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+                createNotification()
                 Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
                 if (count != 7) {
                     count++
@@ -184,18 +205,16 @@ class NotificationActivity : AppCompatActivity() {
                 }
             } else {
                 binding.chipSu.isChecked = false
+                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
                 }
             }
         }
-
     }
 
     private fun setTime() {
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(
             this,
