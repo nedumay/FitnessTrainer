@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardStart"
         android:layout_width="match_parent"
-        android:layout_height="113dp"
+        android:layout_height="120dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="4dp"
@@ -28,7 +28,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/ubuntu_medium"
                 android:text="@string/workout_schedule"
-                android:textColor="#757575"
+                android:textColor="@color/green"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +58,32 @@
                 app:layout_constraintStart_toEndOf="@+id/textViewCompleted"
                 app:layout_constraintTop_toTopOf="@+id/textViewCompleted"
                 tools:text="0" />
+
+            <TextView
+                android:id="@+id/header_text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_medium"
+                android:text="@string/time"
+                android:textColor="#757575"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textViewTime"
+                app:layout_constraintStart_toStartOf="@+id/textViewTime"
+                app:layout_constraintTop_toTopOf="@+id/textViewSchedule" />
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="00:00"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewNum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewNum" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"

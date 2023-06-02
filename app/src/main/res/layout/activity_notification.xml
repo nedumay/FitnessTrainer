@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/chooseDays"
         app:strokeColor="@color/green"
         app:cardBackgroundColor="@color/white"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -194,7 +194,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardWarkout"
         app:strokeColor="@color/green"
         app:cardBackgroundColor="@color/white"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

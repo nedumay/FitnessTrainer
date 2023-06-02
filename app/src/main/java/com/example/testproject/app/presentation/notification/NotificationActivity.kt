@@ -5,8 +5,10 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.utils.WorkoutNotificationWorker
 import com.example.testproject.databinding.ActivityNotificationBinding
@@ -21,7 +23,8 @@ class NotificationActivity : AppCompatActivity() {
     private val component by lazy {
         (application as App).component
     }
-    val calendar = Calendar.getInstance()
+    private val calendar = Calendar.getInstance()
+    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
@@ -45,14 +48,28 @@ class NotificationActivity : AppCompatActivity() {
 
         val currentTimeMills = System.currentTimeMillis()
         val delay = calendar.timeInMillis - currentTimeMills
-        val notificationRequest = OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
+        val notificationRequest: OneTimeWorkRequest = OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
             .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .addTag("notification_time")
+            .setInputData(
+                workDataOf(
+                    "notification_id" to calendar.get(Calendar.DAY_OF_WEEK)
+                )
+            )
             .build()
-        WorkManager.getInstance(applicationContext).enqueue(notificationRequest)
+        addEnqueueNotification(notificationRequest)
+    }
+    // Add notification to enqueue
+    private fun addEnqueueNotification(notification: OneTimeWorkRequest) {
+        WorkManager.getInstance(applicationContext).enqueue(notification)
+    }
+    // Delete notification by tag from enqueue
+    private fun deleteEnqueueNotification(tag: String) {
+        WorkManager.getInstance(applicationContext).cancelAllWorkByTag(tag)
     }
 
     private fun setDay() {
-        var count = 0
+
         binding.textViewCountDay.text = "$count/7"
         binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

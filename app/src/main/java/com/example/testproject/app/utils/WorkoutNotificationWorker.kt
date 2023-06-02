@@ -17,6 +17,12 @@ class WorkoutNotificationWorker(context: Context, workerParams: WorkerParameters
     Worker(context, workerParams) {
 
     override fun doWork(): Result {
+        showWorkoutNotification()
+        return Result.success()
+    }
+
+    private fun showWorkoutNotification() {
+        val notificationId = inputData.getInt("notification_id", 0)
         val notificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -25,18 +31,17 @@ class WorkoutNotificationWorker(context: Context, workerParams: WorkerParameters
                 NotificationChannel(CHANNEL_ID, CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }
-        val notificationBuilder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_gia_pay_background)
             .setContentTitle(applicationContext.getText(R.string.app_name))
             .setContentText(applicationContext.getText(R.string.text_notification))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build())
-        return Result.success()
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+        notificationManager.notify(notificationId, notification)
     }
 
     companion object {
         private const val CHANNEL_ID = "workout_id"
-        private const val CHANNEL = "workout"
-        private const val NOTIFICATION_ID = 887
+        private const val CHANNEL = "Reminder workout"
     }
 }
