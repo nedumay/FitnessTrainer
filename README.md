@@ -3,7 +3,7 @@ An app for exercising at home. In development... Update: 02.06.2023
 
 Application сapabilities::
 1. Registering/deleting and saving info about an account user (firebase).
-2. Workout reminder (under development).
+2. Workout reminder by time and day (under development).
 3. Exercise list.
 4. Exercise tracking (under development).
 
