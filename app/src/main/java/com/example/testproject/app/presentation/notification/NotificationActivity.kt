@@ -1,6 +1,7 @@
 package com.example.testproject.app.presentation.notification
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.utils.NotificationService
 import com.example.testproject.app.utils.WorkoutNotificationWorker
 import com.example.testproject.databinding.ActivityNotificationBinding
 import java.util.concurrent.TimeUnit
@@ -23,10 +25,9 @@ class NotificationActivity : AppCompatActivity() {
     private val component by lazy {
         (application as App).component
     }
+
     private val calendar = Calendar.getInstance()
     private var count = 0
-    private val hour = calendar.get(Calendar.HOUR_OF_DAY)
-    private val minute = calendar.get(Calendar.MINUTE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
@@ -47,33 +48,40 @@ class NotificationActivity : AppCompatActivity() {
 
     }
 
-    private fun initDefaultTime(){
-        val timeFormat = String.format("%02d:%02d", hour, minute)
+    private fun initDefaultTime() {
+        val timeFormat = String.format(
+            "%02d:%02d",
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE)
+        )
         binding.textViewTime.text = timeFormat
     }
 
     private fun createNotification() {
-
+        val notificationIntent = Intent(applicationContext, WorkoutNotificationWorker::class.java)
         val currentTimeMills = System.currentTimeMillis()
         val delay = calendar.timeInMillis - currentTimeMills
-        val notificationRequest: OneTimeWorkRequest = OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-            .addTag(calendar.get(Calendar.DAY_OF_WEEK).toString())
-            .setInputData(
-                workDataOf(
-                    "notification_id" to calendar.get(Calendar.DAY_OF_WEEK)
+        val notificationRequest: OneTimeWorkRequest =
+            OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
+                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                .addTag(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                .setInputData(
+                    workDataOf(
+                        "notification_id" to calendar.get(Calendar.DAY_OF_WEEK)
+                    )
                 )
-            )
-            .build()
-        addEnqueueNotification(notificationRequest)
+                .build()
+        NotificationService(notificationRequest).onStartCommand(
+            notificationIntent,
+            0,
+            calendar.get(Calendar.DAY_OF_WEEK)
+        )
     }
-    // Add notification to enqueue
-    private fun addEnqueueNotification(notification: OneTimeWorkRequest) {
-        WorkManager.getInstance(applicationContext).enqueue(notification)
-    }
+
     // Delete notification by tag from enqueue
     private fun deleteEnqueueNotification(tag: String) {
         WorkManager.getInstance(applicationContext).cancelAllWorkByTag(tag)
+        Log.d("NotificationEnqueue", tag)
     }
 
     private fun setDay() {
@@ -215,7 +223,6 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun setTime() {
-
         val timePickerDialog = TimePickerDialog(
             this,
             { _, hourOfDay, minuteOfDay ->
@@ -225,8 +232,8 @@ class NotificationActivity : AppCompatActivity() {
                 calendar.set(Calendar.MINUTE, minuteOfDay)
                 calendar.set(Calendar.SECOND, 0)
             },
-            hour,
-            minute,
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
             true
         )
         timePickerDialog.show()

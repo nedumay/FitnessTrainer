@@ -12,6 +12,10 @@ import androidx.work.WorkerParameters
 import com.example.testproject.R
 import com.example.testproject.app.presentation.main.MainActivity
 
+/**
+ * @author Nedumayy (Samim)
+ * Create worker for sending notifications
+ */
 
 class WorkoutNotificationWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
@@ -22,9 +26,11 @@ class WorkoutNotificationWorker(context: Context, workerParams: WorkerParameters
     }
 
     private fun showWorkoutNotification() {
-        val notificationId = inputData.getInt("notification_id", 0)
+
         val notificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val notificationId = inputData.getInt("notification_id", 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
@@ -35,7 +41,8 @@ class WorkoutNotificationWorker(context: Context, workerParams: WorkerParameters
             .setSmallIcon(R.mipmap.ic_gia_pay_background)
             .setContentTitle(applicationContext.getText(R.string.app_name))
             .setContentText(applicationContext.getText(R.string.text_notification))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
             .build()
         notificationManager.notify(notificationId, notification)
     }
