@@ -3,60 +3,84 @@ package com.example.testproject.app.presentation.login
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.testproject.R
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
-import com.example.testproject.app.presentation.dashboard.DashboardActivity
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.registration.one.RegistrationOne
-import com.example.testproject.app.presentation.reset.ResetActivity
-import com.example.testproject.databinding.ActivityLoginBinding
+import com.example.testproject.databinding.FragmentLoginBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : Fragment() {
 
-    private val binding by lazy {
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
-
-    private val component by lazy {
-        (application as App).component
-    }
+    private var _binding: FragmentLoginBinding? = null
+    private val binding: FragmentLoginBinding
+        get() = _binding ?: throw RuntimeException("FragmentLoginBinding == null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: LoginViewModel
+
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as App)
+            .component
+            .inject(this@LoginFragment)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    }
 
-        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val userIdSharedPref = getSharedPreferences(USER_SHARED_PREF, MODE_PRIVATE)
-        val sharedEditor = userIdSharedPref.edit()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val userIdSharedPreferences = requireActivity()
+            .getSharedPreferences(
+                USER_SHARED_PREF,
+                AppCompatActivity.MODE_PRIVATE
+            )
+
+        val sharedEditor = userIdSharedPreferences.edit()
 
         binding.textViewForgotPassword.setOnClickListener {
-            startActivity(ResetActivity.newIntent(this@LoginActivity))
+            launchResetFragment()
+            //startActivity(ResetActivity.newIntent(this@LoginActivity))
         }
         binding.buttonRegistrationLogin.setOnClickListener {
-            startActivity(RegistrationOne.newIntent(this@LoginActivity))
+            launchRegistrationOneFragment()
+            //startActivity(RegistrationOne.newIntent(this@LoginActivity))
         }
         binding.buttonEnterLogin.isEnabled = false
+
         enabledButton()
-        saveUser(userIdSharedPref)
+
+        saveUser(userIdSharedPreferences)
+
         binding.buttonEnterLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text?.trim().toString()
             val password = binding.editTextPasswordLogin.text?.trim().toString()
@@ -65,40 +89,59 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun launchRegistrationOneFragment() {
+        //TODO("Not yet implemented")
+    }
+
+    private fun launchResetFragment() {
+        //TODO("Not yet implemented")
+    }
+
+    private fun launchDashboardFragment() {
+        //TODO("Not yet implemented")
+    }
+
+
     private fun saveUser(userIdSharedPref: SharedPreferences) {
-        if(userIdSharedPref.contains(USER_ID)){
-            val data = userIdSharedPref.getString(USER_ID, "") ?: ""
+        if (userIdSharedPref.contains(USER_ID)) {
+            //val data = userIdSharedPref.getString(USER_ID, "") ?: ""
+            launchDashboardFragment()
+            /*
             startActivity(DashboardActivity.newIntent(this@LoginActivity, data))
-            finish()
+            finish()*/
         }
     }
 
     private fun observeViewModel(sharedEditor: SharedPreferences.Editor) {
-        val progressDialog = ProgressDialog(this@LoginActivity)
-        val alertDialog = AlertDialog.Builder(this@LoginActivity)
+        val progressDialog = ProgressDialog(requireContext())
+        val alertDialog = AlertDialog.Builder(requireContext())
         viewModel.firebaseUser.onEach {
-            when(it){
-                is Resource.Loading ->{
+            when (it) {
+                is Resource.Loading -> {
                     Log.d("LoginActivityData", "Loading: $it")
                     progressDialog.setTitle(R.string.login_alert)
                     progressDialog.isIndeterminate = true
                     progressDialog.setCancelable(false)
                     progressDialog.show()
                 }
-                is Resource.Success ->{
+
+                is Resource.Success -> {
                     Log.d("LoginActivityData", "Success: ${it.data}")
                     sharedEditor.putString(USER_ID, it.data).apply()
                     progressDialog.dismiss()
+                    launchDashboardFragment()
+                    /*
                     startActivity(DashboardActivity.newIntent(this@LoginActivity, it.data))
-                    finish()
+                    finish()*/
                 }
-                is Resource.Error ->{
+
+                is Resource.Error -> {
                     Log.d("LoginActivityData", "Error: $it")
                     progressDialog.dismiss()
                     alertDialog.setTitle(R.string.error)
                     alertDialog.setIcon(R.drawable.ic_error)
                     alertDialog.setMessage(it.message)
-                    alertDialog.setPositiveButton("OK"){ dialog, _ ->
+                    alertDialog.setPositiveButton("OK") { dialog, _ ->
                         dialog.dismiss()
                     }
                     alertDialog.show()
@@ -113,6 +156,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.buttonEnterLogin.isEnabled = (binding.editTextEmailLogin.text?.length
                     ?: 0) > 0 && (binding.editTextPasswordLogin.text?.length ?: 0) > 0
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val valid =
@@ -129,9 +173,15 @@ class LoginActivity : AppCompatActivity() {
                 binding.buttonEnterLogin.isEnabled = (binding.editTextPasswordLogin.text?.length
                     ?: 0) > 0 && (binding.editTextEmailLogin.text?.length ?: 0) > 0
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
@@ -140,11 +190,11 @@ class LoginActivity : AppCompatActivity() {
         const val USER_SHARED_PREF = "userPreferences"
         const val USER_ID = "userId"
 
+        /*
         fun newIntent(context: Context): Intent {
             val intent = Intent(context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             return intent
-        }
+        }*/
     }
-
 }

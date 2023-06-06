@@ -15,8 +15,6 @@ import com.example.testproject.R
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.login.LoginActivity
-import com.example.testproject.app.utils.EmailMask
 import com.example.testproject.databinding.ActivityResetBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -45,7 +43,7 @@ class ResetActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[ResetViewModel::class.java]
 
         binding.imageButtonArrowBack.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            //startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
         binding.buttonSend.isEnabled = false

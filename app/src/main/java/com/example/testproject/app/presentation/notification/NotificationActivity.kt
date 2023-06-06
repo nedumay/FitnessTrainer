@@ -1,15 +1,18 @@
 package com.example.testproject.app.presentation.notification
 
+import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.utils.NotificationService
 import com.example.testproject.app.utils.WorkoutNotificationWorker
@@ -45,7 +48,20 @@ class NotificationActivity : AppCompatActivity() {
         binding.createNotification.setOnClickListener {
 
         }
+        binding.clearAllNotifications.setOnClickListener {
+            cancelAllNotifications()
+        }
 
+    }
+
+    private fun cancelAllNotifications() {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
+        Toast.makeText(
+            this@NotificationActivity,
+            applicationContext.getText(R.string.all_notification_canceled),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun initDefaultTime() {
@@ -85,7 +101,6 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun setDay() {
-
         binding.textViewCountDay.text = "$count/7"
         binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

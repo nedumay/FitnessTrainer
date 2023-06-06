@@ -14,8 +14,7 @@ import com.example.testproject.R
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.login.LoginActivity
-import com.example.testproject.app.presentation.login.LoginActivity.Companion.USER_SHARED_PREF
+import com.example.testproject.app.presentation.login.LoginFragment.Companion.USER_SHARED_PREF
 import com.example.testproject.databinding.ActivitySettingsBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -105,7 +104,7 @@ class SettingsActivity : AppCompatActivity() {
                 userIdSharedPref.edit().clear().apply()
                 dialog.dismiss()
                 viewModel.signOut()
-                startActivity(LoginActivity.newIntent(this@SettingsActivity))
+                //startActivity(LoginActivity.newIntent(this@SettingsActivity))
                 finish()
             }
             alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
@@ -122,7 +121,7 @@ class SettingsActivity : AppCompatActivity() {
                 userIdSharedPref.edit().clear().apply()
                 dialog.dismiss()
                 viewModel.deleteUser(currentUserId!!)
-                startActivity(LoginActivity.newIntent(this@SettingsActivity))
+                //startActivity(LoginActivity.newIntent(this@SettingsActivity))
                 finish()
             }
             alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->

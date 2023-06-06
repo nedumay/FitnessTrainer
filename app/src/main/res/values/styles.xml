@@ -101,7 +101,7 @@
         <item name="android:paddingRight">@dimen/m3_btn_padding_right</item>
         <item name="strokeColor">@color/button_outline_color_selector</item>
         <item name="backgroundTint">@color/button_background_color_selector</item>
-        <item name="android:textSize">@dimen/btn_size_18</item>
+        <item name="android:textSize">@dimen/btn_size_16</item>
         <item name="fontFamily">@font/ubuntu_medium</item>
         <item name="strokeWidth">@dimen/m3_btn_stroke_size</item>
 </style>

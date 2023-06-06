@@ -63,26 +63,26 @@
                 android:id="@+id/header_text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ubuntu_medium"
                 android:text="@string/time"
                 android:textColor="#757575"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTime"
-                app:layout_constraintStart_toStartOf="@+id/textViewTime"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textViewSchedule" />
 
             <TextView
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:text="00:00"
                 android:textColor="@color/green"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewNum"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/header_text_time"
+                app:layout_constraintStart_toStartOf="@+id/header_text_time"
                 app:layout_constraintTop_toTopOf="@+id/textViewNum" />
 
             <com.google.android.material.chip.ChipGroup

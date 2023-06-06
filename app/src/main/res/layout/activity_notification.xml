@@ -257,4 +257,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clearAllNotifications"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/clear_all_notifications"
+        app:layout_constraintBottom_toTopOf="@+id/createNotification"
+        app:layout_constraintEnd_toEndOf="@+id/createNotification"
+        app:layout_constraintStart_toStartOf="@+id/createNotification" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

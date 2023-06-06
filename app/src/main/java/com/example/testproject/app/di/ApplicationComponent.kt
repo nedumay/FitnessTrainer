@@ -3,7 +3,7 @@ package com.example.testproject.app.di
 import android.app.Application
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.DashboardActivity
-import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.app.presentation.login.LoginFragment
 import com.example.testproject.app.presentation.main.MainActivity
 import com.example.testproject.app.presentation.notification.NotificationActivity
 import com.example.testproject.app.presentation.registration.four.RegistrationFour
@@ -12,6 +12,7 @@ import com.example.testproject.app.presentation.registration.three.RegistrationT
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.app.presentation.reset.ResetActivity
 import com.example.testproject.app.presentation.settings.SettingsActivity
+import com.example.testproject.app.presentation.splash.SplashFragment
 import com.example.testproject.app.presentation.workout.detail.DetailActivity
 import com.example.testproject.app.presentation.workout.list.ExercisesActivity
 import com.example.testproject.app.presentation.workout.lvl.LvlActivity
@@ -24,7 +25,11 @@ interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
 
-    fun inject(activity: LoginActivity)
+    fun inject(fragment: SplashFragment)
+
+    fun inject(fragment: LoginFragment)
+
+    //fun inject(activity: LoginActivity)
 
     fun inject(activity: DashboardActivity)
 

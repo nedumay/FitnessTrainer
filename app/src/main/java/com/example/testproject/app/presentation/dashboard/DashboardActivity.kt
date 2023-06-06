@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.notification.NotificationActivity
 import com.example.testproject.app.presentation.settings.SettingsActivity
 import com.example.testproject.app.presentation.workout.lvl.LvlActivity
@@ -41,7 +40,7 @@ class DashboardActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[DashboardViewModel::class.java]
 
         if (!intent.hasExtra(EXTRA_CURRENT_USER_ID)) {
-            startActivity(LoginActivity.newIntent(this@DashboardActivity))
+            //startActivity(LoginActivity.newIntent(this@DashboardActivity))
             finish()
         } else {
             currentUserId = intent.getStringExtra(EXTRA_CURRENT_USER_ID)
@@ -51,7 +50,7 @@ class DashboardActivity : AppCompatActivity() {
         viewModel.firebaseUser.observe(this){
             Log.d("Account user", "User observe activity: $it")
             if(it == null){
-                startActivity(LoginActivity.newIntent(this@DashboardActivity))
+                //startActivity(LoginActivity.newIntent(this@DashboardActivity))
                 finish()
             }
         }
@@ -79,7 +78,11 @@ class DashboardActivity : AppCompatActivity() {
                     true
                 }
                 R.id.settings -> {
-                    startActivity(SettingsActivity.newIntent(this@DashboardActivity,currentUserId!!))
+                    startActivity(currentUserId?.let {
+                        SettingsActivity.newIntent(this@DashboardActivity,
+                            it
+                        )
+                    })
                     true
                 }
                 else -> false

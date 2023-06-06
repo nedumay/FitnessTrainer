@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.testproject.app.presentation.app.App
-import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.registration.two.RegistrationTwo
 import com.example.testproject.app.utils.DataMask
 import com.example.testproject.databinding.ActivityRegistrationOneBinding
@@ -44,7 +43,7 @@ class RegistrationOne : AppCompatActivity() {
             startActivity(RegistrationTwo.newIntent(this@RegistrationOne, name, lastName, date))
         }
         binding.imageButtonArrowBack.setOnClickListener {
-            startActivity(LoginActivity.newIntent(this@RegistrationOne))
+            //startActivity(LoginActivity.newIntent(this@RegistrationOne))
             finish()
         }
     }

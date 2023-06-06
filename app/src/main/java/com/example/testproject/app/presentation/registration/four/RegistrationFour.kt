@@ -6,11 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
-import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
@@ -22,7 +20,6 @@ import com.example.testproject.R
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.login.LoginActivity
 import com.example.testproject.app.presentation.registration.three.RegistrationThree
 import com.example.testproject.app.utils.EmailMask
 import com.example.testproject.databinding.ActivityRegistrationFourBinding
@@ -116,7 +113,7 @@ class RegistrationFour : AppCompatActivity() {
                         alertDialog.setMessage(R.string.create_suc_alert)
                         alertDialog.setPositiveButton("OK") { dialog, which ->
                             dialog.dismiss()
-                            startActivity(LoginActivity.newIntent(this@RegistrationFour))
+                            //startActivity(LoginActivity.newIntent(this@RegistrationFour))
                             finish()
                         }
                         alertDialog.show()
