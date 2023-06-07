@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
-import com.example.testproject.app.presentation.login.LoginFragment
 import com.example.testproject.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
@@ -25,9 +24,7 @@ class SplashFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (context.applicationContext as App)
-            .component
-            .inject(this@SplashFragment)
+        (context.applicationContext as App).component.inject(this@SplashFragment)
     }
 
     override fun onCreateView(
@@ -48,11 +45,12 @@ class SplashFragment : Fragment() {
             requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (notificationManager.areNotificationsEnabled()) {
             // Notifications are allowed, launch login activity
-            Handler().postDelayed(Runnable {
-                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-                //startActivity(LoginActivity.newIntent(requireContext()))
-
-            }, 5000)
+            Handler().postDelayed(
+                Runnable {
+                    findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                },
+                5000
+            )
         } else {
             // Notifications are not allowed, permission must be requested
             val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
@@ -60,7 +58,6 @@ class SplashFragment : Fragment() {
             startActivity(intent)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,60 +1,174 @@
 package com.example.testproject.app.presentation.settings
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.Resource
+import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.databinding.FragmentSettingsBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding: FragmentSettingsBinding
+        get() = _binding ?: throw RuntimeException("FragmentSettingsBinding == null")
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
+    }
+
+    private lateinit var currentUserId: String
+    private lateinit var userIdSharedPreferences: SharedPreferences
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as App).component.inject(this@SettingsFragment)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Получаем id пользователя
+        userIdSharedPreferences = requireActivity()
+            .getSharedPreferences(
+                USER_SHARED_PREF,
+                AppCompatActivity.MODE_PRIVATE
+            )
+        currentUserId = userIdSharedPreferences.getString(EXTRA_CURRENT_USER_ID, null) ?: ""
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (currentUserId.isEmpty()) {
+            launchLoginFragment()
+        } else {
+            viewModel.loadDataForUser(currentUserId)
+        }
+        viewModel.userInfo.onEach {
+            when (it) {
+                is Resource.Loading -> {
+                    Log.d("Account user", "Loading: $it")
+                    binding.constraintLayout.visibility = View.GONE
+                    binding.materialCardView.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
+                is Resource.Error -> {
+                    Log.d("Account user", "Error: $it")
+                    binding.constraintLayout.visibility = View.GONE
+                    binding.materialCardView.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    launchDashboardFragment()
+                }
+
+                is Resource.Success -> {
+                    Log.d("Account user", "Success: $it")
+                    binding.constraintLayout.visibility = View.VISIBLE
+                    binding.materialCardView.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                    binding.textName.text = "${it.data.name} ${it.data.lastName}"
+                    binding.textNameUser.text = it.data.name
+                    binding.textLastNameUser.text = it.data.lastName
+                    binding.textDate.text = it.data.dateOfBirth
+                    binding.textWeight.text = it.data.weight
+                    binding.textHeight.text = it.data.height
+                    binding.textEmail.text = it.data.email
+                    if (it.data.gender) {
+                        binding.imageViewUser.setImageResource(R.drawable.avatar_male)
+                    } else {
+                        binding.imageViewUser.setImageResource(R.drawable.avatar_female)
+                    }
+                }
+            }
+        }.launchIn(lifecycleScope)
+
+        //Выход из аккаунта
+        val alertDialog = AlertDialog.Builder(requireContext())
+        binding.buttonOutput.setOnClickListener {
+            alertDialog.setTitle(R.string.warning)
+            alertDialog.setIcon(R.drawable.ic_warning)
+            alertDialog.setMessage(R.string.war_log_out)
+            alertDialog.setPositiveButton(R.string.output) { dialog, which ->
+                userIdSharedPreferences.edit().clear().apply()
+                dialog.dismiss()
+                viewModel.signOut()
+                launchLoginFragment()
+            }
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
+        }
+
+        // Удаление аккаунта
+        binding.textViewDeleteProfile.setOnClickListener {
+            alertDialog.setTitle(R.string.warning)
+            alertDialog.setIcon(R.drawable.ic_warning)
+            alertDialog.setMessage(R.string.war_delete)
+            alertDialog.setPositiveButton(R.string.delete) { dialog, which ->
+                userIdSharedPreferences.edit().clear().apply()
+                dialog.dismiss()
+                viewModel.deleteUser(currentUserId)
+                launchLoginFragment()
+            }
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
+        }
+        binding.textViewBack.setOnClickListener {
+            launchDashboardFragment()
+        }
+    }
+
+    private fun launchLoginFragment() {
+        findNavController().navigate(R.id.action_settingsFragment_to_loginFragment)
+    }
+
+    private fun launchDashboardFragment() {
+        findNavController().navigate(R.id.action_settingsFragment_to_dashboardFragment)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        const val USER_SHARED_PREF = "userPreferences"
+        private const val EXTRA_CURRENT_USER_ID = "current_id"
+
     }
+
 }

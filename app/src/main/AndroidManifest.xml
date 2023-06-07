@@ -23,69 +23,14 @@
         android:roundIcon="@mipmap/ic_gia_pay_background"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestProject"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="33">
-        <activity
-            android:name=".app.presentation.workout.detail.DetailActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"  />
-        <activity
-            android:name=".app.presentation.workout.list.ExercisesActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"  />
-        <activity
-            android:name=".app.presentation.workout.lvl.LvlActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"  />
-        <activity
-            android:name=".app.presentation.settings.SettingsActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.notification.NotificationActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.dashboard.DashboardActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.four.RegistrationFour"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.three.RegistrationThree"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.two.RegistrationTwo"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.one.RegistrationOne"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.reset.ResetActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".app.presentation.main.MainActivity"
             android:configChanges="orientation"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

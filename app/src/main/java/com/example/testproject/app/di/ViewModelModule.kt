@@ -8,7 +8,7 @@ import com.example.testproject.app.presentation.reset.ResetViewModel
 import com.example.testproject.app.presentation.settings.SettingsViewModel
 import com.example.testproject.app.presentation.workout.detail.DetailViewModel
 import com.example.testproject.app.presentation.workout.list.ExercisesViewModel
-import com.example.testproject.app.presentation.workout.lvl.LvlViewModel
+import com.example.testproject.app.presentation.workout.lvl.LevelViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -53,7 +53,7 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(LvlViewModel::class)
-    fun bindLvlViewModel(viewModel: LvlViewModel): ViewModel
+    @ViewModelKey(LevelViewModel::class)
+    fun bindLvlViewModel(viewModel: LevelViewModel): ViewModel
 
 }

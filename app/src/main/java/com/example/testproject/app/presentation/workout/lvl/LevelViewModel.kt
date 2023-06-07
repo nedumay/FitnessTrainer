@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.beginner.Workout
-import com.example.testproject.app.domain.usecase.api.GetAdvancedInfoUseCase
 import com.example.testproject.app.domain.usecase.api.GetWorkoutAdvancedListUseCase
 import com.example.testproject.app.domain.usecase.api.GetWorkoutInfoBeginnerListUseCase
 import com.example.testproject.app.domain.usecase.api.GetWorkoutInfoContinuingListUseCase
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LvlViewModel @Inject constructor(
+class LevelViewModel @Inject constructor(
     private val getWorkoutBeginnerInfo: GetWorkoutInfoBeginnerListUseCase,
     private val getWorkoutContinuingInfo: GetWorkoutInfoContinuingListUseCase,
     private val getWorkoutAdvancedInfo: GetWorkoutAdvancedListUseCase

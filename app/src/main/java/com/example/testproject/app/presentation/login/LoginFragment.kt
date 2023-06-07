@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
@@ -32,22 +33,14 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
     private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (context.applicationContext as App)
-            .component
-            .inject(this@LoginFragment)
+        (context.applicationContext as App).component.inject(this@LoginFragment)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +52,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Получаем доступ к SharedPreferences
         val userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
                 USER_SHARED_PREF,
@@ -69,11 +63,9 @@ class LoginFragment : Fragment() {
 
         binding.textViewForgotPassword.setOnClickListener {
             launchResetFragment()
-            //startActivity(ResetActivity.newIntent(this@LoginActivity))
         }
         binding.buttonRegistrationLogin.setOnClickListener {
             launchRegistrationOneFragment()
-            //startActivity(RegistrationOne.newIntent(this@LoginActivity))
         }
         binding.buttonEnterLogin.isEnabled = false
 
@@ -90,25 +82,23 @@ class LoginFragment : Fragment() {
     }
 
     private fun launchRegistrationOneFragment() {
-        //TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_loginFragment_to_registrationOneFragment)
     }
 
     private fun launchResetFragment() {
-        //TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_loginFragment_to_resetFragment)
     }
 
     private fun launchDashboardFragment() {
-        //TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
     }
 
 
     private fun saveUser(userIdSharedPref: SharedPreferences) {
+        //Если id сохранен в SharedPreferences то заходим в приложение
         if (userIdSharedPref.contains(USER_ID)) {
             //val data = userIdSharedPref.getString(USER_ID, "") ?: ""
             launchDashboardFragment()
-            /*
-            startActivity(DashboardActivity.newIntent(this@LoginActivity, data))
-            finish()*/
         }
     }
 
@@ -127,12 +117,10 @@ class LoginFragment : Fragment() {
 
                 is Resource.Success -> {
                     Log.d("LoginActivityData", "Success: ${it.data}")
+                    // Сохраняем id пользователя и заходим в приложение
                     sharedEditor.putString(USER_ID, it.data).apply()
                     progressDialog.dismiss()
                     launchDashboardFragment()
-                    /*
-                    startActivity(DashboardActivity.newIntent(this@LoginActivity, it.data))
-                    finish()*/
                 }
 
                 is Resource.Error -> {
@@ -150,6 +138,7 @@ class LoginFragment : Fragment() {
         }.launchIn(lifecycleScope)
     }
 
+    // Вынести в отдельную маску
     private fun enabledButton() {
         binding.editTextEmailLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -189,12 +178,5 @@ class LoginFragment : Fragment() {
         private const val EMPTY_FIELD = ""
         const val USER_SHARED_PREF = "userPreferences"
         const val USER_ID = "userId"
-
-        /*
-        fun newIntent(context: Context): Intent {
-            val intent = Intent(context, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            return intent
-        }*/
     }
 }
