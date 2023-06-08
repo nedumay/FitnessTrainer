@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.work.OneTimeWorkRequest
@@ -74,6 +75,18 @@ ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
         binding.clearAllNotifications.setOnClickListener {
             cancelAllNotifications()
         }
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchBackDashboard()
+                }
+            })
     }
 
     // Возможно нужно исправить!

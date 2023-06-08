@@ -2,10 +2,12 @@ package com.example.testproject.app.presentation.workout.detail
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +39,9 @@ class DetailFragment : Fragment() {
 
     private var idExercise: Int? = null
     private var idExerciseList: Int? = null
+    private var id: Int? = null
+    private var title: String? = null
+    private var picture: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,6 +53,9 @@ class DetailFragment : Fragment() {
         arguments?.let {
             idExercise = it.getInt(GET_ID_EXERCISE_KEY)
             idExerciseList = it.getInt(GET_ID_EXERCISE_LIST_KEY)
+            id = it.getInt(GET_PUT_ID_KEY)
+            title = it.getString(GET_PUT_TITLE_KEY)
+            picture = it.getString(GET_PUT_PICTURE_KEY)
         }
     }
 
@@ -61,7 +69,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("ExerciseListFragmentLoad", "$id $title $picture")
         if(idExercise == null || idExerciseList == null){
             launchExerciseListFragment()
         } else{
@@ -71,6 +79,18 @@ class DetailFragment : Fragment() {
         binding.buttonClose.setOnClickListener {
             launchExerciseListFragment()
         }
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchExerciseListFragment()
+                }
+            })
     }
 
     private fun ExerciseListObserve() {
@@ -138,7 +158,11 @@ class DetailFragment : Fragment() {
     }
 
     private fun launchExerciseListFragment() {
-        findNavController().navigate(R.id.action_detailFragment_to_exerciseListFragment)
+        val bundle = Bundle()
+        bundle.putInt(GET_PUT_ID_KEY, id!!)
+        bundle.putString(GET_PUT_TITLE_KEY, title)
+        bundle.putString(GET_PUT_PICTURE_KEY, picture)
+        findNavController().navigate(R.id.action_detailFragment_to_exerciseListFragment, bundle)
     }
 
     override fun onDestroyView() {
@@ -147,6 +171,9 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
+        private const val GET_PUT_ID_KEY = "id"
+        private const val GET_PUT_TITLE_KEY = "title"
+        private const val GET_PUT_PICTURE_KEY = "picture"
         private const val GET_ID_EXERCISE_KEY = "id_exercise"
         private const val GET_ID_EXERCISE_LIST_KEY = "id_exercise_list"
     }

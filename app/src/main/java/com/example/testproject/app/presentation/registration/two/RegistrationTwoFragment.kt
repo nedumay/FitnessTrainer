@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
@@ -58,6 +59,18 @@ class RegistrationTwoFragment : Fragment() {
             Log.d("RegistrationActivity", "Two activity get: $name, $lastName, $date")
             GenderObserver()
         }
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchRegistrationOneFragment()
+                }
+            })
     }
 
     private fun GenderObserver() {

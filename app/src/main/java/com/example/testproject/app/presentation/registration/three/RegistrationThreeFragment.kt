@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
@@ -74,12 +75,23 @@ class RegistrationThreeFragment : Fragment() {
                     gender!!
                 )
             }
-
-            binding.imageButtonArrowBack.setOnClickListener {
-                launchRegistrationTwoFragment()
-            }
-
         }
+
+        binding.imageButtonArrowBack.setOnClickListener {
+            launchRegistrationTwoFragment()
+        }
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchRegistrationTwoFragment()
+                }
+            })
     }
 
     private fun switchButton() {

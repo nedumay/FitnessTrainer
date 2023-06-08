@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -70,6 +71,17 @@ class LevelFragment : Fragment() {
         BeginnerObserver()
         ContinuingObserver()
         AdvancedObserver()
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchDashboardFragment()
+                }
+            })
     }
 
     private fun BeginnerObserver() {
@@ -101,7 +113,6 @@ class LevelFragment : Fragment() {
                     binding.recyclerViewBeginners.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), beginner.message, Toast.LENGTH_SHORT).show()
-                    //launchDashboardFragment()
                 }
             }
         }.launchIn(lifecycleScope)

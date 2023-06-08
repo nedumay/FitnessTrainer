@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
@@ -55,6 +56,18 @@ class RegistrationOneFragment : Fragment() {
         binding.imageButtonArrowBack.setOnClickListener {
             launchLoginFragment()
         }
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchLoginFragment()
+                }
+            })
     }
 
     private fun launchLoginFragment() {

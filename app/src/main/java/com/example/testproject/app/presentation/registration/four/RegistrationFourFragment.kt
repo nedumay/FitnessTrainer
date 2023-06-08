@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +26,6 @@ import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.utils.EmailMask
 import com.example.testproject.databinding.FragmentRegistrationFourBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -102,6 +102,18 @@ class RegistrationFourFragment : Fragment() {
         }
 
         clickTextView()
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchRegistrationThreeFragment()
+                }
+            })
     }
 
     private fun createAccount() {
@@ -128,12 +140,11 @@ class RegistrationFourFragment : Fragment() {
                         Log.d("RegistrationActivity", "Loading: $it")
                         progressDialog.setTitle(R.string.create_acc_alert)
                         progressDialog.show()
-                        delay(2000)
-                        progressDialog.dismiss()
                     }
 
                     is Resource.Success -> {
                         Log.d("RegistrationActivity", "Success: $it")
+                        progressDialog.dismiss()
                         alertDialog.setTitle(R.string.success)
                         alertDialog.setIcon(R.drawable.ic_check)
                         alertDialog.setMessage(R.string.create_suc_alert)

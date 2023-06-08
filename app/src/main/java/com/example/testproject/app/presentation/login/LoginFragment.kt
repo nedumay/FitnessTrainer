@@ -176,7 +176,7 @@ class LoginFragment : Fragment() {
     companion object {
         private const val INVALID_ADDRESS = "Invalid Email address"
         private const val EMPTY_FIELD = ""
-        const val USER_SHARED_PREF = "userPreferences"
-        const val USER_ID = "userId"
+        private const val USER_SHARED_PREF = "userPreferences"
+        private const val USER_ID = "userId"
     }
 }

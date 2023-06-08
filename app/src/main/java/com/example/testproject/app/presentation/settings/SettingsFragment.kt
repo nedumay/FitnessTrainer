@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -39,7 +40,6 @@ class SettingsFragment : Fragment() {
     private lateinit var currentUserId: String
     private lateinit var userIdSharedPreferences: SharedPreferences
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@SettingsFragment)
@@ -63,17 +63,79 @@ class SettingsFragment : Fragment() {
                 USER_SHARED_PREF,
                 AppCompatActivity.MODE_PRIVATE
             )
-        currentUserId = userIdSharedPreferences.getString(EXTRA_CURRENT_USER_ID, null) ?: ""
+        currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val alertDialog = AlertDialog.Builder(requireContext())
 
         if (currentUserId.isEmpty()) {
             launchLoginFragment()
         } else {
             viewModel.loadDataForUser(currentUserId)
         }
+
+        userInfoObserver()
+        //Выход из аккаунта
+        logOutAccount(alertDialog)
+        // Удаление аккаунта
+        deleteAccount(alertDialog)
+        // Выход из настроек
+        binding.textViewBack.setOnClickListener {
+            launchDashboardFragment()
+        }
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchDashboardFragment()
+                }
+            })
+    }
+
+    private fun deleteAccount(alertDialog: AlertDialog.Builder) {
+        binding.textViewDeleteProfile.setOnClickListener {
+            alertDialog.setTitle(R.string.warning)
+            alertDialog.setIcon(R.drawable.ic_warning)
+            alertDialog.setMessage(R.string.war_delete)
+            alertDialog.setPositiveButton(R.string.delete) { dialog, which ->
+                userIdSharedPreferences.edit().clear().apply()
+                dialog.dismiss()
+                viewModel.deleteUser(currentUserId)
+                launchLoginFragment()
+            }
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
+        }
+    }
+
+    private fun logOutAccount(alertDialog: AlertDialog.Builder) {
+        binding.buttonOutput.setOnClickListener {
+            alertDialog.setTitle(R.string.warning)
+            alertDialog.setIcon(R.drawable.ic_warning)
+            alertDialog.setMessage(R.string.war_log_out)
+            alertDialog.setPositiveButton(R.string.output) { dialog, which ->
+                userIdSharedPreferences.edit().clear().apply()
+                dialog.dismiss()
+                viewModel.signOut()
+                launchLoginFragment()
+            }
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
+        }
+    }
+
+    private fun userInfoObserver() {
         viewModel.userInfo.onEach {
             when (it) {
                 is Resource.Loading -> {
@@ -112,44 +174,6 @@ class SettingsFragment : Fragment() {
                 }
             }
         }.launchIn(lifecycleScope)
-
-        //Выход из аккаунта
-        val alertDialog = AlertDialog.Builder(requireContext())
-        binding.buttonOutput.setOnClickListener {
-            alertDialog.setTitle(R.string.warning)
-            alertDialog.setIcon(R.drawable.ic_warning)
-            alertDialog.setMessage(R.string.war_log_out)
-            alertDialog.setPositiveButton(R.string.output) { dialog, which ->
-                userIdSharedPreferences.edit().clear().apply()
-                dialog.dismiss()
-                viewModel.signOut()
-                launchLoginFragment()
-            }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
-                dialog.dismiss()
-            }
-            alertDialog.show()
-        }
-
-        // Удаление аккаунта
-        binding.textViewDeleteProfile.setOnClickListener {
-            alertDialog.setTitle(R.string.warning)
-            alertDialog.setIcon(R.drawable.ic_warning)
-            alertDialog.setMessage(R.string.war_delete)
-            alertDialog.setPositiveButton(R.string.delete) { dialog, which ->
-                userIdSharedPreferences.edit().clear().apply()
-                dialog.dismiss()
-                viewModel.deleteUser(currentUserId)
-                launchLoginFragment()
-            }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
-                dialog.dismiss()
-            }
-            alertDialog.show()
-        }
-        binding.textViewBack.setOnClickListener {
-            launchDashboardFragment()
-        }
     }
 
     private fun launchLoginFragment() {
@@ -166,9 +190,8 @@ class SettingsFragment : Fragment() {
     }
 
     companion object {
-        const val USER_SHARED_PREF = "userPreferences"
-        private const val EXTRA_CURRENT_USER_ID = "current_id"
-
+        private const val USER_SHARED_PREF = "userPreferences"
+        private const val USER_ID = "userId"
     }
 
 }
