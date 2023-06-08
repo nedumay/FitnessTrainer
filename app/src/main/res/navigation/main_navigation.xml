@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
@@ -21,16 +23,24 @@
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_notificationFragment"
-            app:destination="@id/notificationFragment" />
+            app:destination="@id/notificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_dashboardFragment_to_levelFragment"
-            app:destination="@id/levelFragment" />
+            app:destination="@id/levelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_dashboardFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_dashboardFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -39,7 +49,9 @@
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_detailFragment_to_exerciseListFragment"
-            app:destination="@id/exerciseListFragment" />
+            app:destination="@id/exerciseListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/exerciseListFragment"
@@ -48,10 +60,14 @@
         tools:layout="@layout/fragment_exercise_list">
         <action
             android:id="@+id/action_exerciseListFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_exerciseListFragment_to_levelFragment"
-            app:destination="@id/levelFragment" />
+            app:destination="@id/levelFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/levelFragment"
@@ -60,10 +76,14 @@
         tools:layout="@layout/fragment_level">
         <action
             android:id="@+id/action_levelFragment_to_exerciseListFragment"
-            app:destination="@id/exerciseListFragment" />
+            app:destination="@id/exerciseListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_levelFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -72,13 +92,19 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registrationOneFragment"
-            app:destination="@id/registrationOneFragment" />
+            app:destination="@id/registrationOneFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_loginFragment_to_resetFragment"
-            app:destination="@id/resetFragment" />
+            app:destination="@id/resetFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -87,10 +113,14 @@
         tools:layout="@layout/fragment_notification">
         <action
             android:id="@+id/action_notificationFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_notificationFragment_to_dashboardFragment2"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/registrationFourFragment"
@@ -99,10 +129,14 @@
         tools:layout="@layout/fragment_registration_four">
         <action
             android:id="@+id/action_registrationFourFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_registrationFourFragment_to_registrationThreeFragment"
-            app:destination="@id/registrationThreeFragment" />
+            app:destination="@id/registrationThreeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/registrationOneFragment"
@@ -111,10 +145,14 @@
         tools:layout="@layout/fragment_registration_one">
         <action
             android:id="@+id/action_registrationOneFragment_to_registrationTwoFragment"
-            app:destination="@id/registrationTwoFragment" />
+            app:destination="@id/registrationTwoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_registrationOneFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/registrationThreeFragment"
@@ -123,10 +161,14 @@
         tools:layout="@layout/fragment_registration_three">
         <action
             android:id="@+id/action_registrationThreeFragment_to_registrationFourFragment"
-            app:destination="@id/registrationFourFragment" />
+            app:destination="@id/registrationFourFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_registrationThreeFragment_to_registrationTwoFragment"
-            app:destination="@id/registrationTwoFragment" />
+            app:destination="@id/registrationTwoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/registrationTwoFragment"
@@ -135,10 +177,14 @@
         tools:layout="@layout/fragment_registration_two">
         <action
             android:id="@+id/action_registrationTwoFragment_to_registrationThreeFragment"
-            app:destination="@id/registrationThreeFragment" />
+            app:destination="@id/registrationThreeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_registrationTwoFragment_to_registrationOneFragment"
-            app:destination="@id/registrationOneFragment" />
+            app:destination="@id/registrationOneFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/resetFragment"
@@ -147,7 +193,9 @@
         tools:layout="@layout/fragment_reset">
         <action
             android:id="@+id/action_resetFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -156,9 +204,13 @@
         tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_settingsFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
 </navigation>
