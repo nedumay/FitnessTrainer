@@ -64,13 +64,13 @@ class RegistrationFourFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            name = it.getString(GET_NAME_KEY)
-            lastName = it.getString(GET_LAST_NAME_KEY)
-            date = it.getString(GET_DATE_OF_BIRTH_KEY)
-            gender = it.getBoolean(GET_GENDER_KEY)
-            height = it.getString(GET_HEIGHT_KEY)
-            weight = it.getString(GET_WEIGHT_KEY)
-            targetWeight = it.getString(GET_TARGET_WEIGHT_KEY)
+            name = it.getString(PUT_GET_NAME_KEY)
+            lastName = it.getString(PUT_GET_LAST_NAME_KEY)
+            date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
+            gender = it.getBoolean(PUT_GET_GENDER_KEY)
+            height = it.getString(PUT_GET_HEIGHT_KEY)
+            weight = it.getString(PUT_GET_WEIGHT_KEY)
+            targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)
         }
     }
 
@@ -84,16 +84,16 @@ class RegistrationFourFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if (name == null || lastName == null || date == null || gender == null || height == null || weight == null || targetWeight == null) {
             launchRegistrationThreeFragment()
-        } else {
-            Log.d(
-                "RegistrationActivity",
-                "Four activity get: $name, $date, $gender, $height, $weight, $targetWeight"
-            )
-            createAccount()
+            return
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        createAccount()
 
         binding.editTextEmailRegistration.addTextChangedListener(emailMask)
 
@@ -176,7 +176,12 @@ class RegistrationFourFragment : Fragment() {
     }
 
     private fun launchRegistrationThreeFragment() {
-        findNavController().navigate(R.id.action_registrationFourFragment_to_registrationThreeFragment)
+        val bundle = Bundle()
+        bundle.putString(PUT_GET_NAME_KEY, name)
+        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
+        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(PUT_GET_GENDER_KEY, gender ?: false)
+        findNavController().navigate(R.id.action_registrationFourFragment_to_registrationThreeFragment, bundle)
     }
 
     /**
@@ -237,13 +242,13 @@ class RegistrationFourFragment : Fragment() {
 
 
     companion object {
-        private const val GET_NAME_KEY = "name"
-        private const val GET_LAST_NAME_KEY = "lastName"
-        private const val GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
-        private const val GET_GENDER_KEY = "gender"
-        private const val GET_HEIGHT_KEY = "height"
-        private const val GET_WEIGHT_KEY = "weight"
-        private const val GET_TARGET_WEIGHT_KEY = "targetWeight"
+        private const val PUT_GET_NAME_KEY = "name"
+        private const val PUT_GET_LAST_NAME_KEY = "lastName"
+        private const val PUT_GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
+        private const val PUT_GET_GENDER_KEY = "gender"
+        private const val PUT_GET_HEIGHT_KEY = "height"
+        private const val PUT_GET_WEIGHT_KEY = "weight"
+        private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
     }
 
 }

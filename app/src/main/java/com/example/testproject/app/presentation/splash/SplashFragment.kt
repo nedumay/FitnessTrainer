@@ -1,14 +1,18 @@
 package com.example.testproject.app.presentation.splash
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
@@ -21,47 +25,55 @@ class SplashFragment : Fragment() {
     private val binding: FragmentSplashBinding
         get() = _binding ?: throw RuntimeException("FragmentSplashBinding == null")
 
+    private lateinit var notificationManager : NotificationManagerCompat
 
     override fun onAttach(context: Context) {
+        Log.d("SplashFragment", "onAttach")
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@SplashFragment)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("SplashFragment", "onCreateView")
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         launchLoginFragment()
     }
 
     private fun launchLoginFragment() {
-        val notificationManager =
-            requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager = NotificationManagerCompat.from(requireContext())
         if (notificationManager.areNotificationsEnabled()) {
             // Notifications are allowed, launch login activity
             Handler().postDelayed(
                 Runnable {
                     findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
                 },
-                5000
+                2000
             )
         } else {
             // Notifications are not allowed, permission must be requested
             val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
             intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
             startActivity(intent)
+
         }
     }
 
     override fun onDestroyView() {
+        Log.d("SplashFragment", "onDestroyView")
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("SplashFragment", "onDestroy")
     }
 
 }

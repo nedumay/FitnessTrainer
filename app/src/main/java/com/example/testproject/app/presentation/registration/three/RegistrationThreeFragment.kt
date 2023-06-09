@@ -38,10 +38,10 @@ class RegistrationThreeFragment : Fragment() {
         sufWeight = resources.getString(R.string.ft)
         sufHeight = resources.getString(R.string.lbs)
         arguments?.let {
-            name = it.getString(GET_NAME_KEY)
-            lastName = it.getString(GET_LAST_NAME_KEY)
-            date = it.getString(GET_DATE_OF_BIRTH_KEY)
-            gender = it.getBoolean(GET_GENDER_KEY)
+            name = it.getString(PUT_GET_NAME_KEY)
+            lastName = it.getString(PUT_GET_LAST_NAME_KEY)
+            date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
+            gender = it.getBoolean(PUT_GET_GENDER_KEY)
         }
     }
 
@@ -56,29 +56,32 @@ class RegistrationThreeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (name == null || lastName == null || date == null || gender == null) {
-            launchRegistrationTwoFragment()
-        } else {
-            Log.d("RegistrationActivity", "Three activity get: $name, $lastName, $date, $gender")
-            switchButton()
+            launchRegistrationTwoFragment(name, lastName, date, gender)
+        }
 
-            binding.buttonNextRegistration.setOnClickListener {
-                val height = binding.editTextHeight.text?.trim().toString() + sufHeight
-                val weight = binding.editTextWeight.text?.trim().toString() + sufWeight
-                val targetWeight = binding.editTextTarget.text?.trim().toString() + sufWeight
-                launchRegistrationFourFragment(
-                    height,
-                    weight,
-                    targetWeight,
-                    name,
-                    lastName,
-                    date,
-                    gender!!
-                )
-            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        switchButton()
+        binding.buttonNextRegistration.setOnClickListener {
+            val height = binding.editTextHeight.text?.trim().toString() + sufHeight
+            val weight = binding.editTextWeight.text?.trim().toString() + sufWeight
+            val targetWeight = binding.editTextTarget.text?.trim().toString() + sufWeight
+            launchRegistrationFourFragment(
+                height,
+                weight,
+                targetWeight,
+                name,
+                lastName,
+                date,
+                gender ?: false
+            )
         }
 
         binding.imageButtonArrowBack.setOnClickListener {
-            launchRegistrationTwoFragment()
+            launchRegistrationTwoFragment(name, lastName, date, gender)
         }
 
         onBackFragment()
@@ -89,7 +92,7 @@ class RegistrationThreeFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    launchRegistrationTwoFragment()
+                    launchRegistrationTwoFragment(name, lastName, date, gender)
                 }
             })
     }
@@ -114,8 +117,13 @@ class RegistrationThreeFragment : Fragment() {
         }
     }
 
-    private fun launchRegistrationTwoFragment() {
-        findNavController().navigate(R.id.action_registrationThreeFragment_to_registrationTwoFragment)
+    private fun launchRegistrationTwoFragment(name: String?, lastName: String?, date: String?, gender: Boolean?) {
+        val bundle = Bundle()
+        bundle.putString(PUT_GET_NAME_KEY, name)
+        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
+        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(PUT_GET_GENDER_KEY, gender ?: false)
+        findNavController().navigate(R.id.action_registrationThreeFragment_to_registrationTwoFragment, bundle)
     }
 
     private fun launchRegistrationFourFragment(
@@ -128,13 +136,13 @@ class RegistrationThreeFragment : Fragment() {
         gender: Boolean
     ) {
         val bundle = Bundle()
-        bundle.putString(GET_NAME_KEY, name)
-        bundle.putString(GET_LAST_NAME_KEY, lastName)
-        bundle.putString(GET_DATE_OF_BIRTH_KEY, date)
-        bundle.putBoolean(GET_GENDER_KEY, gender)
-        bundle.putString(PUT_HEIGHT_KEY, height)
-        bundle.putString(PUT_WEIGHT_KEY, weight)
-        bundle.putString(PUT_TARGET_WEIGHT_KEY, targetWeight)
+        bundle.putString(PUT_GET_NAME_KEY, name)
+        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
+        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(PUT_GET_GENDER_KEY, gender)
+        bundle.putString(PUT_GET_HEIGHT_KEY, height)
+        bundle.putString(PUT_GET_WEIGHT_KEY, weight)
+        bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
         findNavController().navigate(
             R.id.action_registrationThreeFragment_to_registrationFourFragment,
             bundle
@@ -148,13 +156,13 @@ class RegistrationThreeFragment : Fragment() {
     }
 
     companion object {
-        private const val GET_NAME_KEY = "name"
-        private const val GET_LAST_NAME_KEY = "lastName"
-        private const val GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
-        private const val GET_GENDER_KEY = "gender"
-        private const val PUT_HEIGHT_KEY = "height"
-        private const val PUT_WEIGHT_KEY = "weight"
-        private const val PUT_TARGET_WEIGHT_KEY = "targetWeight"
+        private const val PUT_GET_NAME_KEY = "name"
+        private const val PUT_GET_LAST_NAME_KEY = "lastName"
+        private const val PUT_GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
+        private const val PUT_GET_GENDER_KEY = "gender"
+        private const val PUT_GET_HEIGHT_KEY = "height"
+        private const val PUT_GET_WEIGHT_KEY = "weight"
+        private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
     }
 
 }
