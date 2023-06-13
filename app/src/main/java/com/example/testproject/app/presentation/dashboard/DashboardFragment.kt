@@ -50,16 +50,17 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.firebaseUser.observe(viewLifecycleOwner) {
-            Log.d("Account user", "User observe activity: $it")
             if (it == null) {
                 findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
             }
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         appBarMenu()
-
         binding.addScheduleButton.setOnClickListener {
-             launchNotificationFragment()
+            launchNotificationFragment()
         }
         binding.cardClickToStart.setOnClickListener {
             launchLevelFragment()
@@ -101,6 +102,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_dashboard, menu)

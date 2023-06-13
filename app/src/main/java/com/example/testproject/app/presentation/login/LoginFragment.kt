@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.login
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
@@ -49,29 +50,28 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("CommitPrefEdits")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Получаем доступ к SharedPreferences
         val userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
                 USER_SHARED_PREF,
                 AppCompatActivity.MODE_PRIVATE
             )
-
         val sharedEditor = userIdSharedPreferences.edit()
+        saveUser(userIdSharedPreferences)
+
+        binding.buttonEnterLogin.isEnabled = false
+        enabledButton()
 
         binding.textViewForgotPassword.setOnClickListener {
             launchResetFragment()
         }
+
         binding.buttonRegistrationLogin.setOnClickListener {
             launchRegistrationOneFragment()
         }
-        binding.buttonEnterLogin.isEnabled = false
-
-        enabledButton()
-
-        saveUser(userIdSharedPreferences)
 
         binding.buttonEnterLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text?.trim().toString()

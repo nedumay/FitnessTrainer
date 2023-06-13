@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
@@ -20,10 +21,12 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.utils.NotificationService
 import com.example.testproject.app.utils.WorkoutNotificationWorker
 import com.example.testproject.databinding.FragmentNotificationBinding
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class NotificationFragment : Fragment() {
@@ -32,12 +35,12 @@ class NotificationFragment : Fragment() {
     private val binding: FragmentNotificationBinding
         get() = _binding ?: throw RuntimeException("FragmentNotificationBinding == null")
 
-    /*
-@Inject
-lateinit var viewModelFactory: ViewModelFactory
-private val viewModel by lazy {
-ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
-}*/
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by lazy {
+    ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
+    }
 
     private val calendar = Calendar.getInstance()
     private var count = 0
@@ -47,7 +50,6 @@ ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
         (context.applicationContext as App).component.inject(this@NotificationFragment)
 
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,7 +91,6 @@ ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
             })
     }
 
-    // Возможно нужно исправить!
     private fun launchBackDashboard() {
         findNavController().navigate(R.id.action_notificationFragment_to_dashboardFragment)
     }

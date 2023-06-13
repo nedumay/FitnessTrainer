@@ -28,7 +28,6 @@ class SplashFragment : Fragment() {
     private lateinit var notificationManager : NotificationManagerCompat
 
     override fun onAttach(context: Context) {
-        Log.d("SplashFragment", "onAttach")
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@SplashFragment)
     }
@@ -36,7 +35,6 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("SplashFragment", "onCreateView")
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,10 +48,8 @@ class SplashFragment : Fragment() {
         notificationManager = NotificationManagerCompat.from(requireContext())
         if (notificationManager.areNotificationsEnabled()) {
             // Notifications are allowed, launch login activity
-            Handler().postDelayed(
-                Runnable {
-                    findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-                },
+            Handler().postDelayed(Runnable {
+                    findNavController().navigate(R.id.action_splashFragment_to_loginFragment) },
                 2000
             )
         } else {
@@ -61,7 +57,6 @@ class SplashFragment : Fragment() {
             val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
             intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
             startActivity(intent)
-
         }
     }
 
@@ -69,11 +64,6 @@ class SplashFragment : Fragment() {
         Log.d("SplashFragment", "onDestroyView")
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("SplashFragment", "onDestroy")
     }
 
 }

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
-import com.example.testproject.app.presentation.registration.two.RegistrationTwoFragment
 import com.example.testproject.app.utils.DataMask
 import com.example.testproject.databinding.FragmentRegistrationOneBinding
 
@@ -23,7 +22,7 @@ class RegistrationOneFragment : Fragment() {
     private val binding: FragmentRegistrationOneBinding
         get() = _binding ?: throw RuntimeException("FragmentRegistrationOneBinding == null")
 
-    private val dataMask = DataMask()
+    private val dataMask by lazy { DataMask() }
 
     private var getName: String? = null
     private var getLastName: String? = null
@@ -99,12 +98,15 @@ class RegistrationOneFragment : Fragment() {
         bundle.putString(PUT_GET_NAME_KEY, name)
         bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
         bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, dateOfBirth)
-        findNavController().navigate(R.id.action_registrationOneFragment_to_registrationTwoFragment, bundle)
+        findNavController().navigate(
+            R.id.action_registrationOneFragment_to_registrationTwoFragment,
+            bundle
+        )
     }
 
 
     private fun enabledButton() {
-        if(getName != "" && getLastName != "" && getDateOfBirth != "" && getDateOfBirth?.length == 10) {
+        if (getName != "" && getLastName != "" && getDateOfBirth != "" && getDateOfBirth?.length == 10) {
             binding.buttonNextRegistration.isEnabled = true
         } else {
 
@@ -115,12 +117,20 @@ class RegistrationOneFragment : Fragment() {
                                 && (binding.editTextLastNameRegistration.text?.length ?: 0) > 0
                                 && (binding.editDateOfBirth.text?.length ?: 0) == 10)
                 }
+
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             })
 
             binding.editTextLastNameRegistration.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     Log.d("RegistrationOneFragment", "afterTextChanged")

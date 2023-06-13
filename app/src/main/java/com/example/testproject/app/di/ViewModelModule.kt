@@ -3,6 +3,7 @@ package com.example.testproject.app.di
 import androidx.lifecycle.ViewModel
 import com.example.testproject.app.presentation.dashboard.DashboardViewModel
 import com.example.testproject.app.presentation.login.LoginViewModel
+import com.example.testproject.app.presentation.notification.NotificationViewModel
 import com.example.testproject.app.presentation.registration.four.RegistrationFourViewModel
 import com.example.testproject.app.presentation.reset.ResetViewModel
 import com.example.testproject.app.presentation.settings.SettingsViewModel
@@ -55,5 +56,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(LevelViewModel::class)
     fun bindLvlViewModel(viewModel: LevelViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotificationViewModel::class)
+    fun bundNotificationViewModel(viewModel: NotificationViewModel): ViewModel
 
 }
