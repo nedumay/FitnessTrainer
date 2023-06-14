@@ -15,8 +15,8 @@ interface NotificationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNotificationItem(notificationItem: NotificationDashboardDbModel)
 
-    @Query("DELETE FROM notification_dashboard WHERE tagNotification =:tagNotification")
-    suspend fun deleteNotificationItem(tagNotification: String)
+    @Query("DELETE FROM notification_dashboard WHERE id =:id")
+    suspend fun deleteNotificationItem(id: Int)
 
     @Query("SELECT * FROM notification_dashboard WHERE id=:id")
     suspend fun getNotificationItem(id: Int): NotificationDashboardDbModel

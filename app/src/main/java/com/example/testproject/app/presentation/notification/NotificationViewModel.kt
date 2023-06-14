@@ -8,6 +8,7 @@ import com.example.testproject.app.domain.usecase.notification.ClearAllNotificat
 import com.example.testproject.app.domain.usecase.notification.EditNotificationItemUseCase
 import com.example.testproject.app.domain.usecase.notification.GetNotificationItemUseCase
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 class NotificationViewModel @Inject constructor(
@@ -25,13 +26,13 @@ class NotificationViewModel @Inject constructor(
     }
 
     fun addNotificationItem(
-        idUser: String, time: String, countDay: String, tagNotification: String,
-        Monday: Boolean, Tuesday: Boolean, Wednesday: Boolean, Thursday: Boolean,
-        Friday: Boolean, Saturday: Boolean, Sunday: Boolean
+        idUser: String, time: String, countDay: String,
+        Monday: UUID, Tuesday: UUID, Wednesday: UUID, Thursday: UUID,
+        Friday: UUID, Saturday: UUID, Sunday: UUID
     ) {
         viewModelScope.launch {
             val notificationItemDashboard = NotificationDashboard(
-                idUser, time, countDay, tagNotification, Monday, Tuesday, Wednesday, Thursday,
+                idUser, time, countDay, Monday, Tuesday, Wednesday, Thursday,
                 Friday, Saturday, Sunday
             )
             addNotificationItemUseCase.invoke(notificationItemDashboard)

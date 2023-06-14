@@ -21,7 +21,7 @@ class RepositoryNotificationImpl @Inject constructor(
     }
 
     override suspend fun deleteNotificationItem(notificationItem: NotificationDashboard) {
-        notificationDao.deleteNotificationItem(notificationItem.tagNotification)
+        notificationDao.deleteNotificationItem(notificationItem.id)
     }
 
     override suspend fun editNotificationItem(notificationItem: NotificationDashboard) {

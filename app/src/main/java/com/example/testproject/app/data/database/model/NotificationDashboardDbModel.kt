@@ -2,6 +2,7 @@ package com.example.testproject.app.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity(tableName = "notification_dashboard")
 data class NotificationDashboardDbModel(
@@ -10,12 +11,11 @@ data class NotificationDashboardDbModel(
     val idUser: String,
     val time: String,
     val countDay: String,
-    val tagNotification: String,
-    val Monday: Boolean,
-    val Tuesday: Boolean,
-    val Wednesday: Boolean,
-    val Thursday: Boolean,
-    val Friday: Boolean,
-    val Saturday: Boolean,
-    val Sunday: Boolean,
+    val Monday: String,
+    val Tuesday: String,
+    val Wednesday: String,
+    val Thursday: String,
+    val Friday: String,
+    val Saturday: String,
+    val Sunday: String,
 )

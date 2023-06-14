@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.databinding.ListItemDashboardBinding
+import java.util.UUID
 
 /**
  * @author Nedumayy (Samim)
  * List adapter for work notification dashboard
  */
-class NotificationAdapter : ListAdapter<NotificationDashboard, NotificationViewHolder>(NotificationDiffCallback) {
+class NotificationAdapter :
+    ListAdapter<NotificationDashboard, NotificationViewHolder>(NotificationDiffCallback) {
 
     var onNotificationClickListener: ((NotificationDashboard) -> Unit)? = null
 
@@ -24,22 +26,42 @@ class NotificationAdapter : ListAdapter<NotificationDashboard, NotificationViewH
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
-        var notification = getItem(position)
+        val notification = getItem(position)
         with(holder.binding) {
             with(notification) {
                 textViewCountDay.text = countDay
                 textViewTime.text = time
-                chipMo.isChecked = Monday
-                chipTu.isChecked = Tuesday
-                chipWc.isChecked = Wednesday
-                chipTh.isChecked = Thursday
-                chipFr.isChecked = Friday
-                chipSa.isChecked = Saturday
-                chipSu.isChecked = Sunday
+                if (Monday != UUID.fromString(DEFAULT_UUID)) {
+                    chipMo.isChecked = true
+                }
+                if (Tuesday != UUID.fromString(DEFAULT_UUID)) {
+                    chipTu.isChecked = true
+                }
+                if (Wednesday != UUID.fromString(DEFAULT_UUID)) {
+                    chipWc.isChecked = true
+                }
+                if (Thursday != UUID.fromString(DEFAULT_UUID)) {
+                    chipTh.isChecked = true
+                }
+                if (Friday != UUID.fromString(DEFAULT_UUID)) {
+                    chipFr.isChecked = true
+                }
+                if (Saturday != UUID.fromString(DEFAULT_UUID)) {
+                    chipSa.isChecked = true
+                }
+                if (Sunday != UUID.fromString(DEFAULT_UUID)) {
+                    chipSu.isChecked = true
+                }
             }
             root.setOnClickListener {
                 onNotificationClickListener?.invoke(notification)
             }
         }
     }
+
+    companion object {
+
+        private const val DEFAULT_UUID = "d3cfe541-7001-4d6c-aa8a-55f649867d1e"
+    }
+
 }

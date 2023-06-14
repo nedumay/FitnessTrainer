@@ -1,17 +1,18 @@
 package com.example.testproject.app.domain.model.notification
 
+import java.util.UUID
+
 data class NotificationDashboard(
     val idUser: String,
     val time: String,
     val countDay: String,
-    val tagNotification: String,
-    val Monday: Boolean,
-    val Tuesday: Boolean,
-    val Wednesday: Boolean,
-    val Thursday: Boolean,
-    val Friday: Boolean,
-    val Saturday: Boolean,
-    val Sunday: Boolean,
+    val Monday: UUID,
+    val Tuesday: UUID,
+    val Wednesday: UUID,
+    val Thursday: UUID,
+    val Friday: UUID,
+    val Saturday: UUID,
+    val Sunday: UUID,
     var id: Int = UNDEFINED_ID
 ) {
     companion object {

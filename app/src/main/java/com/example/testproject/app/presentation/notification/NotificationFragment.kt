@@ -24,10 +24,10 @@ import androidx.work.workDataOf
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.settings.SettingsFragment
 import com.example.testproject.app.utils.NotificationService
 import com.example.testproject.app.utils.WorkoutNotificationWorker
 import com.example.testproject.databinding.FragmentNotificationBinding
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -51,6 +51,14 @@ class NotificationFragment : Fragment() {
     private lateinit var currentUserId: String
     private lateinit var userIdSharedPreferences: SharedPreferences
 
+    private lateinit var mondayId: UUID
+    private lateinit var tuesdayId: UUID
+    private lateinit var wednesdayId: UUID
+    private lateinit var thursdayId: UUID
+    private lateinit var fridayId: UUID
+    private lateinit var saturdayId: UUID
+    private lateinit var sundayId: UUID
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@NotificationFragment)
@@ -66,6 +74,7 @@ class NotificationFragment : Fragment() {
                 AppCompatActivity.MODE_PRIVATE
             )
         currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
+        initDefaultDay()
     }
 
     override fun onCreateView(
@@ -81,6 +90,7 @@ class NotificationFragment : Fragment() {
 
         initDefaultTime()
 
+
         binding.imageButtonArrowBack.setOnClickListener {
             launchBackDashboard()
         }
@@ -88,6 +98,7 @@ class NotificationFragment : Fragment() {
             setTime()
         }
         setDay()
+
         binding.createNotification.setOnClickListener {
             timeFormat = String.format(
                 "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)
@@ -96,14 +107,13 @@ class NotificationFragment : Fragment() {
                 idUser = currentUserId,
                 time = timeFormat,
                 countDay = count.toString(),
-                tagNotification = "",
-                Monday = binding.chipMo.isChecked,
-                Tuesday = binding.chipTu.isChecked,
-                Wednesday = binding.chipWed.isChecked,
-                Thursday = binding.chipTh.isChecked,
-                Friday = binding.chipFr.isChecked,
-                Saturday = binding.chipSa.isChecked,
-                Sunday = binding.chipSu.isChecked
+                Monday = mondayId,
+                Tuesday = tuesdayId,
+                Wednesday = wednesdayId,
+                Thursday = thursdayId,
+                Friday = fridayId,
+                Saturday = saturdayId,
+                Sunday = sundayId
             )
             launchBackDashboard()
         }
@@ -112,6 +122,16 @@ class NotificationFragment : Fragment() {
         }
 
         onBackFragment()
+    }
+
+    private fun initDefaultDay(){
+        mondayId = UUID.fromString(DEFAULT_UUID)
+        tuesdayId = UUID.fromString(DEFAULT_UUID)
+        wednesdayId = UUID.fromString(DEFAULT_UUID)
+        thursdayId = UUID.fromString(DEFAULT_UUID)
+        fridayId = UUID.fromString(DEFAULT_UUID)
+        saturdayId = UUID.fromString(DEFAULT_UUID)
+        sundayId = UUID.fromString(DEFAULT_UUID)
     }
 
     private fun onBackFragment() {
@@ -149,7 +169,7 @@ class NotificationFragment : Fragment() {
         binding.textViewTime.text = timeFormat
     }
 
-    private fun createNotification() {
+    private fun createNotification() : UUID {
         val notificationIntent = Intent(requireContext(), WorkoutNotificationWorker::class.java)
         val currentTimeMills = System.currentTimeMillis()
         val delay = calendar.timeInMillis - currentTimeMills
@@ -163,17 +183,19 @@ class NotificationFragment : Fragment() {
                     )
                 )
                 .build()
+        Log.d("NotificationEnqueue", "created tag: ${notificationRequest.id}")
         NotificationService(notificationRequest).onStartCommand(
             notificationIntent,
             0,
             calendar.get(Calendar.DAY_OF_WEEK)
         )
+        return notificationRequest.id
     }
 
     // Delete notification by tag from enqueue
-    private fun deleteEnqueueNotification(tag: String) {
-        WorkManager.getInstance(requireContext()).cancelAllWorkByTag(tag)
-        Log.d("NotificationEnqueue", tag)
+    private fun deleteEnqueueNotification(uid: UUID) {
+        WorkManager.getInstance(requireContext()).cancelWorkById(uid)
+        Log.d("NotificationEnqueue", "delete $uid")
     }
 
     private fun setDay() {
@@ -182,15 +204,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipMo.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                createNotification()
+                Log.d("NotificationEnqueue", "selected ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                mondayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
             } else {
                 binding.chipMo.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(mondayId)
+                mondayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -201,15 +224,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipTu.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
-                createNotification()
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
+                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                tuesdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
             } else {
                 binding.chipTu.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(tuesdayId)
+                tuesdayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -220,15 +244,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipWed.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
-                createNotification()
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
+                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                wednesdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
             } else {
                 binding.chipWed.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(wednesdayId)
+                wednesdayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -239,15 +264,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipTh.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
-                createNotification()
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
+                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                thursdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
             } else {
                 binding.chipTh.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(thursdayId)
+                thursdayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -258,15 +284,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipFr.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-                createNotification()
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
+                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                fridayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
             } else {
                 binding.chipFr.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(fridayId)
+                fridayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -277,15 +304,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipSa.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
-                createNotification()
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
+                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                saturdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
             } else {
                 binding.chipSa.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(saturdayId)
+                saturdayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -296,15 +324,16 @@ class NotificationFragment : Fragment() {
             if (isChecked) {
                 binding.chipSu.isChecked = true
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-                createNotification()
-                Log.d("NotifActivity", "${calendar.get(Calendar.DAY_OF_WEEK)}")
+                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
+                sundayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
             } else {
                 binding.chipSu.isChecked = false
-                deleteEnqueueNotification(calendar.get(Calendar.DAY_OF_WEEK).toString())
+                deleteEnqueueNotification(sundayId)
+                sundayId = UUID.fromString("1")
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -338,7 +367,6 @@ class NotificationFragment : Fragment() {
     companion object {
         private const val USER_SHARED_PREF = "userPreferences"
         private const val USER_ID = "userId"
+        private const val DEFAULT_UUID = "d3cfe541-7001-4d6c-aa8a-55f649867d1e"
     }
-
-
 }
