@@ -60,6 +60,6 @@ interface ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(NotificationViewModel::class)
-    fun bundNotificationViewModel(viewModel: NotificationViewModel): ViewModel
+    fun bindNotificationViewModel(viewModel: NotificationViewModel): ViewModel
 
 }

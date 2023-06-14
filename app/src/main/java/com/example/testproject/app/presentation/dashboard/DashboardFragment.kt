@@ -12,12 +12,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
+import com.example.testproject.app.presentation.dashboard.adapters.NotificationAdapter
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.databinding.FragmentDashboardBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class DashboardFragment : Fragment() {
@@ -30,6 +34,10 @@ class DashboardFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[DashboardViewModel::class.java]
+    }
+
+    private val notificationAdapter by lazy {
+        NotificationAdapter()
     }
 
 
@@ -54,17 +62,30 @@ class DashboardFragment : Fragment() {
                 findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
             }
         }
+
     }
 
     override fun onResume() {
         super.onResume()
         appBarMenu()
+
+        viewModel.notificationList.observe(viewLifecycleOwner){
+            binding.notificationRecyclerView.adapter = notificationAdapter
+            notificationAdapter.submitList(it)
+        }
+
+        notificationAdapter.onNotificationClickListener = {
+            Toast.makeText(requireContext(), "TEST", Toast.LENGTH_SHORT).show()
+        }
+
         binding.addScheduleButton.setOnClickListener {
             launchNotificationFragment()
         }
+
         binding.cardClickToStart.setOnClickListener {
             launchLevelFragment()
         }
+
     }
 
     private fun launchLevelFragment() {

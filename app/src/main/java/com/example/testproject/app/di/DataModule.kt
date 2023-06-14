@@ -1,5 +1,8 @@
 package com.example.testproject.app.di
 
+import android.app.Application
+import com.example.testproject.app.data.database.AppDataBase
+import com.example.testproject.app.data.database.NotificationDao
 import com.example.testproject.app.data.network.ApiFactory
 import com.example.testproject.app.data.network.ApiService
 import com.example.testproject.app.data.repository.RepositoryApiImpl
@@ -32,6 +35,14 @@ interface DataModule {
         @ApplicationScope
         fun provideApiService(): ApiService {
             return ApiFactory.apiService
+        }
+
+        @Provides
+        @ApplicationScope
+        fun provideNotificationDao(
+            application: Application
+        ) : NotificationDao {
+            return AppDataBase.getInstance(application).notificationDao()
         }
     }
 }

@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetNotificationListUseCase @Inject constructor(private val repository: RepositoryNotification){
 
-    suspend operator fun invoke() = repository.getNotificationList()
+    operator suspend fun invoke(idUser: String) = repository.getNotificationList(idUser)
 }

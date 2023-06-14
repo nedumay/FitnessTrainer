@@ -3,16 +3,16 @@ package com.example.testproject.app.presentation.dashboard.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.example.testproject.app.domain.model.notification.NotifiDashboard
+import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.databinding.ListItemDashboardBinding
 
 /**
  * @author Nedumayy (Samim)
  * List adapter for work notification dashboard
  */
-class NotificationAdapter : ListAdapter<NotifiDashboard, NotificationViewHolder>(NotificationDiffCallback) {
+class NotificationAdapter : ListAdapter<NotificationDashboard, NotificationViewHolder>(NotificationDiffCallback) {
 
-    var onNotificationClickListener: ((NotifiDashboard) -> Unit)? = null
+    var onNotificationClickListener: ((NotificationDashboard) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
         val binding = ListItemDashboardBinding.inflate(

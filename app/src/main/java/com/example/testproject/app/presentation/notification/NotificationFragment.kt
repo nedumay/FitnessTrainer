@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,6 +24,7 @@ import androidx.work.workDataOf
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.presentation.settings.SettingsFragment
 import com.example.testproject.app.utils.NotificationService
 import com.example.testproject.app.utils.WorkoutNotificationWorker
 import com.example.testproject.databinding.FragmentNotificationBinding
@@ -44,11 +47,25 @@ class NotificationFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
     private var count = 0
+    private var timeFormat = "00:00"
+    private lateinit var currentUserId: String
+    private lateinit var userIdSharedPreferences: SharedPreferences
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@NotificationFragment)
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Получаем id пользователя
+        userIdSharedPreferences = requireActivity()
+            .getSharedPreferences(
+                USER_SHARED_PREF,
+                AppCompatActivity.MODE_PRIVATE
+            )
+        currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
     }
 
     override fun onCreateView(
@@ -72,7 +89,23 @@ class NotificationFragment : Fragment() {
         }
         setDay()
         binding.createNotification.setOnClickListener {
-
+            timeFormat = String.format(
+                "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)
+            )
+            viewModel.addNotificationItem(
+                idUser = currentUserId,
+                time = timeFormat,
+                countDay = count.toString(),
+                tagNotification = "",
+                Monday = binding.chipMo.isChecked,
+                Tuesday = binding.chipTu.isChecked,
+                Wednesday = binding.chipWed.isChecked,
+                Thursday = binding.chipTh.isChecked,
+                Friday = binding.chipFr.isChecked,
+                Saturday = binding.chipSa.isChecked,
+                Sunday = binding.chipSu.isChecked
+            )
+            launchBackDashboard()
         }
         binding.clearAllNotifications.setOnClickListener {
             cancelAllNotifications()
@@ -99,6 +132,7 @@ class NotificationFragment : Fragment() {
         val notificationManager =
             requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancelAll()
+        viewModel.clearAllNotification()
         Toast.makeText(
             requireContext(),
             requireContext().getText(R.string.all_notification_canceled),
@@ -299,6 +333,11 @@ class NotificationFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val USER_SHARED_PREF = "userPreferences"
+        private const val USER_ID = "userId"
     }
 
 
