@@ -32,7 +32,7 @@ class DashboardViewModel @Inject constructor(
             _firebaseUser.value = authUserFirebase.invoke()
             _notificationList.value = getNotificationListUseCase.invoke(_firebaseUser.value!!.uid)
         }
-
     }
+
 
 }

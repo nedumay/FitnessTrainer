@@ -16,17 +16,24 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.example.testproject.R
+import com.example.testproject.app.common.Resource
+import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.app.utils.NotificationService
 import com.example.testproject.app.utils.WorkoutNotificationWorker
 import com.example.testproject.databinding.FragmentNotificationBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import java.text.SimpleDateFormat
+import java.util.Locale
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -42,12 +49,16 @@ class NotificationFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy {
-    ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
     }
 
     private val calendar = Calendar.getInstance()
     private var count = 0
     private var timeFormat = "00:00"
+
+    private var id: Int? = null
+    private var screenMode: String? = GET_MODE_UNKNOWN
+
     private lateinit var currentUserId: String
     private lateinit var userIdSharedPreferences: SharedPreferences
 
@@ -62,20 +73,34 @@ class NotificationFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@NotificationFragment)
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Получаем id пользователя
+        // Get id user from shared preferences
         userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
                 USER_SHARED_PREF,
                 AppCompatActivity.MODE_PRIVATE
             )
         currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
-        initDefaultDay()
+
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            screenMode = it.getString(GET_MODE)
+            when (screenMode) {
+                EDIT -> {
+                    id = it.getInt(GET_NOTIFICATION_ITEM_ID)
+                }
+                ADD -> {
+                    id = null
+                }
+                else -> {
+                    throw RuntimeException("Screen mode is unknown")
+                }
+            }
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,43 +113,135 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initDefaultTime()
+        if (screenMode == ADD) {
+            initAddDefaultTime()
+            initAddDefaultDay()
+        } else if (screenMode == EDIT) {
+            viewModel.getNotificationItem(id!!)
+            viewModel.notificationInfo.onEach {
+                when (it) {
+                    is Resource.Loading -> {
+                        initAddDefaultTime()
+                        initAddDefaultDay()
+                    }
 
+                    is Resource.Success -> {
+                        initEditTime(it.data)
+                        initEditDay(it.data)
+                        count = it.data.countDay.toInt()
+                    }
+
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            it.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        launchBackDashboard()
+                    }
+                }
+            }.launchIn(lifecycleScope)
+        }
+
+        setDay()
+        onBackFragment()
 
         binding.imageButtonArrowBack.setOnClickListener {
             launchBackDashboard()
         }
+
         binding.addTime.setOnClickListener {
             setTime()
         }
-        setDay()
 
         binding.createNotification.setOnClickListener {
-            timeFormat = String.format(
-                "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)
-            )
-            viewModel.addNotificationItem(
-                idUser = currentUserId,
-                time = timeFormat,
-                countDay = count.toString(),
-                Monday = mondayId,
-                Tuesday = tuesdayId,
-                Wednesday = wednesdayId,
-                Thursday = thursdayId,
-                Friday = fridayId,
-                Saturday = saturdayId,
-                Sunday = sundayId
-            )
+            when(screenMode){
+                ADD -> {
+                    timeFormat = String.format(
+                        "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)
+                    )
+                    viewModel.addNotificationItem(
+                        idUser = currentUserId,
+                        time = timeFormat,
+                        countDay = count.toString(),
+                        Monday = mondayId,
+                        Tuesday = tuesdayId,
+                        Wednesday = wednesdayId,
+                        Thursday = thursdayId,
+                        Friday = fridayId,
+                        Saturday = saturdayId,
+                        Sunday = sundayId
+                    )
+                }
+                EDIT ->{
+                    timeFormat = String.format(
+                        "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)
+                    )
+                    viewModel.editNotificationItem(
+                        id = id!!,
+                        idUser = currentUserId,
+                        time = timeFormat,
+                        countDay = count.toString(),
+                        Monday = mondayId,
+                        Tuesday = tuesdayId,
+                        Wednesday = wednesdayId,
+                        Thursday = thursdayId,
+                        Friday = fridayId,
+                        Saturday = saturdayId,
+                        Sunday = sundayId
+                    )
+                }
+            }
             launchBackDashboard()
         }
+
         binding.clearAllNotifications.setOnClickListener {
             cancelAllNotifications()
         }
 
-        onBackFragment()
     }
 
-    private fun initDefaultDay(){
+    private fun initEditDay(it: NotificationDashboard) {
+        mondayId = it.Monday
+        if(mondayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipMo.isChecked = true
+        }
+        tuesdayId = it.Tuesday
+        if(tuesdayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipTu.isChecked = true
+        }
+        wednesdayId = it.Wednesday
+        if(wednesdayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipWed.isChecked = true
+        }
+        thursdayId = it.Thursday
+        if(thursdayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipTh.isChecked = true
+        }
+        fridayId = it.Friday
+        if(fridayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipFr.isChecked = true
+        }
+        saturdayId = it.Saturday
+        if(saturdayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipSa.isChecked = true
+        }
+        sundayId = it.Sunday
+        if(sundayId != UUID.fromString(DEFAULT_UUID)){
+            binding.chipSu.isChecked = true
+        }
+    }
+
+    private fun initEditTime(it: NotificationDashboard) {
+        val format = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val date = format.parse(it.time)
+        if(date != null){
+            calendar.time = date
+        }
+        binding.textViewTime.text = it.time
+    }
+
+    private fun initAddDefaultDay() {
         mondayId = UUID.fromString(DEFAULT_UUID)
         tuesdayId = UUID.fromString(DEFAULT_UUID)
         wednesdayId = UUID.fromString(DEFAULT_UUID)
@@ -132,6 +249,15 @@ class NotificationFragment : Fragment() {
         fridayId = UUID.fromString(DEFAULT_UUID)
         saturdayId = UUID.fromString(DEFAULT_UUID)
         sundayId = UUID.fromString(DEFAULT_UUID)
+    }
+
+    private fun initAddDefaultTime() {
+        val timeFormat = String.format(
+            "%02d:%02d",
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE)
+        )
+        binding.textViewTime.text = timeFormat
     }
 
     private fun onBackFragment() {
@@ -160,16 +286,7 @@ class NotificationFragment : Fragment() {
         ).show()
     }
 
-    private fun initDefaultTime() {
-        val timeFormat = String.format(
-            "%02d:%02d",
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE)
-        )
-        binding.textViewTime.text = timeFormat
-    }
-
-    private fun createNotification() : UUID {
+    private fun createNotification(): UUID {
         val notificationIntent = Intent(requireContext(), WorkoutNotificationWorker::class.java)
         val currentTimeMills = System.currentTimeMillis()
         val delay = calendar.timeInMillis - currentTimeMills
@@ -368,5 +485,11 @@ class NotificationFragment : Fragment() {
         private const val USER_SHARED_PREF = "userPreferences"
         private const val USER_ID = "userId"
         private const val DEFAULT_UUID = "d3cfe541-7001-4d6c-aa8a-55f649867d1e"
+
+        private const val GET_MODE = "mode"
+        private const val EDIT = "edit"
+        private const val ADD = "add"
+        private const val GET_MODE_UNKNOWN = ""
+        private const val GET_NOTIFICATION_ITEM_ID = "notification_item_id"
     }
 }

@@ -2,11 +2,9 @@ package com.example.testproject.app.utils
 
 import android.app.Service
 import android.content.Intent
-import android.icu.util.Calendar
 import android.os.Binder
 import android.util.Log
 import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 
 /**
@@ -16,7 +14,7 @@ import androidx.work.WorkManager
  * Return result START_STICKY
  */
 
-class NotificationService(private val workRequest: OneTimeWorkRequest): Service() {
+class NotificationService(private val workRequest: OneTimeWorkRequest) : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         // Запускаем воркер для отправки уведомлений

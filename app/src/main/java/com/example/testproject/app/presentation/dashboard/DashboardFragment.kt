@@ -1,9 +1,7 @@
 package com.example.testproject.app.presentation.dashboard
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,16 +10,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.adapters.NotificationAdapter
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.databinding.FragmentDashboardBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class DashboardFragment : Fragment() {
@@ -39,7 +35,6 @@ class DashboardFragment : Fragment() {
     private val notificationAdapter by lazy {
         NotificationAdapter()
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -69,21 +64,21 @@ class DashboardFragment : Fragment() {
         super.onResume()
         appBarMenu()
 
-        viewModel.notificationList.observe(viewLifecycleOwner){
+        viewModel.notificationList.observe(viewLifecycleOwner) {
             binding.notificationRecyclerView.adapter = notificationAdapter
             notificationAdapter.submitList(it)
         }
 
-        notificationAdapter.onNotificationClickListener = {
-            Toast.makeText(requireContext(), "TEST", Toast.LENGTH_SHORT).show()
+        binding.cardClickToStart.setOnClickListener {
+            launchLevelFragment()
         }
 
         binding.addScheduleButton.setOnClickListener {
-            launchNotificationFragment()
+            launchAddNotificationFragment()
         }
 
-        binding.cardClickToStart.setOnClickListener {
-            launchLevelFragment()
+        notificationAdapter.onNotificationClickListener = {
+            launchEditNotificationFragment(it)
         }
 
     }
@@ -92,8 +87,17 @@ class DashboardFragment : Fragment() {
         findNavController().navigate(R.id.action_dashboardFragment_to_levelFragment)
     }
 
-    private fun launchNotificationFragment() {
-        findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment)
+    private fun launchEditNotificationFragment(it: NotificationDashboard) {
+        val bundle = Bundle()
+        bundle.putString(PUT_MODE, EDIT)
+        bundle.putInt(PUT_NOTIFICATION_ITEM_ID, it.id)
+        findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment, bundle)
+    }
+
+    private fun launchAddNotificationFragment() {
+        val bundle = Bundle()
+        bundle.putString(PUT_MODE, ADD)
+        findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment, bundle)
     }
 
     private fun launchSettingsFragment() {
@@ -113,6 +117,7 @@ class DashboardFragment : Fragment() {
                     Toast.makeText(requireContext(), "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 R.id.settings -> {
                     launchSettingsFragment()
                     true
@@ -132,6 +137,13 @@ class DashboardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val PUT_MODE = "mode"
+        private const val ADD = "add"
+        private const val EDIT = "edit"
+        private const val PUT_NOTIFICATION_ITEM_ID = "notification_item_id"
     }
 
 
