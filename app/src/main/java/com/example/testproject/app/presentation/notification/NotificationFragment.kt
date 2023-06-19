@@ -289,7 +289,11 @@ class NotificationFragment : Fragment() {
     private fun createNotification(): UUID {
         val notificationIntent = Intent(requireContext(), WorkoutNotificationWorker::class.java)
         val currentTimeMills = System.currentTimeMillis()
-        val delay = calendar.timeInMillis - currentTimeMills
+        var delay = calendar.timeInMillis - currentTimeMills
+        // Перенос уведомления на следующую неделю.
+        if(delay < 0 ) {
+            delay = currentTimeMills + 604800000 - delay
+        }
         val notificationRequest: OneTimeWorkRequest =
             OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
                 .setInitialDelay(delay, TimeUnit.MILLISECONDS)
@@ -330,7 +334,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipMo.isChecked = false
                 deleteEnqueueNotification(mondayId)
-                mondayId = UUID.fromString("1")
+                mondayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -350,7 +354,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipTu.isChecked = false
                 deleteEnqueueNotification(tuesdayId)
-                tuesdayId = UUID.fromString("1")
+                tuesdayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -370,7 +374,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipWed.isChecked = false
                 deleteEnqueueNotification(wednesdayId)
-                wednesdayId = UUID.fromString("1")
+                wednesdayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -390,7 +394,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipTh.isChecked = false
                 deleteEnqueueNotification(thursdayId)
-                thursdayId = UUID.fromString("1")
+                thursdayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -410,7 +414,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipFr.isChecked = false
                 deleteEnqueueNotification(fridayId)
-                fridayId = UUID.fromString("1")
+                fridayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -430,7 +434,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipSa.isChecked = false
                 deleteEnqueueNotification(saturdayId)
-                saturdayId = UUID.fromString("1")
+                saturdayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"
@@ -450,7 +454,7 @@ class NotificationFragment : Fragment() {
             } else {
                 binding.chipSu.isChecked = false
                 deleteEnqueueNotification(sundayId)
-                sundayId = UUID.fromString("1")
+                sundayId = UUID.fromString(DEFAULT_UUID)
                 if (count != 0) {
                     count--
                     binding.textViewCountDay.text = "$count/7"

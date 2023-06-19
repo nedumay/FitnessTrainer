@@ -37,6 +37,7 @@ class WorkoutNotificationWorker(context: Context, workerParams: WorkerParameters
                 NotificationChannel(CHANNEL_ID, CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }
+
         val notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_gia_pay_background)
             .setContentTitle(applicationContext.getText(R.string.app_name))

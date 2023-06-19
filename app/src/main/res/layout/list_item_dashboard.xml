@@ -102,8 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Mo" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/mo" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTu"
@@ -111,8 +112,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Tu" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/tu" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipWc"
@@ -120,8 +122,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Wc" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/wed" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTh"
@@ -129,8 +132,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Th" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/th" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipFr"
@@ -138,8 +142,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Fr" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/fr" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSa"
@@ -147,8 +152,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Sa" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/sa" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSu"
@@ -156,8 +162,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:focusable="true"
-                    android:text="Su" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/su" />
 
             </com.google.android.material.chip.ChipGroup>
 
