@@ -279,6 +279,8 @@ class NotificationFragment : Fragment() {
             requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancelAll()
         viewModel.clearAllNotification()
+        initAddDefaultTime()
+        clearView()
         Toast.makeText(
             requireContext(),
             requireContext().getText(R.string.all_notification_canceled),
@@ -286,12 +288,24 @@ class NotificationFragment : Fragment() {
         ).show()
     }
 
+    private fun clearView() {
+        binding.chipMo.isChecked = false
+        binding.chipTu.isChecked = false
+        binding.chipWed.isChecked = false
+        binding.chipTh.isChecked = false
+        binding.chipFr.isChecked = false
+        binding.chipSa.isChecked = false
+        binding.chipSu.isChecked = false
+        count = 0
+        binding.textViewTime.text = "00:00"
+    }
+
     private fun createNotification(): UUID {
         val notificationIntent = Intent(requireContext(), WorkoutNotificationWorker::class.java)
         val currentTimeMills = System.currentTimeMillis()
         var delay = calendar.timeInMillis - currentTimeMills
         // Перенос уведомления на следующую неделю.
-        if(delay < 0 ) {
+        if(delay <= 0 ) {
             delay = currentTimeMills + 604800000 - delay
         }
         val notificationRequest: OneTimeWorkRequest =
