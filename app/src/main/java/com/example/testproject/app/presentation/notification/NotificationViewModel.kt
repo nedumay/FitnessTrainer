@@ -42,8 +42,8 @@ class NotificationViewModel @Inject constructor(
 
     fun addNotificationItem(
         idUser: String, time: String, countDay: String,
-        Monday: UUID, Tuesday: UUID, Wednesday: UUID, Thursday: UUID,
-        Friday: UUID, Saturday: UUID, Sunday: UUID
+        Monday: Int, Tuesday: Int, Wednesday: Int, Thursday: Int,
+        Friday: Int, Saturday: Int, Sunday: Int
     ) {
         viewModelScope.launch {
             val notificationItemDashboard = NotificationDashboard(
@@ -56,8 +56,8 @@ class NotificationViewModel @Inject constructor(
 
     fun editNotificationItem(
         id: Int, idUser: String, time: String, countDay: String,
-        Monday: UUID, Tuesday: UUID, Wednesday: UUID, Thursday: UUID,
-        Friday: UUID, Saturday: UUID, Sunday: UUID
+        Monday: Int, Tuesday: Int, Wednesday: Int, Thursday: Int,
+        Friday: Int, Saturday: Int, Sunday: Int
     ) {
         viewModelScope.launch {
             val notificationItem = NotificationDashboard(

@@ -4,26 +4,29 @@
     package="com.example.testproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.REQUEST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.MANAGE_NOTIFICATIONS." />
 
+
     <application
         android:name=".app.presentation.app.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_gia_pay_background"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_gia_pay_background"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestProject"
-        android:enableOnBackInvokedCallback="true"
         tools:targetApi="33">
 
         <activity
@@ -33,10 +36,19 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".app.utils.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="preloaded_fonts"

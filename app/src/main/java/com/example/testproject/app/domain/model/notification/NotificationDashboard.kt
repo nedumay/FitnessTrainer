@@ -6,13 +6,13 @@ data class NotificationDashboard(
     val idUser: String,
     val time: String,
     val countDay: String,
-    val Monday: UUID,
-    val Tuesday: UUID,
-    val Wednesday: UUID,
-    val Thursday: UUID,
-    val Friday: UUID,
-    val Saturday: UUID,
-    val Sunday: UUID,
+    val Monday: Int,
+    val Tuesday: Int,
+    val Wednesday: Int,
+    val Thursday: Int,
+    val Friday: Int,
+    val Saturday: Int,
+    val Sunday: Int,
     var id: Int = UNDEFINED_ID
 ) {
     companion object {

@@ -151,7 +151,9 @@ class SettingsFragment : Fragment() {
                     binding.materialCardView.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    launchDashboardFragment()
+                    userIdSharedPreferences.edit().clear().apply()
+                    viewModel.signOut()
+                    launchLoginFragment()
                 }
 
                 is Resource.Success -> {

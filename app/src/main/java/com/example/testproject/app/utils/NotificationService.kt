@@ -16,15 +16,18 @@ import androidx.work.WorkManager
 
 class NotificationService(private val workRequest: OneTimeWorkRequest) : Service() {
 
+    constructor() : this(OneTimeWorkRequest.Builder(WorkoutNotificationWorker::class.java).build())
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         // Запускаем воркер для отправки уведомлений
         WorkManager.getInstance(this).enqueue(workRequest)
         Log.d("NotificationEnqueue", "onStartService ${workRequest.id}")
         // Возвращаем значение START_STICKY, чтобы сервис продолжал работу после того, как приложение закрыто
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent?): Binder? {
         return null
     }
+
 }

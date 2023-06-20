@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.dashboard
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,8 +30,15 @@ class DashboardViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _firebaseUser.value = authUserFirebase.invoke()
-            _notificationList.value = getNotificationListUseCase.invoke(_firebaseUser.value!!.uid)
+            try {
+                _firebaseUser.value = authUserFirebase.invoke()
+                val uid = _firebaseUser.value!!.uid
+                _notificationList.value = getNotificationListUseCase.invoke(uid)
+
+            } catch (e: Exception) {
+                Log.d("DashboardViewModelError", e.toString())
+            }
+
         }
     }
 

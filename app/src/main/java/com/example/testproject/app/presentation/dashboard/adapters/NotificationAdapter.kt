@@ -31,25 +31,25 @@ class NotificationAdapter :
             with(notification) {
                 textViewCountDay.text = countDay
                 textViewTime.text = time
-                if (Monday != UUID.fromString(DEFAULT_UUID)) {
+                if (Monday != DEFAULT_NOTIFICATION_ID) {
                     chipMo.isChecked = true
                 }
-                if (Tuesday != UUID.fromString(DEFAULT_UUID)) {
+                if (Tuesday != DEFAULT_NOTIFICATION_ID) {
                     chipTu.isChecked = true
                 }
-                if (Wednesday != UUID.fromString(DEFAULT_UUID)) {
+                if (Wednesday != DEFAULT_NOTIFICATION_ID) {
                     chipWc.isChecked = true
                 }
-                if (Thursday != UUID.fromString(DEFAULT_UUID)) {
+                if (Thursday != DEFAULT_NOTIFICATION_ID) {
                     chipTh.isChecked = true
                 }
-                if (Friday != UUID.fromString(DEFAULT_UUID)) {
+                if (Friday != DEFAULT_NOTIFICATION_ID) {
                     chipFr.isChecked = true
                 }
-                if (Saturday != UUID.fromString(DEFAULT_UUID)) {
+                if (Saturday != DEFAULT_NOTIFICATION_ID) {
                     chipSa.isChecked = true
                 }
-                if (Sunday != UUID.fromString(DEFAULT_UUID)) {
+                if (Sunday != DEFAULT_NOTIFICATION_ID) {
                     chipSu.isChecked = true
                 }
             }
@@ -61,7 +61,7 @@ class NotificationAdapter :
 
     companion object {
 
-        private const val DEFAULT_UUID = "d3cfe541-7001-4d6c-aa8a-55f649867d1e"
+        private const val DEFAULT_NOTIFICATION_ID = 0
     }
 
 }

@@ -7,10 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.work.ForegroundInfo
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.testproject.R
 import com.example.testproject.app.presentation.main.MainActivity
+import com.google.common.util.concurrent.ListenableFuture
 
 /**
  * @author Nedumayy (Samim)
