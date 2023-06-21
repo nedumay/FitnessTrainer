@@ -56,7 +56,6 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Получаем id пользователя
         userIdSharedPreferences = requireActivity()
             .getSharedPreferences(

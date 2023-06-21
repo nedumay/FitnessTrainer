@@ -75,11 +75,12 @@ class NotificationFragment : Fragment() {
                 AppCompatActivity.MODE_PRIVATE
             )
         currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Get arguments. If screen mode is ADD, then arguments will be null.
+        // If screen mode is EDIT, then arguments will be not null
         arguments?.let {
             screenMode = it.getString(GET_MODE)
             id = when (screenMode) {
@@ -150,7 +151,7 @@ class NotificationFragment : Fragment() {
         binding.addTime.setOnClickListener {
             setTime()
         }
-
+        // Create notification item or edit notification item
         binding.createNotification.setOnClickListener {
             when (screenMode) {
                 ADD -> {
@@ -279,6 +280,7 @@ class NotificationFragment : Fragment() {
     private fun cancelAllNotifications() {
 
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
         val pendingIntent =
             PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_MUTABLE)
@@ -310,13 +312,15 @@ class NotificationFragment : Fragment() {
         binding.chipSa.isChecked = false
         binding.chipSu.isChecked = false
         count = 0
-        binding.textViewTime.text = "00:00"
+        binding.textViewTime.text = CLEAR_TIME
     }
 
     private fun createNotification(): Int {
 
         val notificationId = System.currentTimeMillis().toInt()
+
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
 
@@ -326,25 +330,26 @@ class NotificationFragment : Fragment() {
             intent,
             PendingIntent.FLAG_MUTABLE
         )
-
+        // Set day of week, hour, minute, second.
         calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK))
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
         calendar.set(Calendar.SECOND, 0)
 
-        Log.d("SetNotification", "createNotification: ${calendar.time}")
-
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY * 7, // Повторение каждую неделю
+            AlarmManager.INTERVAL_DAY * 7, // Repeat every week
             pendingIntent
         )
+        Log.d("NotificationEnqueue", "created ${alarmManager}")
         return notificationId
     }
 
     private fun cancelNotification(notificationId: Int) {
+
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
 
@@ -352,26 +357,23 @@ class NotificationFragment : Fragment() {
             context,
             notificationId,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_MUTABLE
         )
-
+        Log.d("NotificationEnqueue", "canceled ${alarmManager}")
         alarmManager.cancel(pendingIntent)
     }
 
     private fun setDay() {
         binding.textViewCountDay.text = "$count/7"
         binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipMo.isChecked = true
+            if (isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                Log.d("NotificationEnqueue", "selected ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 mondayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipMo.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(mondayId)
                 mondayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -380,18 +382,17 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
+
         binding.chipTu.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipTu.isChecked = true
+            if (isChecked && tuesdayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
-                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 tuesdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipTu.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(tuesdayId)
                 tuesdayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -400,18 +401,17 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
+
         binding.chipWed.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipWed.isChecked = true
+            if (isChecked && wednesdayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
-                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 wednesdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipWed.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(wednesdayId)
                 wednesdayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -420,18 +420,17 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
+
         binding.chipTh.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipTh.isChecked = true
+            if (isChecked && thursdayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
-                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 thursdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipTh.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(thursdayId)
                 thursdayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -440,18 +439,17 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
+
         binding.chipFr.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipFr.isChecked = true
+            if (isChecked && fridayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 fridayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipFr.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(fridayId)
                 fridayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -460,18 +458,16 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
         binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipSa.isChecked = true
+            if (isChecked && saturdayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
-                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 saturdayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipSa.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(saturdayId)
                 saturdayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -480,18 +476,17 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
+
         binding.chipSu.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.chipSu.isChecked = true
+            if (isChecked && sundayId == DEFAULT_NOTIFICATION_ID) {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-                Log.d("NotificationEnqueue", "added ${calendar.get(Calendar.DAY_OF_WEEK)}")
                 sundayId = createNotification()
                 if (count != 7) {
                     count++
                     binding.textViewCountDay.text = "$count/7"
                 }
-            } else {
-                binding.chipSu.isChecked = false
+            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
                 cancelNotification(sundayId)
                 sundayId = DEFAULT_NOTIFICATION_ID
                 if (count != 0) {
@@ -500,6 +495,7 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
     }
 
     private fun setTime() {
@@ -524,52 +520,11 @@ class NotificationFragment : Fragment() {
         _binding = null
     }
 
-    /*
-    private fun createNotification(): UUID {
-        val notificationIntent = Intent(requireContext(), WorkoutNotificationWorker::class.java)
-        val currentTimeMills = System.currentTimeMillis()
-        var delay = calendar.timeInMillis - currentTimeMills
-        // Перенос уведомления на следующую неделю.
-        if (delay <= 0) {
-            delay = currentTimeMills + 604800000 - delay
-        }
-
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val notificationRequest: OneTimeWorkRequest =
-            OneTimeWorkRequestBuilder<WorkoutNotificationWorker>()
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .addTag(calendar.get(Calendar.DAY_OF_WEEK).toString())
-                .setInputData(
-                    workDataOf(
-                        "notification_id" to calendar.get(Calendar.DAY_OF_WEEK)
-                    )
-                )
-                .setConstraints(constraints)
-                .build()
-        Log.d("NotificationEnqueue", "created tag: ${notificationRequest.id}")
-
-
-        NotificationService(notificationRequest).onStartCommand(
-            notificationIntent,
-            0,
-            calendar.get(Calendar.DAY_OF_WEEK)
-        )
-        return notificationRequest.id
-    }
-
-    // Delete notification by tag from enqueue
-    private fun deleteEnqueueNotification(uid: UUID) {
-        WorkManager.getInstance(requireContext()).cancelWorkById(uid)
-        Log.d("NotificationEnqueue", "delete $uid")
-    }*/
-
     companion object {
         private const val USER_SHARED_PREF = "userPreferences"
         private const val USER_ID = "userId"
         private const val DEFAULT_NOTIFICATION_ID = 0
+        private const val CLEAR_TIME = "00:00"
 
         private const val GET_MODE = "mode"
         private const val EDIT = "edit"

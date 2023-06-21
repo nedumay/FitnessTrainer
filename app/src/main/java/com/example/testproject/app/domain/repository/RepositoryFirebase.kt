@@ -22,5 +22,5 @@ interface RepositoryFirebase {
     //Sign out user from Firebase.
     fun signOutUserFromFirebase(): FirebaseUser?
     //Auth user from Firebase.
-    fun authUserFirebase(): FirebaseUser?
+    fun authUserFirebase(): FirebaseUser
 }

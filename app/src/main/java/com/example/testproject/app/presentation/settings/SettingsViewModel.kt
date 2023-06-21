@@ -31,7 +31,6 @@ class SettingsViewModel @Inject constructor(
             } catch (e: Exception) {
                 _userInfo.value = Resource.Error(e.message.toString())
             }
-            Log.d("Settings activity", "Settings viewModel: ${_userInfo.value}")
         }
     }
 
