@@ -1,11 +1,13 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
-An app for exercising at home. In development... Update: 05.06.2023
+An app for exercising at home. In development... Update: 21.06.2023
 
 Application сapabilities::
 1. Registering/deleting and saving info about an account user (firebase).
 2. Workout reminder by time and day (under development).
 3. Exercise list.
 4. Exercise tracking (under development).
+
+Currently in the works: Notification...
 
 API in development: 
 
@@ -19,7 +21,7 @@ advanced: https://run.mocky.io/v3/eee2b1ce-1fd7-4b4c-8156-eda8a4ea16d7
 
 The app is written entirely in Kotlin and uses the Gradle build system.
 
-Tools and Libraries: Firebase, Coroutines + StateFlow, Dagger2
+Tools and Libraries: Firebase, Coroutines + StateFlow, Dagger2, Worker, YoutubePlayer, Glide, Navigation fragment.
 
 Language Support: English, Russian
 
