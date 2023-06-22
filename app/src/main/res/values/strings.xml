@@ -91,6 +91,6 @@
     <string name="fr">Fr</string>
     <string name="sa">Sa</string>
     <string name="su">Su</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="created_notification">Notification created</string>
+    <string name="сancelled_notification">Notification cancelled</string>
 </resources>

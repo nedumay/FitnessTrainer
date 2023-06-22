@@ -22,15 +22,22 @@ class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
+        val notificationId = intent.getIntExtra("notification_id", 0)
+
         val startAppIntent = Intent(context, MainActivity::class.java)
         startAppIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val contentIntent =
-            PendingIntent.getActivity(context, 0, startAppIntent, PendingIntent.FLAG_MUTABLE)
+            PendingIntent.getActivity(
+                context,
+                notificationId,
+                startAppIntent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val notificationId = intent.getIntExtra("notification_id", 0)
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
