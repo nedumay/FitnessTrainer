@@ -60,7 +60,6 @@ class DashboardFragment : Fragment() {
                 AppCompatActivity.MODE_PRIVATE
             )
         currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
-        Log.d("DashboardViewModelFirebase", "currentUserId: $currentUserId")
     }
 
     override fun onCreateView(
