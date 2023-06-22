@@ -121,6 +121,7 @@ class NotificationFragment : Fragment() {
                         initEditDay(it.data)
                         countDay = it.data.countDay.toInt()
                         binding.textViewCountDay.text = "$countDay/7"
+                        binding.createNotification.isEnabled = countDay != 0
                     }
 
                     is Resource.Error -> {
