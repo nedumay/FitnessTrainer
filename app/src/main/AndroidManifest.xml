@@ -4,18 +4,22 @@
     package="com.example.testproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.REQUEST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.MANAGE_NOTIFICATIONS." />
+
 
     <application
         android:name=".app.presentation.app.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_gia_pay_background"
         android:label="@string/app_name"
@@ -23,68 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestProject"
         tools:targetApi="33">
-        <activity
-            android:name=".app.presentation.workout.detail.DetailActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"  />
-        <activity
-            android:name=".app.presentation.workout.list.ExercisesActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"  />
-        <activity
-            android:name=".app.presentation.workout.lvl.LvlActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"  />
-        <activity
-            android:name=".app.presentation.settings.SettingsActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.notification.NotificationActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.dashboard.DashboardActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.four.RegistrationFour"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.three.RegistrationThree"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.two.RegistrationTwo"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.registration.one.RegistrationOne"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".app.presentation.reset.ResetActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".app.presentation.login.LoginActivity"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".app.presentation.main.MainActivity"
             android:configChanges="orientation"
@@ -92,10 +35,15 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".app.utils.NotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <meta-data
             android:name="preloaded_fonts"

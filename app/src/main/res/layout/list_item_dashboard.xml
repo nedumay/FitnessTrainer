@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewSchedule" />
 
             <TextView
-                android:id="@+id/textViewNum"
+                android:id="@+id/textViewCountDay"
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
                 android:layout_marginStart="4dp"
@@ -63,27 +63,27 @@
                 android:id="@+id/header_text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ubuntu_medium"
                 android:text="@string/time"
                 android:textColor="#757575"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTime"
-                app:layout_constraintStart_toStartOf="@+id/textViewTime"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textViewSchedule" />
 
             <TextView
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:text="00:00"
                 android:textColor="@color/green"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewNum"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewNum" />
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCountDay"
+                app:layout_constraintEnd_toEndOf="@+id/header_text_time"
+                app:layout_constraintStart_toStartOf="@+id/header_text_time"
+                app:layout_constraintTop_toTopOf="@+id/textViewCountDay" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
@@ -97,24 +97,14 @@
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipSu"
-                    style="@style/chips_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Su" />
-
-                <com.google.android.material.chip.Chip
                     android:id="@+id/chipMo"
                     style="@style/chips_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Mo" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/mo" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTu"
@@ -122,9 +112,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Tu" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/tu" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipWc"
@@ -132,9 +122,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Wc" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/wed" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTh"
@@ -142,9 +132,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Th" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/th" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipFr"
@@ -152,9 +142,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Fr" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/fr" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipSa"
@@ -162,9 +152,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Sa" />
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/sa" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSu"
+                    style="@style/chips_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:text="@string/su" />
 
             </com.google.android.material.chip.ChipGroup>
 

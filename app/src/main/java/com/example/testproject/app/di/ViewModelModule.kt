@@ -3,12 +3,13 @@ package com.example.testproject.app.di
 import androidx.lifecycle.ViewModel
 import com.example.testproject.app.presentation.dashboard.DashboardViewModel
 import com.example.testproject.app.presentation.login.LoginViewModel
+import com.example.testproject.app.presentation.notification.NotificationViewModel
 import com.example.testproject.app.presentation.registration.four.RegistrationFourViewModel
 import com.example.testproject.app.presentation.reset.ResetViewModel
 import com.example.testproject.app.presentation.settings.SettingsViewModel
 import com.example.testproject.app.presentation.workout.detail.DetailViewModel
 import com.example.testproject.app.presentation.workout.list.ExercisesViewModel
-import com.example.testproject.app.presentation.workout.lvl.LvlViewModel
+import com.example.testproject.app.presentation.workout.lvl.LevelViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -53,7 +54,12 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(LvlViewModel::class)
-    fun bindLvlViewModel(viewModel: LvlViewModel): ViewModel
+    @ViewModelKey(LevelViewModel::class)
+    fun bindLvlViewModel(viewModel: LevelViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotificationViewModel::class)
+    fun bindNotificationViewModel(viewModel: NotificationViewModel): ViewModel
 
 }

@@ -2,13 +2,14 @@ package com.example.testproject.app.utils
 
 import android.text.Editable
 import android.text.TextWatcher
-import java.util.*
+import android.widget.EditText
+import java.util.Locale
 
 /**
  * @author Nedumayy (Samim)
  * Mask to display the date and save the date in the format MM.DD.YYYY
  */
-class DataMask : TextWatcher {
+class DataMask() : TextWatcher {
 
     private var updateText: String? = null
     private var editing = false
@@ -99,7 +100,6 @@ class DataMask : TextWatcher {
 
     override fun afterTextChanged(editable: Editable) {
         if(editing) return
-
         editing = true
         editable.clear()
         editable.insert(0,updateText)

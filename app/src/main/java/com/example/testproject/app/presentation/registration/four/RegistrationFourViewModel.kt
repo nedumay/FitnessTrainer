@@ -43,7 +43,6 @@ class RegistrationFourViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _error.value = Resource.Loading
-                delay(5000)
                 val error = addUserToFirebase.invoke(userAdd)
                 _error.value = Resource.Success(error)
             } catch (e: Exception) {

@@ -2,19 +2,20 @@ package com.example.testproject.app.di
 
 import android.app.Application
 import com.example.testproject.app.presentation.app.App
-import com.example.testproject.app.presentation.dashboard.DashboardActivity
-import com.example.testproject.app.presentation.login.LoginActivity
+import com.example.testproject.app.presentation.dashboard.DashboardFragment
+import com.example.testproject.app.presentation.login.LoginFragment
 import com.example.testproject.app.presentation.main.MainActivity
-import com.example.testproject.app.presentation.notification.NotificationActivity
-import com.example.testproject.app.presentation.registration.four.RegistrationFour
-import com.example.testproject.app.presentation.registration.one.RegistrationOne
-import com.example.testproject.app.presentation.registration.three.RegistrationThree
-import com.example.testproject.app.presentation.registration.two.RegistrationTwo
-import com.example.testproject.app.presentation.reset.ResetActivity
-import com.example.testproject.app.presentation.settings.SettingsActivity
-import com.example.testproject.app.presentation.workout.detail.DetailActivity
-import com.example.testproject.app.presentation.workout.list.ExercisesActivity
-import com.example.testproject.app.presentation.workout.lvl.LvlActivity
+import com.example.testproject.app.presentation.notification.NotificationFragment
+import com.example.testproject.app.presentation.registration.four.RegistrationFourFragment
+import com.example.testproject.app.presentation.registration.one.RegistrationOneFragment
+import com.example.testproject.app.presentation.registration.three.RegistrationThreeFragment
+import com.example.testproject.app.presentation.registration.two.RegistrationTwoFragment
+import com.example.testproject.app.presentation.reset.ResetFragment
+import com.example.testproject.app.presentation.settings.SettingsFragment
+import com.example.testproject.app.presentation.splash.SplashFragment
+import com.example.testproject.app.presentation.workout.detail.DetailFragment
+import com.example.testproject.app.presentation.workout.list.ExerciseListFragment
+import com.example.testproject.app.presentation.workout.lvl.LevelFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -24,35 +25,37 @@ interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
 
-    fun inject(activity: LoginActivity)
+    fun inject(fragment: SplashFragment)
 
-    fun inject(activity: DashboardActivity)
+    fun inject(fragment: LoginFragment)
 
-    fun inject(activity: NotificationActivity)
+    fun inject(fragment: DashboardFragment)
 
-    fun inject(activity: SettingsActivity)
+    fun inject(fragment: NotificationFragment)
 
-    fun inject(activity: ResetActivity)
+    fun inject(fragment: RegistrationOneFragment)
 
-    fun inject(activity: RegistrationOne)
+    fun inject(fragment: RegistrationTwoFragment)
 
-    fun inject(activity: RegistrationTwo)
+    fun inject(fragment: RegistrationThreeFragment)
 
-    fun inject(activity: RegistrationThree)
+    fun inject(fragment: RegistrationFourFragment)
 
-    fun inject(activity: RegistrationFour)
+    fun inject(fragment: ResetFragment)
 
-    fun inject(activity: LvlActivity)
+    fun inject(fragment: SettingsFragment)
 
-    fun inject(activity: ExercisesActivity)
+    fun inject(fragment: DetailFragment)
 
-    fun inject(activity: DetailActivity)
+    fun inject(fragment: ExerciseListFragment)
+
+    fun inject(fragment: LevelFragment)
 
     fun inject(application: App)
 
     @Component.Factory
-    interface Factory{
-        fun create(@BindsInstance application: Application) : ApplicationComponent
+    interface Factory {
+        fun create(@BindsInstance application: Application): ApplicationComponent
     }
 
 

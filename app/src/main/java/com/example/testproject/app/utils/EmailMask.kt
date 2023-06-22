@@ -5,16 +5,14 @@ import android.text.TextWatcher
 import com.google.android.material.textfield.TextInputLayout
 
 /**
- * @author Nedumayy (Samim)
+ * @author Nedumayy (Samim).
  * Mask to display the email in the format: test@example.com
- * Use this class to display the email
- * Error message will be displayed if the email is invalid or empty on TextInputLayout
+ * Use this class to display the email.
+ * Error message will be displayed if the email is invalid or empty on TextInputLayout.
  */
 class EmailMask(private val tilEmail: TextInputLayout) : TextWatcher {
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-    }
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 

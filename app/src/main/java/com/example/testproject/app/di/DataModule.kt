@@ -1,11 +1,16 @@
 package com.example.testproject.app.di
 
+import android.app.Application
+import com.example.testproject.app.data.database.AppDataBase
+import com.example.testproject.app.data.database.NotificationDao
 import com.example.testproject.app.data.network.ApiFactory
 import com.example.testproject.app.data.network.ApiService
 import com.example.testproject.app.data.repository.RepositoryApiImpl
 import com.example.testproject.app.data.repository.RepositoryFirebaseImpl
+import com.example.testproject.app.data.repository.RepositoryNotificationImpl
 import com.example.testproject.app.domain.repository.RepositoryApi
 import com.example.testproject.app.domain.repository.RepositoryFirebase
+import com.example.testproject.app.domain.repository.RepositoryNotification
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,11 +26,23 @@ interface DataModule {
     @ApplicationScope
     fun bindRepositoryApiImpl(impl: RepositoryApiImpl): RepositoryApi
 
-    companion object{
+    @Binds
+    @ApplicationScope
+    fun bindRepositoryNotificationImpl(impl: RepositoryNotificationImpl): RepositoryNotification
+
+    companion object {
         @Provides
         @ApplicationScope
         fun provideApiService(): ApiService {
             return ApiFactory.apiService
+        }
+
+        @Provides
+        @ApplicationScope
+        fun provideNotificationDao(
+            application: Application
+        ) : NotificationDao {
+            return AppDataBase.getInstance(application).notificationDao()
         }
     }
 }
