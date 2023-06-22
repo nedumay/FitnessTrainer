@@ -27,19 +27,23 @@ class DashboardViewModel @Inject constructor(
     val notificationList: LiveData<List<NotificationDashboard>>
         get() = _notificationList
 
-    fun authUser(uid: String) {
+    fun authUser(uId: String) {
         viewModelScope.launch {
             try {
                 _firebaseUser.value = Resource.Loading
-                val data = authUserFirebase.invoke(uid = uid)
+                val data = authUserFirebase.invoke()
                 _firebaseUser.value = Resource.Success(data)
-                val dataUid = data?.uid ?: ""
-                if(dataUid.isNotEmpty()) {
+                val dataUid = data!!.uid ?: ""
+                if(dataUid.isNotEmpty() && uId == dataUid) {
                     _notificationList.value = getNotificationListUseCase.invoke(dataUid)
                 }
             } catch (e: Exception) {
-                Log.d("DashboardViewModelError", e.toString())
+                Log.d("DashboardViewModel", e.toString())
             }
         }
+    }
+
+    init {
+
     }
 }

@@ -114,18 +114,10 @@ class RepositoryFirebaseImpl @Inject constructor(
         return auth.currentUser
     }
     //Auth user from Firebase.
-    override fun authUserFirebase(uid: String): FirebaseUser? {
-        var user: FirebaseUser? = null
-        auth.signInWithCustomToken(uid).addOnCompleteListener {
-            if (it.isSuccessful) {
-                user = auth.currentUser as FirebaseUser
-            } else {
-                Log.d("Account user", "rep.impl ${it.exception}")
-            }
-        }
-
+    override fun authUserFirebase(): FirebaseUser? {
+        val user: FirebaseUser?  = auth.currentUser
         Log.d("Account user", "rep.impl $user")
-        return user
+        return auth.currentUser
     }
 
 }

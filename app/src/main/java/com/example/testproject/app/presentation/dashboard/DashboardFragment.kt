@@ -49,10 +49,6 @@ class DashboardFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@DashboardFragment)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         // Получаем id пользователя
         userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
@@ -60,6 +56,14 @@ class DashboardFragment : Fragment() {
                 AppCompatActivity.MODE_PRIVATE
             )
         currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
+
+        if(currentUserId.isEmpty()) {
+            findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -72,6 +76,17 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    private fun launchLoginFragment() {
+        userIdSharedPreferences.edit().clear().apply()
+        findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appBarMenu()
 
         viewModel.authUser(currentUserId)
         viewModel.firebaseUser.onEach {
@@ -103,16 +118,6 @@ class DashboardFragment : Fragment() {
                 }
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun launchLoginFragment() {
-        userIdSharedPreferences.edit().clear().apply()
-        findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        appBarMenu()
 
         viewModel.notificationList.observe(viewLifecycleOwner) {
             binding.notificationRecyclerView.adapter = notificationAdapter
