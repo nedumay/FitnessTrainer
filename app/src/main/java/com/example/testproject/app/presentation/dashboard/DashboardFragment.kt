@@ -1,9 +1,6 @@
 package com.example.testproject.app.presentation.dashboard
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -24,8 +21,6 @@ import com.example.testproject.app.domain.model.notification.NotificationDashboa
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.adapters.NotificationAdapter
 import com.example.testproject.app.presentation.factory.ViewModelFactory
-import com.example.testproject.app.presentation.settings.SettingsFragment
-import com.example.testproject.app.utils.NotificationReceiver
 import com.example.testproject.databinding.FragmentDashboardBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -65,6 +60,7 @@ class DashboardFragment : Fragment() {
                 AppCompatActivity.MODE_PRIVATE
             )
         currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
+        Log.d("DashboardViewModelFirebase", "currentUserId: $currentUserId")
     }
 
     override fun onCreateView(
@@ -78,7 +74,8 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.firebaseUser.onEach{
+        viewModel.authUser(currentUserId)
+        viewModel.firebaseUser.onEach {
             when (it) {
                 is Resource.Loading -> {
                     Log.d("Account user", "Loading: $it")
@@ -87,6 +84,7 @@ class DashboardFragment : Fragment() {
                     binding.addScheduleButton.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is Resource.Success -> {
                     Log.d("Account user", "Success: $it")
                     binding.cardClickToStart.visibility = View.VISIBLE
@@ -94,6 +92,7 @@ class DashboardFragment : Fragment() {
                     binding.addScheduleButton.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                 }
+
                 is Resource.Error -> {
                     Log.d("Account user", "Error: $it")
                     binding.cardClickToStart.visibility = View.GONE
@@ -103,11 +102,8 @@ class DashboardFragment : Fragment() {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     launchLoginFragment()
                 }
-
             }
-
         }.launchIn(lifecycleScope)
-
     }
 
     private fun launchLoginFragment() {
@@ -165,19 +161,16 @@ class DashboardFragment : Fragment() {
             Snackbar.make(view, "Replace with you own action", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
-
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.alerts -> {
                     Toast.makeText(requireContext(), "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }
-
                 R.id.settings -> {
                     launchSettingsFragment()
                     true
                 }
-
                 else -> false
             }
         }

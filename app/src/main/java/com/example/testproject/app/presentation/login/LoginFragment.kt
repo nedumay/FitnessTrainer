@@ -54,6 +54,11 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         val userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
                 USER_SHARED_PREF,
@@ -97,8 +102,11 @@ class LoginFragment : Fragment() {
     private fun saveUser(userIdSharedPref: SharedPreferences) {
         //Если id сохранен в SharedPreferences то заходим в приложение
         if (userIdSharedPref.contains(USER_ID)) {
-            //val data = userIdSharedPref.getString(USER_ID, "") ?: ""
-            launchDashboardFragment()
+            val data = userIdSharedPref.getString(USER_ID, "") ?: ""
+            if(data.isNotEmpty()){
+                launchDashboardFragment()
+            }
+
         }
     }
 

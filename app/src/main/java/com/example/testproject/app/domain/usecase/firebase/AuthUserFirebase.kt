@@ -8,5 +8,5 @@ import javax.inject.Inject
  * Auth user from Firebase use case.
  */
 class AuthUserFirebase @Inject constructor(private val repositoryFirebase: RepositoryFirebase) {
-    operator fun invoke() = repositoryFirebase.authUserFirebase()
+    operator fun invoke(uid: String) = repositoryFirebase.authUserFirebase(uid)
 }
