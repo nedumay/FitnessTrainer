@@ -6,11 +6,10 @@ import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +48,8 @@ class NotificationFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
     }
 
+    private lateinit var alarmManager: AlarmManager
+
     private val calendar = Calendar.getInstance()
     private var countDay = 0
     private var timeFormat = "00:00"
@@ -86,9 +87,17 @@ class NotificationFragment : Fragment() {
         arguments?.let {
             screenMode = it.getString(GET_MODE)
             id = when (screenMode) {
-                EDIT -> { it.getInt(GET_NOTIFICATION_ITEM_ID) }
-                ADD -> { null }
-                else -> { throw RuntimeException("Screen mode is unknown") }
+                EDIT -> {
+                    it.getInt(GET_NOTIFICATION_ITEM_ID)
+                }
+
+                ADD -> {
+                    null
+                }
+
+                else -> {
+                    throw RuntimeException("Screen mode is unknown")
+                }
             }
         }
     }
@@ -197,6 +206,7 @@ class NotificationFragment : Fragment() {
 
         binding.clearAllNotifications.setOnClickListener {
             cancelAllNotifications()
+            launchBackDashboard()
         }
 
     }
@@ -321,7 +331,7 @@ class NotificationFragment : Fragment() {
 
         val notificationId = System.currentTimeMillis().toInt()
 
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
@@ -348,8 +358,7 @@ class NotificationFragment : Fragment() {
 
         Toast.makeText(
             requireContext(),
-            "${requireContext().getText(R.string.created_notification)}"
-                    + notificationId.toString(),
+            "${requireContext().getText(R.string.created_notification)}",
             Toast.LENGTH_SHORT
         ).show()
         return notificationId
@@ -357,7 +366,7 @@ class NotificationFragment : Fragment() {
 
     private fun cancelNotification(notificationId: Int) {
 
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
@@ -370,8 +379,7 @@ class NotificationFragment : Fragment() {
         )
         Toast.makeText(
             requireContext(),
-            "${requireContext().getText(R.string.сancelled_notification)}"
-                    + notificationId.toString(),
+            "${requireContext().getText(R.string.сancelled_notification)}",
             Toast.LENGTH_SHORT
         ).show()
         alarmManager.cancel(pendingIntent)
@@ -388,7 +396,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(mondayId)
                 mondayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -409,7 +417,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(tuesdayId)
                 tuesdayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -430,7 +438,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(wednesdayId)
                 wednesdayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -451,7 +459,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(thursdayId)
                 thursdayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -472,7 +480,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(fridayId)
                 fridayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -492,7 +500,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(saturdayId)
                 saturdayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -513,7 +521,7 @@ class NotificationFragment : Fragment() {
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
-            } else if(!isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
+            } else if (!isChecked) {
                 cancelNotification(sundayId)
                 sundayId = DEFAULT_NOTIFICATION_ID
                 if (countDay != 0) {
@@ -542,6 +550,7 @@ class NotificationFragment : Fragment() {
         )
         timePickerDialog.show()
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

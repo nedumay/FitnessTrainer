@@ -1,7 +1,11 @@
 package com.example.testproject.app.presentation.dashboard
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +25,7 @@ import com.example.testproject.app.domain.model.notification.NotificationDashboa
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.dashboard.adapters.NotificationAdapter
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.utils.NotificationReceiver
 import com.example.testproject.databinding.FragmentDashboardBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
@@ -135,7 +140,6 @@ class DashboardFragment : Fragment() {
         notificationAdapter.onNotificationClickListener = {
             launchEditNotificationFragment(it)
         }
-
     }
 
     private fun launchLevelFragment() {
@@ -168,6 +172,7 @@ class DashboardFragment : Fragment() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.alerts -> {
+
                     Toast.makeText(requireContext(), "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }

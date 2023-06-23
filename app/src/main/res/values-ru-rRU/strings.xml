@@ -42,7 +42,8 @@
     <string name="part_four">4/4</string>
     <string name="dashboard">РАСПИСАНИЕ</string>
     <string name="new_notification">Новое уведомление</string>
-    <string name="choose_the_days">Выберите дни и время для уведомления</string>
+    <string name="choose_the_time">Выберите сначала время!</string>
+    <string name="choose_the_days">Выберите дни недели!</string>
     <string name="time">Время</string>
     <string name="create">Создать</string>
     <string name="settings">Настройки</string>

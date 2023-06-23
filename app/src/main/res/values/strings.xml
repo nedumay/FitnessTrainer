@@ -41,7 +41,8 @@
     <string name="part_four">4/4</string>
     <string name="dashboard">DASHBOARD</string>
     <string name="new_notification">New notification</string>
-    <string name="choose_the_days">Choose the days and times for notification</string>
+    <string name="choose_the_time">Choose a time first!</string>
+    <string name="choose_the_days">Choose the days of the week!</string>
     <string name="time">Time</string>
     <string name="create">Create</string>
     <string name="settings">Settings</string>
