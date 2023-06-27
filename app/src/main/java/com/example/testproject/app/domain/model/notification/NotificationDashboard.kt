@@ -1,5 +1,6 @@
 package com.example.testproject.app.domain.model.notification
 
+import java.time.DayOfWeek
 import java.util.UUID
 
 data class NotificationDashboard(

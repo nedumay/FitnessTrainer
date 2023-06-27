@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -338,19 +337,19 @@ class NotificationFragment : Fragment() {
             requireContext(),
             notificationId,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_MUTABLE
         )
         // Set day of week, hour, minute, second.
         calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK))
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
         calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
         Log.d("TimeAlarmNotification", "${calendar.time}")
 
-        alarmManager.setRepeating(
+        alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY * 7,
             pendingIntent
         )
 
@@ -368,12 +367,13 @@ class NotificationFragment : Fragment() {
 
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
+        intent.putExtra("showBadge", false)
 
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
             notificationId,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_MUTABLE
         )
         Toast.makeText(
             requireContext(),

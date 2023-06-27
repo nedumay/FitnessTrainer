@@ -23,6 +23,7 @@ class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
 
         val notificationId = intent.getIntExtra("notification_id", 0)
+        val showBadge = intent.getBooleanExtra("showBadge", false)
 
         val startAppIntent = Intent(context, MainActivity::class.java)
         startAppIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -31,7 +32,7 @@ class NotificationReceiver : BroadcastReceiver() {
                 context,
                 notificationId,
                 startAppIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                PendingIntent.FLAG_MUTABLE
             )
 
         val notificationManager =
@@ -39,7 +40,9 @@ class NotificationReceiver : BroadcastReceiver() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
-                NotificationChannel(CHANNEL_ID, CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel(notificationId.toString(), CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = context.getText(R.string.app_name).toString()
+            channel.setShowBadge(showBadge)
             notificationManager.createNotificationChannel(channel)
         }
 
@@ -51,7 +54,7 @@ class NotificationReceiver : BroadcastReceiver() {
             .setContentIntent(contentIntent)
             .setAutoCancel(true)
             .build()
-        notificationManager.notify(notificationId, notification)
+        notificationManager.notify(1001, notification)
     }
 
     companion object {
