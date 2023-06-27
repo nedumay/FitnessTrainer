@@ -48,9 +48,7 @@ class NotificationFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[NotificationViewModel::class.java]
     }
 
-    private lateinit var alarmManager: AlarmManager
-
-    private val calendar = Calendar.getInstance()
+    private val calendar = Calendar.getInstance(Locale.getDefault())
     private var countDay = 0
     private var timeFormat = "00:00"
 
@@ -331,16 +329,16 @@ class NotificationFragment : Fragment() {
 
         val notificationId = System.currentTimeMillis().toInt()
 
-        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(context, NotificationReceiver::class.java)
+        val intent = Intent(requireContext(), NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
 
         val pendingIntent = PendingIntent.getBroadcast(
-            context,
+            requireContext(),
             notificationId,
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
         // Set day of week, hour, minute, second.
         calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK))
@@ -351,8 +349,8 @@ class NotificationFragment : Fragment() {
 
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            calendar.time.time,
-            AlarmManager.INTERVAL_DAY * 7, // Repeat every week
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY * 7,
             pendingIntent
         )
 
@@ -366,16 +364,16 @@ class NotificationFragment : Fragment() {
 
     private fun cancelNotification(notificationId: Int) {
 
-        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra("notification_id", notificationId)
 
         val pendingIntent = PendingIntent.getBroadcast(
-            context,
+            requireContext(),
             notificationId,
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
         Toast.makeText(
             requireContext(),

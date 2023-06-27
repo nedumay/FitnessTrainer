@@ -31,13 +31,11 @@ class NotificationReceiver : BroadcastReceiver() {
                 context,
                 notificationId,
                 startAppIntent,
-                PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =

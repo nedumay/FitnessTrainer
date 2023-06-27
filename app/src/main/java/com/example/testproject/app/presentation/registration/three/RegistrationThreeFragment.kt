@@ -2,7 +2,6 @@ package com.example.testproject.app.presentation.registration.three
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +34,8 @@ class RegistrationThreeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sufWeight = resources.getString(R.string.ft)
-        sufHeight = resources.getString(R.string.lbs)
+        sufWeight = resources.getString(R.string.lbs)
+        sufHeight = resources.getString(R.string.ft)
         arguments?.let {
             name = it.getString(PUT_GET_NAME_KEY)
             lastName = it.getString(PUT_GET_LAST_NAME_KEY)
@@ -101,11 +100,11 @@ class RegistrationThreeFragment : Fragment() {
         binding.switchBtn.setOnCheckedChangeListener { _, checkedId ->
             requireActivity().findViewById<RadioButton>(checkedId)?.apply {
                 if (checkedId == R.id.lbsRadioBtn) {
-                    binding.tilHeight.suffixText = resources.getString(R.string.lbs)
-                    binding.tilWeight.suffixText = resources.getString(R.string.ft)
-                    binding.tilTarget.suffixText = resources.getString(R.string.ft)
-                    sufWeight = resources.getString(R.string.ft)
-                    sufHeight = resources.getString(R.string.lbs)
+                    binding.tilHeight.suffixText = resources.getString(R.string.ft)
+                    binding.tilWeight.suffixText = resources.getString(R.string.lbs)
+                    binding.tilTarget.suffixText = resources.getString(R.string.lbs)
+                    sufWeight = resources.getString(R.string.lbs)
+                    sufHeight = resources.getString(R.string.ft)
                 } else if (checkedId == R.id.kgRadioBtn) {
                     binding.tilHeight.suffixText = resources.getString(R.string.sm)
                     binding.tilWeight.suffixText = resources.getString(R.string.kg)

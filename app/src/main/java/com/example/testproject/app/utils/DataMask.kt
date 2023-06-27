@@ -88,7 +88,7 @@ class DataMask() : TextWatcher {
     }
 
     private fun validateMonth(month: String):String{
-        if(month.length == 1 && month.toInt() in 2..9){
+        if(month.length == 1 && month.toInt() in 2..9 ){
             return "0$month"
         }
 
