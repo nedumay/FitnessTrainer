@@ -4,8 +4,7 @@ import com.example.testproject.app.domain.model.notification.NotificationDashboa
 import com.example.testproject.app.domain.repository.RepositoryNotification
 import javax.inject.Inject
 
-class AddNotificationItemUseCase @Inject constructor(private val repository: RepositoryNotification) {
+class AddNotificationItemsUseCase @Inject constructor(private val repository: RepositoryNotification) {
 
-    suspend operator fun invoke(notificationItem: NotificationDashboard) = repository.addNotificationItem(notificationItem)
-
+    suspend operator fun invoke(notificationItems: List<NotificationDashboard>) = repository.addNotificationItems(notificationItems)
 }

@@ -25,11 +25,11 @@ import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
+import com.example.testproject.app.utils.AlarmScheduler
 import com.example.testproject.app.utils.NotificationReceiver
 import com.example.testproject.databinding.FragmentNotificationBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 
@@ -57,13 +57,14 @@ class NotificationFragment : Fragment() {
     private lateinit var currentUserId: String
     private lateinit var userIdSharedPreferences: SharedPreferences
 
-    private var mondayId: Int = DEFAULT_NOTIFICATION_ID
-    private var tuesdayId: Int = DEFAULT_NOTIFICATION_ID
-    private var wednesdayId: Int = DEFAULT_NOTIFICATION_ID
-    private var thursdayId: Int = DEFAULT_NOTIFICATION_ID
-    private var fridayId: Int = DEFAULT_NOTIFICATION_ID
-    private var saturdayId: Int = DEFAULT_NOTIFICATION_ID
-    private var sundayId: Int = DEFAULT_NOTIFICATION_ID
+    private var listDays: MutableList<String> = mutableListOf()
+    private var monday: String = DEFAULT_NOTIFICATION_ID
+    private var tuesday: String = DEFAULT_NOTIFICATION_ID
+    private var wednesday: String = DEFAULT_NOTIFICATION_ID
+    private var thursday: String = DEFAULT_NOTIFICATION_ID
+    private var friday: String = DEFAULT_NOTIFICATION_ID
+    private var saturday: String = DEFAULT_NOTIFICATION_ID
+    private var sunday: String = DEFAULT_NOTIFICATION_ID
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -113,8 +114,9 @@ class NotificationFragment : Fragment() {
         if (screenMode == ADD) {
             initAddDefaultTime()
             initAddDefaultDay()
+            listDays = mutableListOf("", "", "", "", "", "", "")
         } else if (screenMode == EDIT) {
-            viewModel.getNotificationItem(id!!)
+            viewModel.getNotificationItem(id ?: 0, currentUserId)
             viewModel.notificationInfo.onEach {
                 when (it) {
                     is Resource.Loading -> {
@@ -125,7 +127,8 @@ class NotificationFragment : Fragment() {
                     is Resource.Success -> {
                         initEditTime(it.data)
                         initEditDay(it.data)
-                        countDay = it.data.countDay.toInt()
+                        countDay = it.data.countDay
+                        listDays = it.data.days as MutableList<String>
                         binding.textViewCountDay.text = "$countDay/7"
                         binding.createNotification.isEnabled = countDay != 0
                     }
@@ -163,18 +166,27 @@ class NotificationFragment : Fragment() {
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE)
                     )
+                    // Исправить!!!
                     viewModel.addNotificationItem(
                         idUser = currentUserId,
-                        time = timeFormat,
-                        countDay = countDay.toString(),
-                        Monday = mondayId,
-                        Tuesday = tuesdayId,
-                        Wednesday = wednesdayId,
-                        Thursday = thursdayId,
-                        Friday = fridayId,
-                        Saturday = saturdayId,
-                        Sunday = sundayId
+                        name = "name",
+                        hour = calendar.get(Calendar.HOUR_OF_DAY),
+                        minute = calendar.get(Calendar.MINUTE),
+                        days = listDays,
+                        countDay = countDay,
                     )
+                    Log.d("NotificationExe", "addNotificationItem")
+                    // Исправить получение данных с БД.
+                    val notificationDashboard = NotificationDashboard(
+                        idUser = currentUserId,
+                        name = "name",
+                        hour = calendar.get(Calendar.HOUR_OF_DAY),
+                        minute = calendar.get(Calendar.MINUTE),
+                        days = listDays,
+                        countDay = countDay
+                    )
+                    AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, notificationDashboard)
+                    Log.d("NotificationExe", "AlarmScheduler.scheduleAlarmsForReminder")
                 }
 
                 EDIT -> {
@@ -183,19 +195,26 @@ class NotificationFragment : Fragment() {
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE)
                     )
-                    viewModel.editNotificationItem(
-                        id = id!!,
+                    // Испарвить!!!
+                    viewModel.updateNotificationItem(
+                        id = id ?: 0,
                         idUser = currentUserId,
-                        time = timeFormat,
-                        countDay = countDay.toString(),
-                        Monday = mondayId,
-                        Tuesday = tuesdayId,
-                        Wednesday = wednesdayId,
-                        Thursday = thursdayId,
-                        Friday = fridayId,
-                        Saturday = saturdayId,
-                        Sunday = sundayId
+                        name = "name",
+                        hour = calendar.get(Calendar.HOUR_OF_DAY),
+                        minute = calendar.get(Calendar.MINUTE),
+                        days = listDays,
+                        countDay = countDay,
                     )
+                    val notificationDashboard = NotificationDashboard(
+                        id = id ?: 0,
+                        idUser = currentUserId,
+                        name = "name",
+                        hour = calendar.get(Calendar.HOUR_OF_DAY),
+                        minute = calendar.get(Calendar.MINUTE),
+                        days = listDays,
+                        countDay = countDay
+                    )
+                    AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, notificationDashboard)
                 }
             }
             launchBackDashboard()
@@ -209,53 +228,54 @@ class NotificationFragment : Fragment() {
     }
 
     private fun initEditDay(it: NotificationDashboard) {
-        mondayId = it.Monday
-        if (mondayId != DEFAULT_NOTIFICATION_ID) {
+        sunday = it.days[0]
+        if (sunday != DEFAULT_NOTIFICATION_ID) {
+            binding.chipSu.isChecked = true
+        }
+        monday = it.days[1]
+        if (monday != DEFAULT_NOTIFICATION_ID) {
             binding.chipMo.isChecked = true
         }
-        tuesdayId = it.Tuesday
-        if (tuesdayId != DEFAULT_NOTIFICATION_ID) {
+        tuesday = it.days[2]
+        if (tuesday != DEFAULT_NOTIFICATION_ID) {
             binding.chipTu.isChecked = true
         }
-        wednesdayId = it.Wednesday
-        if (wednesdayId != DEFAULT_NOTIFICATION_ID) {
+        wednesday = it.days[3]
+        if (wednesday != DEFAULT_NOTIFICATION_ID) {
             binding.chipWed.isChecked = true
         }
-        thursdayId = it.Thursday
-        if (thursdayId != DEFAULT_NOTIFICATION_ID) {
+        thursday = it.days[4]
+        if (thursday != DEFAULT_NOTIFICATION_ID) {
             binding.chipTh.isChecked = true
         }
-        fridayId = it.Friday
-        if (fridayId != DEFAULT_NOTIFICATION_ID) {
+        friday = it.days[5]
+        if (friday != DEFAULT_NOTIFICATION_ID) {
             binding.chipFr.isChecked = true
         }
-        saturdayId = it.Saturday
-        if (saturdayId != DEFAULT_NOTIFICATION_ID) {
+        saturday = it.days[6]
+        if (saturday != DEFAULT_NOTIFICATION_ID) {
             binding.chipSa.isChecked = true
-        }
-        sundayId = it.Sunday
-        if (sundayId != DEFAULT_NOTIFICATION_ID) {
-            binding.chipSu.isChecked = true
         }
     }
 
     private fun initEditTime(it: NotificationDashboard) {
-        val format = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val date = format.parse(it.time)
-        if (date != null) {
-            calendar.time = date
-        }
-        binding.textViewTime.text = it.time
+        timeFormat = String.format(
+            "%02d:%02d",
+            it.hour,
+            it.minute
+        )
+        binding.textViewTime.text = timeFormat
     }
 
     private fun initAddDefaultDay() {
-        mondayId = DEFAULT_NOTIFICATION_ID
-        tuesdayId = DEFAULT_NOTIFICATION_ID
-        wednesdayId = DEFAULT_NOTIFICATION_ID
-        thursdayId = DEFAULT_NOTIFICATION_ID
-        fridayId = DEFAULT_NOTIFICATION_ID
-        saturdayId = DEFAULT_NOTIFICATION_ID
-        sundayId = DEFAULT_NOTIFICATION_ID
+
+        monday = DEFAULT_NOTIFICATION_ID
+        tuesday = DEFAULT_NOTIFICATION_ID
+        wednesday = DEFAULT_NOTIFICATION_ID
+        thursday = DEFAULT_NOTIFICATION_ID
+        friday = DEFAULT_NOTIFICATION_ID
+        saturday = DEFAULT_NOTIFICATION_ID
+        sunday = DEFAULT_NOTIFICATION_ID
     }
 
     private fun initAddDefaultTime() {
@@ -284,7 +304,6 @@ class NotificationFragment : Fragment() {
     private fun cancelAllNotifications() {
 
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
         val pendingIntent =
             PendingIntent.getBroadcast(
@@ -305,6 +324,7 @@ class NotificationFragment : Fragment() {
         viewModel.clearAllNotification()
         initAddDefaultTime()
         clearView()
+
         Toast.makeText(
             requireContext(),
             requireContext().getText(R.string.all_notification_canceled),
@@ -323,80 +343,41 @@ class NotificationFragment : Fragment() {
         countDay = 0
         binding.textViewTime.text = CLEAR_TIME
     }
-
-    private fun createNotification(): Int {
-
-        val notificationId = System.currentTimeMillis().toInt()
-
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        intent.putExtra("notification_id", notificationId)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(),
-            notificationId,
-            intent,
-            PendingIntent.FLAG_MUTABLE
-        )
-        // Set day of week, hour, minute, second.
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK))
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        Log.d("TimeAlarmNotification", "${calendar.time}")
-
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            pendingIntent
-        )
-
-        Toast.makeText(
-            requireContext(),
-            "${requireContext().getText(R.string.created_notification)}",
-            Toast.LENGTH_SHORT
-        ).show()
-        return notificationId
-    }
-
-    private fun cancelNotification(notificationId: Int) {
-
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        val intent = Intent(context, NotificationReceiver::class.java)
-        intent.putExtra("notification_id", notificationId)
-        intent.putExtra("showBadge", false)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(),
-            notificationId,
-            intent,
-            PendingIntent.FLAG_MUTABLE
-        )
-        Toast.makeText(
-            requireContext(),
-            "${requireContext().getText(R.string.сancelled_notification)}",
-            Toast.LENGTH_SHORT
-        ).show()
-        alarmManager.cancel(pendingIntent)
-    }
-
     private fun setDay() {
         binding.textViewCountDay.text = "$countDay/7"
-        binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && mondayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                mondayId = createNotification()
+
+        binding.chipSu.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked && sunday == DEFAULT_NOTIFICATION_ID) {
+                sunday = resources.getStringArray(R.array.days)[0]
+                listDays[0] = sunday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                cancelNotification(mondayId)
-                mondayId = DEFAULT_NOTIFICATION_ID
+                sunday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(0)
+                if (countDay != 0) {
+                    countDay--
+                    binding.textViewCountDay.text = "$countDay/7"
+                    binding.createNotification.isEnabled = countDay != 0
+                }
+            }
+        }
+
+        binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked && monday == DEFAULT_NOTIFICATION_ID) {
+                monday = resources.getStringArray(R.array.days)[1]
+                listDays[1] = monday
+                if (countDay != 7) {
+                    countDay++
+                    binding.textViewCountDay.text = "$countDay/7"
+                    binding.createNotification.isEnabled = countDay != 0
+                }
+            } else if (!isChecked) {
+                monday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(1)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -407,17 +388,17 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipTu.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && tuesdayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
-                tuesdayId = createNotification()
+            if (isChecked && tuesday == DEFAULT_NOTIFICATION_ID) {
+                tuesday = resources.getStringArray(R.array.days)[2]
+                listDays[2] = tuesday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                cancelNotification(tuesdayId)
-                tuesdayId = DEFAULT_NOTIFICATION_ID
+                tuesday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(2)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -428,17 +409,17 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipWed.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && wednesdayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
-                wednesdayId = createNotification()
+            if (isChecked && wednesday == DEFAULT_NOTIFICATION_ID) {
+                wednesday = resources.getStringArray(R.array.days)[3]
+                listDays[3] = wednesday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                cancelNotification(wednesdayId)
-                wednesdayId = DEFAULT_NOTIFICATION_ID
+                wednesday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(3)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -449,17 +430,17 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipTh.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && thursdayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
-                thursdayId = createNotification()
+            if (isChecked && thursday == DEFAULT_NOTIFICATION_ID) {
+                thursday = resources.getStringArray(R.array.days)[4]
+                listDays[4] = thursday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                cancelNotification(thursdayId)
-                thursdayId = DEFAULT_NOTIFICATION_ID
+                thursday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(4)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -470,17 +451,17 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipFr.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && fridayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-                fridayId = createNotification()
+            if (isChecked && friday == DEFAULT_NOTIFICATION_ID) {
+                friday = resources.getStringArray(R.array.days)[5]
+                listDays[5] = friday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                cancelNotification(fridayId)
-                fridayId = DEFAULT_NOTIFICATION_ID
+                friday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(5)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -490,17 +471,17 @@ class NotificationFragment : Fragment() {
         }
 
         binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && saturdayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
-                saturdayId = createNotification()
+            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID) {
+                saturday = resources.getStringArray(R.array.days)[6]
+                listDays[6] = saturday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                cancelNotification(saturdayId)
-                saturdayId = DEFAULT_NOTIFICATION_ID
+                saturday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(6)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -508,28 +489,6 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
-
-
-        binding.chipSu.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && sundayId == DEFAULT_NOTIFICATION_ID) {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-                sundayId = createNotification()
-                if (countDay != 7) {
-                    countDay++
-                    binding.textViewCountDay.text = "$countDay/7"
-                    binding.createNotification.isEnabled = countDay != 0
-                }
-            } else if (!isChecked) {
-                cancelNotification(sundayId)
-                sundayId = DEFAULT_NOTIFICATION_ID
-                if (countDay != 0) {
-                    countDay--
-                    binding.textViewCountDay.text = "$countDay/7"
-                    binding.createNotification.isEnabled = countDay != 0
-                }
-            }
-        }
-
     }
 
     private fun setTime() {
@@ -558,7 +517,7 @@ class NotificationFragment : Fragment() {
     companion object {
         private const val USER_SHARED_PREF = "userPreferences"
         private const val USER_ID = "userId"
-        private const val DEFAULT_NOTIFICATION_ID = 0
+        private const val DEFAULT_NOTIFICATION_ID = ""
         private const val CLEAR_TIME = "00:00"
 
         private const val GET_MODE = "mode"

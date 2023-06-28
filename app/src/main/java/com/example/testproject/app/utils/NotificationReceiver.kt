@@ -1,15 +1,13 @@
 package com.example.testproject.app.utils
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import com.example.testproject.R
-import com.example.testproject.app.presentation.main.MainActivity
+import android.util.Log
+import com.example.testproject.app.data.database.AppDataBase
+import com.example.testproject.app.data.mapper.MapperNotification
+import com.example.testproject.app.data.repository.RepositoryNotificationImpl
+import com.example.testproject.app.domain.usecase.notification.GetNotificationItemUseCase
 
 /**
  * @author Nedumayy (Samim).
@@ -18,47 +16,36 @@ import com.example.testproject.app.presentation.main.MainActivity
  * Val startApp to launch app when notification is clicked.
  */
 
+// Исправить с dagger2 по-другому работает!
+
 class NotificationReceiver : BroadcastReceiver() {
 
+    //Проблема с получением данных и передается не тот id и добавить корутину
+    lateinit var getNotificationItemUseCase: GetNotificationItemUseCase
+
     override fun onReceive(context: Context, intent: Intent) {
-
-        val notificationId = intent.getIntExtra("notification_id", 0)
-        val showBadge = intent.getBooleanExtra("showBadge", false)
-
-        val startAppIntent = Intent(context, MainActivity::class.java)
-        startAppIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val contentIntent =
-            PendingIntent.getActivity(
-                context,
-                notificationId,
-                startAppIntent,
-                PendingIntent.FLAG_MUTABLE
+        if (context != null && intent != null) {
+            getNotificationItemUseCase = GetNotificationItemUseCase(
+                RepositoryNotificationImpl(
+                    mapper = MapperNotification(),
+                    notificationDao = AppDataBase.getInstance(context)
+                        .notificationDao()
+                )
             )
-
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel =
-                NotificationChannel(notificationId.toString(), CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
-            channel.description = context.getText(R.string.app_name).toString()
-            channel.setShowBadge(showBadge)
-            notificationManager.createNotificationChannel(channel)
+            if (intent.extras != null) {
+                val id = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_ID)
+                Log.d("NotificationReceiver", "id: $id")
+                val data = getNotificationItemUseCase.invoke(id)
+                Log.d("NotificationReceiver", "data: $data")
+                if (data != null) {
+                    MyNotification.createNotificationForWorkout(context, data)
+                }
+            }
         }
-
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_gia_pay_background)
-            .setContentTitle(context.getText(R.string.app_name))
-            .setContentText(context.getText(R.string.text_notification))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(contentIntent)
-            .setAutoCancel(true)
-            .build()
-        notificationManager.notify(1001, notification)
     }
 
     companion object {
-        private const val CHANNEL_ID = "workout_id"
-        private const val CHANNEL = "Reminder workout"
+        private const val GET_NOTIFICATION_ITEM_ID = "notification_item_id"
     }
 }
+

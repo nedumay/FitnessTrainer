@@ -16,6 +16,7 @@ import com.example.testproject.app.presentation.splash.SplashFragment
 import com.example.testproject.app.presentation.workout.detail.DetailFragment
 import com.example.testproject.app.presentation.workout.list.ExerciseListFragment
 import com.example.testproject.app.presentation.workout.lvl.LevelFragment
+import com.example.testproject.app.utils.NotificationReceiver
 import dagger.BindsInstance
 import dagger.Component
 

@@ -6,18 +6,17 @@ import com.example.testproject.app.common.Resource
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.app.domain.usecase.notification.AddNotificationItemUseCase
 import com.example.testproject.app.domain.usecase.notification.ClearAllNotificationFromDbUseCase
-import com.example.testproject.app.domain.usecase.notification.EditNotificationItemUseCase
 import com.example.testproject.app.domain.usecase.notification.GetNotificationItemUseCase
+import com.example.testproject.app.domain.usecase.notification.UpdateNotificationItemUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 class NotificationViewModel @Inject constructor(
     private val addNotificationItemUseCase: AddNotificationItemUseCase,
     private val getNotificationItemUseCase: GetNotificationItemUseCase,
-    private val editNotificationItemUseCase: EditNotificationItemUseCase,
+    private val updateNotificationItemUseCase: UpdateNotificationItemUseCase,
     private val clearAllNotificationFromDbUseCase: ClearAllNotificationFromDbUseCase
 
 ) : ViewModel() {
@@ -27,11 +26,11 @@ class NotificationViewModel @Inject constructor(
     val notificationInfo = _notificationInfo.asStateFlow()
 
 
-    fun getNotificationItem(id: Int) {
+    fun getNotificationItem(id: Int, idUser: String) {
         viewModelScope.launch {
             try {
                 _notificationInfo.value = Resource.Loading
-                val data = getNotificationItemUseCase.invoke(id)
+                val data = getNotificationItemUseCase.invoke(id, idUser)
                 _notificationInfo.value = Resource.Success(data)
 
             } catch (e: Exception) {
@@ -41,30 +40,24 @@ class NotificationViewModel @Inject constructor(
     }
 
     fun addNotificationItem(
-        idUser: String, time: String, countDay: String,
-        Monday: Int, Tuesday: Int, Wednesday: Int, Thursday: Int,
-        Friday: Int, Saturday: Int, Sunday: Int
+        idUser: String, name: String, hour: Int, minute: Int, days: List<String>, countDay: Int
     ) {
         viewModelScope.launch {
             val notificationItemDashboard = NotificationDashboard(
-                idUser, time, countDay, Monday, Tuesday, Wednesday, Thursday,
-                Friday, Saturday, Sunday
+                idUser, name, hour, minute, days, countDay
             )
             addNotificationItemUseCase.invoke(notificationItemDashboard)
         }
     }
 
-    fun editNotificationItem(
-        id: Int, idUser: String, time: String, countDay: String,
-        Monday: Int, Tuesday: Int, Wednesday: Int, Thursday: Int,
-        Friday: Int, Saturday: Int, Sunday: Int
+    fun updateNotificationItem(
+        id: Int, idUser: String, name: String, hour: Int, minute: Int, days: List<String>, countDay: Int
     ) {
         viewModelScope.launch {
             val notificationItem = NotificationDashboard(
-                idUser, time, countDay, Monday, Tuesday, Wednesday, Thursday,
-                Friday, Saturday, Sunday, id
+                idUser, name, hour, minute, days, countDay, id
             )
-            editNotificationItemUseCase.invoke(notificationItem)
+            updateNotificationItemUseCase.invoke(notificationItem)
         }
     }
 

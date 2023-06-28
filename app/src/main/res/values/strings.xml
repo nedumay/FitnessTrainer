@@ -3,7 +3,7 @@
     <string name="always_pay">Always be fit</string>
     <string name="login">Login</string>
     <string name="forgot_your">Forgot your password?</string>
-    <string name="don_t_have_">Don`t have an account yet?</string>
+    <string name="don_t_have_">Don\'t have an account yet?</string>
     <string name="password">Password</string>
     <string name="enter">Enter</string>
     <string name="registration">Registration</string>
@@ -94,4 +94,15 @@
     <string name="su">Su</string>
     <string name="created_notification">Notification created</string>
     <string name="сancelled_notification">Notification cancelled</string>
+
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
 </resources>

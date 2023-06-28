@@ -1,21 +1,21 @@
 package com.example.testproject.app.data.database.model
 
+import android.os.Parcelable
+import android.provider.CalendarContract.EventDays
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 import java.util.UUID
 
 @Entity(tableName = "notification_dashboard")
+@Parcelize
 data class NotificationDashboardDbModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val idUser: String,
-    val time: String,
-    val countDay: String,
-    val Monday: Int,
-    val Tuesday: Int,
-    val Wednesday: Int,
-    val Thursday: Int,
-    val Friday: Int,
-    val Saturday: Int,
-    val Sunday: Int,
-)
+    var id: Int = 0,
+    var idUser: String? = null,
+    var name: String? = null,
+    var hour: Int = 0,
+    var minute: Int = 0,
+    var days: String? = null,
+    var countDay: Int = 0,
+) : Parcelable

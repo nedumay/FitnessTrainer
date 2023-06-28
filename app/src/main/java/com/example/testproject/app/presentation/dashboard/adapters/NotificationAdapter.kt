@@ -29,28 +29,33 @@ class NotificationAdapter :
         val notification = getItem(position)
         with(holder.binding) {
             with(notification) {
-                textViewCountDay.text = countDay
-                textViewTime.text = time
-                if (Monday != DEFAULT_NOTIFICATION_ID) {
+                textViewCountDay.text = countDay.toString()
+                val timeFormat = String.format(
+                    "%02d:%02d",
+                    hour,
+                    minute
+                )
+                textViewTime.text = timeFormat
+                if (days[0] != DEFAULT_NOTIFICATION_ID) {
+                    chipSu.isChecked = true
+                }
+                if (days[1] != DEFAULT_NOTIFICATION_ID) {
                     chipMo.isChecked = true
                 }
-                if (Tuesday != DEFAULT_NOTIFICATION_ID) {
+                if (days[2] != DEFAULT_NOTIFICATION_ID) {
                     chipTu.isChecked = true
                 }
-                if (Wednesday != DEFAULT_NOTIFICATION_ID) {
+                if (days[3] != DEFAULT_NOTIFICATION_ID) {
                     chipWc.isChecked = true
                 }
-                if (Thursday != DEFAULT_NOTIFICATION_ID) {
+                if (days[4] != DEFAULT_NOTIFICATION_ID) {
                     chipTh.isChecked = true
                 }
-                if (Friday != DEFAULT_NOTIFICATION_ID) {
+                if (days[5] != DEFAULT_NOTIFICATION_ID) {
                     chipFr.isChecked = true
                 }
-                if (Saturday != DEFAULT_NOTIFICATION_ID) {
+                if (days[6] != DEFAULT_NOTIFICATION_ID) {
                     chipSa.isChecked = true
-                }
-                if (Sunday != DEFAULT_NOTIFICATION_ID) {
-                    chipSu.isChecked = true
                 }
             }
             root.setOnClickListener {
@@ -61,7 +66,7 @@ class NotificationAdapter :
 
     companion object {
 
-        private const val DEFAULT_NOTIFICATION_ID = 0
+        private const val DEFAULT_NOTIFICATION_ID = ""
     }
 
 }

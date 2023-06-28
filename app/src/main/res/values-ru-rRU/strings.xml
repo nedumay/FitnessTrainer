@@ -95,4 +95,15 @@
     <string name="su">Вск</string>
     <string name="created_notification">Уведомление создано</string>
     <string name="сancelled_notification">Уведомление отключено</string>
+
+    <string-array name="days">
+        <item>Воскресенье</item>
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+    </string-array>
+
 </resources>

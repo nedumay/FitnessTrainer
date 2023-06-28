@@ -1,7 +1,5 @@
 package com.example.testproject.app.data.repository
 
-import android.view.SurfaceControl.Transaction
-import android.view.animation.Transformation
 import com.example.testproject.app.data.database.NotificationDao
 import com.example.testproject.app.data.mapper.MapperNotification
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
@@ -20,22 +18,41 @@ class RepositoryNotificationImpl @Inject constructor(
         notificationDao.addNotificationItem(mapper.mapEntityToDbModel(notificationItem))
     }
 
+    override suspend fun addNotificationItems(notificationItems: List<NotificationDashboard>) {
+        val dbModels = notificationItems.map {
+            mapper.mapEntityToDbModel(it)
+        }
+        notificationDao.addNotificationItems(dbModels)
+    }
+
     override suspend fun deleteNotificationItem(notificationItem: NotificationDashboard) {
         notificationDao.deleteNotificationItem(notificationItem.id)
     }
 
+    override suspend fun updateNotificationItem(notificationItem: NotificationDashboard) {
+        notificationDao.updateNotificationItem(mapper.mapEntityToDbModel(notificationItem))
+    }
+
+    /*
     override suspend fun editNotificationItem(notificationItem: NotificationDashboard) {
         notificationDao.addNotificationItem(mapper.mapEntityToDbModel(notificationItem))
     }
+    */
 
-    override suspend fun getNotificationItem(id: Int): NotificationDashboard {
-        val dbModel = notificationDao.getNotificationItem(id)
+
+    override suspend fun getNotificationItem(id: Int, idUser: String): NotificationDashboard {
+        val dbModel = notificationDao.getNotificationItem(id, idUser)
+            ?: return NotificationDashboard("", "", 0, 0, listOf(), 0)
         return mapper.mapDbModelToEntity(dbModel)
+    }
+
+    override fun getNotificationItem(id: Int): NotificationDashboard {
+        return mapper.mapDbModelToEntity(notificationDao.getNotificationItem(id))
     }
 
     override suspend fun getNotificationList(idUser: String): List<NotificationDashboard> {
         val dbModel = notificationDao.getNotificationList(idUser)
-        return dbModel.map{ mapper.mapDbModelToEntity(it) }
+        return dbModel.map { mapper.mapDbModelToEntity(it) }
     }
 
     override suspend fun clearDataBase() {
