@@ -10,8 +10,8 @@ class MapperNotification @Inject constructor() {
         id = dbModel.id,
         idUser = dbModel.idUser ?: "",
         name = dbModel.name ?: "",
-        hour = dbModel.hour,
-        minute = dbModel.minute,
+        hour = dbModel.hour ,
+        minute = dbModel.minute ,
         days = dbModel.days?.split(SEPARATOR)?.toList() as List<String>,
         countDay = dbModel.countDay
 

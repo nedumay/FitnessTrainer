@@ -7,5 +7,7 @@ class GetNotificationItemUseCase @Inject constructor(private  val repositoryNoti
 
     suspend operator fun invoke(id: Int, idUser: String) = repositoryNotification.getNotificationItem(id, idUser)
 
-    operator fun invoke(id: Int) = repositoryNotification.getNotificationItem(id)
+    suspend operator fun invoke(id: Int) = repositoryNotification.getNotificationItem(id)
+
+    suspend operator fun invoke(name: String) = repositoryNotification.getNotificationItem(name)
 }

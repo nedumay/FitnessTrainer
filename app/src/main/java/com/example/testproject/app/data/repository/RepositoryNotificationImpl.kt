@@ -46,8 +46,12 @@ class RepositoryNotificationImpl @Inject constructor(
         return mapper.mapDbModelToEntity(dbModel)
     }
 
-    override fun getNotificationItem(id: Int): NotificationDashboard {
+    override suspend fun getNotificationItem(id: Int): NotificationDashboard {
         return mapper.mapDbModelToEntity(notificationDao.getNotificationItem(id))
+    }
+
+    override suspend fun getNotificationItem(name: String): NotificationDashboard {
+        return mapper.mapDbModelToEntity(notificationDao.getNotificationItem(name))
     }
 
     override suspend fun getNotificationList(idUser: String): List<NotificationDashboard> {

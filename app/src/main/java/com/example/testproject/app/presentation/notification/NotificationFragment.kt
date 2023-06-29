@@ -166,27 +166,31 @@ class NotificationFragment : Fragment() {
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE)
                     )
-                    // Исправить!!!
+                    val name = calendar.time.toString()
                     viewModel.addNotificationItem(
                         idUser = currentUserId,
-                        name = "name",
+                        name = name,
                         hour = calendar.get(Calendar.HOUR_OF_DAY),
                         minute = calendar.get(Calendar.MINUTE),
                         days = listDays,
                         countDay = countDay,
                     )
-                    Log.d("NotificationExe", "addNotificationItem")
-                    // Исправить получение данных с БД.
-                    val notificationDashboard = NotificationDashboard(
-                        idUser = currentUserId,
-                        name = "name",
-                        hour = calendar.get(Calendar.HOUR_OF_DAY),
-                        minute = calendar.get(Calendar.MINUTE),
-                        days = listDays,
-                        countDay = countDay
-                    )
-                    AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, notificationDashboard)
-                    Log.d("NotificationExe", "AlarmScheduler.scheduleAlarmsForReminder")
+                    viewModel.getNotificationItem(name)
+                    viewModel.notificationInfoAlarm.onEach {
+                        when (it) {
+                            is Resource.Loading -> {
+                                // Исправить!!!
+                            }
+                            is Resource.Success -> {
+                                Log.d("NotificationCreateAlarm", "AlarmScheduler.scheduleAlarmsForReminder: ${it.data}")
+                                AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, it.data)
+                            }
+                            is Resource.Error -> {
+                                Log.d("NotificationCreateAlarm", "${it.message}")
+                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }.launchIn(lifecycleScope)
                 }
 
                 EDIT -> {
@@ -195,11 +199,11 @@ class NotificationFragment : Fragment() {
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE)
                     )
-                    // Испарвить!!!
+                    val name = calendar.time.toString()
                     viewModel.updateNotificationItem(
                         id = id ?: 0,
                         idUser = currentUserId,
-                        name = "name",
+                        name = name,
                         hour = calendar.get(Calendar.HOUR_OF_DAY),
                         minute = calendar.get(Calendar.MINUTE),
                         days = listDays,
@@ -208,7 +212,7 @@ class NotificationFragment : Fragment() {
                     val notificationDashboard = NotificationDashboard(
                         id = id ?: 0,
                         idUser = currentUserId,
-                        name = "name",
+                        name = name,
                         hour = calendar.get(Calendar.HOUR_OF_DAY),
                         minute = calendar.get(Calendar.MINUTE),
                         days = listDays,
@@ -346,10 +350,30 @@ class NotificationFragment : Fragment() {
     private fun setDay() {
         binding.textViewCountDay.text = "$countDay/7"
 
+        binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID) {
+                saturday = resources.getStringArray(R.array.days)[0]
+                listDays[0] = saturday
+                if (countDay != 7) {
+                    countDay++
+                    binding.textViewCountDay.text = "$countDay/7"
+                    binding.createNotification.isEnabled = countDay != 0
+                }
+            } else if (!isChecked) {
+                saturday = DEFAULT_NOTIFICATION_ID
+                listDays.removeAt(0)
+                if (countDay != 0) {
+                    countDay--
+                    binding.textViewCountDay.text = "$countDay/7"
+                    binding.createNotification.isEnabled = countDay != 0
+                }
+            }
+        }
+
         binding.chipSu.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && sunday == DEFAULT_NOTIFICATION_ID) {
-                sunday = resources.getStringArray(R.array.days)[0]
-                listDays[0] = sunday
+                sunday = resources.getStringArray(R.array.days)[1]
+                listDays[1] = sunday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -357,7 +381,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 sunday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(0)
+                listDays.removeAt(1)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -368,8 +392,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && monday == DEFAULT_NOTIFICATION_ID) {
-                monday = resources.getStringArray(R.array.days)[1]
-                listDays[1] = monday
+                monday = resources.getStringArray(R.array.days)[2]
+                listDays[2] = monday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -377,7 +401,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 monday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(1)
+                listDays.removeAt(2)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -389,8 +413,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipTu.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && tuesday == DEFAULT_NOTIFICATION_ID) {
-                tuesday = resources.getStringArray(R.array.days)[2]
-                listDays[2] = tuesday
+                tuesday = resources.getStringArray(R.array.days)[3]
+                listDays[3] = tuesday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -398,7 +422,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 tuesday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(2)
+                listDays.removeAt(3)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -410,8 +434,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipWed.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && wednesday == DEFAULT_NOTIFICATION_ID) {
-                wednesday = resources.getStringArray(R.array.days)[3]
-                listDays[3] = wednesday
+                wednesday = resources.getStringArray(R.array.days)[4]
+                listDays[4] = wednesday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -419,7 +443,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 wednesday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(3)
+                listDays.removeAt(4)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -431,8 +455,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipTh.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && thursday == DEFAULT_NOTIFICATION_ID) {
-                thursday = resources.getStringArray(R.array.days)[4]
-                listDays[4] = thursday
+                thursday = resources.getStringArray(R.array.days)[5]
+                listDays[5] = thursday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -440,7 +464,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 thursday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(4)
+                listDays.removeAt(5)
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -452,8 +476,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipFr.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && friday == DEFAULT_NOTIFICATION_ID) {
-                friday = resources.getStringArray(R.array.days)[5]
-                listDays[5] = friday
+                friday = resources.getStringArray(R.array.days)[6]
+                listDays[6] = friday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -461,26 +485,6 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 friday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(5)
-                if (countDay != 0) {
-                    countDay--
-                    binding.textViewCountDay.text = "$countDay/7"
-                    binding.createNotification.isEnabled = countDay != 0
-                }
-            }
-        }
-
-        binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID) {
-                saturday = resources.getStringArray(R.array.days)[6]
-                listDays[6] = saturday
-                if (countDay != 7) {
-                    countDay++
-                    binding.textViewCountDay.text = "$countDay/7"
-                    binding.createNotification.isEnabled = countDay != 0
-                }
-            } else if (!isChecked) {
-                saturday = DEFAULT_NOTIFICATION_ID
                 listDays.removeAt(6)
                 if (countDay != 0) {
                     countDay--
@@ -489,6 +493,7 @@ class NotificationFragment : Fragment() {
                 }
             }
         }
+
     }
 
     private fun setTime() {

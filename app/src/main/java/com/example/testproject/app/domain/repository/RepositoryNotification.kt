@@ -27,7 +27,9 @@ interface RepositoryNotification {
     // Get Notification item
     suspend fun getNotificationItem(id: Int, idUser: String): NotificationDashboard
 
-    fun getNotificationItem(id: Int): NotificationDashboard
+    suspend fun getNotificationItem(id: Int): NotificationDashboard
+
+    suspend fun getNotificationItem(name: String): NotificationDashboard
 
     // Get Notification list
     suspend fun getNotificationList(idUser: String): List<NotificationDashboard>

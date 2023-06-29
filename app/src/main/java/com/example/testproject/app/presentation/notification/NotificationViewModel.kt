@@ -8,6 +8,7 @@ import com.example.testproject.app.domain.usecase.notification.AddNotificationIt
 import com.example.testproject.app.domain.usecase.notification.ClearAllNotificationFromDbUseCase
 import com.example.testproject.app.domain.usecase.notification.GetNotificationItemUseCase
 import com.example.testproject.app.domain.usecase.notification.UpdateNotificationItemUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,6 +26,10 @@ class NotificationViewModel @Inject constructor(
         MutableStateFlow<Resource<NotificationDashboard>>(Resource.Loading)
     val notificationInfo = _notificationInfo.asStateFlow()
 
+    private var _notificationInfoAlarm =
+        MutableStateFlow<Resource<NotificationDashboard>>(Resource.Loading)
+    val notificationInfoAlarm = _notificationInfoAlarm.asStateFlow()
+
 
     fun getNotificationItem(id: Int, idUser: String) {
         viewModelScope.launch {
@@ -35,6 +40,19 @@ class NotificationViewModel @Inject constructor(
 
             } catch (e: Exception) {
                 _notificationInfo.value = Resource.Error(e.message.toString())
+            }
+        }
+    }
+
+    fun getNotificationItem(name: String) {
+        viewModelScope.launch {
+            try {
+                delay(3500)
+                _notificationInfoAlarm.value = Resource.Loading
+                val data = getNotificationItemUseCase.invoke(name)
+                _notificationInfoAlarm.value = Resource.Success(data)
+            } catch (e: Exception) {
+                _notificationInfoAlarm.value = Resource.Error(e.message.toString())
             }
         }
     }

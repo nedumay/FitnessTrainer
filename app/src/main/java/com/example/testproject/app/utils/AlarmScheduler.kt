@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.example.testproject.R
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import java.util.Calendar
@@ -12,6 +13,14 @@ import java.util.Locale
 object AlarmScheduler {
 
     private const val GET_NOTIFICATION_ITEM_ID = "notification_item_id"
+    private const val GET_NOTIFICATION_ITEM_ID_USER = "notification_item_id_user"
+    private const val GET_NOTIFICATION_ITEM_NAME = "notification_item_name"
+    private const val GET_NOTIFICATION_ITEM_HOUR = "notification_item_hour"
+    private const val GET_NOTIFICATION_ITEM_MINUTE = "notification_item_minute"
+    private const val GET_NOTIFICATION_ITEM_DAYS = "notification_item_days"
+    private const val GET_NOTIFICATION_ITEM_COUNT_DAY = "notification_item_count_day"
+
+
 
     fun scheduleAlarmsForReminder(context: Context, notificationDashboard: NotificationDashboard) {
         val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -30,14 +39,14 @@ object AlarmScheduler {
 
     private fun getDayOfWeek(days: Array<String>, day: String): Int {
         return when {
-            day.equals(days[0], ignoreCase = true) -> Calendar.SUNDAY
-            day.equals(days[1], ignoreCase = true) -> Calendar.MONDAY
-            day.equals(days[2], ignoreCase = true) -> Calendar.TUESDAY
-            day.equals(days[3], ignoreCase = true) -> Calendar.WEDNESDAY
-            day.equals(days[4], ignoreCase = true) -> Calendar.THURSDAY
-            day.equals(days[5], ignoreCase = true) -> Calendar.FRIDAY
-            day.equals(days[6], ignoreCase = true) -> Calendar.SATURDAY
-            else -> Calendar.SUNDAY
+            day.equals(days[0], ignoreCase = true) -> Calendar.SATURDAY
+            day.equals(days[1], ignoreCase = true) -> Calendar.SUNDAY
+            day.equals(days[2], ignoreCase = true) -> Calendar.MONDAY
+            day.equals(days[3], ignoreCase = true) -> Calendar.TUESDAY
+            day.equals(days[4], ignoreCase = true) -> Calendar.WEDNESDAY
+            day.equals(days[5], ignoreCase = true) -> Calendar.THURSDAY
+            day.equals(days[6], ignoreCase = true) -> Calendar.FRIDAY
+            else -> Calendar.SATURDAY
         }
 
     }
@@ -47,15 +56,22 @@ object AlarmScheduler {
         notificationDashboard: NotificationDashboard,
         day: String
     ): PendingIntent? {
+        Log.d("NotificationCreateAlarm", "notificationDashboard: $notificationDashboard")
         val intent = Intent(context.applicationContext, NotificationReceiver::class.java).apply {
-            type = "$day"
             putExtra(GET_NOTIFICATION_ITEM_ID, notificationDashboard.id)
+            putExtra(GET_NOTIFICATION_ITEM_ID_USER, notificationDashboard.idUser)
+            putExtra(GET_NOTIFICATION_ITEM_NAME, notificationDashboard.name)
+            putExtra(GET_NOTIFICATION_ITEM_HOUR, notificationDashboard.hour)
+            putExtra(GET_NOTIFICATION_ITEM_MINUTE, notificationDashboard.minute)
+            putExtra(GET_NOTIFICATION_ITEM_DAYS, notificationDashboard.days as ArrayList<String>)
+            putExtra(GET_NOTIFICATION_ITEM_COUNT_DAY, notificationDashboard.countDay)
+            type = "$day - ${notificationDashboard.name}"
         }
         return PendingIntent.getBroadcast(
             context,
             notificationDashboard.id,
             intent,
-            PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
     }
 

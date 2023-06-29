@@ -6,10 +6,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import androidx.core.app.ActivityCompat
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.testproject.R
@@ -18,62 +19,62 @@ import com.example.testproject.app.presentation.main.MainActivity
 
 object MyNotification {
 
+    private const val CHANNEL_ID = "workout_id"
 
-        private const val CHANNEL_ID = "workout_id"
-        private const val CHANNEL = "Reminder workout"
+    fun createNotificationChannel(
+        context: Context, importance: Int,
+        showBadge: Boolean, name: String, description: String
+    ) {
 
-        fun createNotificationChannel(
-            context: Context, importance: Int,
-            showBadge: Boolean, name: String, description: String
-        ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "$CHANNEL_ID-$name"
+            val channel = NotificationChannel(channelId, name, importance)
+            channel.description = description
+            channel.setShowBadge(showBadge)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channelId = "$CHANNEL_ID-$name"
-                val channel = NotificationChannel(channelId, CHANNEL, importance)
-                channel.description = description
-                channel.setShowBadge(showBadge)
-
-                val notificationManager = context.getSystemService(NotificationManager::class.java)
-                notificationManager.createNotificationChannel(channel)
-            }
+            val notificationManager = context.getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
         }
+    }
 
-        fun createNotificationForWorkout(context: Context, notificationDashboard: NotificationDashboard) {
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    fun createNotificationForWorkout(
+        context: Context,
+        notificationDashboard: NotificationDashboard
+    ) {
 
-            val notificationBuilder = buildNotification(context, notificationDashboard)
-            val notificationManager = NotificationManagerCompat.from(context)
-            if (ActivityCompat.checkSelfPermission(context,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                return
-            }
-            notificationManager.notify(notificationDashboard.id, notificationBuilder.build())
-        }
+        val notificationBuilder = buildNotification(context, notificationDashboard).build()
+        //val notificationManager = NotificationManagerCompat.from(context)
+        val notificationManager = context.getSystemService(NotificationManager::class.java)
+        Toast.makeText(context, notificationDashboard.name, Toast.LENGTH_SHORT).show()
+        notificationManager.notify(1001, notificationBuilder)
+        Log.d("NotificationCreateAlarm", "data: ${notificationManager.notify(1001, notificationBuilder)}")
+    }
 
-        private fun buildNotification(context: Context, notificationDashboard: NotificationDashboard): NotificationCompat.Builder {
+    private fun buildNotification(
+        context: Context,
+        notificationDashboard: NotificationDashboard
+    ): NotificationCompat.Builder {
 
-            val channelId = "$CHANNEL_ID-${notificationDashboard.name}"
+        val channelId = "$CHANNEL_ID-${notificationDashboard.name}"
 
-            val startAppIntent = Intent(context, MainActivity::class.java)
-            startAppIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            val contentIntent =
-                PendingIntent.getActivity(
-                    context,
-                    notificationDashboard.id,
-                    startAppIntent,
-                    PendingIntent.FLAG_MUTABLE
-                )
+        val startAppIntent = Intent(context, MainActivity::class.java)
+        startAppIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val contentIntent =
+            PendingIntent.getActivity(
+                context,
+                notificationDashboard.id,
+                startAppIntent,
+                PendingIntent.FLAG_MUTABLE
+            )
 
-            return NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.mipmap.ic_gia_pay_background)
-                .setContentTitle(context.getText(R.string.app_name))
-                .setContentText(context.getText(R.string.text_notification))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
-                .setContentIntent(contentIntent)
-        }
-
-
-
+        return NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(R.mipmap.ic_gia_pay_background)
+            .setContentTitle(context.getText(R.string.app_name))
+            .setContentText(context.getText(R.string.text_notification))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .setContentIntent(contentIntent)
+    }
 }
