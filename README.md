@@ -1,7 +1,9 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
 An app for exercising at home. In development... Update: 30.06.2023
 
-App beta version download: https://disk.yandex.ru/d/RjKBOkem8UHHTg
+App beta version download: 
+yandex: https://disk.yandex.ru/d/RjKBOkem8UHHTg
+google: https://drive.google.com/file/d/1n84mwVRFvBiBYtJk7Y2bbTCjQObSzBz1/view?usp=drive_link
 
 Application сapabilities::
 1. Registering/deleting and saving info about an account user (firebase).
