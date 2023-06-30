@@ -3,6 +3,7 @@ package com.example.testproject.app.presentation.dashboard.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.example.testproject.R
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.databinding.ListItemDashboardBinding
 import java.util.UUID
@@ -30,6 +31,7 @@ class NotificationAdapter :
         with(holder.binding) {
             with(notification) {
                 textViewCountDay.text = countDay.toString()
+                textCountWeek.text = "$countWeek"
                 val timeFormat = String.format(
                     "%02d:%02d",
                     hour,

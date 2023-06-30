@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.testproject.app.data.database.model.NotificationDashboardDbModel
 
-@Database(entities = [NotificationDashboardDbModel::class], version = 8, exportSchema = false)
+@Database(entities = [NotificationDashboardDbModel::class], version = 9, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
     companion object {
         private var db : AppDataBase? = null

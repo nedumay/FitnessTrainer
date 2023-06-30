@@ -58,22 +58,26 @@ class NotificationViewModel @Inject constructor(
     }
 
     fun addNotificationItem(
-        idUser: String, name: String, hour: Int, minute: Int, days: List<String>, countDay: Int
+        idUser: String, name: String, hour: Int, minute: Int, days: List<String>,
+        countDay: Int, countWeek: Int
     ) {
         viewModelScope.launch {
             val notificationItemDashboard = NotificationDashboard(
-                idUser, name, hour, minute, days, countDay
+                idUser = idUser, name = name, hour = hour, minute = minute,
+                days = days, countDay = countDay, countWeek = countWeek
             )
             addNotificationItemUseCase.invoke(notificationItemDashboard)
         }
     }
 
     fun updateNotificationItem(
-        id: Int, idUser: String, name: String, hour: Int, minute: Int, days: List<String>, countDay: Int
+        id: Int, idUser: String, name: String, hour: Int, minute: Int, days: List<String>,
+        countDay: Int, countWeek: Int
     ) {
         viewModelScope.launch {
             val notificationItem = NotificationDashboard(
-                idUser, name, hour, minute, days, countDay, id
+                idUser = idUser, name = name, hour = hour,
+                minute = minute, days = days, countDay = countDay, countWeek = countWeek, id = id
             )
             updateNotificationItemUseCase.invoke(notificationItem)
         }

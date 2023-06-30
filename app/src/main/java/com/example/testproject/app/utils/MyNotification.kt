@@ -20,22 +20,7 @@ import com.example.testproject.app.presentation.main.MainActivity
 object MyNotification {
 
     private const val CHANNEL_ID = "workout_id"
-
-    fun createNotificationChannel(
-        context: Context, importance: Int,
-        showBadge: Boolean, name: String, description: String
-    ) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "$CHANNEL_ID-$name"
-            val channel = NotificationChannel(channelId, name, importance)
-            channel.description = description
-            channel.setShowBadge(showBadge)
-
-            val notificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+    private const val CHANNEL = "Reminder workout"
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -44,12 +29,17 @@ object MyNotification {
         notificationDashboard: NotificationDashboard
     ) {
 
+        val notificationManager: NotificationManagerCompat = NotificationManagerCompat.from(context)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            val channelId = "$CHANNEL_ID-${notificationDashboard.name}"
+            val channel = NotificationChannel(channelId, CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.setShowBadge(false)
+            notificationManager.createNotificationChannel(channel)
+        }
+
         val notificationBuilder = buildNotification(context, notificationDashboard).build()
-        //val notificationManager = NotificationManagerCompat.from(context)
-        val notificationManager = context.getSystemService(NotificationManager::class.java)
-        Toast.makeText(context, notificationDashboard.name, Toast.LENGTH_SHORT).show()
         notificationManager.notify(1001, notificationBuilder)
-        Log.d("NotificationCreateAlarm", "data: ${notificationManager.notify(1001, notificationBuilder)}")
     }
 
     private fun buildNotification(
@@ -66,7 +56,7 @@ object MyNotification {
                 context,
                 notificationDashboard.id,
                 startAppIntent,
-                PendingIntent.FLAG_MUTABLE
+                PendingIntent.FLAG_IMMUTABLE
             )
 
         return NotificationCompat.Builder(context, channelId)

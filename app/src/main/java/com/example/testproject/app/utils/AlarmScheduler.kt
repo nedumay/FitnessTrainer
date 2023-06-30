@@ -19,8 +19,7 @@ object AlarmScheduler {
     private const val GET_NOTIFICATION_ITEM_MINUTE = "notification_item_minute"
     private const val GET_NOTIFICATION_ITEM_DAYS = "notification_item_days"
     private const val GET_NOTIFICATION_ITEM_COUNT_DAY = "notification_item_count_day"
-
-
+    private const val GET_NOTIFICATION_ITEM_COUNT_WEEK = "notification_item_count_week"
 
     fun scheduleAlarmsForReminder(context: Context, notificationDashboard: NotificationDashboard) {
         val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -65,6 +64,7 @@ object AlarmScheduler {
             putExtra(GET_NOTIFICATION_ITEM_MINUTE, notificationDashboard.minute)
             putExtra(GET_NOTIFICATION_ITEM_DAYS, notificationDashboard.days as ArrayList<String>)
             putExtra(GET_NOTIFICATION_ITEM_COUNT_DAY, notificationDashboard.countDay)
+            putExtra(GET_NOTIFICATION_ITEM_COUNT_WEEK, notificationDashboard.countWeek)
             type = "$day - ${notificationDashboard.name}"
         }
         return PendingIntent.getBroadcast(

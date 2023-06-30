@@ -32,10 +32,11 @@ class NotificationReceiver : BroadcastReceiver() {
             val minute = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_MINUTE)
             val days = intent.extras!!.getStringArrayList(GET_NOTIFICATION_ITEM_DAYS) as List<String>
             val countDay = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_COUNT_DAY)
+            val countWeek = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_COUNT_WEEK)
             Log.d("NotificationCreateAlarm", "id: $id")
             data = NotificationDashboard(
                 id = id, idUser = idUser ?: "", name = name ?: "", hour = hour, minute = minute,
-                days = days, countDay = countDay)
+                days = days, countDay = countDay, countWeek = countWeek)
             Log.d("NotificationCreateAlarm", "data: $data")
             if (data != null) {
                 if (ActivityCompat.checkSelfPermission(
@@ -58,6 +59,7 @@ class NotificationReceiver : BroadcastReceiver() {
         private const val GET_NOTIFICATION_ITEM_MINUTE = "notification_item_minute"
         private const val GET_NOTIFICATION_ITEM_DAYS = "notification_item_days"
         private const val GET_NOTIFICATION_ITEM_COUNT_DAY = "notification_item_count_day"
+        private const val GET_NOTIFICATION_ITEM_COUNT_WEEK = "notification_item_count_week"
     }
 }
 

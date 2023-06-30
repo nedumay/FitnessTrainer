@@ -18,4 +18,5 @@ data class NotificationDashboardDbModel(
     var minute: Int = 0,
     var days: String? = null,
     var countDay: Int = 0,
+    var countWeek: Int = 0
 ) : Parcelable

@@ -42,7 +42,7 @@ class RepositoryNotificationImpl @Inject constructor(
 
     override suspend fun getNotificationItem(id: Int, idUser: String): NotificationDashboard {
         val dbModel = notificationDao.getNotificationItem(id, idUser)
-            ?: return NotificationDashboard("", "", 0, 0, listOf(), 0)
+            ?: return NotificationDashboard("", "", 0, 0, listOf(), 0, 0)
         return mapper.mapDbModelToEntity(dbModel)
     }
 

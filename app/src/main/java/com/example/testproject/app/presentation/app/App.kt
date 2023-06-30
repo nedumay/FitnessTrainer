@@ -21,13 +21,5 @@ class App : Application(){
         component.inject(this)
         super.onCreate()
 
-
-        MyNotification.createNotificationChannel(
-            context = this,
-            importance = NotificationManager.IMPORTANCE_DEFAULT,
-            showBadge = false,
-            name = getString(R.string.app_name),
-            description = getString(R.string.text_notification)
-        )
     }
 }

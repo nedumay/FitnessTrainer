@@ -94,7 +94,7 @@
     <string name="sa">Суб</string>
     <string name="su">Вск</string>
     <string name="created_notification">Уведомление создано</string>
-    <string name="сancelled_notification">Уведомление отключено</string>
+    <string name="week">неделя</string>
 
     <string-array name="days">
         <item>Суббота</item>

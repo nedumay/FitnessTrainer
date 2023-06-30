@@ -93,7 +93,7 @@
     <string name="sa">Sa</string>
     <string name="su">Su</string>
     <string name="created_notification">Notification created</string>
-    <string name="сancelled_notification">Notification cancelled</string>
+    <string name="week">week</string>
 
     <string-array name="days">
         <item>Saturday</item>

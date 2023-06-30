@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -49,6 +50,7 @@ class NotificationFragment : Fragment() {
 
     private val calendar = Calendar.getInstance(Locale.getDefault())
     private var countDay = 0
+    private var countWeek = 0
     private var timeFormat = "00:00"
 
     private var id: Int? = null
@@ -129,6 +131,7 @@ class NotificationFragment : Fragment() {
                         initEditDay(it.data)
                         countDay = it.data.countDay
                         listDays = it.data.days as MutableList<String>
+                        countWeek = it.data.countWeek
                         binding.textViewCountDay.text = "$countDay/7"
                         binding.createNotification.isEnabled = countDay != 0
                     }
@@ -166,6 +169,7 @@ class NotificationFragment : Fragment() {
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE)
                     )
+                    countWeek = calendar.get(Calendar.WEEK_OF_YEAR)
                     val name = calendar.time.toString()
                     viewModel.addNotificationItem(
                         idUser = currentUserId,
@@ -174,6 +178,7 @@ class NotificationFragment : Fragment() {
                         minute = calendar.get(Calendar.MINUTE),
                         days = listDays,
                         countDay = countDay,
+                        countWeek = countWeek
                     )
                     viewModel.getNotificationItem(name)
                     viewModel.notificationInfoAlarm.onEach {
@@ -208,6 +213,7 @@ class NotificationFragment : Fragment() {
                         minute = calendar.get(Calendar.MINUTE),
                         days = listDays,
                         countDay = countDay,
+                        countWeek = countWeek
                     )
                     val notificationDashboard = NotificationDashboard(
                         id = id ?: 0,
@@ -216,7 +222,8 @@ class NotificationFragment : Fragment() {
                         hour = calendar.get(Calendar.HOUR_OF_DAY),
                         minute = calendar.get(Calendar.MINUTE),
                         days = listDays,
-                        countDay = countDay
+                        countDay = countDay,
+                        countWeek = countWeek
                     )
                     AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, notificationDashboard)
                 }
@@ -321,7 +328,7 @@ class NotificationFragment : Fragment() {
             alarmManager.cancel(pendingIntent)
             pendingIntent.cancel()
             val notificationManager =
-                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                NotificationManagerCompat.from(this.requireContext())
             notificationManager.cancelAll()
         }
 

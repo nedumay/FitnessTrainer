@@ -7,6 +7,7 @@ data class NotificationDashboard(
     val minute: Int,
     val days: List<String>,
     val countDay: Int,
+    val countWeek: Int,
     var id: Int = UNDEFINED_ID
 ) {
     companion object {

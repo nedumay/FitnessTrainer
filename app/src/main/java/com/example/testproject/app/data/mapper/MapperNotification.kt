@@ -13,7 +13,8 @@ class MapperNotification @Inject constructor() {
         hour = dbModel.hour ,
         minute = dbModel.minute ,
         days = dbModel.days?.split(SEPARATOR)?.toList() as List<String>,
-        countDay = dbModel.countDay
+        countDay = dbModel.countDay,
+        countWeek = dbModel.countWeek
 
     )
 
@@ -24,7 +25,8 @@ class MapperNotification @Inject constructor() {
         hour = notification.hour,
         minute = notification.minute,
         days = notification.days.joinToString(SEPARATOR),
-        countDay = notification.countDay
+        countDay = notification.countDay,
+        countWeek = notification.countWeek
     )
 
     companion object{
