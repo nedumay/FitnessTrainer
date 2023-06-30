@@ -1,13 +1,15 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
-An app for exercising at home. In development... Update: 29.06.2023
+An app for exercising at home. In development... Update: 30.06.2023
+
+App beta version download: https://disk.yandex.ru/d/RjKBOkem8UHHTg
 
 Application сapabilities::
 1. Registering/deleting and saving info about an account user (firebase).
-2. Workout reminder by time and day (under development).
+2. Workout reminder by time and day.
 3. Exercise list.
 4. Exercise tracking (under development).
 
-Currently in the works: Notification...
+Currently in the works: Exercise tracking...
 
 API in development: 
 
