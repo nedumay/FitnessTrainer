@@ -31,6 +31,7 @@ Language Support: English, Russian
 
 The architecture is built around Android Architecture Components and follows the recommendations laid out in the Guide to App Architecture. Logic is kept away from Activities and moved to ViewModels. Data is observed using Kotlin Flows and the View Binding Library binds UI components in layouts to the app's data sources. Dependency Injection is implemented with Dagger2.
 
+<img src="[path/to/screenshot.png](https://github.com/nedumay/FitnessTrainer/assets/79632860/bcec8978-518c-41b1-9ee6-bcf2e77b3d47)" width="500">
 ![Screenshot_20230630_124227](https://github.com/nedumay/FitnessTrainer/assets/79632860/bcec8978-518c-41b1-9ee6-bcf2e77b3d47)
 
 # Login to the app
