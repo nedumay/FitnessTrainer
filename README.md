@@ -31,33 +31,31 @@ Language Support: English, Russian
 
 The architecture is built around Android Architecture Components and follows the recommendations laid out in the Guide to App Architecture. Logic is kept away from Activities and moved to ViewModels. Data is observed using Kotlin Flows and the View Binding Library binds UI components in layouts to the app's data sources. Dependency Injection is implemented with Dagger2.
 
-<img src="[path/to/screenshot.png](https://github.com/nedumay/FitnessTrainer/assets/79632860/bcec8978-518c-41b1-9ee6-bcf2e77b3d47)" width="500">
-![Screenshot_20230630_124227](https://github.com/nedumay/FitnessTrainer/assets/79632860/bcec8978-518c-41b1-9ee6-bcf2e77b3d47)
+![250057156-bcec8978-518c-41b1-9ee6-bcf2e77b3d47](https://github.com/nedumay/FitnessTrainer/assets/79632860/a631ad90-7e7e-40e2-8952-ea613b6a78cd)
 
 # Login to the app
-![Screenshot_20230630_124302](https://github.com/nedumay/FitnessTrainer/assets/79632860/7e1d4625-8307-495f-ae20-7af9d55617c9)
+![Screenshot_20230630_124302](https://github.com/nedumay/FitnessTrainer/assets/79632860/f1a0f841-dc54-4432-aff6-2c243dbf8d8c)
 
 # Registration
-![Screenshot_20230630_124302](https://github.com/nedumay/FitnessTrainer/assets/79632860/feae398c-6a7d-474a-8cec-f45bcc5aacac)
-![Screenshot_20230630_124356](https://github.com/nedumay/FitnessTrainer/assets/79632860/4a77d595-aa7d-48a4-a363-3d394c020d6f)
-![Screenshot_20230630_124356](https://github.com/nedumay/FitnessTrainer/assets/79632860/80aa43e8-d425-4965-a644-01e8d85ae1cf)
-![Screenshot_20230630_124356](https://github.com/nedumay/FitnessTrainer/assets/79632860/51df4968-fa52-4aa8-9d46-4ce34196cea2)
+![Screenshot_20230630_124346](https://github.com/nedumay/FitnessTrainer/assets/79632860/613bf596-a87d-4419-a3a7-e7a229b561af)
+![Screenshot_20230630_124356](https://github.com/nedumay/FitnessTrainer/assets/79632860/2cd47797-886f-486d-bce9-873e3bcb8337)
+![Screenshot_20230630_124417](https://github.com/nedumay/FitnessTrainer/assets/79632860/5fa8d42f-89fe-4df9-bdeb-12047a3b83da)
+![Screenshot_20230630_124449](https://github.com/nedumay/FitnessTrainer/assets/79632860/cf1631e2-d3d3-452b-88da-a9bbfec2f250)
 
 # Forgot password
-![Screenshot_20230630_124531](https://github.com/nedumay/FitnessTrainer/assets/79632860/87f00de2-5da7-4ddc-a59f-fb1dedf2b103)
+![Screenshot_20230630_124531](https://github.com/nedumay/FitnessTrainer/assets/79632860/bbd6e633-58c0-4b1a-b349-70093a940f5f)
 
 # Main
-![Screenshot_20230630_124801](https://github.com/nedumay/FitnessTrainer/assets/79632860/63c917e0-5bfa-4605-befc-6b444e85eba6)
+![Screenshot_20230630_124801](https://github.com/nedumay/FitnessTrainer/assets/79632860/087ae97e-ed9e-4434-b5dd-b92b15cf417c)
 
 # Notification
-![Screenshot_20230630_124733](https://github.com/nedumay/FitnessTrainer/assets/79632860/a86ae504-62e0-415b-9456-4279a5c7f216)
-![Screenshot_20230630_124747](https://github.com/nedumay/FitnessTrainer/assets/79632860/58be470a-d403-489c-9fc1-b676446534b9)
+![Screenshot_20230630_124733](https://github.com/nedumay/FitnessTrainer/assets/79632860/fe11b978-7506-4b38-9be2-154639b66149)
+![Screenshot_20230630_124747](https://github.com/nedumay/FitnessTrainer/assets/79632860/3c433a7e-592a-4ce5-a750-6c4956fbdd52)
 
 # Exercise activity
-![Screenshot_20230630_124633](https://github.com/nedumay/FitnessTrainer/assets/79632860/f4e29861-6573-4688-b112-46db6a8c935c)
-![Screenshot_20230630_124644](https://github.com/nedumay/FitnessTrainer/assets/79632860/e1b6a378-996c-4b21-a008-95922c75271b)
-![Screenshot_20230630_124644](https://github.com/nedumay/FitnessTrainer/assets/79632860/7fe8cfe3-e44b-4099-86bf-623f2a4af19e)
+![Screenshot_20230630_124633](https://github.com/nedumay/FitnessTrainer/assets/79632860/a1408255-4c96-4eb4-be04-6877c9e227ed)
+![Screenshot_20230630_124644](https://github.com/nedumay/FitnessTrainer/assets/79632860/ced168d9-1216-411f-8f46-3a2d6db4d854)
+![Screenshot_20230630_124702](https://github.com/nedumay/FitnessTrainer/assets/79632860/896bcfa5-ff1f-4301-9845-f2bc5f530990)
 
 # Settings activity
-![Screenshot_20230630_124557](https://github.com/nedumay/FitnessTrainer/assets/79632860/c16d88db-4ed0-43b3-bf5c-f3cc939fc8c6)
-
+![Screenshot_20230630_124557](https://github.com/nedumay/FitnessTrainer/assets/79632860/a8407363-6e6a-4f49-bef3-f0301a1fbf4c)
