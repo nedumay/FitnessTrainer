@@ -6,14 +6,14 @@ import retrofit2.http.GET
 interface ApiService {
 
     // Beginner exercise API
-    @GET("1b5ea983-7dd7-40c9-889e-c36ac835d2c7")
+    @GET("6cdda04a-2ace-4338-a4be-a93a09d0552f")
     suspend fun getBeginnerInfo(): ListLvlDto
 
     // Continuing exercise API
-    @GET("9454d6a3-cc2a-49a1-92f3-bb785af3a27d")
+    @GET("7f19581d-524a-4585-84be-2a24f0ea4b33")
     suspend fun getContinuingInfo(): ListLvlDto
 
     //Advanced exercise API
-    @GET("eee2b1ce-1fd7-4b4c-8156-eda8a4ea16d7")
+    @GET("7dff7fce-8272-492b-b837-431fd2f2220a")
     suspend fun getAdvancedInfo(): ListLvlDto
 }

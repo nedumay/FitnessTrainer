@@ -11,4 +11,5 @@ class LoginUserToFirebase @Inject constructor(private val repositoryFirebase: Re
 
     suspend operator fun invoke(email: String, password: String) =
         repositoryFirebase.loginUserToFirebase(email, password)
+
 }

@@ -9,6 +9,7 @@ import com.example.testproject.R
 import com.example.testproject.app.di.DaggerApplicationComponent
 import com.example.testproject.app.utils.MyNotification
 import com.example.testproject.app.utils.NotificationReceiver
+import com.google.firebase.FirebaseApp
 import javax.inject.Inject
 
 class App : Application(){
@@ -20,6 +21,5 @@ class App : Application(){
     override fun onCreate() {
         component.inject(this)
         super.onCreate()
-
     }
 }

@@ -15,6 +15,9 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * @author Nedumayy (Samim)
@@ -81,6 +84,7 @@ class RepositoryFirebaseImpl @Inject constructor(
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
     }
+    /*
     //Login user to Firebase with email and password. Refactored!
     override suspend fun loginUserToFirebase(email: String, password: String): String {
         var userId = ""
@@ -88,13 +92,29 @@ class RepositoryFirebaseImpl @Inject constructor(
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     userId = it.result.user?.uid ?: ""
+                    Log.d("LoginActivityData", "RepFirebaseImpl userId: ${userId}")
                 } else {
                     userId = it.exception?.message.toString()
                     Log.d("ErrorLogin", it.exception?.message.toString())
                 }
             }.await()
+        Log.d("LoginActivityData", "RepFirebaseImpl после auth userId: ${userId}")
         return userId
+    }*/
+
+    override suspend fun loginUserToFirebase(email: String, password: String): String {
+        return suspendCoroutine {
+            continuation -> auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) { val userId = it.result?.user?.uid ?: ""
+                    continuation.resume(userId)
+                } else {
+                    val errorMessage = it.exception?.message ?: "Unknown error"
+                    continuation.resumeWithException(Exception(errorMessage))
+                }
+            }
+        }
     }
+
     //Reset password user to Firebase.
     override suspend fun resetPasswordUserToFirebase(email: String): String {
         var error = ""

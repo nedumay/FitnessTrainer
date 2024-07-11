@@ -368,7 +368,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 saturday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(0)
+                listDays[0] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -388,7 +388,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 sunday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(1)
+                listDays[1] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -408,7 +408,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 monday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(2)
+                listDays[2] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -429,7 +429,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 tuesday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(3)
+                listDays[3] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -450,7 +450,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 wednesday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(4)
+                listDays[4] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -471,7 +471,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 thursday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(5)
+                listDays[5] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -492,7 +492,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 friday = DEFAULT_NOTIFICATION_ID
-                listDays.removeAt(6)
+                listDays[6] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"

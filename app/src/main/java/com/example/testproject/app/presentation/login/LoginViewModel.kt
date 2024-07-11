@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testproject.app.common.Resource
@@ -21,6 +22,7 @@ class LoginViewModel @Inject constructor(
             try {
                 _firebaseUser.value = Resource.Loading
                 val userId = loginUserToFirebase.invoke(email = email, password = password)
+                Log.d("LoginActivityData", "userId: ${userId}")
                 if (userId.isNotEmpty()) {
                     _firebaseUser.value = Resource.Success(userId)
                 } else {

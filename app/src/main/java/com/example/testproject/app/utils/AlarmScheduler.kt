@@ -1,5 +1,6 @@
 package com.example.testproject.app.utils
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -54,7 +55,7 @@ object AlarmScheduler {
         context: Context,
         notificationDashboard: NotificationDashboard,
         day: String
-    ): PendingIntent? {
+    ): PendingIntent {
         Log.d("NotificationCreateAlarm", "notificationDashboard: $notificationDashboard")
         val intent = Intent(context.applicationContext, NotificationReceiver::class.java).apply {
             putExtra(GET_NOTIFICATION_ITEM_ID, notificationDashboard.id)
@@ -86,9 +87,11 @@ object AlarmScheduler {
 
     }
 
+
+
     private fun scheduleAlarm(
         notificationDashboard: NotificationDashboard, dayOfWeek: Int,
-        alarmIntent: PendingIntent?, alarmMgr: AlarmManager
+        alarmIntent: PendingIntent, alarmMgr: AlarmManager
     ) {
 
         val dataTimeToAlarm = Calendar.getInstance(Locale.getDefault())
@@ -99,6 +102,7 @@ object AlarmScheduler {
         dataTimeToAlarm.set(Calendar.MILLISECOND, 0)
         dataTimeToAlarm.set(Calendar.DAY_OF_WEEK, dayOfWeek)
 
+        /*
         val today = Calendar.getInstance(Locale.getDefault())
         if (shouldNotifyToday(dayOfWeek, today, dataTimeToAlarm)) {
             alarmMgr.setExactAndAllowWhileIdle(
@@ -115,6 +119,6 @@ object AlarmScheduler {
             dataTimeToAlarm.timeInMillis,
             //(1000 * 60 * 60 * 24 * 7).toLong(),
             alarmIntent
-        )
+        )*/
     }
 }
