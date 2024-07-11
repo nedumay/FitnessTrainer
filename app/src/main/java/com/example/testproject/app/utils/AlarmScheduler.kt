@@ -89,6 +89,7 @@ object AlarmScheduler {
 
 
 
+    @SuppressLint("ScheduleExactAlarm")
     private fun scheduleAlarm(
         notificationDashboard: NotificationDashboard, dayOfWeek: Int,
         alarmIntent: PendingIntent, alarmMgr: AlarmManager
@@ -102,7 +103,7 @@ object AlarmScheduler {
         dataTimeToAlarm.set(Calendar.MILLISECOND, 0)
         dataTimeToAlarm.set(Calendar.DAY_OF_WEEK, dayOfWeek)
 
-        /*
+
         val today = Calendar.getInstance(Locale.getDefault())
         if (shouldNotifyToday(dayOfWeek, today, dataTimeToAlarm)) {
             alarmMgr.setExactAndAllowWhileIdle(
@@ -119,6 +120,6 @@ object AlarmScheduler {
             dataTimeToAlarm.timeInMillis,
             //(1000 * 60 * 60 * 24 * 7).toLong(),
             alarmIntent
-        )*/
+        )
     }
 }
