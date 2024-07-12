@@ -6,6 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.testproject.app.data.database.model.NotificationDashboardDbModel
 
+/**
+ * @author Nedumayy (Samim)
+ * Create Database (used Room)
+ */
+
 @Database(entities = [NotificationDashboardDbModel::class], version = 9, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
     companion object {

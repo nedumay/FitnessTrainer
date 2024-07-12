@@ -61,7 +61,6 @@ class SplashFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        Log.d("SplashFragment", "onDestroyView")
         super.onDestroyView()
         _binding = null
     }

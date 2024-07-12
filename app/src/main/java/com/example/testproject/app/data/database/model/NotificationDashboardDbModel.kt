@@ -6,7 +6,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.UUID
-
+/**
+ * @author Nedumayy (Samim)
+ * Entity for storing notifications in the database
+ */
 @Entity(tableName = "notification_dashboard")
 @Parcelize
 data class NotificationDashboardDbModel(

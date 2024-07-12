@@ -172,7 +172,6 @@ class DashboardFragment : Fragment() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.alerts -> {
-
                     Toast.makeText(requireContext(), "Alerts", Toast.LENGTH_SHORT).show()
                     true
                 }

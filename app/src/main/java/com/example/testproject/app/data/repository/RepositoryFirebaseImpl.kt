@@ -84,24 +84,7 @@ class RepositoryFirebaseImpl @Inject constructor(
         Log.d("Dashboard account user", "rep.impl return $data")
         return data
     }
-    /*
-    //Login user to Firebase with email and password. Refactored!
-    override suspend fun loginUserToFirebase(email: String, password: String): String {
-        var userId = ""
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    userId = it.result.user?.uid ?: ""
-                    Log.d("LoginActivityData", "RepFirebaseImpl userId: ${userId}")
-                } else {
-                    userId = it.exception?.message.toString()
-                    Log.d("ErrorLogin", it.exception?.message.toString())
-                }
-            }.await()
-        Log.d("LoginActivityData", "RepFirebaseImpl после auth userId: ${userId}")
-        return userId
-    }*/
-
+    // Login account with Firebase
     override suspend fun loginUserToFirebase(email: String, password: String): String {
         return suspendCoroutine {
             continuation -> auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {

@@ -20,37 +20,31 @@ class RepositoryApiImpl @Inject constructor(
 
     override suspend fun getBeginnerInfo(): ListLvl {
         val beginnerList: ListLvlDto = apiService.getBeginnerInfo()
-        Log.d("LoadDataApi", "Get beginner info: $beginnerList")
         return beginnerList.toListLvl()
     }
 
     override suspend fun getContinuingInfo(): ListLvl {
         val continuingList: ListLvlDto = apiService.getContinuingInfo()
-        Log.d("LoadDataApi", "Get continuing info: $continuingList")
         return continuingList.toListLvl()
     }
 
     override suspend fun getAdvancedInfo(): ListLvl {
         val advancedList: ListLvlDto = apiService.getAdvancedInfo()
-        Log.d("LoadDataApi", "Get advanced info: $advancedList")
         return advancedList.toListLvl()
     }
 
     override suspend fun getWorkoutInfoBeginnerList(): List<Workout> {
         val workoutList: List<Workout> = getBeginnerInfo().listLvl
-        Log.d("LoadDataApi", "Get workout list: $workoutList")
         return workoutList
     }
 
     override suspend fun getWorkoutInfoContinuingList(): List<Workout> {
         val workoutList: List<Workout> = getContinuingInfo().listLvl
-        Log.d("LoadDataApi", "Get workout list: $workoutList")
         return workoutList
     }
 
     override suspend fun getWorkoutInfoAdvancedList(): List<Workout> {
         val workoutList: List<Workout> = getAdvancedInfo().listLvl
-        Log.d("LoadDataApi", "Get workout list: $workoutList")
         return workoutList
     }
 

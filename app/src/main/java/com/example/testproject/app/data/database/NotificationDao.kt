@@ -29,7 +29,6 @@ interface NotificationDao {
     @Query("DELETE FROM notification_dashboard WHERE id =:id")
     suspend fun deleteNotificationItem(id: Int)
 
-
     @Query("SELECT * FROM notification_dashboard WHERE id=:id")
     suspend fun getNotificationItem(id: Int): NotificationDashboardDbModel
 
