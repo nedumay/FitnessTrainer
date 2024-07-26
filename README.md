@@ -9,7 +9,7 @@ Application сapabilities ::
 
 Currently in the works: Exercise tracking...
 
-API in development: 
+API in development (There are problems: the API often crashes, and I haven't found another option yet :) in the search ...): 
 
 beginner: https://run.mocky.io/v3/4e4399ba-7eef-4fdc-b877-f457037e0fb9
 
