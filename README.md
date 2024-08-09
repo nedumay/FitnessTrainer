@@ -11,11 +11,11 @@ Currently in the works: Exercise tracking...
 
 API in development (There are problems: the API often crashes, and I haven't found another option yet :) in the search ...): 
 
-beginner: https://run.mocky.io/v3/4e4399ba-7eef-4fdc-b877-f457037e0fb9
+beginner: https://run.mocky.io/v3/6ad2502f-fdf6-4abc-b0d9-39203e57d47b
 
-continuing: https://run.mocky.io/v3/f5732aed-48f0-450c-a9f9-24bdb06c5b7a
+continuing: https://run.mocky.io/v3/6ae172a3-9979-4d10-9116-272413b87404
 
-advanced: https://run.mocky.io/v3/fbf0dbb0-57d1-4d43-bd56-c4e1f7fd4e29
+advanced: https://run.mocky.io/v3/383b441a-98d7-46de-a83c-a33e2c6fdd69
 
 # Development Environment
 
