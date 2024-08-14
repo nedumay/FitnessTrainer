@@ -33,7 +33,7 @@ class DashboardViewModel @Inject constructor(
                 _firebaseUser.value = Resource.Loading
                 val data = authUserFirebase.invoke()
                 _firebaseUser.value = Resource.Success(data)
-                val dataUid = data!!.uid ?: ""
+                val dataUid = data?.uid ?: ""
                 if(dataUid.isNotEmpty() && uId == dataUid) {
                     _notificationList.value = getNotificationListUseCase.invoke(dataUid)
                 }

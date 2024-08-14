@@ -39,14 +39,14 @@ object AlarmScheduler {
 
     private fun getDayOfWeek(days: Array<String>, day: String): Int {
         return when {
-            day.equals(days[0], ignoreCase = true) -> Calendar.SATURDAY
-            day.equals(days[1], ignoreCase = true) -> Calendar.SUNDAY
-            day.equals(days[2], ignoreCase = true) -> Calendar.MONDAY
-            day.equals(days[3], ignoreCase = true) -> Calendar.TUESDAY
-            day.equals(days[4], ignoreCase = true) -> Calendar.WEDNESDAY
-            day.equals(days[5], ignoreCase = true) -> Calendar.THURSDAY
-            day.equals(days[6], ignoreCase = true) -> Calendar.FRIDAY
-            else -> Calendar.SATURDAY
+            day.equals(days[0], ignoreCase = true) -> Calendar.SUNDAY
+            day.equals(days[1], ignoreCase = true) -> Calendar.MONDAY
+            day.equals(days[2], ignoreCase = true) -> Calendar.TUESDAY
+            day.equals(days[3], ignoreCase = true) -> Calendar.WEDNESDAY
+            day.equals(days[4], ignoreCase = true) -> Calendar.THURSDAY
+            day.equals(days[5], ignoreCase = true) -> Calendar.FRIDAY
+            day.equals(days[6], ignoreCase = true) -> Calendar.SATURDAY
+            else -> Calendar.SUNDAY
         }
 
     }

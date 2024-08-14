@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.notification
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -110,6 +111,7 @@ class NotificationFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -269,6 +271,7 @@ class NotificationFragment : Fragment() {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private fun initEditTime(it: NotificationDashboard) {
         timeFormat = String.format(
             "%02d:%02d",
@@ -289,6 +292,7 @@ class NotificationFragment : Fragment() {
         sunday = DEFAULT_NOTIFICATION_ID
     }
 
+    @SuppressLint("DefaultLocale")
     private fun initAddDefaultTime() {
         val timeFormat = String.format(
             "%02d:%02d",
@@ -357,30 +361,10 @@ class NotificationFragment : Fragment() {
     private fun setDay() {
         binding.textViewCountDay.text = "$countDay/7"
 
-        binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID) {
-                saturday = resources.getStringArray(R.array.days)[0]
-                listDays[0] = saturday
-                if (countDay != 7) {
-                    countDay++
-                    binding.textViewCountDay.text = "$countDay/7"
-                    binding.createNotification.isEnabled = countDay != 0
-                }
-            } else if (!isChecked) {
-                saturday = DEFAULT_NOTIFICATION_ID
-                listDays[0] = ""
-                if (countDay != 0) {
-                    countDay--
-                    binding.textViewCountDay.text = "$countDay/7"
-                    binding.createNotification.isEnabled = countDay != 0
-                }
-            }
-        }
-
         binding.chipSu.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && sunday == DEFAULT_NOTIFICATION_ID) {
-                sunday = resources.getStringArray(R.array.days)[1]
-                listDays[1] = sunday
+                sunday = resources.getStringArray(R.array.days)[0]
+                listDays[0] = sunday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -388,7 +372,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 sunday = DEFAULT_NOTIFICATION_ID
-                listDays[1] = ""
+                listDays[0] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -399,8 +383,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && monday == DEFAULT_NOTIFICATION_ID) {
-                monday = resources.getStringArray(R.array.days)[2]
-                listDays[2] = monday
+                monday = resources.getStringArray(R.array.days)[1]
+                listDays[1] = monday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -408,7 +392,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 monday = DEFAULT_NOTIFICATION_ID
-                listDays[2] = ""
+                listDays[1] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -420,8 +404,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipTu.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && tuesday == DEFAULT_NOTIFICATION_ID) {
-                tuesday = resources.getStringArray(R.array.days)[3]
-                listDays[3] = tuesday
+                tuesday = resources.getStringArray(R.array.days)[2]
+                listDays[2] = tuesday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -429,7 +413,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 tuesday = DEFAULT_NOTIFICATION_ID
-                listDays[3] = ""
+                listDays[2] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -441,8 +425,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipWed.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && wednesday == DEFAULT_NOTIFICATION_ID) {
-                wednesday = resources.getStringArray(R.array.days)[4]
-                listDays[4] = wednesday
+                wednesday = resources.getStringArray(R.array.days)[3]
+                listDays[3] = wednesday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -450,7 +434,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 wednesday = DEFAULT_NOTIFICATION_ID
-                listDays[4] = ""
+                listDays[3] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -462,8 +446,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipTh.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && thursday == DEFAULT_NOTIFICATION_ID) {
-                thursday = resources.getStringArray(R.array.days)[5]
-                listDays[5] = thursday
+                thursday = resources.getStringArray(R.array.days)[4]
+                listDays[4] = thursday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -471,7 +455,7 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 thursday = DEFAULT_NOTIFICATION_ID
-                listDays[5] = ""
+                listDays[4] = ""
                 if (countDay != 0) {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
@@ -483,8 +467,8 @@ class NotificationFragment : Fragment() {
 
         binding.chipFr.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && friday == DEFAULT_NOTIFICATION_ID) {
-                friday = resources.getStringArray(R.array.days)[6]
-                listDays[6] = friday
+                friday = resources.getStringArray(R.array.days)[5]
+                listDays[5] = friday
                 if (countDay != 7) {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
@@ -492,6 +476,26 @@ class NotificationFragment : Fragment() {
                 }
             } else if (!isChecked) {
                 friday = DEFAULT_NOTIFICATION_ID
+                listDays[5] = ""
+                if (countDay != 0) {
+                    countDay--
+                    binding.textViewCountDay.text = "$countDay/7"
+                    binding.createNotification.isEnabled = countDay != 0
+                }
+            }
+        }
+
+        binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID) {
+                saturday = resources.getStringArray(R.array.days)[6]
+                listDays[6] = saturday
+                if (countDay != 7) {
+                    countDay++
+                    binding.textViewCountDay.text = "$countDay/7"
+                    binding.createNotification.isEnabled = countDay != 0
+                }
+            } else if (!isChecked) {
+                saturday = DEFAULT_NOTIFICATION_ID
                 listDays[6] = ""
                 if (countDay != 0) {
                     countDay--
@@ -503,6 +507,7 @@ class NotificationFragment : Fragment() {
 
     }
 
+    @SuppressLint("DefaultLocale")
     private fun setTime() {
         val timePickerDialog = TimePickerDialog(
             requireContext(),

@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.dashboard.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -26,6 +27,7 @@ class NotificationAdapter :
         return NotificationViewHolder(binding)
     }
 
+    @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val notification = getItem(position)
         with(holder.binding) {
@@ -39,25 +41,25 @@ class NotificationAdapter :
                 )
                 textViewTime.text = timeFormat
                 if (days[0] != DEFAULT_DAY_ADD && days[0] != DEFAULT_DAY_EDIT) {
-                    chipSa.isChecked = true
-                }
-                if (days[1] != DEFAULT_DAY_ADD && days[1] != DEFAULT_DAY_EDIT) {
                     chipSu.isChecked = true
                 }
-                if (days[2] != DEFAULT_DAY_ADD && days[2] != DEFAULT_DAY_EDIT) {
+                if (days[1] != DEFAULT_DAY_ADD && days[1] != DEFAULT_DAY_EDIT) {
                     chipMo.isChecked = true
                 }
-                if (days[3] != DEFAULT_DAY_ADD && days[3] != DEFAULT_DAY_EDIT) {
+                if (days[2] != DEFAULT_DAY_ADD && days[2] != DEFAULT_DAY_EDIT) {
                     chipTu.isChecked = true
                 }
-                if (days[4] != DEFAULT_DAY_ADD && days[4] != DEFAULT_DAY_EDIT) {
+                if (days[3] != DEFAULT_DAY_ADD && days[3] != DEFAULT_DAY_EDIT) {
                     chipWc.isChecked = true
                 }
-                if (days[5] != DEFAULT_DAY_ADD && days[5] != DEFAULT_DAY_EDIT) {
+                if (days[4] != DEFAULT_DAY_ADD && days[4] != DEFAULT_DAY_EDIT) {
                     chipTh.isChecked = true
                 }
-                if (days[6] != DEFAULT_DAY_ADD && days[6] != DEFAULT_DAY_EDIT) {
+                if (days[5] != DEFAULT_DAY_ADD && days[5] != DEFAULT_DAY_EDIT) {
                     chipFr.isChecked = true
+                }
+                if (days[6] != DEFAULT_DAY_ADD && days[6] != DEFAULT_DAY_EDIT) {
+                    chipSa.isChecked = true
                 }
             }
             root.setOnClickListener {
