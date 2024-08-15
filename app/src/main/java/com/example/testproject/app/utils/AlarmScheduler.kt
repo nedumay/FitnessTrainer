@@ -106,18 +106,20 @@ object AlarmScheduler {
 
         val today = Calendar.getInstance(Locale.getDefault())
         if (shouldNotifyToday(dayOfWeek, today, dataTimeToAlarm)) {
-            alarmMgr.setExactAndAllowWhileIdle(
+            alarmMgr.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 dataTimeToAlarm.timeInMillis,
+                AlarmManager.INTERVAL_DAY * 7,
                 //(1000 * 60 * 60 * 24 * 7).toLong(),
                 alarmIntent
             )
             return
         }
         dataTimeToAlarm.roll(Calendar.WEEK_OF_YEAR, 1)
-        alarmMgr.setExactAndAllowWhileIdle(
+        alarmMgr.setRepeating(
             AlarmManager.RTC_WAKEUP,
             dataTimeToAlarm.timeInMillis,
+            AlarmManager.INTERVAL_DAY * 7,
             //(1000 * 60 * 60 * 24 * 7).toLong(),
             alarmIntent
         )

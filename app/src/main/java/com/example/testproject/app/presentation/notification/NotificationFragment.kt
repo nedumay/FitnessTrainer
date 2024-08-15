@@ -136,6 +136,7 @@ class NotificationFragment : Fragment() {
                         countWeek = it.data.countWeek
                         binding.textViewCountDay.text = "$countDay/7"
                         binding.createNotification.isEnabled = countDay != 0
+                        binding.addTime.isEnabled = countDay != 0
                     }
 
                     is Resource.Error -> {
@@ -158,6 +159,7 @@ class NotificationFragment : Fragment() {
             launchBackDashboard()
         }
 
+        binding.addTime.isEnabled = countDay != 0
         binding.addTime.setOnClickListener {
             setTime()
         }
@@ -369,6 +371,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 sunday = DEFAULT_NOTIFICATION_ID
@@ -377,6 +380,7 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }
@@ -389,6 +393,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 monday = DEFAULT_NOTIFICATION_ID
@@ -397,6 +402,7 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }
@@ -410,6 +416,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 tuesday = DEFAULT_NOTIFICATION_ID
@@ -418,6 +425,7 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }
@@ -431,6 +439,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 wednesday = DEFAULT_NOTIFICATION_ID
@@ -439,6 +448,7 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }
@@ -452,6 +462,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 thursday = DEFAULT_NOTIFICATION_ID
@@ -460,10 +471,10 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }
-
 
         binding.chipFr.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && friday == DEFAULT_NOTIFICATION_ID) {
@@ -473,6 +484,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 friday = DEFAULT_NOTIFICATION_ID
@@ -481,6 +493,7 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }
@@ -493,6 +506,7 @@ class NotificationFragment : Fragment() {
                     countDay++
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
                 saturday = DEFAULT_NOTIFICATION_ID
@@ -501,6 +515,7 @@ class NotificationFragment : Fragment() {
                     countDay--
                     binding.textViewCountDay.text = "$countDay/7"
                     binding.createNotification.isEnabled = countDay != 0
+                    binding.addTime.isEnabled = countDay != 0
                 }
             }
         }

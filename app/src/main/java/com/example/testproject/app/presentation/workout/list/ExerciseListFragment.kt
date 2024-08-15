@@ -78,7 +78,6 @@ class ExerciseListFragment : Fragment() {
                         binding.nestedScrollView.visibility = View.GONE
                         binding.progressBar.visibility = View.VISIBLE
                     }
-
                     is Resource.Success -> {
                         initAdapter(it)
                         binding.textViewCountWorkout.text = it.data.size.toString()
@@ -100,7 +99,6 @@ class ExerciseListFragment : Fragment() {
                             launchDetailFragment(it.id, id!!)
                         }
                     }
-
                     is Resource.Error -> {
                         binding.nestedScrollView.visibility = View.GONE
                         binding.progressBar.visibility = View.GONE
