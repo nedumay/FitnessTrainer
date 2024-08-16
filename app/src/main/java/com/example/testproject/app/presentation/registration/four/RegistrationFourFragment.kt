@@ -121,6 +121,9 @@ class RegistrationFourFragment : Fragment() {
             val email = binding.editTextEmailRegistration.text?.trim().toString()
             val password = binding.editTextPasswordRegistration.text?.trim().toString()
 
+            progressDialog = ProgressDialog(requireContext())
+            val alertDialog = AlertDialog.Builder(requireContext())
+
             viewModel.signUp(
                 email = email,
                 password = password,
@@ -133,8 +136,7 @@ class RegistrationFourFragment : Fragment() {
                 targetWeight = targetWeight!!
             )
             viewModel.error.onEach {
-                progressDialog = ProgressDialog(requireContext())
-                val alertDialog = AlertDialog.Builder(requireContext())
+
                 when (it) {
                     is Resource.Loading -> {
                         Log.d("RegistrationActivity", "Loading: $it")
