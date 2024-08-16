@@ -95,6 +95,8 @@
     <string name="su">Вск</string>
     <string name="created_notification">Уведомление создано</string>
     <string name="week">неделя</string>
+    <string name="save">Сохранить</string>
+    <string name="notification_item">уведомление</string>
 
     <string-array name="days">
         <item>Воскресенье</item>

@@ -111,7 +111,7 @@ class NotificationFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint("DefaultLocale", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -129,11 +129,15 @@ class NotificationFragment : Fragment() {
                     }
 
                     is Resource.Success -> {
+                        binding.newNotification.text = "${it.data.id} " + getString(R.string.notification_item)
+                        binding.createNotification.text = getString(R.string.save)
+
                         initEditTime(it.data)
                         initEditDay(it.data)
                         countDay = it.data.countDay
                         listDays = it.data.days as MutableList<String>
                         countWeek = it.data.countWeek
+
                         binding.textViewCountDay.text = "$countDay/7"
                         binding.createNotification.isEnabled = countDay != 0
                         binding.addTime.isEnabled = countDay != 0

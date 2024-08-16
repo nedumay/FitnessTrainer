@@ -94,6 +94,8 @@
     <string name="su">Su</string>
     <string name="created_notification">Notification created</string>
     <string name="week">week</string>
+    <string name="save">Save</string>
+    <string name="notification_item">notification</string>
 
     <string-array name="days">
         <item>Sunday</item>
