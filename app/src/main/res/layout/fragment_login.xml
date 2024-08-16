@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
+    android:fitsSystemWindows="true"
     tools:context=".app.presentation.login.LoginFragment">
 
     <ImageView
@@ -44,13 +45,13 @@
         android:id="@+id/cardViewLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="5dp"
-        app:strokeWidth="0dp"
-        app:cardCornerRadius="0dp"
         android:backgroundTint="@color/green"
+        android:elevation="5dp"
+        app:cardCornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -85,9 +86,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextEmailLogin"
+                    style="@style/input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/input_edit_text"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -110,7 +111,7 @@
                     style="@style/input_edit_text_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"/>
+                    android:hint="@string/password" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -129,7 +130,7 @@
                 style="@style/OutlinedButton.Green"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="54dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/enter"
                 app:layout_constraintEnd_toEndOf="@+id/tilPasswordLogin"
                 app:layout_constraintStart_toStartOf="@+id/tilPasswordLogin"

@@ -2,6 +2,9 @@ package com.example.testproject.app.presentation.registration.three
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +29,10 @@ class RegistrationThreeFragment : Fragment() {
     private var gender: Boolean? = null
     private var sufWeight: String = ""
     private var sufHeight: String = ""
+
+    private var height: String = ""
+    private var weight: String = ""
+    private var targetWeight: String = ""
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -64,10 +71,11 @@ class RegistrationThreeFragment : Fragment() {
         super.onResume()
 
         switchButton()
+        enabledButton()
         binding.buttonNextRegistration.setOnClickListener {
-            val height = binding.editTextHeight.text?.trim().toString() + sufHeight
-            val weight = binding.editTextWeight.text?.trim().toString() + sufWeight
-            val targetWeight = binding.editTextTarget.text?.trim().toString() + sufWeight
+            height = binding.editTextHeight.text?.trim().toString() + sufHeight
+            weight = binding.editTextWeight.text?.trim().toString() + sufWeight
+            targetWeight = binding.editTextTarget.text?.trim().toString() + sufWeight
             launchRegistrationFourFragment(
                 height,
                 weight,
@@ -126,9 +134,9 @@ class RegistrationThreeFragment : Fragment() {
     }
 
     private fun launchRegistrationFourFragment(
-        height: String,
-        weight: String,
-        targetWeight: String,
+        height: String?,
+        weight: String?,
+        targetWeight: String?,
         name: String?,
         lastName: String?,
         date: String?,
@@ -149,6 +157,54 @@ class RegistrationThreeFragment : Fragment() {
 
     }
 
+    private fun enabledButton() {
+        if (height.trim().isNotEmpty() && weight.trim().isNotEmpty() && targetWeight.trim().isNotEmpty()) {
+            binding.buttonNextRegistration.isEnabled = true
+        } else {
+
+            binding.editTextHeight.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                    binding.buttonNextRegistration.isEnabled =
+                        ((binding.editTextHeight.text?.length ?: 0) > 0
+                                && (binding.editTextWeight.text?.length ?: 0) > 0
+                                && (binding.editTextTarget.text?.length ?: 0) > 0)
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
+
+            binding.editTextWeight.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    binding.buttonNextRegistration.isEnabled =
+                        ((binding.editTextWeight.text?.length ?: 0) > 0
+                                && (binding.editTextHeight.text?.length ?: 0) > 0
+                                && (binding.editTextTarget.text?.length ?: 0) > 0)
+                }
+            })
+
+            binding.editTextTarget.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    binding.buttonNextRegistration.isEnabled =
+                        ((binding.editTextTarget.text?.length ?: 0) > 0
+                                && (binding.editTextHeight.text?.length ?: 0) > 0
+                                && (binding.editTextWeight.text?.length ?: 0) > 0)
+                }
+            })
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -163,5 +219,7 @@ class RegistrationThreeFragment : Fragment() {
         private const val PUT_GET_WEIGHT_KEY = "weight"
         private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
     }
+
+
 
 }
