@@ -27,9 +27,9 @@
     <string name="lbs_ft">фун/фут</string>
     <string name="lbs">фунты</string>
     <string name="ft">фут</string>
-    <string name="height">Рост</string>
-    <string name="weight">Вес</string>
-    <string name="target_weight">Желаемый вес</string>
+    <string name="height">Рост*</string>
+    <string name="weight">Вес*</string>
+    <string name="target_weight">Желаемый вес*</string>
     <string name="your_program">Ваша программа готова!</string>
     <string name="register_in">Зарегистрируйтесь и получите доступ к платформе Fitness trainer</string>
     <string name="create_account">Создать аккаунт</string>

@@ -106,7 +106,7 @@ class RegistrationOneFragment : Fragment() {
 
 
     private fun enabledButton() {
-        if (getName != "" && getLastName != "" && getDateOfBirth != "" && getDateOfBirth?.length == 10) {
+        if (getName?.trim()?.isNotEmpty() == true && getLastName?.trim()?.isNotEmpty() == true && getDateOfBirth?.trim()?.length == 10) {
             binding.buttonNextRegistration.isEnabled = true
         } else {
 
