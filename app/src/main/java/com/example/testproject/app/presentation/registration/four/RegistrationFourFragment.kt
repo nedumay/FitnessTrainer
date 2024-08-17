@@ -183,6 +183,9 @@ class RegistrationFourFragment : Fragment() {
         bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
         bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
         bundle.putBoolean(PUT_GET_GENDER_KEY, gender ?: false)
+        //bundle.putString(PUT_GET_HEIGHT_KEY, height)
+        //bundle.putString(PUT_GET_WEIGHT_KEY, weight)
+        //bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
         findNavController().navigate(R.id.action_registrationFourFragment_to_registrationThreeFragment, bundle)
     }
 
