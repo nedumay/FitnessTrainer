@@ -1,5 +1,6 @@
 package com.example.testproject.app.presentation.registration.three
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.databinding.FragmentRegistrationThreeBinding
+import kotlin.math.floor
 
 
 class RegistrationThreeFragment : Fragment() {
@@ -48,6 +50,9 @@ class RegistrationThreeFragment : Fragment() {
             lastName = it.getString(PUT_GET_LAST_NAME_KEY)
             date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
             gender = it.getBoolean(PUT_GET_GENDER_KEY)
+            //height = it.getString(PUT_GET_HEIGHT_KEY)?.replace(sufHeight, "")  ?: ""
+            //weight = it.getString(PUT_GET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
+            //targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
         }
     }
 
@@ -64,7 +69,13 @@ class RegistrationThreeFragment : Fragment() {
         if (name == null || lastName == null || date == null || gender == null) {
             launchRegistrationTwoFragment(name, lastName, date, gender)
         }
+        defaultInitEditView()
+    }
 
+    private fun defaultInitEditView() {
+        binding.editTextHeight.setText(height)
+        binding.editTextWeight.setText(weight)
+        binding.editTextTarget.setText(targetWeight)
     }
 
     override fun onResume() {
@@ -104,6 +115,7 @@ class RegistrationThreeFragment : Fragment() {
             })
     }
 
+    @SuppressLint("DefaultLocale")
     private fun switchButton() {
         binding.switchBtn.setOnCheckedChangeListener { _, checkedId ->
             requireActivity().findViewById<RadioButton>(checkedId)?.apply {
@@ -113,12 +125,42 @@ class RegistrationThreeFragment : Fragment() {
                     binding.tilTarget.suffixText = resources.getString(R.string.lbs)
                     sufWeight = resources.getString(R.string.lbs)
                     sufHeight = resources.getString(R.string.ft)
+                    if(binding.editTextHeight.text?.isNotEmpty() == true){
+                        var h = binding.editTextHeight.text.toString().toFloat() / 30.48
+                        h = floor(h * 100.0) / 100.0
+                        binding.editTextHeight.setText(h.toString())
+                    }
+                    if(binding.editTextWeight.text?.isNotEmpty() == true){
+                        var w = binding.editTextWeight.text.toString().toFloat() / 2.205
+                        w = floor(w * 100.0) / 100.0
+                        binding.editTextWeight.setText(w.toString())
+                    }
+                    if(binding.editTextTarget.text?.isNotEmpty() == true){
+                        var t = binding.editTextTarget.text.toString().toFloat() / 2.205
+                        t = floor(t * 100.0) / 100.0
+                        binding.editTextTarget.setText(t.toString())
+                    }
                 } else if (checkedId == R.id.kgRadioBtn) {
                     binding.tilHeight.suffixText = resources.getString(R.string.sm)
                     binding.tilWeight.suffixText = resources.getString(R.string.kg)
                     binding.tilTarget.suffixText = resources.getString(R.string.kg)
                     sufWeight = resources.getString(R.string.kg)
                     sufHeight = resources.getString(R.string.sm)
+                    if(binding.editTextHeight.text?.isNotEmpty() == true){
+                        var h = binding.editTextHeight.text.toString().toFloat() * 30.48
+                        h = floor(h * 100.0) / 100.0
+                        binding.editTextHeight.setText(h.toString())
+                    }
+                    if(binding.editTextWeight.text?.isNotEmpty() == true){
+                        var w = binding.editTextWeight.text.toString().toFloat() * 2.205
+                        w = floor(w * 100.0) / 100.0
+                        binding.editTextWeight.setText(w.toString())
+                    }
+                    if(binding.editTextTarget.text?.isNotEmpty() == true){
+                        var t = binding.editTextTarget.text.toString().toFloat() * 2.205
+                        t = floor(t * 100.0) / 100.0
+                        binding.editTextTarget.setText(t.toString())
+                    }
                 }
             }
         }
