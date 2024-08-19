@@ -58,14 +58,13 @@ class RegistrationTwoFragment : Fragment() {
             return
         } else {
             Log.d("RegistrationActivity", "Two activity get: $name, $lastName, $date, $gender")
-
             defaultGenderSet(gender)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        GenderObserver()
+        genderObserver()
         binding.imageButtonArrowBack.setOnClickListener {
             launchRegistrationOneFragment(name, lastName, date)
         }
@@ -84,7 +83,7 @@ class RegistrationTwoFragment : Fragment() {
     }
 
     private fun defaultGenderSet(gender: Boolean){
-        if(gender == true){
+        if(gender){
             binding.cardViewMale.isChecked = true
             binding.cardViewFmale.isChecked = false
             binding.buttonNextRegistration.isEnabled = true
@@ -95,7 +94,7 @@ class RegistrationTwoFragment : Fragment() {
         }
     }
 
-    private fun GenderObserver() {
+    private fun genderObserver() {
         binding.cardViewMale.setOnClickListener {
             binding.cardViewMale.isChecked = true
             binding.cardViewFmale.isChecked = false
