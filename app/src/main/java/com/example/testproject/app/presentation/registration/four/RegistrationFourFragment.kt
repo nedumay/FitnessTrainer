@@ -54,6 +54,7 @@ class RegistrationFourFragment : Fragment() {
     private var height: String? = null
     private var weight: String? = null
     private var targetWeight: String? = null
+    private var checkIdSave: Int? = null
     private lateinit var progressDialog: ProgressDialog
 
     override fun onAttach(context: Context) {
@@ -71,6 +72,7 @@ class RegistrationFourFragment : Fragment() {
             height = it.getString(PUT_GET_HEIGHT_KEY)
             weight = it.getString(PUT_GET_WEIGHT_KEY)
             targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)
+            checkIdSave = it.getInt(PUT_GET_CHECKED_ID_KEY)
         }
     }
 
@@ -84,7 +86,7 @@ class RegistrationFourFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (name == null || lastName == null || date == null || gender == null || height == null || weight == null || targetWeight == null) {
+        if (name == null || lastName == null || date == null || gender == null || height == null || weight == null || targetWeight == null ) {
             launchRegistrationThreeFragment()
             return
         }
@@ -94,15 +96,11 @@ class RegistrationFourFragment : Fragment() {
         super.onResume()
 
         createAccount()
-
         binding.editTextEmailRegistration.addTextChangedListener(emailMask)
-
         binding.imageButtonArrowBack.setOnClickListener {
             launchRegistrationThreeFragment()
         }
-
         clickTextView()
-
         onBackFragment()
     }
 
@@ -183,9 +181,10 @@ class RegistrationFourFragment : Fragment() {
         bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
         bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
         bundle.putBoolean(PUT_GET_GENDER_KEY, gender ?: false)
-        //bundle.putString(PUT_GET_HEIGHT_KEY, height)
-        //bundle.putString(PUT_GET_WEIGHT_KEY, weight)
-        //bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
+        bundle.putString(PUT_GET_HEIGHT_KEY, height)
+        bundle.putString(PUT_GET_WEIGHT_KEY, weight)
+        bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
+        checkIdSave?.let { bundle.putInt(PUT_GET_CHECKED_ID_KEY, it) }
         findNavController().navigate(R.id.action_registrationFourFragment_to_registrationThreeFragment, bundle)
     }
 
@@ -254,6 +253,7 @@ class RegistrationFourFragment : Fragment() {
         private const val PUT_GET_HEIGHT_KEY = "height"
         private const val PUT_GET_WEIGHT_KEY = "weight"
         private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
+        private const val PUT_GET_CHECKED_ID_KEY = "checkedId"
     }
 
 }

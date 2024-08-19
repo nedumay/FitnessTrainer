@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +35,8 @@ class RegistrationThreeFragment : Fragment() {
     private var weight: String = ""
     private var targetWeight: String = ""
 
+    private var checkIdSave: Int? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@RegistrationThreeFragment)
@@ -43,16 +44,22 @@ class RegistrationThreeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sufWeight = resources.getString(R.string.lbs)
-        sufHeight = resources.getString(R.string.ft)
         arguments?.let {
             name = it.getString(PUT_GET_NAME_KEY)
             lastName = it.getString(PUT_GET_LAST_NAME_KEY)
             date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
             gender = it.getBoolean(PUT_GET_GENDER_KEY)
-            //height = it.getString(PUT_GET_HEIGHT_KEY)?.replace(sufHeight, "")  ?: ""
-            //weight = it.getString(PUT_GET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
-            //targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
+            checkIdSave = it.getInt(PUT_GET_CHECKED_ID_KEY)
+            if(checkIdSave == R.id.kgRadioBtn){
+                sufWeight = resources.getString(R.string.kg)
+                sufHeight = resources.getString(R.string.sm)
+            } else {
+                sufWeight = resources.getString(R.string.lbs)
+                sufHeight = resources.getString(R.string.ft)
+            }
+            height = it.getString(PUT_GET_HEIGHT_KEY)?.replace(sufHeight, "")  ?: ""
+            weight = it.getString(PUT_GET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
+            targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
         }
     }
 
@@ -73,6 +80,17 @@ class RegistrationThreeFragment : Fragment() {
     }
 
     private fun defaultInitEditView() {
+        if(checkIdSave == R.id.kgRadioBtn){
+            binding.switchBtn.check(R.id.kgRadioBtn)
+            binding.tilHeight.suffixText = resources.getString(R.string.sm)
+            binding.tilWeight.suffixText = resources.getString(R.string.kg)
+            binding.tilTarget.suffixText = resources.getString(R.string.kg)
+        } else {
+            binding.switchBtn.check(R.id.lbsRadioBtn)
+            binding.tilHeight.suffixText = resources.getString(R.string.ft)
+            binding.tilWeight.suffixText = resources.getString(R.string.lbs)
+            binding.tilTarget.suffixText = resources.getString(R.string.lbs)
+        }
         binding.editTextHeight.setText(height)
         binding.editTextWeight.setText(weight)
         binding.editTextTarget.setText(targetWeight)
@@ -140,6 +158,7 @@ class RegistrationThreeFragment : Fragment() {
                         t = floor(t * 100.0) / 100.0
                         binding.editTextTarget.setText(t.toString())
                     }
+                    checkIdSave = R.id.lbsRadioBtn
                 } else if (checkedId == R.id.kgRadioBtn) {
                     binding.tilHeight.suffixText = resources.getString(R.string.sm)
                     binding.tilWeight.suffixText = resources.getString(R.string.kg)
@@ -161,6 +180,7 @@ class RegistrationThreeFragment : Fragment() {
                         t = floor(t * 100.0) / 100.0
                         binding.editTextTarget.setText(t.toString())
                     }
+                    checkIdSave = R.id.kgRadioBtn
                 }
             }
         }
@@ -192,6 +212,7 @@ class RegistrationThreeFragment : Fragment() {
         bundle.putString(PUT_GET_HEIGHT_KEY, height)
         bundle.putString(PUT_GET_WEIGHT_KEY, weight)
         bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
+        checkIdSave?.let { bundle.putInt(PUT_GET_CHECKED_ID_KEY, it) }
         findNavController().navigate(
             R.id.action_registrationThreeFragment_to_registrationFourFragment,
             bundle
@@ -260,6 +281,7 @@ class RegistrationThreeFragment : Fragment() {
         private const val PUT_GET_HEIGHT_KEY = "height"
         private const val PUT_GET_WEIGHT_KEY = "weight"
         private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
+        private const val PUT_GET_CHECKED_ID_KEY = "checkedId"
     }
 
 
