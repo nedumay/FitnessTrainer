@@ -26,8 +26,10 @@
     <string name="lbs_ft">lbs/ft</string>
     <string name="lbs">lbs</string>
     <string name="ft">ft</string>
-    <string name="height">Height*</string>
-    <string name="weight">Weight*</string>
+    <string name="height">Height</string>
+    <string name="height_reg">Height*</string>
+    <string name="weight">Weight</string>
+    <string name="weight_reg">Weight*</string>
     <string name="target_weight">Target weight*</string>
     <string name="your_program">Your program is ready!</string>
     <string name="register_in">Register in get access to the Fitness trainer platform</string>
