@@ -149,7 +149,10 @@
         android:id="@+id/buttonClose"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/close"
+        app:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
         app:layout_constraintStart_toStartOf="@+id/nestedScrollView" />

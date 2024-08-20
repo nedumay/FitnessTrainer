@@ -128,7 +128,7 @@
                     style="@style/input_edit_text_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/height" />
+                    android:hint="@string/height_reg" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -149,7 +149,7 @@
                     style="@style/input_edit_text_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/weight" />
+                    android:hint="@string/weight_reg" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
