@@ -1,19 +1,21 @@
 package com.example.testproject.app.data.network
 
+import com.example.testproject.app.data.network.model.ApiResponse
 import com.example.testproject.app.data.network.model.ListLvlDto
+import okhttp3.Response
 import retrofit2.http.GET
 
 interface ApiService {
 
     // Beginner exercise API
-    @GET("6ad2502f-fdf6-4abc-b0d9-39203e57d47b")
-    suspend fun getBeginnerInfo(): ListLvlDto
+    @GET("30becb7d-6e44-40a0-a42d-401ac21b3ce4")
+    suspend fun getBeginnerInfo(): ApiResponse
 
     // Continuing exercise API
-    @GET("6ae172a3-9979-4d10-9116-272413b87404")
-    suspend fun getContinuingInfo(): ListLvlDto
+    @GET("0fb2cfd5-cc14-4463-91b6-48f78c4c2aff")
+    suspend fun getContinuingInfo(): ApiResponse
 
     //Advanced exercise API
-    @GET("383b441a-98d7-46de-a83c-a33e2c6fdd69")
-    suspend fun getAdvancedInfo(): ListLvlDto
+    @GET("9fd587a9-dc1c-4daf-ab78-9f127c4707b2")
+    suspend fun getAdvancedInfo(): ApiResponse
 }
