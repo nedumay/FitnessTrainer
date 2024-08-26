@@ -1,6 +1,7 @@
 package com.example.testproject.app.data.repository
 
 import android.util.Log
+import androidx.work.Data
 import com.example.testproject.app.data.network.ApiService
 import com.example.testproject.app.data.network.model.ListLvlDto
 import com.example.testproject.app.data.network.model.toListLvl
@@ -19,17 +20,17 @@ class RepositoryApiImpl @Inject constructor(
 ) : RepositoryApi {
 
     override suspend fun getBeginnerInfo(): ListLvl {
-        val beginnerList: ListLvlDto = apiService.getBeginnerInfo()
+        val beginnerList: ListLvlDto = apiService.getBeginnerInfo().data
         return beginnerList.toListLvl()
     }
 
     override suspend fun getContinuingInfo(): ListLvl {
-        val continuingList: ListLvlDto = apiService.getContinuingInfo()
+        val continuingList: ListLvlDto = apiService.getContinuingInfo().data
         return continuingList.toListLvl()
     }
 
     override suspend fun getAdvancedInfo(): ListLvl {
-        val advancedList: ListLvlDto = apiService.getAdvancedInfo()
+        val advancedList: ListLvlDto = apiService.getAdvancedInfo().data
         return advancedList.toListLvl()
     }
 
