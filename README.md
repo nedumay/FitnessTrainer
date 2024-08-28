@@ -11,14 +11,6 @@ Application сapabilities ::
 
 Currently in the works: Exercise tracking...
 
-API in development (There are problems: the API often crashes, and I haven't found another option yet :) in the search ...): 
-
-beginner: https://run.mocky.io/v3/6ad2502f-fdf6-4abc-b0d9-39203e57d47b
-
-continuing: https://run.mocky.io/v3/6ae172a3-9979-4d10-9116-272413b87404
-
-advanced: https://run.mocky.io/v3/383b441a-98d7-46de-a83c-a33e2c6fdd69
-
 # Development Environment
 
 The app is written entirely in Kotlin and uses the Gradle build system.
