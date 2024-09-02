@@ -1,7 +1,10 @@
 package com.example.testproject.app.presentation.workout.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +46,13 @@ class DetailFragment : Fragment() {
     private var title: String? = null
     private var picture: String? = null
 
+
+    private var countDownTimer: CountDownTimer? = null
+    private var timeInMillis: Long = 0
+    private lateinit var sound: MediaPlayer
+    private var timeRemaining: Long = 0
+    private var isTimerRunning = false
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@DetailFragment)
@@ -70,9 +80,9 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("ExerciseListFragmentLoad", "$id $title $picture")
-        if(idExercise == null || idExerciseList == null){
+        if (idExercise == null || idExerciseList == null) {
             launchExerciseListFragment()
-        } else{
+        } else {
             ExerciseListObserve()
         }
 
@@ -107,6 +117,8 @@ class DetailFragment : Fragment() {
                         textViewAreaTitle.visibility = View.GONE
                         textViewAreaDescription.visibility = View.GONE
                         cardAreaImage.visibility = View.GONE
+                        buttonStart.visibility = View.GONE
+                        buttonPause.visibility = View.GONE
                     }
                 }
 
@@ -119,6 +131,7 @@ class DetailFragment : Fragment() {
                             object : AbstractYouTubePlayerListener() {
                                 override fun onReady(youTubePlayer: YouTubePlayer) {
                                     youTubePlayer.loadVideo(it.data.video, 0f)
+                                    // Возможно нужно будет исправить, чтобы автоматом сразу не включал видео
                                     youTubePlayer.play()
                                 }
                             }
@@ -133,10 +146,36 @@ class DetailFragment : Fragment() {
                         textViewAreaDescription.visibility = View.VISIBLE
                         textViewAreaDescription.text = it.data.area
                         cardAreaImage.visibility = View.VISIBLE
+
                         Glide.with(requireContext())
                             .load(it.data.areaImg)
                             .centerCrop()
                             .into(imageViewArea)
+
+                        // Создадим звук для уведомления о начале и конце тренировки
+                        val timeString = it.data.subtitle
+                        if (timeString[0] == '0') {
+                            sound = MediaPlayer.create(requireContext(), R.raw.svistok_trenera)
+                            buttonStart.visibility = View.VISIBLE
+                            buttonPause.visibility = View.VISIBLE
+                            // Клик на кнопку для запуска таймера
+                            buttonStart.setOnClickListener {
+                                if (!isTimerRunning) {
+                                    timeInMillis = convertTimeToMillis(timeString)
+                                    sound.start()
+                                    startTimer(timeInMillis)
+                                }
+                            }
+                            buttonPause.setOnClickListener {
+                                if (isTimerRunning) {
+                                    stopTimer()
+                                    buttonPause.text = getString(R.string.continue_exc)
+                                } else{
+                                    startTimer(timeRemaining)
+                                    buttonPause.text = getString(R.string.pause_exc)
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -150,6 +189,8 @@ class DetailFragment : Fragment() {
                         textViewAreaTitle.visibility = View.GONE
                         textViewAreaDescription.visibility = View.GONE
                         cardAreaImage.visibility = View.GONE
+                        buttonStart.visibility = View.GONE
+                        buttonPause.visibility = View.GONE
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -167,7 +208,48 @@ class DetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        countDownTimer?.cancel()
         _binding = null
+    }
+
+    // Запуск таймера
+    private fun startTimer(timeInMillis: Long) {
+        countDownTimer?.cancel() // Если таймер уже работает, отменить его
+
+        countDownTimer = object : CountDownTimer(timeInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeRemaining = millisUntilFinished
+                binding.textViewSubtitle.text = formatTime(millisUntilFinished)
+            }
+
+            override fun onFinish() {
+                binding.textViewSubtitle.text = "00:00"
+                isTimerRunning = false
+                sound.start()
+            }
+        }.start()
+
+        isTimerRunning = true
+    }
+
+    private fun stopTimer() {
+        countDownTimer?.cancel() // Остановить таймер
+        isTimerRunning = false
+    }
+
+    private fun convertTimeToMillis(timeString: String): Long {
+        val parts = timeString.split(":")
+        val minutes = parts[0].toInt()
+        val seconds = parts[1].toInt()
+        return (minutes * 60 + seconds) * 1000L
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun formatTime(millis: Long): String {
+        val totalSeconds = millis / 1000
+        val minutes = (totalSeconds / 60).toInt()
+        val seconds = (totalSeconds % 60).toInt()
+        return String.format("%02d:%02d", minutes, seconds)
     }
 
     companion object {
