@@ -98,6 +98,9 @@
     <string name="week">week</string>
     <string name="save">Save</string>
     <string name="notification_item">notification</string>
+    <string name="start_exc">Start exercise</string>
+    <string name="pause_exc">Pause</string>
+    <string name="continue_exc">Continue</string>
 
     <string-array name="days">
         <item>Sunday</item>
