@@ -1,5 +1,7 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
-An app for exercising at home. In development... Update: 26.08.2024
+An app for exercising at home. In development... Update: 02.09.2024
+
+What's new: Added a timer for exercises that have a time limit for completion
 
 Download: https://www.rustore.ru/catalog/app/com.example.testproject
 
@@ -15,7 +17,7 @@ Currently in the works: Exercise tracking...
 
 The app is written entirely in Kotlin and uses the Gradle build system.
 
-Tools and Libraries: Firebase, Coroutines + StateFlow, Dagger2, Worker, YoutubePlayer, Glide, Navigation fragment.
+Tools and Libraries: Firebase, Coroutines + StateFlow, Dagger2, Worker, YoutubePlayer, MediaPlayer, Glide, Navigation fragment.
 
 Language Support: English, Russian
 
