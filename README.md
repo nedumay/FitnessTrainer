@@ -1,7 +1,7 @@
-# Fitness trainer <img src="https://img.shields.io/badge/version-1.1.0-green" alt="App Version">
-An app for exercising at home. In development... Update: 02.09.2024
+# Fitness trainer <img src="https://img.shields.io/badge/version-1.2.1-green" alt="App Version">
+An app for exercising at home. In development... Update: 05.09.2024
 
-What's new: Added a timer for exercises that have a time limit for completion (branch: 'timer')
+What's new: Added a timer for exercises that have a time limit for completion
 
 Download: https://www.rustore.ru/catalog/app/com.example.testproject
 
