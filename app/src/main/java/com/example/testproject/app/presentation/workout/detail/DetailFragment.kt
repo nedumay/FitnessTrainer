@@ -158,6 +158,7 @@ class DetailFragment : Fragment() {
                             sound = MediaPlayer.create(requireContext(), R.raw.svistok_trenera)
                             buttonStart.visibility = View.VISIBLE
                             buttonPause.visibility = View.VISIBLE
+                            buttonPause.isEnabled = false
                             // Клик на кнопку для запуска таймера
                             buttonStart.setOnClickListener {
                                 if (!isTimerRunning) {
@@ -176,8 +177,19 @@ class DetailFragment : Fragment() {
                                 }
                             }
                         }
+
+                        buttonPause.setOnClickListener {
+                            if (isTimerRunning) {
+                                stopTimer()
+                                buttonPause.text = getString(R.string.continue_exc)
+                            } else {
+                                startTimer(timeRemaining)
+                                buttonPause.text = getString(R.string.pause_exc)
+                            }
+                        }
                     }
                 }
+
 
                 is Resource.Error -> {
                     with(binding) {
@@ -194,7 +206,9 @@ class DetailFragment : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
+
             }
+
         }.launchIn(lifecycleScope)
     }
 
@@ -220,12 +234,16 @@ class DetailFragment : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 timeRemaining = millisUntilFinished
                 binding.textViewSubtitle.text = formatTime(millisUntilFinished)
+                binding.buttonStart.isEnabled = false
+                binding.buttonPause.isEnabled = true
             }
 
             override fun onFinish() {
                 binding.textViewSubtitle.text = "00:00"
                 isTimerRunning = false
                 sound.start()
+                binding.buttonStart.isEnabled = true
+                binding.buttonPause.isEnabled = false
             }
         }.start()
 
