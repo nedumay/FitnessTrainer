@@ -17,7 +17,7 @@ Currently in the works: Exercise tracking...
 
 The app is written entirely in Kotlin and uses the Gradle build system.
 
-Tools and Libraries: Firebase, Coroutines + StateFlow, Dagger2, Worker, YoutubePlayer, MediaPlayer, Glide, Navigation fragment.
+Tools and Libraries:Retrofit2, Firebase, Coroutines + StateFlow, Dagger2, Worker, YoutubePlayer, MediaPlayer, Glide, Navigation fragment.
 
 Language Support: English, Russian
 
