@@ -199,7 +199,7 @@ class NotificationFragment : Fragment() {
                                 AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, it.data)
                             }
                             is Resource.Error -> {
-                                Log.d("NotificationCreateAlarm", "${it.message}")
+                                Log.d("NotificationCreateAlarm", it.message)
                                 Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                             }
                         }

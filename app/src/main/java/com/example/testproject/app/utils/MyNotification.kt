@@ -7,8 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
-import android.widget.Toast
+import android.os.Build.VERSION
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
@@ -30,10 +29,11 @@ object MyNotification {
     ) {
 
         val notificationManager: NotificationManagerCompat = NotificationManagerCompat.from(context)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             val channelId = "$CHANNEL_ID-${notificationDashboard.name}"
-            val channel = NotificationChannel(channelId, CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
+            val channel =
+                NotificationChannel(channelId, CHANNEL, NotificationManager.IMPORTANCE_DEFAULT)
             channel.setShowBadge(false)
             notificationManager.createNotificationChannel(channel)
         }
@@ -63,7 +63,7 @@ object MyNotification {
             .setSmallIcon(R.mipmap.ic_gia_pay_background)
             .setContentTitle(context.getText(R.string.app_name))
             .setContentText(context.getText(R.string.text_notification))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setAutoCancel(true)
             .setContentIntent(contentIntent)
     }

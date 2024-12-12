@@ -23,21 +23,21 @@ class NotificationReceiver : BroadcastReceiver() {
     var data: NotificationDashboard? = null
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d("NotificationCreateAlarm", "start notification")
+
         if (intent.extras != null) {
-            val id = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_ID)
-            val idUser = intent.extras!!.getString(GET_NOTIFICATION_ITEM_ID_USER)
-            val name = intent.extras!!.getString(GET_NOTIFICATION_ITEM_NAME)
-            val hour = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_HOUR)
-            val minute = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_MINUTE)
-            val days = intent.extras!!.getStringArrayList(GET_NOTIFICATION_ITEM_DAYS) as List<String>
-            val countDay = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_COUNT_DAY)
-            val countWeek = intent.extras!!.getInt(GET_NOTIFICATION_ITEM_COUNT_WEEK)
-            Log.d("NotificationCreateAlarm", "id: $id")
+            val id = intent.extras?.getInt(GET_NOTIFICATION_ITEM_ID) ?: 0
+            val idUser = intent.extras?.getString(GET_NOTIFICATION_ITEM_ID_USER) ?: " "
+            val name = intent.extras?.getString(GET_NOTIFICATION_ITEM_NAME) ?: " "
+            val hour = intent.extras?.getInt(GET_NOTIFICATION_ITEM_HOUR) ?: 0
+            val minute = intent.extras?.getInt(GET_NOTIFICATION_ITEM_MINUTE) ?: 0
+            val days = intent.extras?.getStringArrayList(GET_NOTIFICATION_ITEM_DAYS) as List<String>
+            val countDay = intent.extras?.getInt(GET_NOTIFICATION_ITEM_COUNT_DAY) ?: 0
+            val countWeek = intent.extras?.getInt(GET_NOTIFICATION_ITEM_COUNT_WEEK) ?: 0
+
             data = NotificationDashboard(
-                id = id, idUser = idUser ?: "", name = name ?: "", hour = hour, minute = minute,
+                id = id, idUser = idUser, name = name, hour = hour, minute = minute,
                 days = days, countDay = countDay, countWeek = countWeek)
-            Log.d("NotificationCreateAlarm", "data: $data")
+
             if (data != null) {
                 if (ActivityCompat.checkSelfPermission(
                         context,
