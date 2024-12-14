@@ -1,9 +1,12 @@
 package com.example.testproject.app.data.network
 
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * @author Nedumayy (Samim)
+ * Create ApiFactory for work with Api
+ */
 
 object ApiFactory {
 
