@@ -137,9 +137,10 @@
 
             <TextView
                 android:id="@+id/textViewByCreate"
-                android:layout_width="320dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:paddingHorizontal="24dp"
                 android:gravity="center_horizontal|top"
                 android:text="@string/by_creating"
                 android:textAppearance="@style/by_creating"

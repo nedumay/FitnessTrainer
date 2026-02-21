@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseUser
 interface RepositoryFirebase {
 
     //Add user to Firebase.
-    suspend fun addUserToFirebase(user: User): String
+    suspend fun addUserToFirebase(user: User, password: String): String
     //Delete user from Firebase.
     fun deleteUserFromFirebase(id: String)
     //Get user from Firebase.

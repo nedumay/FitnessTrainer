@@ -1,7 +1,9 @@
 package com.example.testproject.app.domain.model.beginner
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Exercise(
     @SerializedName("id")
     var id: Int,

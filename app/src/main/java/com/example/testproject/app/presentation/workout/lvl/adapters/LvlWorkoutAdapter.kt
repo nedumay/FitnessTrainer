@@ -26,25 +26,7 @@ class LvlWorkoutAdapter : ListAdapter<Workout, LvlWorkoutViewHolder>(LvlWorkoutD
 
     override fun onBindViewHolder(holder: LvlWorkoutViewHolder, position: Int) {
         val workout = getItem(position)
-        with(holder.binding) {
-            with(workout) {
-                textViewWorkout.text = title
-                Glide.with(root.context)
-                    .load(picture)
-                    .centerCrop()
-                    .into(imageViewWorkout)
-                if(workout.id < 6){
-                    ratingBarWorkout.rating = 1.0f
-                } else if (workout.id in 6..10){
-                    ratingBarWorkout.rating = 2.0f
-                } else {
-                    ratingBarWorkout.rating = 3.0f
-                }
-                root.setOnClickListener {
-                    onWorkoutClickListener?.invoke(this)
-                }
-            }
-        }
+        holder.bind(workout, onWorkoutClickListener)
     }
 
 }

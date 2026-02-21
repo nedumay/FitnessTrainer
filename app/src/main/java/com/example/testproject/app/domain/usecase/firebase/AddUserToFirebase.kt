@@ -9,6 +9,6 @@ import javax.inject.Inject
  * Add user to Firebase use case.
  */
 class AddUserToFirebase @Inject constructor(private val repositoryFirebase: RepositoryFirebase) {
-    suspend operator fun invoke(user: User) = repositoryFirebase.addUserToFirebase(user = user)
+    suspend operator fun invoke(user: User, password: String) = repositoryFirebase.addUserToFirebase(user = user, password = password)
 
 }

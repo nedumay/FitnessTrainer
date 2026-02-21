@@ -34,9 +34,9 @@ class RepositoryFirebaseImpl @Inject constructor(
     private val usersReference: DatabaseReference = dataBase.getReference("Users")
 
     //Add user to Firebase.
-    override suspend fun addUserToFirebase(user: User): String {
+    override suspend fun addUserToFirebase(user: User, password: String): String {
         var error = "An account with this email already exists!"
-        auth.createUserWithEmailAndPassword(user.email, user.password)
+        auth.createUserWithEmailAndPassword(user.email, password)
             .addOnSuccessListener {
                 if (it.user != null) {
                     val userDb: UserDbModel = mapperUser.mapEntityToDbModel(user, it.user!!.uid)

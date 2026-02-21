@@ -7,6 +7,7 @@ import com.example.testproject.app.domain.model.user.User
 import com.example.testproject.app.domain.usecase.firebase.AddUserToFirebase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class RegistrationFourViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var _error = MutableStateFlow<Resource<String>>(Resource.Loading)
-    val error = _error.asStateFlow()
+    val error: StateFlow<Resource<String>> = _error.asStateFlow()
 
     fun signUp(
         email: String,
@@ -31,7 +32,6 @@ class RegistrationFourViewModel @Inject constructor(
     ) {
         val userAdd = User(
             email = email,
-            password = password,
             name = name,
             lastName = lastName,
             dateOfBirth = date,
@@ -43,7 +43,7 @@ class RegistrationFourViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _error.value = Resource.Loading
-                val error = addUserToFirebase.invoke(userAdd)
+                val error = addUserToFirebase.invoke(userAdd, password)
                 _error.value = Resource.Success(error)
             } catch (e: Exception) {
                 _error.value = Resource.Error(e.toString())

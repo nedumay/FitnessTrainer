@@ -10,7 +10,7 @@ data class UserDbModel(
     var weight: String? = "",
     var targetWeight: String? = "",
     var email: String? = "",
-    var password: String? = "",
+    //var password: String? = "",
     var country: String? = "",
     var city: String? = ""
 )
