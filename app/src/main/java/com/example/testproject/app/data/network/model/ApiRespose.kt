@@ -4,9 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 
 data class ApiResponse(
-    @SerializedName("data") val data: ListLvlDto,
-    @SerializedName("id") val id: String,
-    @SerializedName("displayName") val displayName: String,
-    @SerializedName("version") val version: Int
+    @SerializedName("list_lvl")
+    val listLvl: List<ListLvlDto> = emptyList()
+//    @SerializedName("data") val data: ListLvlDto,
+//    @SerializedName("id") val id: String,
+//    @SerializedName("displayName") val displayName: String,
+//    @SerializedName("version") val version: Int
 )
 

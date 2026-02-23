@@ -4,6 +4,7 @@ import com.example.testproject.app.data.network.model.ApiResponse
 import com.example.testproject.app.data.network.model.ListLvlDto
 import okhttp3.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 
 interface ApiService {
 

@@ -1,5 +1,8 @@
 package com.example.testproject.app.domain.model.notification
 
+import androidx.annotation.Keep
+
+@Keep
 data class NotificationDashboard(
     val idUser: String,
     val name: String,

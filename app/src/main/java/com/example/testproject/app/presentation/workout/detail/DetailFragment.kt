@@ -147,8 +147,11 @@ class DetailFragment : Fragment() {
                         textViewAreaDescription.text = it.data.area
                         cardAreaImage.visibility = View.VISIBLE
 
+                        val imagePath = it.data.areaImg
+                        val fullUrl = "file:///android_asset/$imagePath"
+
                         Glide.with(requireContext())
-                            .load(it.data.areaImg)
+                            .load(fullUrl)
                             .centerCrop()
                             .into(imageViewArea)
 

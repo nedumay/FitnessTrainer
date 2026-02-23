@@ -1,6 +1,7 @@
 package com.example.testproject.app.di
 
 import android.app.Application
+import android.content.Context
 import com.example.testproject.app.data.database.AppDataBase
 import com.example.testproject.app.data.database.NotificationDao
 import com.example.testproject.app.data.network.ApiFactory
@@ -14,6 +15,7 @@ import com.example.testproject.app.domain.repository.RepositoryNotification
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import jakarta.inject.Singleton
 
 @Module
 interface DataModule {
@@ -31,11 +33,17 @@ interface DataModule {
     fun bindRepositoryNotificationImpl(impl: RepositoryNotificationImpl): RepositoryNotification
 
     companion object {
+
         @Provides
         @ApplicationScope
-        fun provideApiService(): ApiService {
-            return ApiFactory.apiService
+        fun provideContext(application: Application): Context {
+            return application.applicationContext
         }
+//        @Provides
+//        @ApplicationScope
+//        fun provideApiService(): ApiService {
+//            return ApiFactory.apiService
+//        }
 
         @Provides
         @ApplicationScope

@@ -2,6 +2,7 @@ package com.example.testproject.app.presentation.workout.lvl
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -148,6 +149,7 @@ class LevelFragment : Fragment() {
                     binding.textViewContinuing.visibility = View.GONE
                     binding.recyclerViewContinuing.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
+                    Log.d(TAG,"${continuing.message}")
                     Toast.makeText(requireContext(), continuing.message, Toast.LENGTH_SHORT).show()
                     //launchDashboardFragment()
                 }
@@ -181,6 +183,7 @@ class LevelFragment : Fragment() {
                     binding.textViewAdvanced.visibility = View.GONE
                     binding.recyclerViewAdvanced.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
+                    Log.d(TAG,"${advanced.message}")
                     Toast.makeText(requireContext(), advanced.message, Toast.LENGTH_SHORT).show()
                     //launchDashboardFragment()
                 }
@@ -233,15 +236,16 @@ class LevelFragment : Fragment() {
         inflater.inflate(R.menu.menu_workout, menu)
     }
 
-    companion object {
-        private const val PUT_ID_KEY = "id"
-        private const val PUT_TITLE_KEY = "title"
-        private const val PUT_PICTURE_KEY = "picture"
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "LevelFragment"
+        private const val PUT_ID_KEY = "id"
+        private const val PUT_TITLE_KEY = "title"
+        private const val PUT_PICTURE_KEY = "picture"
     }
 
 
