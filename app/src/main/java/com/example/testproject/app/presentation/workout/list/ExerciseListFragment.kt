@@ -82,8 +82,12 @@ class ExerciseListFragment : Fragment() {
                         initAdapter(it)
                         binding.textViewCountWorkout.text = it.data.size.toString()
                         binding.textViewWorkout.text = title
+
+                        val imagePath = picture
+                        val fullUrl = "file:///android_asset/$imagePath"
+
                         Glide.with(this)
-                            .load(picture)
+                            .load(fullUrl)
                             .centerCrop()
                             .into(binding.imageViewWorkout)
                         if (id!! < 6) {

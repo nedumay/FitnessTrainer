@@ -2,6 +2,7 @@ package com.example.testproject.app.presentation.workout.lvl.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
 import com.example.testproject.app.domain.model.beginner.Workout
 import com.example.testproject.databinding.ListItemWorkoutBinding
 
@@ -11,12 +12,13 @@ class LvlWorkoutViewHolder(val binding: ListItemWorkoutBinding) : RecyclerView.V
         with(binding) {
             textViewWorkout.text = workout.title
 
-            // ✅ Загрузка изображения через Coil
-            imageViewWorkout.load(workout.picture) {
-                //placeholder(R.drawable.ic_placeholder)  // Заглушка пока грузится
-                //error(R.drawable.ic_error)              // Заглушка при ошибке
-                crossfade(true)                         // Плавное появление
-            }
+            val imagePath = workout.picture
+            val fullUrl = "file:///android_asset/$imagePath"
+
+            Glide.with(root.context)
+                .load(fullUrl)
+                .centerCrop()
+                .into(imageViewWorkout)
 
             // ✅ Рейтинг
             ratingBarWorkout.rating = when {
