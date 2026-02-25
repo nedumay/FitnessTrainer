@@ -1,5 +1,5 @@
 # Fitness trainer <img src="https://img.shields.io/badge/version-1.2.1-green" alt="App Version">
-An app for exercising at home. In development... Update: 14.12.2024
+An app for exercising at home. In development... Update: 25.02.2026
 
 What's new: Edited code
 
