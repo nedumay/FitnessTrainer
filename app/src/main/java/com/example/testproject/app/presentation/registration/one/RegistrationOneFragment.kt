@@ -12,6 +12,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.DATE_OF_BIRTH_KEY
+import com.example.testproject.app.common.LAST_NAME_KEY
+import com.example.testproject.app.common.NAME_KEY
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.utils.DataMask
 import com.example.testproject.databinding.FragmentRegistrationOneBinding
@@ -38,9 +41,9 @@ class RegistrationOneFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         arguments?.let {
-            getName = it.getString(PUT_GET_NAME_KEY) ?: ""
-            getLastName = it.getString(PUT_GET_LAST_NAME_KEY) ?: ""
-            getDateOfBirth = it.getString(PUT_GET_DATE_OF_BIRTH_KEY) ?: ""
+            getName = it.getString(NAME_KEY) ?: ""
+            getLastName = it.getString(LAST_NAME_KEY) ?: ""
+            getDateOfBirth = it.getString(DATE_OF_BIRTH_KEY) ?: ""
         }
         _binding = FragmentRegistrationOneBinding.inflate(inflater, container, false)
         return binding.root
@@ -95,9 +98,9 @@ class RegistrationOneFragment : Fragment() {
 
     private fun launchTwoFragment(name: String, lastName: String, dateOfBirth: String) {
         val bundle = Bundle()
-        bundle.putString(PUT_GET_NAME_KEY, name)
-        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
-        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, dateOfBirth)
+        bundle.putString(NAME_KEY, name)
+        bundle.putString(LAST_NAME_KEY, lastName)
+        bundle.putString(DATE_OF_BIRTH_KEY, dateOfBirth)
         findNavController().navigate(
             R.id.action_registrationOneFragment_to_registrationTwoFragment,
             bundle
@@ -106,7 +109,9 @@ class RegistrationOneFragment : Fragment() {
 
 
     private fun enabledButton() {
-        if (getName?.trim()?.isNotEmpty() == true && getLastName?.trim()?.isNotEmpty() == true && getDateOfBirth?.trim()?.length == 10) {
+        if (getName?.trim()?.isNotEmpty() == true && getLastName?.trim()
+                ?.isNotEmpty() == true && getDateOfBirth?.trim()?.length == 10
+        ) {
             binding.buttonNextRegistration.isEnabled = true
         } else {
 
@@ -160,9 +165,7 @@ class RegistrationOneFragment : Fragment() {
     }
 
     companion object {
-        private const val PUT_GET_NAME_KEY = "name"
-        private const val PUT_GET_LAST_NAME_KEY = "lastName"
-        private const val PUT_GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
+        private const val TAG = "RegistrationOneFragment"
     }
 
 

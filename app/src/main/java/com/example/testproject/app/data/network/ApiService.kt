@@ -6,6 +6,10 @@ import okhttp3.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 
+/**
+ * @author Nedumayy (Samim)
+ * Интерфейс для получения данных с сервера (упражнения)
+ */
 interface ApiService {
 
     // Beginner exercise API

@@ -10,7 +10,8 @@ import java.util.concurrent.TimeUnit
 
 /**
  * @author Nedumayy (Samim)
- * Create ApiFactory for work with Api
+ * Объект api для получения данных с сервера
+ *
  */
 
 object ApiFactory {

@@ -2,7 +2,6 @@ package com.example.testproject.app.presentation.notification
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
@@ -23,7 +22,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.ADD_KEY
+import com.example.testproject.app.common.CLEAR_TIME
+import com.example.testproject.app.common.DEFAULT_NOTIFICATION_ID_KEY
+import com.example.testproject.app.common.EDIT_KEY
+import com.example.testproject.app.common.MODE_KEY
+import com.example.testproject.app.common.MODE_UNKNOWN_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_ID_KEY
 import com.example.testproject.app.common.Resource
+import com.example.testproject.app.common.USER_ID_KEY
+import com.example.testproject.app.common.USER_SHARED_PREF_KEY
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
@@ -52,22 +60,22 @@ class NotificationFragment : Fragment() {
     private val calendar = Calendar.getInstance(Locale.getDefault())
     private var countDay = 0
     private var countWeek = 0
-    private var timeFormat = "00:00"
+    private var timeFormat = CLEAR_TIME
 
     private var id: Int? = null
-    private var screenMode: String? = GET_MODE_UNKNOWN
+    private var screenMode: String? = MODE_UNKNOWN_KEY
 
     private lateinit var currentUserId: String
     private lateinit var userIdSharedPreferences: SharedPreferences
 
     private var listDays: MutableList<String> = mutableListOf()
-    private var monday: String = DEFAULT_NOTIFICATION_ID
-    private var tuesday: String = DEFAULT_NOTIFICATION_ID
-    private var wednesday: String = DEFAULT_NOTIFICATION_ID
-    private var thursday: String = DEFAULT_NOTIFICATION_ID
-    private var friday: String = DEFAULT_NOTIFICATION_ID
-    private var saturday: String = DEFAULT_NOTIFICATION_ID
-    private var sunday: String = DEFAULT_NOTIFICATION_ID
+    private var monday: String = DEFAULT_NOTIFICATION_ID_KEY
+    private var tuesday: String = DEFAULT_NOTIFICATION_ID_KEY
+    private var wednesday: String = DEFAULT_NOTIFICATION_ID_KEY
+    private var thursday: String = DEFAULT_NOTIFICATION_ID_KEY
+    private var friday: String = DEFAULT_NOTIFICATION_ID_KEY
+    private var saturday: String = DEFAULT_NOTIFICATION_ID_KEY
+    private var sunday: String = DEFAULT_NOTIFICATION_ID_KEY
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -75,10 +83,10 @@ class NotificationFragment : Fragment() {
         // Get id user from shared preferences
         userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
-                USER_SHARED_PREF,
+                USER_SHARED_PREF_KEY,
                 AppCompatActivity.MODE_PRIVATE
             )
-        currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
+        currentUserId = userIdSharedPreferences.getString(USER_ID_KEY, null) ?: ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,13 +94,13 @@ class NotificationFragment : Fragment() {
         // Get arguments. If screen mode is ADD, then arguments will be null.
         // If screen mode is EDIT, then arguments will be not null
         arguments?.let {
-            screenMode = it.getString(GET_MODE)
+            screenMode = it.getString(MODE_KEY)
             id = when (screenMode) {
-                EDIT -> {
-                    it.getInt(GET_NOTIFICATION_ITEM_ID)
+                EDIT_KEY -> {
+                    it.getInt(NOTIFICATION_ITEM_ID_KEY)
                 }
 
-                ADD -> {
+                ADD_KEY -> {
                     null
                 }
 
@@ -115,11 +123,11 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (screenMode == ADD) {
+        if (screenMode == ADD_KEY) {
             initAddDefaultTime()
             initAddDefaultDay()
             listDays = mutableListOf("", "", "", "", "", "", "")
-        } else if (screenMode == EDIT) {
+        } else if (screenMode == EDIT_KEY) {
             viewModel.getNotificationItem(id ?: 0, currentUserId)
             viewModel.notificationInfo.onEach {
                 when (it) {
@@ -129,7 +137,8 @@ class NotificationFragment : Fragment() {
                     }
 
                     is Resource.Success -> {
-                        binding.newNotification.text = "${it.data.id} " + getString(R.string.notification_item)
+                        binding.newNotification.text =
+                            "${it.data.id} " + getString(R.string.notification_item)
                         binding.createNotification.text = getString(R.string.save)
 
                         initEditTime(it.data)
@@ -171,7 +180,7 @@ class NotificationFragment : Fragment() {
         // Create notification item or edit notification item
         binding.createNotification.setOnClickListener {
             when (screenMode) {
-                ADD -> {
+                ADD_KEY -> {
                     timeFormat = String.format(
                         "%02d:%02d",
                         calendar.get(Calendar.HOUR_OF_DAY),
@@ -194,19 +203,28 @@ class NotificationFragment : Fragment() {
                             is Resource.Loading -> {
                                 // Исправить!!!
                             }
+
                             is Resource.Success -> {
-                                Log.d("NotificationCreateAlarm", "AlarmScheduler.scheduleAlarmsForReminder: ${it.data}")
-                                AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, it.data)
+                                Log.d(
+                                    "NotificationCreateAlarm",
+                                    "AlarmScheduler.scheduleAlarmsForReminder: ${it.data}"
+                                )
+                                AlarmScheduler.scheduleAlarmsForReminder(
+                                    requireContext().applicationContext,
+                                    it.data
+                                )
                             }
+
                             is Resource.Error -> {
                                 Log.d("NotificationCreateAlarm", it.message)
-                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
                     }.launchIn(lifecycleScope)
                 }
 
-                EDIT -> {
+                EDIT_KEY -> {
                     timeFormat = String.format(
                         "%02d:%02d",
                         calendar.get(Calendar.HOUR_OF_DAY),
@@ -233,7 +251,10 @@ class NotificationFragment : Fragment() {
                         countDay = countDay,
                         countWeek = countWeek
                     )
-                    AlarmScheduler.scheduleAlarmsForReminder(requireContext().applicationContext, notificationDashboard)
+                    AlarmScheduler.scheduleAlarmsForReminder(
+                        requireContext().applicationContext,
+                        notificationDashboard
+                    )
                 }
             }
             launchBackDashboard()
@@ -248,31 +269,31 @@ class NotificationFragment : Fragment() {
 
     private fun initEditDay(it: NotificationDashboard) {
         sunday = it.days[0]
-        if (sunday != DEFAULT_NOTIFICATION_ID) {
+        if (sunday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipSu.isChecked = true
         }
         monday = it.days[1]
-        if (monday != DEFAULT_NOTIFICATION_ID) {
+        if (monday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipMo.isChecked = true
         }
         tuesday = it.days[2]
-        if (tuesday != DEFAULT_NOTIFICATION_ID) {
+        if (tuesday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipTu.isChecked = true
         }
         wednesday = it.days[3]
-        if (wednesday != DEFAULT_NOTIFICATION_ID) {
+        if (wednesday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipWed.isChecked = true
         }
         thursday = it.days[4]
-        if (thursday != DEFAULT_NOTIFICATION_ID) {
+        if (thursday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipTh.isChecked = true
         }
         friday = it.days[5]
-        if (friday != DEFAULT_NOTIFICATION_ID) {
+        if (friday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipFr.isChecked = true
         }
         saturday = it.days[6]
-        if (saturday != DEFAULT_NOTIFICATION_ID) {
+        if (saturday != DEFAULT_NOTIFICATION_ID_KEY) {
             binding.chipSa.isChecked = true
         }
     }
@@ -289,13 +310,13 @@ class NotificationFragment : Fragment() {
 
     private fun initAddDefaultDay() {
 
-        monday = DEFAULT_NOTIFICATION_ID
-        tuesday = DEFAULT_NOTIFICATION_ID
-        wednesday = DEFAULT_NOTIFICATION_ID
-        thursday = DEFAULT_NOTIFICATION_ID
-        friday = DEFAULT_NOTIFICATION_ID
-        saturday = DEFAULT_NOTIFICATION_ID
-        sunday = DEFAULT_NOTIFICATION_ID
+        monday = DEFAULT_NOTIFICATION_ID_KEY
+        tuesday = DEFAULT_NOTIFICATION_ID_KEY
+        wednesday = DEFAULT_NOTIFICATION_ID_KEY
+        thursday = DEFAULT_NOTIFICATION_ID_KEY
+        friday = DEFAULT_NOTIFICATION_ID_KEY
+        saturday = DEFAULT_NOTIFICATION_ID_KEY
+        sunday = DEFAULT_NOTIFICATION_ID_KEY
     }
 
     @SuppressLint("DefaultLocale")
@@ -364,11 +385,12 @@ class NotificationFragment : Fragment() {
         countDay = 0
         binding.textViewTime.text = CLEAR_TIME
     }
+
     private fun setDay() {
         binding.textViewCountDay.text = "$countDay/7"
 
         binding.chipSu.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && sunday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && sunday == DEFAULT_NOTIFICATION_ID_KEY) {
                 sunday = resources.getStringArray(R.array.days)[0]
                 listDays[0] = sunday
                 if (countDay != 7) {
@@ -378,7 +400,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                sunday = DEFAULT_NOTIFICATION_ID
+                sunday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[0] = ""
                 if (countDay != 0) {
                     countDay--
@@ -390,7 +412,7 @@ class NotificationFragment : Fragment() {
         }
 
         binding.chipMo.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && monday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && monday == DEFAULT_NOTIFICATION_ID_KEY) {
                 monday = resources.getStringArray(R.array.days)[1]
                 listDays[1] = monday
                 if (countDay != 7) {
@@ -400,7 +422,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                monday = DEFAULT_NOTIFICATION_ID
+                monday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[1] = ""
                 if (countDay != 0) {
                     countDay--
@@ -413,7 +435,7 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipTu.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && tuesday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && tuesday == DEFAULT_NOTIFICATION_ID_KEY) {
                 tuesday = resources.getStringArray(R.array.days)[2]
                 listDays[2] = tuesday
                 if (countDay != 7) {
@@ -423,7 +445,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                tuesday = DEFAULT_NOTIFICATION_ID
+                tuesday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[2] = ""
                 if (countDay != 0) {
                     countDay--
@@ -436,7 +458,7 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipWed.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && wednesday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && wednesday == DEFAULT_NOTIFICATION_ID_KEY) {
                 wednesday = resources.getStringArray(R.array.days)[3]
                 listDays[3] = wednesday
                 if (countDay != 7) {
@@ -446,7 +468,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                wednesday = DEFAULT_NOTIFICATION_ID
+                wednesday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[3] = ""
                 if (countDay != 0) {
                     countDay--
@@ -459,7 +481,7 @@ class NotificationFragment : Fragment() {
 
 
         binding.chipTh.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && thursday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && thursday == DEFAULT_NOTIFICATION_ID_KEY) {
                 thursday = resources.getStringArray(R.array.days)[4]
                 listDays[4] = thursday
                 if (countDay != 7) {
@@ -469,7 +491,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                thursday = DEFAULT_NOTIFICATION_ID
+                thursday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[4] = ""
                 if (countDay != 0) {
                     countDay--
@@ -481,7 +503,7 @@ class NotificationFragment : Fragment() {
         }
 
         binding.chipFr.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && friday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && friday == DEFAULT_NOTIFICATION_ID_KEY) {
                 friday = resources.getStringArray(R.array.days)[5]
                 listDays[5] = friday
                 if (countDay != 7) {
@@ -491,7 +513,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                friday = DEFAULT_NOTIFICATION_ID
+                friday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[5] = ""
                 if (countDay != 0) {
                     countDay--
@@ -503,7 +525,7 @@ class NotificationFragment : Fragment() {
         }
 
         binding.chipSa.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID) {
+            if (isChecked && saturday == DEFAULT_NOTIFICATION_ID_KEY) {
                 saturday = resources.getStringArray(R.array.days)[6]
                 listDays[6] = saturday
                 if (countDay != 7) {
@@ -513,7 +535,7 @@ class NotificationFragment : Fragment() {
                     binding.addTime.isEnabled = countDay != 0
                 }
             } else if (!isChecked) {
-                saturday = DEFAULT_NOTIFICATION_ID
+                saturday = DEFAULT_NOTIFICATION_ID_KEY
                 listDays[6] = ""
                 if (countDay != 0) {
                     countDay--
@@ -551,15 +573,6 @@ class NotificationFragment : Fragment() {
     }
 
     companion object {
-        private const val USER_SHARED_PREF = "userPreferences"
-        private const val USER_ID = "userId"
-        private const val DEFAULT_NOTIFICATION_ID = ""
-        private const val CLEAR_TIME = "00:00"
-
-        private const val GET_MODE = "mode"
-        private const val EDIT = "edit"
-        private const val ADD = "add"
-        private const val GET_MODE_UNKNOWN = ""
-        private const val GET_NOTIFICATION_ITEM_ID = "notification_item_id"
+        private const val TAG = "NotificationFragment"
     }
 }

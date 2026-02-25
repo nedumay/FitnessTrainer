@@ -1,12 +1,12 @@
 package com.example.testproject.app.presentation.workout.lvl.adapters
 
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.bumptech.glide.Glide
 import com.example.testproject.app.domain.model.beginner.Workout
 import com.example.testproject.databinding.ListItemWorkoutBinding
 
-class LvlWorkoutViewHolder(val binding: ListItemWorkoutBinding) : RecyclerView.ViewHolder(binding.root) {
+class LvlWorkoutViewHolder(val binding: ListItemWorkoutBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(workout: Workout, clickListener: ((Workout) -> Unit)?) {
         with(binding) {

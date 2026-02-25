@@ -17,6 +17,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
 import com.example.testproject.app.common.Resource
+import com.example.testproject.app.common.USER_ID_KEY
+import com.example.testproject.app.common.USER_SHARED_PREF_KEY
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.databinding.FragmentSettingsBinding
@@ -59,10 +61,10 @@ class SettingsFragment : Fragment() {
         // Получаем id пользователя
         userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
-                USER_SHARED_PREF,
+                USER_SHARED_PREF_KEY,
                 AppCompatActivity.MODE_PRIVATE
             )
-        currentUserId = userIdSharedPreferences.getString(USER_ID, null) ?: ""
+        currentUserId = userIdSharedPreferences.getString(USER_ID_KEY, null) ?: ""
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -191,8 +193,7 @@ class SettingsFragment : Fragment() {
     }
 
     companion object {
-        private const val USER_SHARED_PREF = "userPreferences"
-        private const val USER_ID = "userId"
+        private const val TAG = "SettingsFragment"
     }
 
 }

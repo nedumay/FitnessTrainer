@@ -8,7 +8,7 @@ import com.example.testproject.app.data.database.model.NotificationDashboardDbMo
 
 /**
  * @author Nedumayy (Samim)
- * Create Database (used Room) for save and work with notifications
+ * Абстрактный класс для инициализации базы данных
  */
 
 @Database(entities = [NotificationDashboardDbModel::class], version = 9, exportSchema = false)

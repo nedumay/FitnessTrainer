@@ -10,6 +10,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.DATE_OF_BIRTH_KEY
+import com.example.testproject.app.common.GENDER_KEY
+import com.example.testproject.app.common.LAST_NAME_KEY
+import com.example.testproject.app.common.NAME_KEY
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.databinding.FragmentRegistrationTwoBinding
 
@@ -33,10 +37,10 @@ class RegistrationTwoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            name = it.getString(PUT_GET_NAME_KEY)
-            lastName = it.getString(PUT_GET_LAST_NAME_KEY)
-            date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
-            gender = it.getBoolean(PUT_GET_GENDER_KEY)
+            name = it.getString(NAME_KEY)
+            lastName = it.getString(LAST_NAME_KEY)
+            date = it.getString(DATE_OF_BIRTH_KEY)
+            gender = it.getBoolean(GENDER_KEY)
         }
     }
 
@@ -82,12 +86,12 @@ class RegistrationTwoFragment : Fragment() {
             })
     }
 
-    private fun defaultGenderSet(gender: Boolean){
-        if(gender){
+    private fun defaultGenderSet(gender: Boolean) {
+        if (gender) {
             binding.cardViewMale.isChecked = true
             binding.cardViewFmale.isChecked = false
             binding.buttonNextRegistration.isEnabled = true
-        } else{
+        } else {
             binding.cardViewFmale.isChecked = true
             binding.cardViewMale.isChecked = false
             binding.buttonNextRegistration.isEnabled = true
@@ -115,12 +119,17 @@ class RegistrationTwoFragment : Fragment() {
 
     }
 
-    private fun launchThreeFragment(name: String?, lastName: String?, date: String?, gender: Boolean) {
+    private fun launchThreeFragment(
+        name: String?,
+        lastName: String?,
+        date: String?,
+        gender: Boolean
+    ) {
         val bundle = Bundle()
-        bundle.putString(PUT_GET_NAME_KEY, name)
-        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
-        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
-        bundle.putBoolean(PUT_GET_GENDER_KEY, gender)
+        bundle.putString(NAME_KEY, name)
+        bundle.putString(LAST_NAME_KEY, lastName)
+        bundle.putString(DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(GENDER_KEY, gender)
         findNavController().navigate(
             R.id.action_registrationTwoFragment_to_registrationThreeFragment,
             bundle
@@ -129,9 +138,9 @@ class RegistrationTwoFragment : Fragment() {
 
     private fun launchRegistrationOneFragment(name: String?, lastName: String?, date: String?) {
         val bundle = Bundle()
-        bundle.putString(PUT_GET_NAME_KEY, name)
-        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
-        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
+        bundle.putString(NAME_KEY, name)
+        bundle.putString(LAST_NAME_KEY, lastName)
+        bundle.putString(DATE_OF_BIRTH_KEY, date)
         findNavController().navigate(
             R.id.action_registrationTwoFragment_to_registrationOneFragment,
             bundle
@@ -144,10 +153,7 @@ class RegistrationTwoFragment : Fragment() {
     }
 
     companion object {
-        private const val PUT_GET_NAME_KEY = "name"
-        private const val PUT_GET_LAST_NAME_KEY = "lastName"
-        private const val PUT_GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
-        private const val PUT_GET_GENDER_KEY = "gender"
+        private const val TAG = "RegistrationTwoFragment"
     }
 
 

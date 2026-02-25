@@ -1,6 +1,5 @@
 package com.example.testproject.app.data.database
 
-import android.content.Context
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,6 +7,9 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.testproject.app.data.database.model.NotificationDashboardDbModel
 
+/**
+ * Интерфейс для работы с базой данных
+ */
 @Dao
 interface NotificationDao {
 

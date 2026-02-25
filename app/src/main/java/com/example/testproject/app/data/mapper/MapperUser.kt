@@ -16,7 +16,6 @@ class MapperUser @Inject constructor() {
         weight = user.weight,
         targetWeight = user.targetWeight,
         email = user.email,
-        //password = user.password
     )
 
     fun mapDbModelToEntity(userDbModel: UserDbModel?) = User(
@@ -29,6 +28,5 @@ class MapperUser @Inject constructor() {
         weight = userDbModel?.weight ?: "",
         targetWeight = userDbModel?.targetWeight ?: "",
         email = userDbModel?.email ?: "",
-        //password = userDbModel?.password ?: ""
     )
 }

@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.EMPTY_FIELD_KEY
+import com.example.testproject.app.common.INVALID_ADDRESS_KEY
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
@@ -135,17 +137,12 @@ class ResetFragment : Fragment() {
                 val valid =
                     android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
                 if (!valid) {
-                    binding.tilEmailReset.error = INVALID_ADDRESS
+                    binding.tilEmailReset.error = INVALID_ADDRESS_KEY
                 } else {
-                    binding.tilEmailReset.error = EMPTY_FIELD
+                    binding.tilEmailReset.error = EMPTY_FIELD_KEY
                 }
             }
         })
-    }
-
-    companion object {
-        private const val INVALID_ADDRESS = "Invalid Email address"
-        private const val EMPTY_FIELD = ""
     }
 
     override fun onDestroyView() {
@@ -153,5 +150,8 @@ class ResetFragment : Fragment() {
         _binding = null
     }
 
+    companion object {
+        private const val TAG = "ResetFragment"
+    }
 
 }

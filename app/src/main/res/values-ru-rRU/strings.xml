@@ -100,6 +100,7 @@
     <string name="save">Сохранить</string>
     <string name="notification_item">уведомление</string>
     <string name="start_exc">Начать упражнение</string>
+    <string name="start">Старт</string>
     <string name="pause_exc">Пауза</string>
     <string name="continue_exc">Продолжить</string>
 

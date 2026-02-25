@@ -1,7 +1,12 @@
 package com.example.testproject.app.data.network.model
 
+import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Keep
+@Parcelize
 data class ExerciseDto(
     @SerializedName("id")
     val id: Int,
@@ -23,4 +28,4 @@ data class ExerciseDto(
 
     @SerializedName("area_img")
     val areaImg: String
-)
+) : Parcelable

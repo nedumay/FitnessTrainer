@@ -18,7 +18,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.EMPTY_FIELD_KEY
+import com.example.testproject.app.common.INVALID_ADDRESS_KEY
 import com.example.testproject.app.common.Resource
+import com.example.testproject.app.common.USER_ID_KEY
+import com.example.testproject.app.common.USER_SHARED_PREF_KEY
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
 import com.example.testproject.databinding.FragmentLoginBinding
@@ -42,6 +46,7 @@ class LoginFragment : Fragment() {
         super.onAttach(context)
         (context.applicationContext as App).component.inject(this@LoginFragment)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +65,7 @@ class LoginFragment : Fragment() {
 
         val userIdSharedPreferences = requireActivity()
             .getSharedPreferences(
-                USER_SHARED_PREF,
+                USER_SHARED_PREF_KEY,
                 AppCompatActivity.MODE_PRIVATE
             )
         val sharedEditor = userIdSharedPreferences.edit()
@@ -100,9 +105,9 @@ class LoginFragment : Fragment() {
 
     private fun saveUser(userIdSharedPref: SharedPreferences) {
         //Если id сохранен в SharedPreferences то заходим в приложение
-        if (userIdSharedPref.contains(USER_ID)) {
-            val data = userIdSharedPref.getString(USER_ID, "") ?: ""
-            if(data.isNotEmpty()){
+        if (userIdSharedPref.contains(USER_ID_KEY)) {
+            val data = userIdSharedPref.getString(USER_ID_KEY, "") ?: ""
+            if (data.isNotEmpty()) {
                 launchDashboardFragment()
             }
 
@@ -125,7 +130,7 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     Log.d("LoginActivityData", "Success: ${it.data}")
                     // Сохраняем id пользователя и заходим в приложение
-                    sharedEditor.putString(USER_ID, it.data).apply()
+                    sharedEditor.putString(USER_ID_KEY, it.data).apply()
                     progressDialog.dismiss()
                     launchDashboardFragment()
                 }
@@ -158,9 +163,9 @@ class LoginFragment : Fragment() {
                 val valid =
                     android.util.Patterns.EMAIL_ADDRESS.matcher(s?.trim().toString()).matches()
                 if (!valid) {
-                    binding.tilEmailLogin.error = INVALID_ADDRESS
+                    binding.tilEmailLogin.error = INVALID_ADDRESS_KEY
                 } else {
-                    binding.tilEmailLogin.error = EMPTY_FIELD
+                    binding.tilEmailLogin.error = EMPTY_FIELD_KEY
                 }
             }
         })
@@ -181,9 +186,7 @@ class LoginFragment : Fragment() {
     }
 
     companion object {
-        private const val INVALID_ADDRESS = "Invalid Email address"
-        private const val EMPTY_FIELD = ""
-        private const val USER_SHARED_PREF = "userPreferences"
-        private const val USER_ID = "userId"
+        private const val TAG = "LoginFragment"
     }
+
 }

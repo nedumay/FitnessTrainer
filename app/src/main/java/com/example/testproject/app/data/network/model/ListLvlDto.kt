@@ -1,10 +1,15 @@
 package com.example.testproject.app.data.network.model
 
+import android.os.Parcelable
+import androidx.annotation.Keep
 import com.example.testproject.app.domain.model.beginner.Exercise
 import com.example.testproject.app.domain.model.beginner.ListLvl
 import com.example.testproject.app.domain.model.beginner.Workout
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Keep
+@Parcelize
 data class ListLvlDto(
     @SerializedName("id")
     val id: Int,
@@ -17,11 +22,8 @@ data class ListLvlDto(
 
     @SerializedName("exercise")
     val exercise: List<ExerciseDto>
-    //@SerializedName("list_lvl")
-    //var listLvl: List<Workout> = listOf()
-)
+) : Parcelable
 
-// map BeginnerDto to Beginner
 fun List<ListLvlDto>.toListLvl(): ListLvl {
     return ListLvl(
         listLvl = this.map { dto ->

@@ -151,7 +151,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginEnd="4dp"
-        android:text="@string/start_exc"
+        android:text="@string/start"
         app:elevation="12dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonClose"
         app:layout_constraintEnd_toStartOf="@+id/buttonPause"

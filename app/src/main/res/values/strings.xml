@@ -99,6 +99,7 @@
     <string name="save">Save</string>
     <string name="notification_item">notification</string>
     <string name="start_exc">Start exercise</string>
+    <string name="start">Start</string>
     <string name="pause_exc">Pause</string>
     <string name="continue_exc">Continue</string>
 

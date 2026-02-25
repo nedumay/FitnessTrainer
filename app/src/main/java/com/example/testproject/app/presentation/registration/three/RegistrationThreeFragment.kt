@@ -13,6 +13,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.CHECKED_ID_KEY
+import com.example.testproject.app.common.DATE_OF_BIRTH_KEY
+import com.example.testproject.app.common.GENDER_KEY
+import com.example.testproject.app.common.HEIGHT_KEY
+import com.example.testproject.app.common.LAST_NAME_KEY
+import com.example.testproject.app.common.NAME_KEY
+import com.example.testproject.app.common.TARGET_WEIGHT_KEY
+import com.example.testproject.app.common.WEIGHT_KEY
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.databinding.FragmentRegistrationThreeBinding
 import kotlin.math.floor
@@ -45,21 +53,21 @@ class RegistrationThreeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            name = it.getString(PUT_GET_NAME_KEY)
-            lastName = it.getString(PUT_GET_LAST_NAME_KEY)
-            date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
-            gender = it.getBoolean(PUT_GET_GENDER_KEY)
-            checkIdSave = it.getInt(PUT_GET_CHECKED_ID_KEY)
-            if(checkIdSave == R.id.kgRadioBtn){
+            name = it.getString(NAME_KEY)
+            lastName = it.getString(LAST_NAME_KEY)
+            date = it.getString(DATE_OF_BIRTH_KEY)
+            gender = it.getBoolean(GENDER_KEY)
+            checkIdSave = it.getInt(CHECKED_ID_KEY)
+            if (checkIdSave == R.id.kgRadioBtn) {
                 sufWeight = resources.getString(R.string.kg)
                 sufHeight = resources.getString(R.string.sm)
             } else {
                 sufWeight = resources.getString(R.string.lbs)
                 sufHeight = resources.getString(R.string.ft)
             }
-            height = it.getString(PUT_GET_HEIGHT_KEY)?.replace(sufHeight, "")  ?: ""
-            weight = it.getString(PUT_GET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
-            targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
+            height = it.getString(HEIGHT_KEY)?.replace(sufHeight, "") ?: ""
+            weight = it.getString(WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
+            targetWeight = it.getString(TARGET_WEIGHT_KEY)?.replace(sufWeight, "") ?: ""
         }
     }
 
@@ -80,7 +88,7 @@ class RegistrationThreeFragment : Fragment() {
     }
 
     private fun defaultInitEditView() {
-        if(checkIdSave == R.id.kgRadioBtn){
+        if (checkIdSave == R.id.kgRadioBtn) {
             binding.switchBtn.check(R.id.kgRadioBtn)
             binding.tilHeight.suffixText = resources.getString(R.string.sm)
             binding.tilWeight.suffixText = resources.getString(R.string.kg)
@@ -143,17 +151,17 @@ class RegistrationThreeFragment : Fragment() {
                     binding.tilTarget.suffixText = resources.getString(R.string.lbs)
                     sufWeight = resources.getString(R.string.lbs)
                     sufHeight = resources.getString(R.string.ft)
-                    if(binding.editTextHeight.text?.isNotEmpty() == true){
+                    if (binding.editTextHeight.text?.isNotEmpty() == true) {
                         var h = binding.editTextHeight.text.toString().toFloat() / 30.48
                         h = floor(h * 100.0) / 100.0
                         binding.editTextHeight.setText(h.toString())
                     }
-                    if(binding.editTextWeight.text?.isNotEmpty() == true){
+                    if (binding.editTextWeight.text?.isNotEmpty() == true) {
                         var w = binding.editTextWeight.text.toString().toFloat() / 2.205
                         w = floor(w * 100.0) / 100.0
                         binding.editTextWeight.setText(w.toString())
                     }
-                    if(binding.editTextTarget.text?.isNotEmpty() == true){
+                    if (binding.editTextTarget.text?.isNotEmpty() == true) {
                         var t = binding.editTextTarget.text.toString().toFloat() / 2.205
                         t = floor(t * 100.0) / 100.0
                         binding.editTextTarget.setText(t.toString())
@@ -165,17 +173,17 @@ class RegistrationThreeFragment : Fragment() {
                     binding.tilTarget.suffixText = resources.getString(R.string.kg)
                     sufWeight = resources.getString(R.string.kg)
                     sufHeight = resources.getString(R.string.sm)
-                    if(binding.editTextHeight.text?.isNotEmpty() == true){
+                    if (binding.editTextHeight.text?.isNotEmpty() == true) {
                         var h = binding.editTextHeight.text.toString().toFloat() * 30.48
                         h = floor(h * 100.0) / 100.0
                         binding.editTextHeight.setText(h.toString())
                     }
-                    if(binding.editTextWeight.text?.isNotEmpty() == true){
+                    if (binding.editTextWeight.text?.isNotEmpty() == true) {
                         var w = binding.editTextWeight.text.toString().toFloat() * 2.205
                         w = floor(w * 100.0) / 100.0
                         binding.editTextWeight.setText(w.toString())
                     }
-                    if(binding.editTextTarget.text?.isNotEmpty() == true){
+                    if (binding.editTextTarget.text?.isNotEmpty() == true) {
                         var t = binding.editTextTarget.text.toString().toFloat() * 2.205
                         t = floor(t * 100.0) / 100.0
                         binding.editTextTarget.setText(t.toString())
@@ -186,13 +194,21 @@ class RegistrationThreeFragment : Fragment() {
         }
     }
 
-    private fun launchRegistrationTwoFragment(name: String?, lastName: String?, date: String?, gender: Boolean?) {
+    private fun launchRegistrationTwoFragment(
+        name: String?,
+        lastName: String?,
+        date: String?,
+        gender: Boolean?
+    ) {
         val bundle = Bundle()
-        bundle.putString(PUT_GET_NAME_KEY, name)
-        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
-        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
-        bundle.putBoolean(PUT_GET_GENDER_KEY, gender ?: false)
-        findNavController().navigate(R.id.action_registrationThreeFragment_to_registrationTwoFragment, bundle)
+        bundle.putString(NAME_KEY, name)
+        bundle.putString(LAST_NAME_KEY, lastName)
+        bundle.putString(DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(GENDER_KEY, gender ?: false)
+        findNavController().navigate(
+            R.id.action_registrationThreeFragment_to_registrationTwoFragment,
+            bundle
+        )
     }
 
     private fun launchRegistrationFourFragment(
@@ -205,14 +221,14 @@ class RegistrationThreeFragment : Fragment() {
         gender: Boolean
     ) {
         val bundle = Bundle()
-        bundle.putString(PUT_GET_NAME_KEY, name)
-        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
-        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
-        bundle.putBoolean(PUT_GET_GENDER_KEY, gender)
-        bundle.putString(PUT_GET_HEIGHT_KEY, height)
-        bundle.putString(PUT_GET_WEIGHT_KEY, weight)
-        bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
-        checkIdSave?.let { bundle.putInt(PUT_GET_CHECKED_ID_KEY, it) }
+        bundle.putString(NAME_KEY, name)
+        bundle.putString(LAST_NAME_KEY, lastName)
+        bundle.putString(DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(GENDER_KEY, gender)
+        bundle.putString(HEIGHT_KEY, height)
+        bundle.putString(WEIGHT_KEY, weight)
+        bundle.putString(TARGET_WEIGHT_KEY, targetWeight)
+        checkIdSave?.let { bundle.putInt(CHECKED_ID_KEY, it) }
         findNavController().navigate(
             R.id.action_registrationThreeFragment_to_registrationFourFragment,
             bundle
@@ -221,7 +237,9 @@ class RegistrationThreeFragment : Fragment() {
     }
 
     private fun enabledButton() {
-        if (height.trim().isNotEmpty() && weight.trim().isNotEmpty() && targetWeight.trim().isNotEmpty()) {
+        if (height.trim().isNotEmpty() && weight.trim().isNotEmpty() && targetWeight.trim()
+                .isNotEmpty()
+        ) {
             binding.buttonNextRegistration.isEnabled = true
         } else {
 
@@ -274,16 +292,8 @@ class RegistrationThreeFragment : Fragment() {
     }
 
     companion object {
-        private const val PUT_GET_NAME_KEY = "name"
-        private const val PUT_GET_LAST_NAME_KEY = "lastName"
-        private const val PUT_GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
-        private const val PUT_GET_GENDER_KEY = "gender"
-        private const val PUT_GET_HEIGHT_KEY = "height"
-        private const val PUT_GET_WEIGHT_KEY = "weight"
-        private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
-        private const val PUT_GET_CHECKED_ID_KEY = "checkedId"
+        private const val TAG = "RegistrationThreeFragment"
     }
-
 
 
 }

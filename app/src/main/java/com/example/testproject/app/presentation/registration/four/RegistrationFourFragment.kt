@@ -20,6 +20,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testproject.R
+import com.example.testproject.app.common.CHECKED_ID_KEY
+import com.example.testproject.app.common.DATE_OF_BIRTH_KEY
+import com.example.testproject.app.common.GENDER_KEY
+import com.example.testproject.app.common.HEIGHT_KEY
+import com.example.testproject.app.common.LAST_NAME_KEY
+import com.example.testproject.app.common.NAME_KEY
+import com.example.testproject.app.common.TARGET_WEIGHT_KEY
+import com.example.testproject.app.common.WEIGHT_KEY
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
@@ -65,14 +73,14 @@ class RegistrationFourFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            name = it.getString(PUT_GET_NAME_KEY)
-            lastName = it.getString(PUT_GET_LAST_NAME_KEY)
-            date = it.getString(PUT_GET_DATE_OF_BIRTH_KEY)
-            gender = it.getBoolean(PUT_GET_GENDER_KEY)
-            height = it.getString(PUT_GET_HEIGHT_KEY)
-            weight = it.getString(PUT_GET_WEIGHT_KEY)
-            targetWeight = it.getString(PUT_GET_TARGET_WEIGHT_KEY)
-            checkIdSave = it.getInt(PUT_GET_CHECKED_ID_KEY)
+            name = it.getString(NAME_KEY)
+            lastName = it.getString(LAST_NAME_KEY)
+            date = it.getString(DATE_OF_BIRTH_KEY)
+            gender = it.getBoolean(GENDER_KEY)
+            height = it.getString(HEIGHT_KEY)
+            weight = it.getString(WEIGHT_KEY)
+            targetWeight = it.getString(TARGET_WEIGHT_KEY)
+            checkIdSave = it.getInt(CHECKED_ID_KEY)
         }
     }
 
@@ -86,7 +94,7 @@ class RegistrationFourFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (name == null || lastName == null || date == null || gender == null || height == null || weight == null || targetWeight == null ) {
+        if (name == null || lastName == null || date == null || gender == null || height == null || weight == null || targetWeight == null) {
             launchRegistrationThreeFragment()
             return
         }
@@ -177,15 +185,18 @@ class RegistrationFourFragment : Fragment() {
 
     private fun launchRegistrationThreeFragment() {
         val bundle = Bundle()
-        bundle.putString(PUT_GET_NAME_KEY, name)
-        bundle.putString(PUT_GET_LAST_NAME_KEY, lastName)
-        bundle.putString(PUT_GET_DATE_OF_BIRTH_KEY, date)
-        bundle.putBoolean(PUT_GET_GENDER_KEY, gender ?: false)
-        bundle.putString(PUT_GET_HEIGHT_KEY, height)
-        bundle.putString(PUT_GET_WEIGHT_KEY, weight)
-        bundle.putString(PUT_GET_TARGET_WEIGHT_KEY, targetWeight)
-        checkIdSave?.let { bundle.putInt(PUT_GET_CHECKED_ID_KEY, it) }
-        findNavController().navigate(R.id.action_registrationFourFragment_to_registrationThreeFragment, bundle)
+        bundle.putString(NAME_KEY, name)
+        bundle.putString(LAST_NAME_KEY, lastName)
+        bundle.putString(DATE_OF_BIRTH_KEY, date)
+        bundle.putBoolean(GENDER_KEY, gender ?: false)
+        bundle.putString(HEIGHT_KEY, height)
+        bundle.putString(WEIGHT_KEY, weight)
+        bundle.putString(TARGET_WEIGHT_KEY, targetWeight)
+        checkIdSave?.let { bundle.putInt(CHECKED_ID_KEY, it) }
+        findNavController().navigate(
+            R.id.action_registrationFourFragment_to_registrationThreeFragment,
+            bundle
+        )
     }
 
     /**
@@ -246,14 +257,7 @@ class RegistrationFourFragment : Fragment() {
 
 
     companion object {
-        private const val PUT_GET_NAME_KEY = "name"
-        private const val PUT_GET_LAST_NAME_KEY = "lastName"
-        private const val PUT_GET_DATE_OF_BIRTH_KEY = "dateOfBirth"
-        private const val PUT_GET_GENDER_KEY = "gender"
-        private const val PUT_GET_HEIGHT_KEY = "height"
-        private const val PUT_GET_WEIGHT_KEY = "weight"
-        private const val PUT_GET_TARGET_WEIGHT_KEY = "targetWeight"
-        private const val PUT_GET_CHECKED_ID_KEY = "checkedId"
+        private const val TAG = "RegistrationFourFragment"
     }
 
 }

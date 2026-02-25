@@ -7,20 +7,19 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.testproject.R
+import com.example.testproject.app.common.NOTIFICATION_ITEM_COUNT_DAY_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_COUNT_WEEK_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_DAYS_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_HOUR_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_ID_USER_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_MINUTE_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_NAME_KEY
+import com.example.testproject.app.common.NOTIFICATION_ITEM_ID_KEY
 import com.example.testproject.app.domain.model.notification.NotificationDashboard
 import java.util.Calendar
 import java.util.Locale
 
 object AlarmScheduler {
-
-    private const val GET_NOTIFICATION_ITEM_ID = "notification_item_id"
-    private const val GET_NOTIFICATION_ITEM_ID_USER = "notification_item_id_user"
-    private const val GET_NOTIFICATION_ITEM_NAME = "notification_item_name"
-    private const val GET_NOTIFICATION_ITEM_HOUR = "notification_item_hour"
-    private const val GET_NOTIFICATION_ITEM_MINUTE = "notification_item_minute"
-    private const val GET_NOTIFICATION_ITEM_DAYS = "notification_item_days"
-    private const val GET_NOTIFICATION_ITEM_COUNT_DAY = "notification_item_count_day"
-    private const val GET_NOTIFICATION_ITEM_COUNT_WEEK = "notification_item_count_week"
 
     fun scheduleAlarmsForReminder(context: Context, notificationDashboard: NotificationDashboard) {
         val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -58,14 +57,14 @@ object AlarmScheduler {
     ): PendingIntent {
         Log.d("NotificationCreateAlarm", "notificationDashboard: $notificationDashboard")
         val intent = Intent(context.applicationContext, NotificationReceiver::class.java).apply {
-            putExtra(GET_NOTIFICATION_ITEM_ID, notificationDashboard.id)
-            putExtra(GET_NOTIFICATION_ITEM_ID_USER, notificationDashboard.idUser)
-            putExtra(GET_NOTIFICATION_ITEM_NAME, notificationDashboard.name)
-            putExtra(GET_NOTIFICATION_ITEM_HOUR, notificationDashboard.hour)
-            putExtra(GET_NOTIFICATION_ITEM_MINUTE, notificationDashboard.minute)
-            putExtra(GET_NOTIFICATION_ITEM_DAYS, notificationDashboard.days as ArrayList<String>)
-            putExtra(GET_NOTIFICATION_ITEM_COUNT_DAY, notificationDashboard.countDay)
-            putExtra(GET_NOTIFICATION_ITEM_COUNT_WEEK, notificationDashboard.countWeek)
+            putExtra(NOTIFICATION_ITEM_ID_KEY, notificationDashboard.id)
+            putExtra(NOTIFICATION_ITEM_ID_USER_KEY, notificationDashboard.idUser)
+            putExtra(NOTIFICATION_ITEM_NAME_KEY, notificationDashboard.name)
+            putExtra(NOTIFICATION_ITEM_HOUR_KEY, notificationDashboard.hour)
+            putExtra(NOTIFICATION_ITEM_MINUTE_KEY, notificationDashboard.minute)
+            putExtra(NOTIFICATION_ITEM_DAYS_KEY, notificationDashboard.days as ArrayList<String>)
+            putExtra(NOTIFICATION_ITEM_COUNT_DAY_KEY, notificationDashboard.countDay)
+            putExtra(NOTIFICATION_ITEM_COUNT_WEEK_KEY, notificationDashboard.countWeek)
             type = "$day - ${notificationDashboard.name}"
         }
         return PendingIntent.getBroadcast(

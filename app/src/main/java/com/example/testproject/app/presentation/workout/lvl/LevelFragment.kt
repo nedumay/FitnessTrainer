@@ -16,7 +16,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testproject.R
+import com.example.testproject.app.common.ID_KEY
+import com.example.testproject.app.common.PICTURE_KEY
 import com.example.testproject.app.common.Resource
+import com.example.testproject.app.common.TITLE_KEY
 import com.example.testproject.app.domain.model.beginner.Workout
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
@@ -149,7 +152,7 @@ class LevelFragment : Fragment() {
                     binding.textViewContinuing.visibility = View.GONE
                     binding.recyclerViewContinuing.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
-                    Log.d(TAG,"${continuing.message}")
+                    Log.d(TAG, "${continuing.message}")
                     Toast.makeText(requireContext(), continuing.message, Toast.LENGTH_SHORT).show()
                     //launchDashboardFragment()
                 }
@@ -183,7 +186,7 @@ class LevelFragment : Fragment() {
                     binding.textViewAdvanced.visibility = View.GONE
                     binding.recyclerViewAdvanced.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
-                    Log.d(TAG,"${advanced.message}")
+                    Log.d(TAG, "${advanced.message}")
                     Toast.makeText(requireContext(), advanced.message, Toast.LENGTH_SHORT).show()
                     //launchDashboardFragment()
                 }
@@ -193,9 +196,9 @@ class LevelFragment : Fragment() {
 
     private fun launchExercisesListFragment(id: Int, title: String, picture: String) {
         val bundle = Bundle()
-        bundle.putInt(PUT_ID_KEY, id)
-        bundle.putString(PUT_TITLE_KEY, title)
-        bundle.putString(PUT_PICTURE_KEY, picture)
+        bundle.putInt(ID_KEY, id)
+        bundle.putString(TITLE_KEY, title)
+        bundle.putString(PICTURE_KEY, picture)
         findNavController().navigate(R.id.action_levelFragment_to_exerciseListFragment, bundle)
     }
 
@@ -226,6 +229,7 @@ class LevelFragment : Fragment() {
                     launchDashboardFragment()
                     true
                 }
+
                 else -> false
             }
         }
@@ -243,9 +247,7 @@ class LevelFragment : Fragment() {
 
     companion object {
         private const val TAG = "LevelFragment"
-        private const val PUT_ID_KEY = "id"
-        private const val PUT_TITLE_KEY = "title"
-        private const val PUT_PICTURE_KEY = "picture"
+
     }
 
 

@@ -2,7 +2,7 @@ package com.example.testproject.app.common
 
 /**
  * @author Nedumayy (Samim)
- * State resource for StateFlow
+ * Класс для обработки состояния обработки сети
  */
 sealed class Resource<out T> {
     class Success<T>(val data: T) : Resource<T>()

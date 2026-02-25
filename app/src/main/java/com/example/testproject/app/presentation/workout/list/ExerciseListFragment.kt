@@ -14,7 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.testproject.R
+import com.example.testproject.app.common.EXERCISE_KEY
+import com.example.testproject.app.common.EXERCISE_LIST_KEY
+import com.example.testproject.app.common.ID_KEY
+import com.example.testproject.app.common.PICTURE_KEY
 import com.example.testproject.app.common.Resource
+import com.example.testproject.app.common.TITLE_KEY
 import com.example.testproject.app.domain.model.beginner.Exercise
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
@@ -51,9 +56,9 @@ class ExerciseListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getInt(GET_PUT_ID_KEY)
-            title = it.getString(GET_PUT_TITLE_KEY)
-            picture = it.getString(GET_PUT_PICTURE_KEY)
+            id = it.getInt(ID_KEY)
+            title = it.getString(TITLE_KEY)
+            picture = it.getString(PICTURE_KEY)
         }
     }
 
@@ -78,6 +83,7 @@ class ExerciseListFragment : Fragment() {
                         binding.nestedScrollView.visibility = View.GONE
                         binding.progressBar.visibility = View.VISIBLE
                     }
+
                     is Resource.Success -> {
                         initAdapter(it)
                         binding.textViewCountWorkout.text = it.data.size.toString()
@@ -103,6 +109,7 @@ class ExerciseListFragment : Fragment() {
                             launchDetailFragment(it.id, id!!)
                         }
                     }
+
                     is Resource.Error -> {
                         binding.nestedScrollView.visibility = View.GONE
                         binding.progressBar.visibility = View.GONE
@@ -135,11 +142,11 @@ class ExerciseListFragment : Fragment() {
 
     private fun launchDetailFragment(idExercise: Int, idExerciseList: Int) {
         val bundle = Bundle()
-        bundle.putInt(PUT_ID_EXERCISE_KEY, idExercise)
-        bundle.putInt(PUT_ID_EXERCISE_LIST_KEY, idExerciseList)
-        bundle.putInt(GET_PUT_ID_KEY, id!!)
-        bundle.putString(GET_PUT_TITLE_KEY, title)
-        bundle.putString(GET_PUT_PICTURE_KEY, picture)
+        bundle.putInt(EXERCISE_KEY, idExercise)
+        bundle.putInt(EXERCISE_LIST_KEY, idExerciseList)
+        bundle.putInt(ID_KEY, id!!)
+        bundle.putString(TITLE_KEY, title)
+        bundle.putString(PICTURE_KEY, picture)
         findNavController().navigate(R.id.action_exerciseListFragment_to_detailFragment, bundle)
     }
 
@@ -158,11 +165,8 @@ class ExerciseListFragment : Fragment() {
     }
 
     companion object {
-        private const val GET_PUT_ID_KEY = "id"
-        private const val GET_PUT_TITLE_KEY = "title"
-        private const val GET_PUT_PICTURE_KEY = "picture"
-        private const val PUT_ID_EXERCISE_KEY = "id_exercise"
-        private const val PUT_ID_EXERCISE_LIST_KEY = "id_exercise_list"
+        private const val TAG = "ExerciseListFragment"
+
     }
 
 

@@ -17,6 +17,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.testproject.R
+import com.example.testproject.app.common.EXERCISE_KEY
+import com.example.testproject.app.common.EXERCISE_LIST_KEY
+import com.example.testproject.app.common.ID_KEY
+import com.example.testproject.app.common.PICTURE_KEY
+import com.example.testproject.app.common.TITLE_KEY
 import com.example.testproject.app.common.Resource
 import com.example.testproject.app.presentation.app.App
 import com.example.testproject.app.presentation.factory.ViewModelFactory
@@ -61,11 +66,11 @@ class DetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            idExercise = it.getInt(GET_ID_EXERCISE_KEY)
-            idExerciseList = it.getInt(GET_ID_EXERCISE_LIST_KEY)
-            id = it.getInt(GET_PUT_ID_KEY)
-            title = it.getString(GET_PUT_TITLE_KEY)
-            picture = it.getString(GET_PUT_PICTURE_KEY)
+            idExercise = it.getInt(EXERCISE_KEY)
+            idExerciseList = it.getInt(EXERCISE_LIST_KEY)
+            id = it.getInt(ID_KEY)
+            title = it.getString(TITLE_KEY)
+            picture = it.getString(PICTURE_KEY)
         }
     }
 
@@ -147,11 +152,8 @@ class DetailFragment : Fragment() {
                         textViewAreaDescription.text = it.data.area
                         cardAreaImage.visibility = View.VISIBLE
 
-                        val imagePath = it.data.areaImg
-                        val fullUrl = "file:///android_asset/$imagePath"
-
                         Glide.with(requireContext())
-                            .load(fullUrl)
+                            .load(it.data.areaImg)
                             .centerCrop()
                             .into(imageViewArea)
 
@@ -174,7 +176,7 @@ class DetailFragment : Fragment() {
                                 if (isTimerRunning) {
                                     stopTimer()
                                     buttonPause.text = getString(R.string.continue_exc)
-                                } else{
+                                } else {
                                     startTimer(timeRemaining)
                                     buttonPause.text = getString(R.string.pause_exc)
                                 }
@@ -217,9 +219,9 @@ class DetailFragment : Fragment() {
 
     private fun launchExerciseListFragment() {
         val bundle = Bundle()
-        bundle.putInt(GET_PUT_ID_KEY, id!!)
-        bundle.putString(GET_PUT_TITLE_KEY, title)
-        bundle.putString(GET_PUT_PICTURE_KEY, picture)
+        bundle.putInt(ID_KEY, id!!)
+        bundle.putString(TITLE_KEY, title)
+        bundle.putString(PICTURE_KEY, picture)
         findNavController().navigate(R.id.action_detailFragment_to_exerciseListFragment, bundle)
     }
 
@@ -274,11 +276,7 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-        private const val GET_PUT_ID_KEY = "id"
-        private const val GET_PUT_TITLE_KEY = "title"
-        private const val GET_PUT_PICTURE_KEY = "picture"
-        private const val GET_ID_EXERCISE_KEY = "id_exercise"
-        private const val GET_ID_EXERCISE_LIST_KEY = "id_exercise_list"
+        private const val TAG = "DetailFragment"
     }
 
 }
