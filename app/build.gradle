@@ -11,7 +11,7 @@ android {
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.example.testproject"
+        applicationId "ru.nedumayy.fitnesstrainer"
         minSdk 27
         targetSdk 34
         versionCode 7
@@ -40,7 +40,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    namespace 'com.example.testproject'
+    namespace 'ru.nedumayy.fitnesstrainer'
 }
 
 dependencies {

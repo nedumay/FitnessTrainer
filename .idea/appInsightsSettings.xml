@@ -9,7 +9,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.testproject" />
+                  <option name="appId" value="ru.nedumayy.fitnesstrainer" />
                   <option name="mobileSdkAppId" value="1:643058709799:android:371f1f79ca495ef00c6502" />
                   <option name="projectId" value="fitness-trainer-c88fe" />
                   <option name="projectNumber" value="643058709799" />

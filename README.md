@@ -3,7 +3,7 @@ An app for exercising at home. In development... Update: 25.02.2026
 
 What's new: Edited code
 
-Download: https://www.rustore.ru/catalog/app/com.example.testproject
+Download: https://www.rustore.ru/catalog/app/ru.nedumayy.fitnesstrainer
 
 Application сapabilities ::
 1. Registering/deleting and saving info about an account user (firebase).

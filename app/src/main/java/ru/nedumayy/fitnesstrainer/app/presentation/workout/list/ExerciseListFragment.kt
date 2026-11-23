@@ -1,0 +1,173 @@
+package ru.nedumayy.fitnesstrainer.app.presentation.workout.list
+
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import ru.nedumayy.fitnesstrainer.R
+import ru.nedumayy.fitnesstrainer.app.common.EXERCISE_KEY
+import ru.nedumayy.fitnesstrainer.app.common.EXERCISE_LIST_KEY
+import ru.nedumayy.fitnesstrainer.app.common.ID_KEY
+import ru.nedumayy.fitnesstrainer.app.common.PICTURE_KEY
+import ru.nedumayy.fitnesstrainer.app.common.Resource
+import ru.nedumayy.fitnesstrainer.app.common.TITLE_KEY
+import ru.nedumayy.fitnesstrainer.app.domain.model.beginner.Exercise
+import ru.nedumayy.fitnesstrainer.app.presentation.app.App
+import ru.nedumayy.fitnesstrainer.app.presentation.factory.ViewModelFactory
+import ru.nedumayy.fitnesstrainer.app.presentation.workout.list.adapters.ExerciseAdapter
+import ru.nedumayy.fitnesstrainer.databinding.FragmentExerciseListBinding
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+
+
+class ExerciseListFragment : Fragment() {
+
+    private var _binding: FragmentExerciseListBinding? = null
+    private val binding: FragmentExerciseListBinding
+        get() = _binding ?: throw RuntimeException("FragmentExerciseListBinding == null")
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[ExercisesViewModel::class.java]
+    }
+
+    private lateinit var exerciseAdapter: ExerciseAdapter
+
+    private var id: Int? = null
+    private var title: String? = null
+    private var picture: String? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as App).component.inject(this@ExerciseListFragment)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            id = it.getInt(ID_KEY)
+            title = it.getString(TITLE_KEY)
+            picture = it.getString(PICTURE_KEY)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentExerciseListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("ExerciseListFragmentLoad", "$id $title $picture")
+        if (id == null && title == null && picture == null) {
+            launchLevelFragment()
+        } else {
+            viewModel.loadExerciseList(id!!)
+            viewModel.exerciseInfoList.onEach {
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.nestedScrollView.visibility = View.GONE
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Resource.Success -> {
+                        initAdapter(it)
+                        binding.textViewCountWorkout.text = it.data.size.toString()
+                        binding.textViewWorkout.text = title
+
+                        val imagePath = picture
+                        val fullUrl = "file:///android_asset/$imagePath"
+
+                        Glide.with(this)
+                            .load(fullUrl)
+                            .centerCrop()
+                            .into(binding.imageViewWorkout)
+                        if (id!! < 6) {
+                            binding.ratingBarWorkout.rating = 1.0f
+                        } else if (id in 6..10) {
+                            binding.ratingBarWorkout.rating = 2.0f
+                        } else {
+                            binding.ratingBarWorkout.rating = 3.0f
+                        }
+                        binding.nestedScrollView.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        exerciseAdapter.onExerciseClickListener = {
+                            launchDetailFragment(it.id, id!!)
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        binding.nestedScrollView.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }.launchIn(lifecycleScope)
+        }
+
+        binding.imageViewArrowBack.setOnClickListener {
+            launchLevelFragment()
+        }
+
+        onBackFragment()
+    }
+
+    private fun onBackFragment() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    launchLevelFragment()
+                }
+            })
+    }
+
+    private fun launchLevelFragment() {
+        findNavController().navigate(R.id.action_exerciseListFragment_to_levelFragment)
+    }
+
+    private fun launchDetailFragment(idExercise: Int, idExerciseList: Int) {
+        val bundle = Bundle()
+        bundle.putInt(EXERCISE_KEY, idExercise)
+        bundle.putInt(EXERCISE_LIST_KEY, idExerciseList)
+        bundle.putInt(ID_KEY, id!!)
+        bundle.putString(TITLE_KEY, title)
+        bundle.putString(PICTURE_KEY, picture)
+        findNavController().navigate(R.id.action_exerciseListFragment_to_detailFragment, bundle)
+    }
+
+
+    private fun initAdapter(it: Resource.Success<List<Exercise>>) {
+        exerciseAdapter = ExerciseAdapter()
+        binding.recyclerViewExercise.adapter = exerciseAdapter
+        exerciseAdapter.submitList(it.data)
+
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        private const val TAG = "ExerciseListFragment"
+
+    }
+
+
+}

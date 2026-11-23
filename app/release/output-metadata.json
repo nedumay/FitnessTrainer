@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.testproject",
+  "applicationId": "ru.nedumayy.fitnesstrainer",
   "variantName": "release",
   "elements": [
     {

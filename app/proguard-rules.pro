@@ -21,8 +21,8 @@
 #-renamesourcefileattribute SourceFile
 
 # Сохранить классы моделей
--keep class com.example.testproject.app.data.network.model.** { *; }
--keep class com.example.testproject.app.domain.model.** { *; }
+-keep class ru.nedumayy.fitnesstrainer.app.data.network.model.** { *; }
+-keep class ru.nedumayy.fitnesstrainer.app.domain.model.** { *; }
 
 # Kotlin
 -keep class kotlin.** { *; }

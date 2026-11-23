@@ -1,0 +1,54 @@
+package ru.nedumayy.fitnesstrainer.app.presentation.registration.four
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import ru.nedumayy.fitnesstrainer.app.common.Resource
+import ru.nedumayy.fitnesstrainer.app.domain.model.user.User
+import ru.nedumayy.fitnesstrainer.app.domain.usecase.firebase.AddUserToFirebase
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+class RegistrationFourViewModel @Inject constructor(
+    private val addUserToFirebase: AddUserToFirebase
+) : ViewModel() {
+
+    private var _error = MutableStateFlow<Resource<String>>(Resource.Loading)
+    val error: StateFlow<Resource<String>> = _error.asStateFlow()
+
+    fun signUp(
+        email: String,
+        password: String,
+        name: String,
+        lastName: String,
+        date: String,
+        gender: Boolean,
+        height: String,
+        weight: String,
+        targetWeight: String
+    ) {
+        val userAdd = User(
+            email = email,
+            name = name,
+            lastName = lastName,
+            dateOfBirth = date,
+            gender = gender,
+            height = height,
+            weight = weight,
+            targetWeight = targetWeight
+        )
+        viewModelScope.launch {
+            try {
+                _error.value = Resource.Loading
+                val error = addUserToFirebase.invoke(userAdd, password)
+                _error.value = Resource.Success(error)
+            } catch (e: Exception) {
+                _error.value = Resource.Error(e.toString())
+            }
+        }
+    }
+
+}

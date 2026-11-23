@@ -1,0 +1,37 @@
+package ru.nedumayy.fitnesstrainer.app.presentation.workout.lvl.adapters
+
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.nedumayy.fitnesstrainer.app.domain.model.beginner.Workout
+import ru.nedumayy.fitnesstrainer.databinding.ListItemWorkoutBinding
+
+class LvlWorkoutViewHolder(val binding: ListItemWorkoutBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(workout: Workout, clickListener: ((Workout) -> Unit)?) {
+        with(binding) {
+            textViewWorkout.text = workout.title
+
+            val imagePath = workout.picture
+            val fullUrl = "file:///android_asset/$imagePath"
+
+            Glide.with(root.context)
+                .load(fullUrl)
+                .centerCrop()
+                .into(imageViewWorkout)
+
+            // ✅ Рейтинг
+            ratingBarWorkout.rating = when {
+                workout.id < 6 -> 1.0f
+                workout.id in 6..10 -> 2.0f
+                else -> 3.0f
+            }
+
+            // ✅ Клик
+            root.setOnClickListener {
+                clickListener?.invoke(workout)
+            }
+        }
+    }
+
+}
